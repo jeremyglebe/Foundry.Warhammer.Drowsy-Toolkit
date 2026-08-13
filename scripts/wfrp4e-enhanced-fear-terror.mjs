@@ -1,5 +1,5 @@
 //#region src/module/constants.ts
-var e = "WFRP4E_DROWSYS_TOOLKIT", t = "wfrp4e-enhanced-fear-terror", n = "WFRP4e | Drowsy’s Toolkit", r = "wfrp4e-gm-toolkit", i = "wfrp4e";
+var e = "WFRP4E_DROWSYS_TOOLKIT", t = "wfrp4e-enhanced-fear-terror", n = "Drowsy’s WFRP4e Toolkit", r = "wfrp4e-gm-toolkit", i = "wfrp4e";
 //#endregion
 //#region node_modules/@vue/shared/dist/shared.esm-bundler.js
 // @__NO_SIDE_EFFECTS__
@@ -3273,7 +3273,7 @@ var ws = _s("fear-console", () => {
 				let t = p();
 				e === "post-card" ? await t.postPrompt(l.value) : e === "copy-link" ? await t.copyLink(l.value) : await t.applyToSelectedActors(l.value), d(), t.onActionComplete();
 			} catch (e) {
-				console.error("WFRP4e | Drowsy’s Toolkit | Fear Console action failed.", e), a.value = e instanceof Error ? e.message : "The Fear or Terror action could not be completed.";
+				console.error("Drowsy’s WFRP4e Toolkit | Fear Console action failed.", e), a.value = e instanceof Error ? e.message : "The Fear or Terror action could not be completed.";
 			} finally {
 				i.value = void 0;
 			}
@@ -3528,7 +3528,7 @@ var ws = _s("fear-console", () => {
 			try {
 				await s().saveConfiguration({ launchers: { ...e.value.launchers } }), n.value = "Launcher preferences saved. Reload Foundry to apply them.";
 			} catch (e) {
-				console.error("WFRP4e | Drowsy’s Toolkit | Fear configuration save failed.", e), t.value = e instanceof Error ? e.message : "The Fear Console configuration could not be saved.";
+				console.error("Drowsy’s WFRP4e Toolkit | Fear configuration save failed.", e), t.value = e instanceof Error ? e.message : "The Fear Console configuration could not be saved.";
 			} finally {
 				r.value = !1;
 			}
@@ -3561,7 +3561,7 @@ var ws = _s("fear-console", () => {
 	setup(e, { emit: t }) {
 		let n = t;
 		return (t, r) => (K(), q("header", uc, [J("div", dc, [J("span", fc, [J("i", { class: D(e.icon) }, null, 2)]), J("div", pc, [
-			r[1] ||= J("div", { class: "dui-breadcrumbs tw:mb-0.5 tw:max-w-full tw:text-xs tw:text-secondary!" }, [J("ul", null, [J("li", null, "WFRP4e"), J("li", null, "Drowsy’s Toolkit")])], -1),
+			r[1] ||= J("div", { class: "dui-breadcrumbs tw:mb-0.5 tw:max-w-full tw:text-xs tw:text-secondary!" }, [J("ul", null, [J("li", null, "Drowsy’s WFRP4e Toolkit")])], -1),
 			J("h1", mc, O(e.title), 1),
 			J("p", hc, O(e.description), 1)
 		])]), J("div", gc, [Dr(t.$slots, "end"), e.configureLabel ? (K(), q("span", {
@@ -3730,7 +3730,7 @@ async function Bc() {
 }
 function Vc() {
 	Bc().catch((e) => {
-		console.error(`${t} | Failed to open the Fear Console Configurator.`, e), ui.notifications.error("Drowsy’s Toolkit could not open the Fear Console Configurator. See the browser console for details.");
+		console.error(`${t} | Failed to open the Fear Console Configurator.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the Fear Console Configurator. See the browser console for details.");
 	});
 }
 //#endregion
@@ -3826,7 +3826,7 @@ async function Qc(e) {
 	await game.clipboard.copyPlainText(n), ui.notifications.info(`${tl(t)} link copied.`);
 }
 async function $c(e) {
-	let t = ys(e), n = Ss(tl(t), t), r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s Toolkit" });
+	let t = ys(e), n = Ss(tl(t), t), r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
 async function el(e, t) {
@@ -3904,7 +3904,7 @@ async function il(e = {}) {
 }
 function al(e = {}) {
 	il(e).catch((e) => {
-		console.error(`${t} | Failed to open the Fear Console.`, e), ui.notifications.error("Drowsy’s Toolkit could not open the Fear Console. See the browser console for details.");
+		console.error(`${t} | Failed to open the Fear Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the Fear Console. See the browser console for details.");
 	});
 }
 //#endregion
@@ -4031,7 +4031,7 @@ var vl = {
 				}, a = await x().applyAwards(e);
 				x().onActionComplete(a);
 			} catch (e) {
-				console.error("WFRP4e | Drowsy’s Toolkit | XP curve award failed.", e), o.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
+				console.error("Drowsy’s WFRP4e Toolkit | XP curve award failed.", e), o.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
 			} finally {
 				s.value = !1;
 			}
@@ -4391,7 +4391,7 @@ var vl = {
 				};
 				await _().saveConfiguration(e), s.value = "Configuration saved. Launcher changes apply after a reload.";
 			} catch (e) {
-				console.error("WFRP4e | Drowsy’s Toolkit | XP configuration save failed.", e), o.value = e instanceof Error ? e.message : "The XP Curve Console configuration could not be saved.";
+				console.error("Drowsy’s WFRP4e Toolkit | XP configuration save failed.", e), o.value = e instanceof Error ? e.message : "The XP Curve Console configuration could not be saved.";
 			} finally {
 				c.value = !1;
 			}
@@ -5409,7 +5409,7 @@ var bd = {
 					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
 					type: "checkbox"
 				}, null, 512), [[wo, r.value]]), i[7] ||= J("span", { class: "tw:min-w-0 tw:break-words" }, " Prefer compatible GM Toolkit session, reason, and recipient-group defaults ", -1)]),
-				i[9] ||= J("p", { class: "dui-label tw:whitespace-normal" }, " Disable this to use the recipient choice and reason stored by Drowsy’s Toolkit. ", -1)
+				i[9] ||= J("p", { class: "dui-label tw:whitespace-normal" }, " Disable this to use the recipient choice and reason stored by Drowsy’s WFRP4e Toolkit. ", -1)
 			]),
 			J("fieldset", Wd, [
 				i[10] ||= J("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Experience journal", -1),
@@ -5780,7 +5780,7 @@ async function zf(e = {}) {
 }
 function Bf(e = {}) {
 	zf(e).catch((e) => {
-		console.error(`${t} | Failed to open the XP Curve Configurator.`, e), ui.notifications.error("Drowsy’s Toolkit could not open the XP Curve Configurator. See the browser console for details.");
+		console.error(`${t} | Failed to open the XP Curve Configurator.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Configurator. See the browser console for details.");
 	});
 }
 //#endregion
@@ -5829,7 +5829,7 @@ async function Uf(e) {
 	return await Wf(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
 }
 async function Wf(e) {
-	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${_l(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Curve Award</h2><p>${_l(e.reason)}</p><ul>${t}</ul><p><strong>${e.totalAward} XP awarded in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s Toolkit" });
+	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${_l(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Curve Award</h2><p>${_l(e.reason)}</p><ul>${t}</ul><p><strong>${e.totalAward} XP awarded in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
 //#endregion
@@ -5858,7 +5858,7 @@ var Gf = class extends Rc {
 				applyAwards: Uf,
 				onActionComplete: () => {
 					this.close().catch((e) => {
-						console.error(`${t} | Failed to close the XP Curve Console.`, e), ui.notifications.error("XP awards completed, but Drowsy’s Toolkit could not close the console.");
+						console.error(`${t} | Failed to close the XP Curve Console.`, e), ui.notifications.error("XP awards completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
 					});
 				},
 				openConfigurator: () => {
@@ -5877,7 +5877,7 @@ async function Kf() {
 }
 function qf() {
 	Kf().catch((e) => {
-		console.error(`${t} | Failed to open the XP Curve Console.`, e), ui.notifications.error("Drowsy’s Toolkit could not open the XP Curve Console. See the browser console for details.");
+		console.error(`${t} | Failed to open the XP Curve Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Console. See the browser console for details.");
 	});
 }
 //#endregion
@@ -5943,7 +5943,7 @@ function np(e) {
 	let r = n.querySelector(".window-header");
 	if (!r || r.querySelector(`.${Zf}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(Zf, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = Xf, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s Toolkit Fear Console", i.addEventListener("click", (e) => {
+	i.type = "button", i.classList.add(Zf, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = Xf, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
 		e.preventDefault(), e.stopPropagation(), rp(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
@@ -5953,7 +5953,7 @@ function rp(e) {
 	try {
 		al({ initialPayload: Wc(e) });
 	} catch (e) {
-		console.error("wfrp4e-enhanced-fear-terror | Could not infer Fear or Terror from the actor.", e), ui.notifications.error("Drowsy’s Toolkit could not read this actor. See the browser console for details.");
+		console.error("wfrp4e-enhanced-fear-terror | Could not infer Fear or Terror from the actor.", e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not read this actor. See the browser console for details.");
 	}
 }
 //#endregion

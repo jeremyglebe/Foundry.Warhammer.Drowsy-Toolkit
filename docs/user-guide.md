@@ -45,8 +45,8 @@ strength. Above it, `Recipient decay exponent` weakens the result; set that expo
 disable decay. The companion rate is applied before rounding, and the hard limit is applied last.
 
 The reason supports `%session%` and `%date%`. When GM Toolkit compatibility is enabled and that
-module is active, Drowsy’s Toolkit reads its session reference, default XP reason, and default
-Party/Company group. Drowsy’s Toolkit does not overwrite GM Toolkit data.
+module is active, Drowsy’s WFRP4e Toolkit reads its session reference, default XP reason, and
+default Party/Company group. Drowsy’s WFRP4e Toolkit does not overwrite GM Toolkit data.
 
 Foundry's Module Settings shows one button for each dedicated configurator instead of exposing the
 underlying setting list. The same configurators are available from the cogs in their consoles.

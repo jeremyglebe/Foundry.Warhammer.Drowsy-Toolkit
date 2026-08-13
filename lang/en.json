@@ -13,8 +13,8 @@
       }
     },
     "SceneControls": {
-      "OpenFearConsole": "Open Drowsy’s Toolkit Fear Console.",
-      "OpenXpCurveConsole": "Open Drowsy’s Toolkit XP Curve Console."
+      "OpenFearConsole": "Open Drowsy’s WFRP4e Toolkit Fear Console.",
+      "OpenXpCurveConsole": "Open Drowsy’s WFRP4e Toolkit XP Curve Console."
     },
     "Settings": {
       "ActorSheetLauncher": {
@@ -66,7 +66,7 @@
           "Name": "Recipient decay start"
         },
         "UseGmToolkitDefaults": {
-          "Hint": "When WFRP4e GM Toolkit is active, prefer its session, reason, and recipient-group defaults. Disable this to use Drowsy's Toolkit defaults.",
+          "Hint": "When WFRP4e GM Toolkit is active, prefer its session, reason, and recipient-group defaults. Disable this to use Drowsy’s WFRP4e Toolkit defaults.",
           "Name": "Prefer compatible GM Toolkit defaults"
         }
       }
