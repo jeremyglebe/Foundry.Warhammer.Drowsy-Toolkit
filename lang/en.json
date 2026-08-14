@@ -10,6 +10,16 @@
         "Hint": "Set XP recipient defaults and configure the catch-up and decay curves.",
         "Label": "Configure XP Curve Console",
         "Name": "XP Curve Configurator"
+      },
+      "SessionManagementConsole": {
+        "Hint": "Import GM Toolkit defaults, manage the current session, and record session turnovers.",
+        "Label": "Open Session Management Console",
+        "Name": "Session Management Console"
+      },
+      "XpAwardConsole": {
+        "Hint": "Apply a generic XP change to selected WFRP4e characters.",
+        "Label": "Open XP Award Console",
+        "Name": "XP Award Console"
       }
     },
     "SceneControls": {
@@ -68,6 +78,35 @@
         "UseGmToolkitDefaults": {
           "Hint": "When WFRP4e GM Toolkit is active, prefer its session, reason, and recipient-group defaults. Disable this to use Drowsy’s WFRP4e Toolkit defaults.",
           "Name": "Prefer compatible GM Toolkit defaults"
+        }
+      },
+      "XpAward": {
+        "AuditLog": {
+          "Hint": "Internal timestamped XP award history.",
+          "Name": "XP award audit log"
+        },
+        "DefaultAmount": {
+          "Hint": "The default whole-number XP change for the XP Award Console.",
+          "Name": "Default XP change"
+        },
+        "DefaultReason": {
+          "Hint": "The default WFRP4e experience-log reason. Supports %session%, %date%, and %datetime%.",
+          "Name": "Default XP reason"
+        },
+        "DefaultSelection": {
+          "Company": "Company (party plus player-owned companions)",
+          "Hint": "Recipients selected when the console opens without targeted tokens.",
+          "Name": "Default XP recipients",
+          "Party": "Party (assigned player characters)",
+          "World": "World (every character actor)"
+        },
+        "IncludeTimestampInReason": {
+          "Hint": "Append an exact UTC award time to the WFRP4e experience-log reason.",
+          "Name": "Include timestamp in XP reason"
+        },
+        "State": {
+          "Hint": "Internal module-owned session management data.",
+          "Name": "Session management state"
         }
       }
     }

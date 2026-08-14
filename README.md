@@ -19,23 +19,32 @@ place under the new toolkit name.
   sheets, a macro, or the module API.
 - `XP Curve Console` previews and awards capped catch-up XP to targeted actors or a configurable
   Party, Company, or World fallback group.
-- Each console has a separate configurator available from Module Settings and its in-console cog,
-  independently configurable Foundry launchers, and a macro in `Drowsy’s WFRP4e Toolkit Macros`.
+- `XP Award Console` applies one reviewed XP change with compatible Party and Company behavior.
+- `Session Management Console` migrates GM Toolkit defaults and records timestamped turnovers.
+- The Fear and XP Curve consoles have separate configurators. All four consoles have a launcher in
+  `Drowsy’s WFRP4e Toolkit Macros` and a public API operation.
 
 The XP console can reuse an active WFRP4e GM Toolkit's session reference, default XP reason, and
 Party/Company selection. It does not modify GM Toolkit settings and can operate alongside that
 module.
 
+The Session Management Console also supports an explicit one-way migration of GM Toolkit's session
+reference and generic XP defaults. After import, Drowsy’s Toolkit owns the current reference,
+timestamped session history, and timestamped generic-XP audit batches. GM Toolkit settings remain
+read-only.
+
 ## Macro and API Access
 
-Import `Open Fear Console` or `Open XP Curve Console` from the macro compendium. Equivalent custom
-script macros can use:
+Import any `Open … Console` launcher from the macro compendium. Equivalent custom script macros can
+use:
 
 ```js
 const api = game.modules.get("wfrp4e-enhanced-fear-terror")?.api;
 
 await api.openFearConsole();
+await api.openXpAwardConsole();
 await api.openXpCurveConsole();
+await api.openSessionManagementConsole();
 ```
 
 ## Compatibility

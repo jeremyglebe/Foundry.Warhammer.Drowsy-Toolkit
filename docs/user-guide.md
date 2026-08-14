@@ -50,3 +50,29 @@ default Party/Company group. Drowsy’s WFRP4e Toolkit does not overwrite GM Too
 
 Foundry's Module Settings shows one button for each dedicated configurator instead of exposing the
 underlying setting list. The same configurators are available from the cogs in their consoles.
+
+## XP Award Console
+
+Use the XP Award Console for a fixed award instead of catch-up calculation. Target eligible
+character tokens before opening it, or leave all tokens untargeted to use the saved Party, Company,
+or World default. Company companions receive half the entered change. Negative values remove XP, but
+the preview prevents an actor's total from going below zero.
+
+The reason accepts `%session%`, `%date%`, and `%datetime%`. Every completed batch stores its exact
+UTC time, session reference, reason, and per-actor before/change/after values in Drowsy’s world
+data. WFRP4e has no timestamp field in an experience-log entry. Enable the timestamp switch when the
+same time should also appear as text in WFRP4e's reason.
+
+## Session Management Console
+
+When migrating from GM Toolkit, open Session Management from Module Settings or its macro and review
+the detected session reference and generic XP defaults. `Import data` copies those values once into
+Drowsy’s world settings. It never changes GM Toolkit settings.
+
+Edit and save the current reference independently, or complete a session by selecting its best-known
+date/time and the next reference. The turnover saves an exact session occurrence time and record
+time, then makes the next reference current. Whole-number references are suggested one number
+higher; descriptive references are preserved for editing.
+
+This initial workflow keeps XP in its separate console. Automatic pause, holding-scene activation,
+Fortune reset, and chat export are not yet part of Drowsy’s turnover action.
