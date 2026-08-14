@@ -82,3 +82,14 @@ higher; descriptive references are preserved for editing.
 
 This initial workflow keeps XP in its separate console. Automatic pause, holding-scene activation,
 Fortune reset, and chat export are not yet part of Drowsy’s turnover action.
+
+## Change Grid Scale Macro
+
+Import `Change Grid Scale (Preserve Lighting)` from the toolkit's GM-only macro compendium, view the
+Scene you want to change, and run the macro. Enter the new grid size in pixels, distance per space,
+and units. The macro rescales Ambient Light and Token-emitted light radii before updating the grid,
+so their rendered sizes stay unchanged.
+
+The macro changes the active Scene and its embedded documents. Use a disposable copy when testing.
+If an update fails, the toolkit attempts to restore each completed change and reports whether any
+rollback also failed.

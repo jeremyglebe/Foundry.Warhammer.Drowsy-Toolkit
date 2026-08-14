@@ -6939,12 +6939,164 @@ async function ih() {
 	return await e.render(!0), e;
 }
 //#endregion
+//#region src/functions/grid-scale/calculate.ts
+function ah(e) {
+	return Number.isFinite(e.size) && e.size > 0 && Number.isFinite(e.distance) && e.distance > 0;
+}
+function oh(e, t) {
+	return e.size / t.size * (t.distance / e.distance);
+}
+//#endregion
+//#region src/module/grid-scale/service.ts
+async function sh() {
+	let e = canvas?.scene;
+	if (!e) {
+		ui.notifications.warn("No Scene is currently viewed.");
+		return;
+	}
+	if (!e.canUserModify(game.user, "update")) {
+		ui.notifications.error("You do not have permission to update this Scene.");
+		return;
+	}
+	let t = {
+		distance: Number(e.grid.distance),
+		size: Number(e.grid.size),
+		units: String(e.grid.units ?? "")
+	};
+	if (!ah(t)) {
+		ui.notifications.error("The current Scene has an invalid grid size or distance.");
+		return;
+	}
+	let n = await ch(t);
+	if (n) {
+		if (!ah(n)) {
+			ui.notifications.error("Grid size and distance must both be positive numbers.");
+			return;
+		}
+		await lh(e, t, n);
+	}
+}
+async function ch(e) {
+	let t = foundry.utils.escapeHTML(e.units), n = await foundry.applications.api.DialogV2.input({
+		window: { title: "Change Grid Scale" },
+		position: { width: 480 },
+		content: `
+      <div
+        class="wfrp4e-enhanced-fear-terror-root tw:flex tw:flex-col tw:gap-3 tw:text-base-content!"
+        data-theme="wfrp4e-enhanced-fear-terror"
+      >
+        <div role="alert" class="dui-alert tw:text-sm">
+          <span>
+            Ambient Lights and Token-emitted light radii will keep the same rendered size.
+          </span>
+        </div>
+        <fieldset
+          class="dui-fieldset tw:rounded-box tw:border tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content!"
+        >
+          <legend class="dui-fieldset-legend tw:text-base-content!">New grid settings</legend>
+
+          <label class="dui-label" for="drowsy-grid-scale-size">Grid size (pixels)</label>
+          <input
+            id="drowsy-grid-scale-size"
+            name="size"
+            type="number"
+            class="dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
+            min="1"
+            step="1"
+            value="${e.size}"
+            required
+          />
+
+          <label class="dui-label" for="drowsy-grid-scale-distance">Distance per space</label>
+          <input
+            id="drowsy-grid-scale-distance"
+            name="distance"
+            type="number"
+            class="dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
+            min="0.000001"
+            step="any"
+            value="${e.distance}"
+            required
+          />
+
+          <label class="dui-label" for="drowsy-grid-scale-units">Units</label>
+          <input
+            id="drowsy-grid-scale-units"
+            name="units"
+            type="text"
+            class="dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
+            value="${t}"
+          />
+        </fieldset>
+      </div>
+    `,
+		ok: {
+			label: "Update Grid",
+			icon: "fa-solid fa-grid-2"
+		},
+		modal: !0,
+		rejectClose: !1
+	});
+	return n ? {
+		distance: Number(n.distance),
+		size: Number(n.size),
+		units: String(n.units ?? "").trim()
+	} : null;
+}
+async function lh(e, t, n) {
+	let r = oh(t, n), i = e.lights.map((e) => ({
+		_id: e.id,
+		"config.bright": e.config.bright,
+		"config.dim": e.config.dim
+	})), a = e.lights.map((e) => ({
+		_id: e.id,
+		"config.bright": e.config.bright * r,
+		"config.dim": e.config.dim * r
+	})), o = e.tokens.map((e) => ({
+		_id: e.id,
+		"light.bright": e.light.bright,
+		"light.dim": e.light.dim
+	})), s = e.tokens.map((e) => ({
+		_id: e.id,
+		"light.bright": e.light.bright * r,
+		"light.dim": e.light.dim * r
+	})), c = !1, l = !1;
+	try {
+		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(dh(n)), ui.notifications.info(`Grid updated from ${fh(t)} to ${fh(n)}.`);
+	} catch (n) {
+		let r = await uh({
+			ambientLightsChanged: c,
+			oldAmbientLights: i,
+			oldGrid: t,
+			oldTokenLights: o,
+			scene: e,
+			tokenLightsChanged: l
+		}), a = r.some((e) => e.status === "rejected") ? "Grid update failed, and at least one rollback also failed. Check the console." : "Grid update failed. Any completed changes were rolled back.";
+		throw console.error("Change Grid Scale macro failed.", n, r), Error(a, { cause: n });
+	}
+}
+async function uh(e) {
+	let t = [];
+	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(dh(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
+}
+function dh(e) {
+	return {
+		"grid.distance": e.distance,
+		"grid.size": e.size,
+		"grid.units": e.units
+	};
+}
+function fh(e) {
+	return `${e.size}px/${e.distance}${e.units}`;
+}
+//#endregion
 //#region src/module/api/create-module-api.ts
-function ah() {
+function ph() {
 	return {
 		applyToSelectedActors: el,
 		awardXp: Zm,
 		awardXpCurve: op,
+		changeGridScalePreservingLighting: sh,
 		completeSession: ym,
 		copyLink: nl,
 		importGmToolkitSessionData: bm,
@@ -6959,21 +7111,21 @@ function ah() {
 }
 //#endregion
 //#region src/module/api/register-module-api.ts
-function oh() {
+function mh() {
 	let e = game.modules.get(t);
 	if (!e) throw Error(`Foundry module registry entry was not found for ${t}.`);
-	e.api = ah();
+	e.api = ph();
 }
 //#endregion
 //#region src/module/fear-terror/actor-sheet/register.ts
-var sh = "openFearConsole", ch = "wfrp4e-enhanced-fear-terror-actor-header", lh = [
+var hh = "openFearConsole", gh = "wfrp4e-enhanced-fear-terror-actor-header", _h = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], uh = [
+], vh = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -6981,38 +7133,38 @@ var sh = "openFearConsole", ch = "wfrp4e-enhanced-fear-terror-actor-header", lh 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function dh() {
+function yh() {
 	if (!(!sl.canCurrentUserAccess() || !zc(Rc.actorSheet))) {
-		for (let e of lh) Hooks.on(e, (e, t) => {
-			fh(e, t);
+		for (let e of _h) Hooks.on(e, (e, t) => {
+			bh(e, t);
 		});
-		for (let e of uh) Hooks.on(e, (e) => {
-			ph(e);
+		for (let e of vh) Hooks.on(e, (e) => {
+			xh(e);
 		});
 	}
 }
-function fh(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === sh) || (t.push({
-		action: sh,
+function bh(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === hh) || (t.push({
+		action: hh,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[sh] = function() {
-		mh(this.document);
+	}), e.options.actions ??= {}, e.options.actions[hh] = function() {
+		Sh(this.document);
 	}));
 }
-function ph(e) {
+function xh(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${ch}`)) return;
+	if (!r || r.querySelector(`.${gh}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(ch, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = sh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), mh(t);
+	i.type = "button", i.classList.add(gh, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = hh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), Sh(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function mh(e) {
+function Sh(e) {
 	try {
 		ll({ initialPayload: Jc(e) });
 	} catch (e) {
@@ -7021,7 +7173,7 @@ function mh(e) {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function hh(e, t) {
+function Ch(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -7029,29 +7181,29 @@ function hh(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var gh = "openFearConsole";
-function _h() {
+var wh = "openFearConsole";
+function Th() {
 	!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || Hooks.on("getSceneControlButtons", (e) => {
-		vh(e);
+		Eh(e);
 	});
 }
-function vh(t) {
+function Eh(t) {
 	let n = t.tokens;
-	n && (n.tools[gh] = {
+	n && (n.tools[wh] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: gh,
+		name: wh,
 		onChange: () => {
 			ll();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: hh("Fear Console", `${e}.SceneControls.OpenFearConsole`)
+		toolclip: Ch("Fear Console", `${e}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/settings/register.ts
-function yh(n, r) {
+function Dh(n, r) {
 	game.settings.register(t, n, {
 		config: !1,
 		default: !0,
@@ -7062,7 +7214,7 @@ function yh(n, r) {
 		type: Boolean
 	});
 }
-function bh(e, n, r, i, a = {}) {
+function Oh(e, n, r, i, a = {}) {
 	game.settings.register(t, e, {
 		...a,
 		config: !1,
@@ -7075,8 +7227,8 @@ function bh(e, n, r, i, a = {}) {
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function xh() {
-	yh(Rc.tokenControls, "TokenControlsLauncher"), yh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
+function kh() {
+	Dh(Rc.tokenControls, "TokenControlsLauncher"), Dh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
 		hint: `${e}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${e}.Menu.FearConsoleConfigurator.Label`,
@@ -7087,23 +7239,23 @@ function xh() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function Sh() {
-	Ch(ep.state, JSON.stringify({
+function Ah() {
+	jh(ep.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, "State"), Ch($.auditLog, JSON.stringify({
+	}), String, "State"), jh($.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), Ch($.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), jh($.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), Ch($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), Ch($.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), jh($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), jh($.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${e}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${e}.Settings.XpAward.DefaultSelection.World`
-	} }), Ch($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
+	} }), jh($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
 		hint: `${e}.Menu.SessionManagementConsole.Hint`,
 		icon: "fa-solid fa-calendar-check",
 		label: `${e}.Menu.SessionManagementConsole.Label`,
@@ -7119,54 +7271,54 @@ function Sh() {
 		type: eh
 	});
 }
-function Ch(t, n, r, i, a = {}) {
-	bh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
+function jh(t, n, r, i, a = {}) {
+	Oh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var wh = "openXpCurveConsole";
-function Th() {
+var Mh = "openXpCurveConsole";
+function Nh() {
 	!cp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher) || Hooks.on("getSceneControlButtons", (t) => {
 		let n = t.tokens;
-		n && (n.tools[wh] = {
+		n && (n.tools[Mh] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: wh,
+			name: Mh,
 			onChange: up,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: hh("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
+			toolclip: Ch("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function Eh() {
-	yh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Dh(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
+function Ph() {
+	Dh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Fh(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), Dh(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), Fh(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Dh(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), Fh(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), Dh(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), Fh(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Dh(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), Fh(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), Dh(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
+	} }), Fh(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), Dh(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Dh(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
+	} }), Fh(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Fh(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${e}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${e}.Settings.XpCurve.DefaultSelection.World`
@@ -7179,25 +7331,25 @@ function Eh() {
 		type: zf
 	});
 }
-function Dh(t, n, r, i, a = {}) {
-	bh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
+function Fh(t, n, r, i, a = {}) {
+	Oh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function Oh() {
+function Ih() {
 	Hooks.once("init", () => {
-		console.info(`${t} | Initializing`), xh(), Sh(), Eh(), dh(), _h(), Th();
+		console.info(`${t} | Initializing`), kh(), Ah(), Ph(), yh(), Th(), Nh();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${t} | Loaded outside ${i}; skipping module API registration.`);
 			return;
 		}
-		oh(), console.info(`${t} | Ready`);
+		mh(), console.info(`${t} | Ready`);
 	});
 }
 //#endregion
 //#region src/main.ts
-Oh();
+Ih();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map

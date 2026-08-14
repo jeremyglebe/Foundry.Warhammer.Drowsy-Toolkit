@@ -36,8 +36,10 @@ read-only.
 
 ## Macro and API Access
 
-As a GM, import any `Open … Console` launcher from the GM-only macro compendium. Equivalent custom
-script macros can use:
+As a GM, import any `Open … Console` launcher or `Change Grid Scale (Preserve Lighting)` from the
+GM-only macro compendium. The grid utility changes the active Scene's grid settings while preserving
+the rendered size of its Ambient Lights and Token-emitted lights. Equivalent custom script macros
+can use:
 
 ```js
 const api = game.modules.get("wfrp4e-enhanced-fear-terror")?.api;
@@ -46,6 +48,7 @@ await api.openFearConsole();
 await api.openXpAwardConsole();
 await api.openXpCurveConsole();
 await api.openSessionManagementConsole();
+await api.changeGridScalePreservingLighting();
 ```
 
 ## Compatibility
