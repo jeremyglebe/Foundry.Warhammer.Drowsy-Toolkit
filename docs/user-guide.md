@@ -2,10 +2,11 @@
 
 ## Opening a Console
 
-Both consoles are available from Token Controls, their macros, and the module API. The Fear Console
-also appears in supported WFRP4e actor-sheet headers. Open a console's configurator from its cog
-button or from Foundry's Module Settings. Every optional Foundry UI launcher is enabled by default;
-changing one requires a reload.
+All four current consoles are GM-only. Their bundled macro pack and optional launchers are hidden
+from Player and Trusted Player users. The Fear and XP Curve consoles are available from Token
+Controls, their macros, and the module API; the Fear Console also appears in supported WFRP4e
+actor-sheet headers. Open a console's configurator from its cog button or from Foundry's Module
+Settings. Every optional Foundry UI launcher is enabled by default; changing one requires a reload.
 
 ## Fear Console
 

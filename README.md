@@ -15,6 +15,8 @@ place under the new toolkit name.
 
 ## Included Consoles
 
+All four current consoles and their bundled launchers are GM-only.
+
 - `Fear Console` prompts or applies WFRP4e Fear and Terror from Token Controls, supported actor
   sheets, a macro, or the module API.
 - `XP Curve Console` previews and awards capped catch-up XP to targeted actors or a configurable
@@ -35,8 +37,8 @@ read-only.
 
 ## Macro and API Access
 
-Import any `Open … Console` launcher from the macro compendium. Equivalent custom script macros can
-use:
+As a GM, import any `Open … Console` launcher from the GM-only macro compendium. Equivalent custom
+script macros can use:
 
 ```js
 const api = game.modules.get("wfrp4e-enhanced-fear-terror")?.api;
