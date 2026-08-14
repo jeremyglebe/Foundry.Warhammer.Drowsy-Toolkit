@@ -26,9 +26,8 @@ All four current consoles and their bundled launchers are GM-only.
 - The Fear and XP Curve consoles have separate configurators. All four consoles have a launcher in
   `Drowsy’s WFRP4e Toolkit Macros` and a public API operation.
 
-The XP console can reuse an active WFRP4e GM Toolkit's session reference, default XP reason, and
-Party/Company selection. It does not modify GM Toolkit settings and can operate alongside that
-module.
+The XP Curve Console owns its recipient, reason, and curve defaults under Drowsy’s settings. Its
+configurator can restore the complete built-in baseline before saving.
 
 The Session Management Console also supports an explicit one-way migration of GM Toolkit's session
 reference and generic XP defaults. After import, Drowsy’s Toolkit owns the current reference,

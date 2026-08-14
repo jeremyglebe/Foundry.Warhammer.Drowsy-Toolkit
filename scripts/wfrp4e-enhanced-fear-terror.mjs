@@ -4035,15 +4035,19 @@ function xl(e) {
 //#region src/types/xp-curve/XpCurve.ts
 var Sl = {
 	companionMultiplier: .5,
-	curveExponent: .75,
-	gapForMaximumAward: 1e3,
-	maximumAward: 500,
-	scaleExponent: .5,
-	scalePivot: 5e3
+	curveExponent: 1.75,
+	gapForMaximumAward: 5e3,
+	maximumAward: 1e3,
+	scaleExponent: 1,
+	scalePivot: 7500
+}, Cl = {
+	defaultReason: "XP Curve %session% (%date%)",
+	defaultSelection: "company",
+	parameters: { ...Sl }
 };
 //#endregion
 //#region src/state/apps/shared/xp-actor-selection.ts
-function Cl(e) {
+function wl(e) {
 	let t = /* @__PURE__ */ P([]), n = Y(() => t.value.filter((e) => e.selected)), r = /* @__PURE__ */ new Set();
 	function i(e) {
 		t.value = e.map((e) => ({ ...e })), r = new Set(e.filter((e) => e.selected).map((e) => e.id));
@@ -4070,66 +4074,59 @@ function Cl(e) {
 }
 //#endregion
 //#region src/state/apps/xp-curve-console/store.ts
-var wl = ys("xp-curve-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Cl("The XP Curve Console"), o = /* @__PURE__ */ P({ ...Sl }), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P(!0), u = /* @__PURE__ */ P("default"), d = /* @__PURE__ */ P(), f = /* @__PURE__ */ P(!1), p, m, h = Y(() => pl(e.value, o.value)), g = Y(() => h.value.awards.filter((e) => e.award > 0).length), _ = Y(() => r.value.length >= 2 && h.value.totalAward > 0 && !f.value), v = Y(() => {
-		let e = S();
-		return bl(s.value, {
-			...e,
-			session: l.value ? e.session : ""
-		});
-	});
-	function y(e, n) {
-		p = n, m = e.reasonContext, t(e.actors), o.value = { ...e.parameters }, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.useGmToolkitDefaults, u.value = e.selectionSource, d.value = void 0;
+var Tl = ys("xp-curve-console", () => {
+	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = wl("The XP Curve Console"), o = /* @__PURE__ */ P({ ...Sl }), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P("default"), u = /* @__PURE__ */ P(), d = /* @__PURE__ */ P(!1), f, p, m = Y(() => pl(e.value, o.value)), h = Y(() => m.value.awards.filter((e) => e.award > 0).length), g = Y(() => r.value.length >= 2 && m.value.totalAward > 0 && !d.value), _ = Y(() => bl(s.value, x()));
+	function v(e, n) {
+		f = n, p = e.reasonContext, t(e.actors), o.value = { ...e.parameters }, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.selectionSource, u.value = void 0;
 	}
-	async function b() {
-		if (!(!_.value || f.value)) {
-			f.value = !0, d.value = void 0;
+	async function y() {
+		if (!(!g.value || d.value)) {
+			d.value = !0, u.value = void 0;
 			try {
 				let e = {
 					actorIds: r.value.map((e) => e.id),
 					defaultReason: s.value,
 					defaultSelection: c.value,
-					parameters: o.value,
-					useGmToolkitDefaults: l.value
-				}, t = await x().applyAwards(e);
-				x().onActionComplete(t);
+					parameters: o.value
+				}, t = await b().applyAwards(e);
+				b().onActionComplete(t);
 			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | XP curve award failed.", e), d.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
+				console.error("Drowsy’s WFRP4e Toolkit | XP curve award failed.", e), u.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
 			} finally {
-				f.value = !1;
+				d.value = !1;
 			}
 		}
+	}
+	function b() {
+		if (!f) throw Error("The XP Curve Console has not been initialized.");
+		return f;
 	}
 	function x() {
 		if (!p) throw Error("The XP Curve Console has not been initialized.");
 		return p;
 	}
-	function S() {
-		if (!m) throw Error("The XP Curve Console has not been initialized.");
-		return m;
-	}
 	return {
 		actors: e,
-		applyAwards: b,
-		canApply: _,
+		applyAwards: y,
+		canApply: g,
 		defaultReason: s,
-		errorMessage: d,
-		initialize: y,
-		isWorking: f,
-		plan: h,
-		positiveAwardCount: g,
+		errorMessage: u,
+		initialize: v,
+		isWorking: d,
+		plan: m,
+		positiveAwardCount: h,
 		resetSelection: n,
-		resolvedReason: v,
+		resolvedReason: _,
 		selectedActors: r,
-		selectionSource: u,
+		selectionSource: l,
 		setActorSelected: i,
 		setAllActorsSelected: a
 	};
-}), Tl = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:justify-end tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-3" }, El = ["disabled"], Dl = {
+}), El = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:justify-end tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-3" }, Dl = ["disabled"], Ol = {
 	key: 0,
 	class: "dui-loading dui-loading-spinner dui-loading-sm",
 	"aria-hidden": "true"
-}, Ol = /* @__PURE__ */ z({
+}, kl = /* @__PURE__ */ z({
 	__name: "ConsoleActionFooter",
 	props: {
 		disabled: { type: Boolean },
@@ -4140,18 +4137,18 @@ var wl = ys("xp-curve-console", () => {
 	emits: ["action"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (H(), U("footer", Tl, [W("button", {
+		return (t, r) => (H(), U("footer", El, [W("button", {
 			class: "dui-btn dui-btn-primary tw:w-full tw:min-w-0 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md tw:min-[32rem]:w-auto tw:min-[32rem]:min-w-52",
 			disabled: e.disabled,
 			type: "button",
 			onClick: r[0] ||= (e) => n("action")
-		}, [e.working ? (H(), U("span", Dl)) : (H(), U("i", {
+		}, [e.working ? (H(), U("span", Ol)) : (H(), U("i", {
 			key: 1,
 			class: D(e.icon),
 			"aria-hidden": "true"
-		}, null, 2)), K(" " + O(e.label), 1)], 8, El)]));
+		}, null, 2)), K(" " + O(e.label), 1)], 8, Dl)]));
 	}
-}), kl = { class: "tw:cursor-pointer" }, Al = ["checked", "disabled"], jl = { class: "tw:sr-only" }, Ml = /* @__PURE__ */ z({
+}), Al = { class: "tw:cursor-pointer" }, jl = ["checked", "disabled"], Ml = { class: "tw:sr-only" }, Nl = /* @__PURE__ */ z({
 	__name: "ActorSelectionCheckbox",
 	props: {
 		actorId: {},
@@ -4166,31 +4163,31 @@ var wl = ys("xp-curve-console", () => {
 		function i(e) {
 			e.currentTarget instanceof HTMLInputElement && r("change", n.actorId, e.currentTarget.checked);
 		}
-		return (t, n) => (H(), U("label", kl, [W("input", {
+		return (t, n) => (H(), U("label", Al, [W("input", {
 			class: "dui-checkbox dui-checkbox-primary dui-checkbox-sm tw:appearance-none! tw:rounded-sm! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none! tw:checked:text-primary-content!",
 			type: "checkbox",
 			checked: e.checked,
 			disabled: e.disabled,
 			onChange: i
-		}, null, 40, Al), W("span", jl, "Include " + O(e.actorName) + " in " + O(e.purpose), 1)]));
+		}, null, 40, jl), W("span", Ml, "Include " + O(e.actorName) + " in " + O(e.purpose), 1)]));
 	}
-}), Nl = {
+}), Pl = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "recipients-title"
-}, Pl = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Fl = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, Il = { class: "tw:flex tw:items-center tw:gap-2" }, Ll = { class: "dui-badge dui-badge-sm" }, Rl = { class: "tw:flex tw:flex-wrap tw:gap-1" }, zl = ["disabled"], Bl = ["disabled"], Vl = ["disabled"], Hl = {
+}, Fl = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Il = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, Ll = { class: "tw:flex tw:items-center tw:gap-2" }, Rl = { class: "dui-badge dui-badge-sm" }, zl = { class: "tw:flex tw:flex-wrap tw:gap-1" }, Bl = ["disabled"], Vl = ["disabled"], Hl = ["disabled"], Ul = {
 	key: 0,
 	class: "tw:max-w-full tw:min-w-0 tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20! tw:bg-base-100!"
-}, Ul = { class: "dui-table dui-table-sm tw:min-w-[52rem]" }, Wl = {
+}, Wl = { class: "dui-table dui-table-sm tw:min-w-[52rem]" }, Gl = {
 	class: "tw:min-w-44",
 	scope: "row"
-}, Gl = { class: "tw:block tw:font-semibold" }, Kl = {
+}, Kl = { class: "tw:block tw:font-semibold" }, ql = {
 	key: 0,
 	class: "dui-badge dui-badge-ghost dui-badge-xs"
-}, ql = { class: "tw:text-right tw:tabular-nums" }, Jl = { class: "tw:text-right tw:tabular-nums" }, Yl = { class: "tw:text-right tw:tabular-nums" }, Xl = { class: "tw:text-right tw:tabular-nums" }, Zl = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, Ql = { class: "tw:text-right tw:tabular-nums" }, $l = {
+}, Jl = { class: "tw:text-right tw:tabular-nums" }, Yl = { class: "tw:text-right tw:tabular-nums" }, Xl = { class: "tw:text-right tw:tabular-nums" }, Zl = { class: "tw:text-right tw:tabular-nums" }, Ql = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, $l = { class: "tw:text-right tw:tabular-nums" }, eu = {
 	key: 1,
 	class: "dui-alert dui-alert-warning",
 	role: "status"
-}, eu = /* @__PURE__ */ z({
+}, tu = /* @__PURE__ */ z({
 	__name: "XpRecipientTable",
 	props: {
 		actors: {},
@@ -4210,29 +4207,29 @@ var wl = ys("xp-curve-console", () => {
 		function a(e, t) {
 			r("update:selected", e, t);
 		}
-		return (t, n) => (H(), U("section", Nl, [W("div", Pl, [W("div", Fl, [W("div", null, [W("div", Il, [n[3] ||= W("h2", {
+		return (t, n) => (H(), U("section", Pl, [W("div", Fl, [W("div", Il, [W("div", null, [W("div", Ll, [n[3] ||= W("h2", {
 			id: "recipients-title",
 			class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-		}, " Recipients ", -1), W("span", Ll, O(e.plan.awards.length) + " selected", 1)]), n[4] ||= W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " The XP leader sets the gap only. Decay is calculated from each recipient’s own total. ", -1)]), W("div", Rl, [
+		}, " Recipients ", -1), W("span", Rl, O(e.plan.awards.length) + " selected", 1)]), n[4] ||= W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " The XP leader sets the gap only. Decay is calculated from each recipient’s own total. ", -1)]), W("div", zl, [
 			W("button", {
 				class: "dui-btn dui-btn-ghost dui-btn-sm",
 				disabled: e.disabled,
 				type: "button",
 				onClick: n[0] ||= (e) => r("select-all", !0)
-			}, " All ", 8, zl),
+			}, " All ", 8, Bl),
 			W("button", {
 				class: "dui-btn dui-btn-ghost dui-btn-sm",
 				disabled: e.disabled,
 				type: "button",
 				onClick: n[1] ||= (e) => r("select-all", !1)
-			}, " None ", 8, Bl),
+			}, " None ", 8, Vl),
 			W("button", {
 				class: "dui-btn dui-btn-ghost dui-btn-sm",
 				disabled: e.disabled,
 				type: "button",
 				onClick: n[2] ||= (e) => r("reset")
-			}, " Reset ", 8, Vl)
-		])]), e.actors.length ? (H(), U("div", Hl, [W("table", Ul, [n[5] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+			}, " Reset ", 8, Hl)
+		])]), e.actors.length ? (H(), U("div", Ul, [W("table", Wl, [n[5] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
 			W("th", { scope: "col" }, "Use"),
 			W("th", { scope: "col" }, "Actor"),
 			W("th", {
@@ -4263,7 +4260,7 @@ var wl = ys("xp-curve-console", () => {
 			key: t.id,
 			class: D({ "tw:bg-base-200!": t.selected })
 		}, [
-			W("td", null, [G(Ml, {
+			W("td", null, [G(Nl, {
 				"actor-id": t.id,
 				"actor-name": t.name,
 				checked: t.selected,
@@ -4276,26 +4273,26 @@ var wl = ys("xp-curve-console", () => {
 				"checked",
 				"disabled"
 			])]),
-			W("th", Wl, [W("span", Gl, O(t.name), 1), t.category === "companion" ? (H(), U("span", Kl, " Companion rate ")) : q("", !0)]),
-			W("td", ql, O(t.totalXp), 1),
-			W("td", Jl, O(i(t.id)?.gap ?? "—"), 1),
-			W("td", Yl, O(i(t.id) ? Math.round(i(t.id)?.catchUpValue ?? 0) : "—"), 1),
-			W("td", Xl, O(i(t.id) ? `${Math.round((i(t.id)?.decayMultiplier ?? 0) * 100)}%` : "—"), 1),
-			W("td", Zl, O(i(t.id) ? `+${i(t.id)?.award}` : "—"), 1),
-			W("td", Ql, O(i(t.id)?.afterXp ?? "—"), 1)
-		], 2))), 128))])])])) : (H(), U("div", $l, [...n[6] ||= [W("i", {
+			W("th", Gl, [W("span", Kl, O(t.name), 1), t.category === "companion" ? (H(), U("span", ql, " Companion rate ")) : q("", !0)]),
+			W("td", Jl, O(t.totalXp), 1),
+			W("td", Yl, O(i(t.id)?.gap ?? "—"), 1),
+			W("td", Xl, O(i(t.id) ? Math.round(i(t.id)?.catchUpValue ?? 0) : "—"), 1),
+			W("td", Zl, O(i(t.id) ? `${Math.round((i(t.id)?.decayMultiplier ?? 0) * 100)}%` : "—"), 1),
+			W("td", Ql, O(i(t.id) ? `+${i(t.id)?.award}` : "—"), 1),
+			W("td", $l, O(i(t.id)?.afterXp ?? "—"), 1)
+		], 2))), 128))])])])) : (H(), U("div", eu, [...n[6] ||= [W("i", {
 			class: "fa-solid fa-user-slash",
 			"aria-hidden": "true"
 		}, null, -1), W("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]));
 	}
-}), tu = {
+}), nu = {
 	key: 0,
 	class: "dui-alert dui-alert-warning tw:mb-3",
 	role: "status"
-}, nu = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[68rem]:grid-cols-[1.25fr_1fr]" }, ru = {
+}, ru = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[68rem]:grid-cols-[1.25fr_1fr]" }, iu = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "award-message-title"
-}, iu = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, au = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, ou = { class: "tw:m-0 tw:break-words tw:font-semibold" }, su = /* @__PURE__ */ z({
+}, au = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, ou = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, su = { class: "tw:m-0 tw:break-words tw:font-semibold" }, cu = /* @__PURE__ */ z({
 	__name: "XpAwardWorkspace",
 	props: /*@__PURE__*/ Ir({
 		actors: {},
@@ -4317,10 +4314,10 @@ var wl = ys("xp-curve-console", () => {
 		function i(e, t) {
 			r("update:selected", e, t);
 		}
-		return (t, a) => (H(), U(V, null, [e.selectionSource === "targets" && e.plan.awards.length === 0 ? (H(), U("div", tu, [...a[3] ||= [W("i", {
+		return (t, a) => (H(), U(V, null, [e.selectionSource === "targets" && e.plan.awards.length === 0 ? (H(), U("div", nu, [...a[3] ||= [W("i", {
 			class: "fa-solid fa-bullseye",
 			"aria-hidden": "true"
-		}, null, -1), W("span", { class: "tw:min-w-0 tw:break-words" }, " The targeted tokens do not contain eligible WFRP4e character actors. ", -1)]])) : q("", !0), W("div", nu, [G(eu, {
+		}, null, -1), W("span", { class: "tw:min-w-0 tw:break-words" }, " The targeted tokens do not contain eligible WFRP4e character actors. ", -1)]])) : q("", !0), W("div", ru, [G(tu, {
 			actors: e.actors,
 			disabled: e.disabled,
 			plan: e.plan,
@@ -4331,7 +4328,7 @@ var wl = ys("xp-curve-console", () => {
 			"actors",
 			"disabled",
 			"plan"
-		]), W("section", ru, [W("div", iu, [
+		]), W("section", iu, [W("div", au, [
 			a[5] ||= W("div", null, [W("h2", {
 				id: "award-message-title",
 				class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
@@ -4347,13 +4344,13 @@ var wl = ys("xp-curve-console", () => {
 				type: "text"
 			}, null, 512), [[X, n.value]]),
 			a[7] ||= W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, [
-				K(" Supports GM Toolkit’s "),
+				K(" Supports Drowsy’s "),
 				W("code", null, "%session%"),
-				K(" and "),
+				K(" reference and Foundry’s "),
 				W("code", null, "%date%"),
-				K(" tokens. ")
+				K(" value. ")
 			], -1),
-			W("div", au, [a[4] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "This award will record", -1), W("p", ou, O(e.resolvedReason || "No reason"), 1)]),
+			W("div", ou, [a[4] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "This award will record", -1), W("p", su, O(e.resolvedReason || "No reason"), 1)]),
 			a[8] ||= W("div", {
 				class: "dui-alert tw:text-xs",
 				role: "note"
@@ -4363,10 +4360,10 @@ var wl = ys("xp-curve-console", () => {
 			}), W("span", { class: "tw:min-w-0 tw:break-words" }, " Use the cog in the header to change curves and recipient defaults. Saving there refreshes this award ledger with the new calculation. ")], -1)
 		])])])], 64));
 	}
-}), cu = { class: "dui-navbar tw:min-h-0 tw:min-w-0 tw:gap-2 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-3 tw:py-2 tw:text-base-content! tw:shadow-sm" }, lu = { class: "dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, uu = ["title"], du = {
+}), lu = { class: "dui-navbar tw:min-h-0 tw:min-w-0 tw:gap-2 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-3 tw:py-2 tw:text-base-content! tw:shadow-sm" }, uu = { class: "dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, du = ["title"], fu = {
 	class: "dui-tooltip dui-tooltip-left",
 	"data-tip": "Configure XP Curve Console"
-}, fu = { class: "tw:grid tw:grid-cols-2 tw:gap-px tw:border-b tw:border-base-content/20! tw:bg-base-content/20! tw:min-[38rem]:grid-cols-4" }, pu = { class: "tw:contents" }, mu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, hu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, gu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, _u = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, vu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, yu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, bu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, xu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, Su = /* @__PURE__ */ z({
+}, pu = { class: "tw:grid tw:grid-cols-2 tw:gap-px tw:border-b tw:border-base-content/20! tw:bg-base-content/20! tw:min-[38rem]:grid-cols-4" }, mu = { class: "tw:contents" }, hu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, gu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, _u = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, vu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, yu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, bu = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, xu = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, Su = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, Cu = /* @__PURE__ */ z({
 	__name: "XpConsoleHeader",
 	props: {
 		highestXp: {},
@@ -4379,16 +4376,16 @@ var wl = ys("xp-curve-console", () => {
 	emits: ["configure"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (H(), U(V, null, [W("header", cu, [r[3] ||= W("div", { class: "dui-navbar-start tw:min-w-0 tw:flex-1" }, [W("span", {
+		return (t, r) => (H(), U(V, null, [W("header", lu, [r[3] ||= W("div", { class: "dui-navbar-start tw:min-w-0 tw:flex-1" }, [W("span", {
 			class: "tw:inline-grid tw:size-8 tw:shrink-0 tw:place-items-center tw:rounded-full tw:border-2 tw:border-base-100/50! tw:bg-primary! tw:text-sm tw:text-primary-content! tw:shadow-sm",
 			"aria-hidden": "true"
-		}, [W("i", { class: "fa-solid fa-chart-line" })])], -1), W("div", lu, [W("span", {
+		}, [W("i", { class: "fa-solid fa-chart-line" })])], -1), W("div", uu, [W("span", {
 			class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:max-w-56 tw:whitespace-normal tw:border-base-content/25! tw:py-1 tw:text-center",
 			title: e.selectionSource === "targets" ? "Eligible targeted character tokens were selected when the console opened." : "No tokens were targeted, so the configured recipient default was used."
 		}, [r[1] ||= W("span", {
 			class: "dui-status dui-status-primary dui-status-sm tw:shrink-0",
 			"aria-hidden": "true"
-		}, null, -1), K(" " + O(e.selectionLabel), 1)], 8, uu), W("span", du, [W("button", {
+		}, null, -1), K(" " + O(e.selectionLabel), 1)], 8, du), W("span", fu, [W("button", {
 			class: "dui-btn dui-btn-ghost dui-btn-sm dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
 			"aria-label": "Configure XP Curve Console",
 			title: "Configure XP Curve Console",
@@ -4397,33 +4394,33 @@ var wl = ys("xp-curve-console", () => {
 		}, [...r[2] ||= [W("i", {
 			class: "fa-solid fa-gear",
 			"aria-hidden": "true"
-		}, null, -1)]])])])]), W("div", fu, [W("dl", pu, [
-			W("div", mu, [r[4] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Selected recipients", -1), W("dd", hu, O(e.selectedCount), 1)]),
-			W("div", gu, [r[5] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP leader total", -1), W("dd", _u, O(e.highestXp), 1)]),
-			W("div", vu, [r[6] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients gaining XP", -1), W("dd", yu, O(e.positiveAwardCount), 1)]),
-			W("div", bu, [r[7] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Total award", -1), W("dd", xu, O(e.totalAward) + " XP ", 1)])
+		}, null, -1)]])])])]), W("div", pu, [W("dl", mu, [
+			W("div", hu, [r[4] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Selected recipients", -1), W("dd", gu, O(e.selectedCount), 1)]),
+			W("div", _u, [r[5] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP leader total", -1), W("dd", vu, O(e.highestXp), 1)]),
+			W("div", yu, [r[6] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients gaining XP", -1), W("dd", bu, O(e.positiveAwardCount), 1)]),
+			W("div", xu, [r[7] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Total award", -1), W("dd", Su, O(e.totalAward) + " XP ", 1)])
 		])])], 64));
 	}
-}), Cu = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, wu = {
+}), wu = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, Tu = {
 	key: 0,
 	class: "dui-alert dui-alert-error tw:m-4 tw:mb-0",
 	role: "alert"
-}, Tu = { class: "tw:min-w-0 tw:break-words" }, Eu = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Du = /* @__PURE__ */ z({
+}, Eu = { class: "tw:min-w-0 tw:break-words" }, Du = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Ou = /* @__PURE__ */ z({
 	__name: "XpCurveConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = wl();
+		let t = e, n = Tl();
 		n.initialize(t.initialization, t.actions);
 		let { actors: r, canApply: i, defaultReason: a, errorMessage: o, isWorking: s, plan: c, positiveAwardCount: l, resolvedReason: u, selectedActors: d, selectionSource: f } = bs(n), p = Y(() => f.value === "targets" ? "Recipients: targeted tokens" : `Recipients: ${{
 			company: "company default",
 			party: "party default",
 			world: "world default"
 		}[t.initialization.defaultSelection]}`);
-		return (e, m) => (H(), U("main", Cu, [
-			G(Su, {
+		return (e, m) => (H(), U("main", wu, [
+			G(Cu, {
 				"highest-xp": F(c).highestXp,
 				"positive-award-count": F(l),
 				"selected-count": F(d).length,
@@ -4440,11 +4437,11 @@ var wl = ys("xp-curve-console", () => {
 				"total-award",
 				"onConfigure"
 			]),
-			F(o) ? (H(), U("div", wu, [m[1] ||= W("i", {
+			F(o) ? (H(), U("div", Tu, [m[1] ||= W("i", {
 				class: "fa-solid fa-triangle-exclamation",
 				"aria-hidden": "true"
-			}, null, -1), W("span", Tu, O(F(o)), 1)])) : q("", !0),
-			W("div", Eu, [G(su, {
+			}, null, -1), W("span", Eu, O(F(o)), 1)])) : q("", !0),
+			W("div", Du, [G(cu, {
 				"default-reason": F(a),
 				"onUpdate:defaultReason": m[0] ||= (e) => /* @__PURE__ */ N(a) ? a.value = e : null,
 				actors: F(r),
@@ -4466,7 +4463,7 @@ var wl = ys("xp-curve-console", () => {
 				"onSelectAll",
 				"onUpdate:selected"
 			])]),
-			G(Ol, {
+			G(kl, {
 				disabled: !F(i),
 				icon: "fa-solid fa-award",
 				label: `Award ${F(c).totalAward} XP`,
@@ -4480,67 +4477,73 @@ var wl = ys("xp-curve-console", () => {
 			])
 		]));
 	}
-}), Ou = ys("xp-curve-configurator", () => {
-	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P({ ...Sl }), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P("party"), i = /* @__PURE__ */ P(!0), a = /* @__PURE__ */ P({ tokenControls: !0 }), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(), c = /* @__PURE__ */ P(!1), l, u = Y(() => pl(e.value, t.value)), d = Y(() => Math.max(0, ...u.value.awards.map((e) => e.gap))), f = Y(() => gl(t.value, Math.max(d.value * 1.1, 1))), p = Y(() => _l(t.value, Math.max(u.value.highestXp * 1.1, 1)));
-	function m(c, u) {
-		l = u, e.value = c.actors.map((e) => ({ ...e })), t.value = { ...c.parameters }, n.value = c.defaultReason, r.value = c.defaultSelection, i.value = c.useGmToolkitDefaults, a.value = { ...c.launchers }, o.value = void 0, s.value = void 0;
+}), ku = {
+	...Cl,
+	launchers: { tokenControls: !0 },
+	parameters: { ...Cl.parameters }
+}, Au = ys("xp-curve-configurator", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P({ ...ku.parameters }), n = /* @__PURE__ */ P(ku.defaultReason), r = /* @__PURE__ */ P(ku.defaultSelection), i = /* @__PURE__ */ P({ ...ku.launchers }), a = /* @__PURE__ */ P(), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(!1), c, l = Y(() => pl(e.value, t.value)), u = Y(() => Math.max(0, ...l.value.awards.map((e) => e.gap))), d = Y(() => gl(t.value, Math.max(u.value * 1.1, 1))), f = Y(() => _l(t.value, Math.max(l.value.highestXp * 1.1, 1)));
+	function p(s, l) {
+		c = l, e.value = s.actors.map((e) => ({ ...e })), t.value = { ...s.parameters }, n.value = s.defaultReason, r.value = s.defaultSelection, i.value = { ...s.launchers }, a.value = void 0, o.value = void 0;
 	}
-	function h(e) {
-		r.value = e, i.value = !1, s.value = void 0;
+	function m(e) {
+		r.value = e, o.value = void 0;
+	}
+	function h() {
+		t.value = { ...ku.parameters }, n.value = ku.defaultReason, r.value = ku.defaultSelection, i.value = { ...ku.launchers }, a.value = void 0, o.value = "Defaults restored. Save configuration to apply them.";
 	}
 	async function g() {
-		if (!c.value) {
-			c.value = !0, o.value = void 0, s.value = void 0;
+		if (!s.value) {
+			s.value = !0, a.value = void 0, o.value = void 0;
 			try {
 				t.value = fl(t.value);
 				let e = {
 					defaultReason: n.value,
 					defaultSelection: r.value,
-					launchers: { ...a.value },
-					parameters: { ...t.value },
-					useGmToolkitDefaults: i.value
+					launchers: { ...i.value },
+					parameters: { ...t.value }
 				};
-				await _().saveConfiguration(e), s.value = "Configuration saved. Launcher changes apply after a reload.";
+				await _().saveConfiguration(e), o.value = "Configuration saved. Launcher changes apply after a reload.";
 			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | XP configuration save failed.", e), o.value = e instanceof Error ? e.message : "The XP Curve Console configuration could not be saved.";
+				console.error("Drowsy’s WFRP4e Toolkit | XP configuration save failed.", e), a.value = e instanceof Error ? e.message : "The XP Curve Console configuration could not be saved.";
 			} finally {
-				c.value = !1;
+				s.value = !1;
 			}
 		}
 	}
 	function _() {
-		if (!l) throw Error("The XP Curve Configurator has not been initialized.");
-		return l;
+		if (!c) throw Error("The XP Curve Configurator has not been initialized.");
+		return c;
 	}
 	return {
 		actors: e,
-		curveSamples: f,
-		decaySamples: p,
+		curveSamples: d,
+		decaySamples: f,
 		defaultReason: n,
 		defaultSelection: r,
-		errorMessage: o,
-		initialize: m,
-		isSaving: c,
-		launchers: a,
+		errorMessage: a,
+		initialize: p,
+		isSaving: s,
+		launchers: i,
 		parameters: t,
-		plan: u,
+		plan: l,
+		resetToDefaults: h,
 		saveConfiguration: g,
-		setDefaultSelection: h,
-		statusMessage: s,
-		useGmToolkitDefaults: i
+		setDefaultSelection: m,
+		statusMessage: o
 	};
 });
-function ku(e, t, n, r) {
+function ju(e, t, n, r) {
 	return {
 		maximumGap: Math.max(1, e * 1.4, ...n.map((e) => e.gap), ...r.map((e) => e.gap * 1.05)),
 		maximumValue: Math.max(1, t * 1.25, ...n.map((e) => e.award * 1.05), ...r.map((e) => e.catchUpValue * 1.05))
 	};
 }
-function Au(e, t, n) {
+function Mu(e, t, n) {
 	return { maximumRecipientXp: Math.max(1e3, e * 4, ...t.map((e) => e.recipientXp), ...n.map((e) => e.beforeXp * 1.05)) };
 }
-function ju(e) {
-	let t = (t) => Ru(t, e.bounds.maximumGap), n = (t) => zu(t, e.bounds.maximumValue);
+function Nu(e) {
+	let t = (t) => Bu(t, e.bounds.maximumGap), n = (t) => Vu(t, e.bounds.maximumValue);
 	return {
 		points: e.samples.map((e) => `${t(e.gap).toFixed(1)},${n(e.award).toFixed(1)}`).join(" "),
 		recipientLegend: e.awards.map((e, t) => ({
@@ -4565,8 +4568,8 @@ function ju(e) {
 		}
 	};
 }
-function Mu(e) {
-	let t = (t) => Ru(t, e.bounds.maximumRecipientXp), n = Bu;
+function Pu(e) {
+	let t = (t) => Bu(t, e.bounds.maximumRecipientXp), n = Hu;
 	return {
 		pivotPoint: {
 			x: t(e.scalePivot),
@@ -4591,72 +4594,72 @@ function Mu(e) {
 		}
 	};
 }
-function Nu(e, t, n, r) {
+function Fu(e, t, n, r) {
 	if (e === "reference") {
-		let r = Vu((t.x - 68) / 472, .001, 1), i = 1 - Vu((t.y - 24) / 192, 0, 1);
+		let r = Uu((t.x - 68) / 472, .001, 1), i = 1 - Uu((t.y - 24) / 192, 0, 1);
 		return {
 			gapForMaximumAward: Math.max(1, Math.round(r * n.maximumGap)),
 			kind: e,
 			maximumAward: Math.max(0, Math.round(i * n.maximumValue))
 		};
 	}
-	let i = Vu((216 - t.y) / 192 * (n.maximumValue / Math.max(1, r)), .03, .99);
+	let i = Uu((216 - t.y) / 192 * (n.maximumValue / Math.max(1, r)), .03, .99);
 	return {
-		curveExponent: Hu(Vu(Math.log(i) / Math.log(.5), .1, 5), .05),
+		curveExponent: Wu(Uu(Math.log(i) / Math.log(.5), .1, 5), .05),
 		kind: e
 	};
 }
-function Pu(e, t, n) {
+function Iu(e, t, n) {
 	if (e === "pivot") {
-		let r = Vu((t.x - 68) / 472, .001, 1);
+		let r = Uu((t.x - 68) / 472, .001, 1);
 		return {
 			kind: e,
 			scalePivot: Math.max(1, Math.round(r * n.maximumRecipientXp))
 		};
 	}
-	let r = Vu(1 - (t.y - 24) / 192, .25, .99);
+	let r = Uu(1 - (t.y - 24) / 192, .25, .99);
 	return {
 		kind: e,
-		scaleExponent: Hu(Vu(Math.log(r) / Math.log(.5), 0, 2), .05)
+		scaleExponent: Wu(Uu(Math.log(r) / Math.log(.5), 0, 2), .05)
 	};
 }
-function Fu(e, t, n) {
+function Lu(e, t, n) {
 	let r = Math.max(10, Math.round(t / 20)), i = Math.max(1, Math.round(Math.max(1, n) / 20));
 	if (e === "ArrowLeft" || e === "ArrowRight") return { gapForMaximumAward: Math.max(1, t + (e === "ArrowLeft" ? -r : r)) };
 	if (e === "ArrowUp" || e === "ArrowDown") return { maximumAward: Math.max(0, n + (e === "ArrowUp" ? i : -i)) };
 }
-function Iu(e, t, n, r) {
+function Ru(e, t, n, r) {
 	if ([
 		"ArrowDown",
 		"ArrowLeft",
 		"ArrowRight",
 		"ArrowUp"
-	].includes(e)) return Hu(Vu(t + (e === "ArrowUp" || e === "ArrowRight" ? -1 : 1) * .05, n, r), .05);
+	].includes(e)) return Wu(Uu(t + (e === "ArrowUp" || e === "ArrowRight" ? -1 : 1) * .05, n, r), .05);
 }
-function Lu(e, t) {
+function zu(e, t) {
 	if (e !== "ArrowLeft" && e !== "ArrowRight") return;
 	let n = Math.max(100, Math.round(t / 20));
 	return Math.max(1, t + (e === "ArrowLeft" ? -n : n));
 }
-function Ru(e, t) {
+function Bu(e, t) {
 	return 68 + Math.max(0, e) / Math.max(1, t) * 472;
 }
-function zu(e, t) {
+function Vu(e, t) {
 	return 24 + (1 - Math.max(0, e) / Math.max(1, t)) * 192;
 }
-function Bu(e) {
-	return 24 + (1 - Vu(e, 0, 1)) * 192;
+function Hu(e) {
+	return 24 + (1 - Uu(e, 0, 1)) * 192;
 }
-function Vu(e, t, n) {
+function Uu(e, t, n) {
 	return Math.min(n, Math.max(t, e));
 }
-function Hu(e, t) {
+function Wu(e, t) {
 	let n = t.toString().split(".")[1]?.length ?? 0;
 	return Number((Math.round(e / t) * t).toFixed(n));
 }
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/graphMath.ts
-function Uu(e, t) {
+function Gu(e, t) {
 	let n = e.getBoundingClientRect();
 	return {
 		x: (t.clientX - n.left) / n.width * 560,
@@ -4665,22 +4668,22 @@ function Uu(e, t) {
 }
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/graph/GraphCanvas.vue?vue&type=script&setup=true&lang.ts
-var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
+var Ku = ["viewBox", "aria-labelledby"], qu = ["id"], Ju = ["id"], Yu = [
 	"x1",
 	"x2",
 	"y1",
 	"y2"
-], Ju = [
+], Xu = [
 	"x1",
 	"x2",
 	"y1",
 	"y2"
-], Yu = [
+], Zu = [
 	"x1",
 	"x2",
 	"y1",
 	"y2"
-], Xu = ["points"], Zu = ["cx", "cy"], Qu = ["x", "y"], $u = ["x", "y"], ed = ["x", "y"], td = ["x", "y"], nd = ["x", "y"], rd = ["x", "y"], id = ["transform", "y"], ad = /* @__PURE__ */ z({
+], Qu = ["points"], $u = ["cx", "cy"], ed = ["x", "y"], td = ["x", "y"], nd = ["x", "y"], rd = ["x", "y"], id = ["x", "y"], ad = ["x", "y"], od = ["transform", "y"], sd = /* @__PURE__ */ z({
 	__name: "GraphCanvas",
 	props: {
 		description: {},
@@ -4712,8 +4715,8 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 			onPointermove: r[1] ||= (e) => n("pointermove", e),
 			onPointerup: r[2] ||= (e) => n("pointerup", e)
 		}, [
-			W("title", { id: e.titleId }, O(e.title), 9, Gu),
-			W("desc", { id: e.descriptionId }, O(e.description), 9, Ku),
+			W("title", { id: e.titleId }, O(e.title), 9, qu),
+			W("desc", { id: e.descriptionId }, O(e.description), 9, Ju),
 			W("line", {
 				class: "tw:text-base-content/25!",
 				x1: F(68),
@@ -4721,7 +4724,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				y1: F(24),
 				y2: F(24) + F(192),
 				stroke: "currentColor"
-			}, null, 8, qu),
+			}, null, 8, Yu),
 			W("line", {
 				class: "tw:text-base-content/25!",
 				x1: F(68),
@@ -4729,7 +4732,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				y1: F(24) + F(192),
 				y2: F(24) + F(192),
 				stroke: "currentColor"
-			}, null, 8, Ju),
+			}, null, 8, Xu),
 			W("line", {
 				class: "tw:text-base-content/25!",
 				x1: e.verticalGuideX,
@@ -4738,7 +4741,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				y2: F(24) + F(192),
 				stroke: "currentColor",
 				"stroke-dasharray": "4 5"
-			}, null, 8, Yu),
+			}, null, 8, Zu),
 			kr(t.$slots, "guides"),
 			W("polyline", {
 				class: "tw:text-secondary!",
@@ -4748,7 +4751,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				"stroke-linecap": "round",
 				"stroke-linejoin": "round",
 				"stroke-width": "3"
-			}, null, 8, Xu),
+			}, null, 8, Qu),
 			(H(!0), U(V, null, Or(e.markers, (e) => (H(), U("g", {
 				key: e.actorId,
 				class: "tw:text-base-content!",
@@ -4758,7 +4761,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				cy: e.y,
 				fill: "currentColor",
 				r: "9"
-			}, [W("title", null, O(e.label), 1)], 8, Zu), W("text", {
+			}, [W("title", null, O(e.label), 1)], 8, $u), W("text", {
 				class: "tw:text-base-100!",
 				x: e.x,
 				y: e.y + 3,
@@ -4766,7 +4769,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				"font-size": "9",
 				"font-weight": "700",
 				"text-anchor": "middle"
-			}, O(e.index), 9, Qu)]))), 128)),
+			}, O(e.index), 9, ed)]))), 128)),
 			kr(t.$slots, "handles"),
 			W("text", {
 				class: "tw:text-base-content/65!",
@@ -4775,7 +4778,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				fill: "currentColor",
 				"font-size": "11",
 				"text-anchor": "middle"
-			}, " 0 ", 8, $u),
+			}, " 0 ", 8, td),
 			W("text", {
 				class: "tw:text-base-content/65!",
 				x: F(68) + F(472),
@@ -4783,7 +4786,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				fill: "currentColor",
 				"font-size": "11",
 				"text-anchor": "end"
-			}, O(e.maximumXLabel), 9, ed),
+			}, O(e.maximumXLabel), 9, nd),
 			W("text", {
 				class: "tw:text-base-content/75!",
 				x: F(68) + F(472) / 2,
@@ -4792,7 +4795,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				"font-size": "12",
 				"font-weight": "600",
 				"text-anchor": "middle"
-			}, O(e.xAxisLabel), 9, td),
+			}, O(e.xAxisLabel), 9, rd),
 			e.maximumYLabel ? (H(), U("text", {
 				key: 0,
 				class: "tw:text-base-content/65!",
@@ -4801,7 +4804,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				fill: "currentColor",
 				"font-size": "11",
 				"text-anchor": "end"
-			}, O(e.maximumYLabel), 9, nd)) : q("", !0),
+			}, O(e.maximumYLabel), 9, id)) : q("", !0),
 			W("text", {
 				class: "tw:text-base-content/65!",
 				x: F(68) - 10,
@@ -4809,7 +4812,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				fill: "currentColor",
 				"font-size": "11",
 				"text-anchor": "end"
-			}, O(e.minimumYLabel), 9, rd),
+			}, O(e.minimumYLabel), 9, ad),
 			W("text", {
 				class: "tw:text-base-content/75!",
 				transform: `rotate(-90 16 ${F(24) + F(192) / 2})`,
@@ -4819,18 +4822,18 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 				"font-size": "12",
 				"font-weight": "600",
 				"text-anchor": "middle"
-			}, O(e.yAxisLabel), 9, id),
+			}, O(e.yAxisLabel), 9, od),
 			kr(t.$slots, "labels")
-		], 40, Wu));
+		], 40, Ku));
 	}
-}), od = [
+}), cd = [
 	"role",
 	"aria-label",
 	"aria-valuemax",
 	"aria-valuemin",
 	"aria-valuenow",
 	"aria-valuetext"
-], sd = ["x", "y"], cd = ["x", "y"], ld = /* @__PURE__ */ z({
+], ld = ["x", "y"], ud = ["x", "y"], dd = /* @__PURE__ */ z({
 	__name: "DiamondHandle",
 	props: {
 		ariaLabel: {},
@@ -4866,7 +4869,7 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 			"stroke-width": "8",
 			"stroke-opacity": "0.18",
 			width: "16"
-		}, null, 8, sd), W("rect", {
+		}, null, 8, ld), W("rect", {
 			class: "tw:text-base-100!",
 			x: e.x - 3,
 			y: e.y - 3,
@@ -4874,27 +4877,27 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 			height: "6",
 			rx: "1",
 			width: "6"
-		}, null, 8, cd)], 40, od));
+		}, null, 8, ud)], 40, cd));
 	}
-}), ud = {
+}), fd = {
 	key: 0,
 	class: "tw:mt-2"
-}, dd = { class: "tw:mt-1 tw:grid tw:[list-style:none] tw:grid-cols-1 tw:gap-x-3 tw:gap-y-1 tw:p-0 tw:text-xs tw:text-base-content/70! tw:min-[32rem]:grid-cols-2" }, fd = { class: "tw:font-bold tw:text-base-content!" }, pd = { class: "tw:break-words" }, md = /* @__PURE__ */ z({
+}, pd = { class: "tw:mt-1 tw:grid tw:[list-style:none] tw:grid-cols-1 tw:gap-x-3 tw:gap-y-1 tw:p-0 tw:text-xs tw:text-base-content/70! tw:min-[32rem]:grid-cols-2" }, md = { class: "tw:font-bold tw:text-base-content!" }, hd = { class: "tw:break-words" }, gd = /* @__PURE__ */ z({
 	__name: "RecipientLegend",
 	props: { items: {} },
 	setup(e) {
-		return (t, n) => e.items.length ? (H(), U("figcaption", ud, [n[0] ||= W("span", { class: "tw:text-xs tw:font-semibold" }, "Selected recipients", -1), W("ol", dd, [(H(!0), U(V, null, Or(e.items, (e) => (H(), U("li", {
+		return (t, n) => e.items.length ? (H(), U("figcaption", fd, [n[0] ||= W("span", { class: "tw:text-xs tw:font-semibold" }, "Selected recipients", -1), W("ol", pd, [(H(!0), U(V, null, Or(e.items, (e) => (H(), U("li", {
 			key: e.actorId,
 			class: "tw:min-w-0"
-		}, [W("span", fd, O(e.index) + ".", 1), W("span", pd, O(e.text), 1)]))), 128))])])) : q("", !0);
+		}, [W("span", md, O(e.index) + ".", 1), W("span", hd, O(e.text), 1)]))), 128))])])) : q("", !0);
 	}
-}), hd = [
+}), _d = [
 	"aria-label",
 	"aria-valuemax",
 	"aria-valuemin",
 	"aria-valuenow",
 	"aria-valuetext"
-], gd = ["cx", "cy"], _d = ["cx", "cy"], vd = /* @__PURE__ */ z({
+], vd = ["cx", "cy"], yd = ["cx", "cy"], bd = /* @__PURE__ */ z({
 	__name: "RoundHandle",
 	props: {
 		ariaLabel: {},
@@ -4927,18 +4930,18 @@ var Wu = ["viewBox", "aria-labelledby"], Gu = ["id"], Ku = ["id"], qu = [
 			stroke: "currentColor",
 			"stroke-width": "8",
 			"stroke-opacity": "0.18"
-		}, null, 8, gd), W("circle", {
+		}, null, 8, vd), W("circle", {
 			class: "tw:text-base-100!",
 			cx: e.x,
 			cy: e.y,
 			fill: "currentColor",
 			r: "3"
-		}, null, 8, _d)], 40, hd));
+		}, null, 8, yd)], 40, _d));
 	}
 });
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/graph/drag.ts
-function yd(e, t) {
+function xd(e, t) {
 	let n = /* @__PURE__ */ en();
 	function r(r, i) {
 		let a = i.currentTarget.ownerSVGElement;
@@ -4968,8 +4971,8 @@ function yd(e, t) {
 }
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/useCatchUpGraph.ts
-function bd(e, t) {
-	let n = Y(() => ku(e.gapForMaximumAward, e.maximumAward, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = yd(() => ({ ...n.value }), _), s = Y(() => r.value?.snapshot ?? n.value), c = Y(() => ju({
+function Sd(e, t) {
+	let n = Y(() => ju(e.gapForMaximumAward, e.maximumAward, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = xd(() => ({ ...n.value }), _), s = Y(() => r.value?.snapshot ?? n.value), c = Y(() => Nu({
 		awards: e.awards,
 		bounds: s.value,
 		curveExponent: e.curveExponent,
@@ -4978,13 +4981,13 @@ function bd(e, t) {
 		samples: e.samples
 	})), l = Y(() => s.value.maximumGap), u = Y(() => c.value.points), d = Y(() => c.value.recipientLegend), f = Y(() => c.value.recipientPoints), p = Y(() => c.value.referencePoint), m = Y(() => c.value.shapePoint);
 	function h(e) {
-		return Ru(e, s.value.maximumGap);
+		return Bu(e, s.value.maximumGap);
 	}
 	function g(e) {
-		return zu(e, s.value.maximumValue);
+		return Vu(e, s.value.maximumValue);
 	}
 	function _(n, r) {
-		let i = Nu(n.kind, Uu(n.svg, r), n.snapshot, e.maximumAward);
+		let i = Fu(n.kind, Gu(n.svg, r), n.snapshot, e.maximumAward);
 		if (i.kind === "reference") {
 			t("update:gapForMaximumAward", i.gapForMaximumAward), t("update:maximumAward", i.maximumAward);
 			return;
@@ -4992,11 +4995,11 @@ function bd(e, t) {
 		t("update:curveExponent", i.curveExponent);
 	}
 	function v(n) {
-		let r = Fu(n.key, e.gapForMaximumAward, e.maximumAward);
+		let r = Lu(n.key, e.gapForMaximumAward, e.maximumAward);
 		r && (n.preventDefault(), r.gapForMaximumAward !== void 0 && t("update:gapForMaximumAward", r.gapForMaximumAward), r.maximumAward !== void 0 && t("update:maximumAward", r.maximumAward));
 	}
 	function y(n) {
-		let r = Iu(n.key, e.curveExponent, .1, 5);
+		let r = Ru(n.key, e.curveExponent, .1, 5);
 		r !== void 0 && (n.preventDefault(), t("update:curveExponent", r));
 	}
 	return {
@@ -5017,15 +5020,15 @@ function bd(e, t) {
 }
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/XpCurveGraph.vue?vue&type=script&setup=true&lang.ts
-var xd = {
+var Cd = {
 	class: "tw:m-0 tw:block tw:min-w-0",
 	"aria-labelledby": "xp-catch-up-graph-heading"
-}, Sd = [
+}, wd = [
 	"x1",
 	"x2",
 	"y1",
 	"y2"
-], Cd = ["x", "y"], wd = /* @__PURE__ */ z({
+], Td = ["x", "y"], Ed = /* @__PURE__ */ z({
 	__name: "XpCurveGraph",
 	props: {
 		awards: {},
@@ -5040,13 +5043,13 @@ var xd = {
 		"update:maximumAward"
 	],
 	setup(e, { emit: t }) {
-		let { beginDrag: n, endDrag: r, maximumGap: i, points: a, recipientLegend: o, recipientPoints: s, referencePoint: c, shapePoint: l, toGraphX: u, toGraphY: d, updateDrag: f, updateReferenceWithKeyboard: p, updateShapeWithKeyboard: m } = bd(e, t);
-		return (t, h) => (H(), U("figure", xd, [
+		let { beginDrag: n, endDrag: r, maximumGap: i, points: a, recipientLegend: o, recipientPoints: s, referencePoint: c, shapePoint: l, toGraphX: u, toGraphY: d, updateDrag: f, updateReferenceWithKeyboard: p, updateShapeWithKeyboard: m } = Sd(e, t);
+		return (t, h) => (H(), U("figure", Cd, [
 			h[2] ||= W("div", { class: "tw:mb-2" }, [W("h4", {
 				id: "xp-catch-up-graph-heading",
 				class: "tw:m-0 tw:text-sm tw:font-semibold"
 			}, " Initial catch-up value by XP gap "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Drag the diamond to set the reference gap and hard limit. Drag the round point to shape the curve. ")], -1),
-			G(ad, {
+			G(sd, {
 				description: "The horizontal axis is the recipient's gap below the selected XP leader. The vertical axis is the initial catch-up value before recipient decay, companion rate, and the final hard limit. Numbered markers identify selected recipients.",
 				"description-id": "xp-catch-up-graph-description",
 				markers: F(s),
@@ -5070,8 +5073,8 @@ var xd = {
 					y2: F(d)(e.maximumAward),
 					stroke: "currentColor",
 					"stroke-dasharray": "6 5"
-				}, null, 8, Sd)]),
-				handles: Hn(() => [G(vd, {
+				}, null, 8, wd)]),
+				handles: Hn(() => [G(bd, {
 					"aria-label": "Catch-up curve shape",
 					"aria-value-max": 5,
 					"aria-value-min": .1,
@@ -5087,7 +5090,7 @@ var xd = {
 					"x",
 					"y",
 					"onKeydown"
-				]), G(ld, {
+				]), G(dd, {
 					"aria-label": `Reference point: ${e.gapForMaximumAward} XP gap and ${e.maximumAward} XP hard limit. Use left and right arrows for the gap, up and down arrows for the hard limit.`,
 					role: "button",
 					x: F(c).x,
@@ -5107,7 +5110,7 @@ var xd = {
 					fill: "currentColor",
 					"font-size": "11",
 					"font-weight": "600"
-				}, " Hard limit " + O(e.maximumAward) + " XP ", 9, Cd)]),
+				}, " Hard limit " + O(e.maximumAward) + " XP ", 9, Td)]),
 				_: 1
 			}, 8, [
 				"markers",
@@ -5118,14 +5121,14 @@ var xd = {
 				"onPointermove",
 				"onPointerup"
 			]),
-			G(md, { items: F(o) }, null, 8, ["items"])
+			G(gd, { items: F(o) }, null, 8, ["items"])
 		]));
 	}
 });
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/useDecayGraph.ts
-function Td(e, t) {
-	let n = Y(() => Au(e.scalePivot, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = yd(() => ({ ...n.value }), g), s = Y(() => r.value?.snapshot ?? n.value), c = Y(() => Mu({
+function Dd(e, t) {
+	let n = Y(() => Mu(e.scalePivot, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = xd(() => ({ ...n.value }), g), s = Y(() => r.value?.snapshot ?? n.value), c = Y(() => Pu({
 		awards: e.awards,
 		bounds: s.value,
 		samples: e.samples,
@@ -5133,10 +5136,10 @@ function Td(e, t) {
 		scalePivot: e.scalePivot
 	})), l = Y(() => s.value.maximumRecipientXp), u = Y(() => c.value.points), d = Y(() => c.value.pivotPoint), f = Y(() => c.value.recipientLegend), p = Y(() => c.value.recipientPoints), m = Y(() => c.value.strengthPoint);
 	function h(e) {
-		return Ru(e, s.value.maximumRecipientXp);
+		return Bu(e, s.value.maximumRecipientXp);
 	}
 	function g(e, n) {
-		let r = Pu(e.kind, Uu(e.svg, n), e.snapshot);
+		let r = Iu(e.kind, Gu(e.svg, n), e.snapshot);
 		if (r.kind === "pivot") {
 			t("update:scalePivot", r.scalePivot);
 			return;
@@ -5144,11 +5147,11 @@ function Td(e, t) {
 		t("update:scaleExponent", r.scaleExponent);
 	}
 	function _(n) {
-		let r = Lu(n.key, e.scalePivot);
+		let r = zu(n.key, e.scalePivot);
 		r !== void 0 && (n.preventDefault(), t("update:scalePivot", r));
 	}
 	function v(n) {
-		let r = Iu(n.key, e.scaleExponent, 0, 2);
+		let r = Ru(n.key, e.scaleExponent, 0, 2);
 		r !== void 0 && (n.preventDefault(), t("update:scaleExponent", r));
 	}
 	return {
@@ -5168,10 +5171,10 @@ function Td(e, t) {
 }
 //#endregion
 //#region src/view/apps/xp-curve-configurator/curve/XpDecayGraph.vue?vue&type=script&setup=true&lang.ts
-var Ed = {
+var Od = {
 	class: "tw:m-0 tw:block tw:min-w-0",
 	"aria-labelledby": "xp-decay-graph-heading"
-}, Dd = /* @__PURE__ */ z({
+}, kd = /* @__PURE__ */ z({
 	__name: "XpDecayGraph",
 	props: {
 		awards: {},
@@ -5181,13 +5184,13 @@ var Ed = {
 	},
 	emits: ["update:scaleExponent", "update:scalePivot"],
 	setup(e, { emit: t }) {
-		let { beginDrag: n, endDrag: r, maximumRecipientXp: i, pivotPoint: a, points: o, recipientLegend: s, recipientPoints: c, strengthPoint: l, toGraphX: u, updateDrag: d, updatePivotWithKeyboard: f, updateStrengthWithKeyboard: p } = Td(e, t);
-		return (t, m) => (H(), U("figure", Ed, [
+		let { beginDrag: n, endDrag: r, maximumRecipientXp: i, pivotPoint: a, points: o, recipientLegend: s, recipientPoints: c, strengthPoint: l, toGraphX: u, updateDrag: d, updatePivotWithKeyboard: f, updateStrengthWithKeyboard: p } = Dd(e, t);
+		return (t, m) => (H(), U("figure", Od, [
 			m[2] ||= W("div", { class: "tw:mb-2" }, [W("h4", {
 				id: "xp-decay-graph-heading",
 				class: "tw:m-0 tw:text-sm tw:font-semibold"
 			}, " Catch-up strength by recipient total XP "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Drag the diamond to choose where decay begins. Drag the round point to make decay gentler or stronger. ")], -1),
-			G(ad, {
+			G(sd, {
 				description: "The horizontal axis is each recipient's own total XP. The vertical axis is the multiplier applied to that recipient's initial catch-up value. Numbered markers identify selected recipients.",
 				"description-id": "xp-decay-graph-description",
 				markers: F(c),
@@ -5204,7 +5207,7 @@ var Ed = {
 				onPointermove: F(d),
 				onPointerup: F(r)
 			}, {
-				handles: Hn(() => [G(vd, {
+				handles: Hn(() => [G(bd, {
 					"aria-label": "Recipient decay strength",
 					"aria-value-max": 2,
 					"aria-value-min": 0,
@@ -5220,7 +5223,7 @@ var Ed = {
 					"x",
 					"y",
 					"onKeydown"
-				]), G(ld, {
+				]), G(dd, {
 					"aria-label": "Recipient total XP where decay begins",
 					"aria-value-max": Math.round(F(i)),
 					"aria-value-min": 1,
@@ -5248,13 +5251,13 @@ var Ed = {
 				"onPointermove",
 				"onPointerup"
 			]),
-			G(md, { items: F(s) }, null, 8, ["items"])
+			G(gd, { items: F(s) }, null, 8, ["items"])
 		]));
 	}
-}), Od = {
+}), Ad = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "curve-settings-title"
-}, kd = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, Ad = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-3 tw:min-[66rem]:grid-cols-2" }, jd = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, Md = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, Nd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, Pd = { class: "dui-fieldset tw:min-w-0" }, Fd = { class: "dui-fieldset tw:min-w-0" }, Id = { class: "dui-fieldset tw:min-w-0" }, Ld = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, Rd = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, zd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, Bd = { class: "dui-fieldset tw:min-w-0" }, Vd = { class: "dui-fieldset tw:min-w-0" }, Hd = { class: "dui-fieldset tw:min-w-0" }, Ud = /* @__PURE__ */ z({
+}, jd = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, Md = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-3 tw:min-[66rem]:grid-cols-2" }, Nd = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, Pd = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, Fd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, Id = { class: "dui-fieldset tw:min-w-0" }, Ld = { class: "dui-fieldset tw:min-w-0" }, Rd = { class: "dui-fieldset tw:min-w-0" }, zd = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, Bd = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, Vd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, Hd = { class: "dui-fieldset tw:min-w-0" }, Ud = { class: "dui-fieldset tw:min-w-0" }, Wd = { class: "dui-fieldset tw:min-w-0" }, Gd = /* @__PURE__ */ z({
 	__name: "XpCurveConfiguration",
 	props: /*@__PURE__*/ Ir({
 		awards: {},
@@ -5284,15 +5287,15 @@ var Ed = {
 	],
 	setup(e) {
 		let t = ti(e, "companionMultiplier"), n = ti(e, "curveExponent"), r = ti(e, "gapForMaximumAward"), i = ti(e, "maximumAward"), a = ti(e, "scaleExponent"), o = ti(e, "scalePivot");
-		return (s, c) => (H(), U("section", Od, [W("div", kd, [
+		return (s, c) => (H(), U("section", Ad, [W("div", jd, [
 			c[31] ||= W("div", null, [W("h2", {
 				id: "curve-settings-title",
 				class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
 			}, " How awards are calculated "), W("p", { class: "tw:m-0 tw:max-w-3xl tw:text-xs tw:text-base-content/65!" }, " The graphs and number fields are two controls for the same settings. Drag either curve and its fields update immediately. ")], -1),
-			W("div", Ad, [W("article", jd, [W("div", Md, [
+			W("div", Md, [W("article", Nd, [W("div", Pd, [
 				c[20] ||= W("div", null, [W("h3", { class: "dui-card-title tw:font-serif tw:text-base tw:text-base-content!" }, " 1. Catch-up curve "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " This curve converts the XP gap below the selected leader into an initial XP value. ")], -1),
-				W("div", Nd, [
-					W("fieldset", Pd, [
+				W("div", Fd, [
+					W("fieldset", Id, [
 						c[11] ||= W("legend", { class: "dui-fieldset-legend" }, "Hard limit", -1),
 						c[12] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5313,7 +5316,7 @@ var Ed = {
 						]]),
 						c[13] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Applied last; no recipient can receive more. ", -1)
 					]),
-					W("fieldset", Fd, [
+					W("fieldset", Ld, [
 						c[14] ||= W("legend", { class: "dui-fieldset-legend" }, "Reference gap", -1),
 						c[15] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5334,7 +5337,7 @@ var Ed = {
 						]]),
 						c[16] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " At this gap, initial catch-up equals the limit before decay. ", -1)
 					]),
-					W("fieldset", Id, [
+					W("fieldset", Rd, [
 						c[17] ||= W("legend", { class: "dui-fieldset-legend" }, "Curve shape", -1),
 						c[18] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5357,7 +5360,7 @@ var Ed = {
 						c[19] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Below 1 helps small gaps sooner; above 1 favors large gaps. ", -1)
 					])
 				]),
-				G(wd, {
+				G(Ed, {
 					"curve-exponent": n.value,
 					"onUpdate:curveExponent": c[3] ||= (e) => n.value = e,
 					"gap-for-maximum-award": r.value,
@@ -5373,10 +5376,10 @@ var Ed = {
 					"awards",
 					"samples"
 				])
-			])]), W("article", Ld, [W("div", Rd, [
+			])]), W("article", zd, [W("div", Bd, [
 				c[30] ||= W("div", null, [W("h3", { class: "dui-card-title tw:font-serif tw:text-base tw:text-base-content!" }, " 2. Recipient decay curve "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " High-XP builds depend less on raw XP differences. This multiplier is evaluated separately for every recipient. ")], -1),
-				W("div", zd, [
-					W("fieldset", Bd, [
+				W("div", Vd, [
+					W("fieldset", Hd, [
 						c[21] ||= W("legend", { class: "dui-fieldset-legend" }, "Decay start", -1),
 						c[22] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5397,7 +5400,7 @@ var Ed = {
 						]]),
 						c[23] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Recipients at or below this total keep 100% strength. ", -1)
 					]),
-					W("fieldset", Vd, [
+					W("fieldset", Ud, [
 						c[24] ||= W("legend", { class: "dui-fieldset-legend" }, "Decay strength", -1),
 						c[25] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5419,7 +5422,7 @@ var Ed = {
 						]]),
 						c[26] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Zero disables decay; higher values weaken catch-up faster. ", -1)
 					]),
-					W("fieldset", Hd, [
+					W("fieldset", Wd, [
 						c[27] ||= W("legend", { class: "dui-fieldset-legend" }, "Companion rate", -1),
 						c[28] ||= W("label", {
 							class: "dui-label tw:whitespace-normal",
@@ -5442,7 +5445,7 @@ var Ed = {
 						c[29] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " 0.5 gives player-owned companions half the calculated XP. ", -1)
 					])
 				]),
-				G(Dd, {
+				G(kd, {
 					"scale-exponent": a.value,
 					"onUpdate:scaleExponent": c[9] ||= (e) => a.value = e,
 					"scale-pivot": o.value,
@@ -5469,80 +5472,59 @@ var Ed = {
 			])], -1)
 		])]));
 	}
-}), Wd = {
+}), Kd = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "recipient-defaults-title"
-}, Gd = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, Kd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-4 tw:min-[42rem]:grid-cols-2" }, qd = { class: "dui-fieldset tw:min-w-0" }, Jd = { class: "dui-fieldset tw:min-w-0" }, Yd = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, Xd = { class: "dui-fieldset tw:col-span-full tw:min-w-0" }, Zd = /* @__PURE__ */ z({
+}, qd = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, Jd = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-4 tw:min-[42rem]:grid-cols-2" }, Yd = { class: "dui-fieldset tw:min-w-0" }, Xd = { class: "dui-fieldset tw:min-w-0" }, Zd = /* @__PURE__ */ z({
 	__name: "XpRecipientDefaults",
 	props: {
 		defaultReason: { required: !0 },
 		defaultReasonModifiers: {},
 		defaultSelection: { required: !0 },
-		defaultSelectionModifiers: {},
-		useGmToolkitDefaults: {
-			type: Boolean,
-			required: !0
-		},
-		useGmToolkitDefaultsModifiers: {}
+		defaultSelectionModifiers: {}
 	},
-	emits: [
-		"update:defaultReason",
-		"update:defaultSelection",
-		"update:useGmToolkitDefaults"
-	],
+	emits: ["update:defaultReason", "update:defaultSelection"],
 	setup(e) {
-		let t = ti(e, "defaultReason"), n = ti(e, "defaultSelection"), r = ti(e, "useGmToolkitDefaults");
-		return (e, i) => (H(), U("section", Wd, [W("div", Gd, [i[13] ||= W("div", null, [W("h2", {
+		let t = ti(e, "defaultReason"), n = ti(e, "defaultSelection");
+		return (e, r) => (H(), U("section", Kd, [W("div", qd, [r[9] ||= W("div", null, [W("h2", {
 			id: "recipient-defaults-title",
 			class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-		}, " Recipient and journal defaults "), W("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " These values seed a newly opened console when no eligible tokens are targeted. ")], -1), W("div", Kd, [
-			W("fieldset", qd, [
-				i[4] ||= W("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Default recipients", -1),
-				i[5] ||= W("label", {
-					class: "dui-label tw:whitespace-normal",
-					for: "xp-default-selection"
-				}, " When no tokens are targeted ", -1),
-				R(W("select", {
-					id: "xp-default-selection",
-					"onUpdate:modelValue": i[0] ||= (e) => n.value = e,
-					class: "dui-select dui-select-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
-				}, [...i[3] ||= [
-					W("option", { value: "party" }, "Party (assigned player characters)", -1),
-					W("option", { value: "company" }, "Company (party plus companions)", -1),
-					W("option", { value: "world" }, "World (every character actor)", -1)
-				]], 512), [[Oo, n.value]]),
-				i[6] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Explicit targets replace this choice. Selecting a local group disables GM Toolkit recipient defaults. ", -1)
-			]),
-			W("fieldset", Jd, [
-				i[8] ||= W("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, " GM Toolkit compatibility ", -1),
-				W("label", Yd, [R(W("input", {
-					"onUpdate:modelValue": i[1] ||= (e) => r.value = e,
-					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
-					type: "checkbox"
-				}, null, 512), [[Eo, r.value]]), i[7] ||= W("span", { class: "tw:min-w-0 tw:break-words" }, " Prefer compatible GM Toolkit session, reason, and recipient-group defaults ", -1)]),
-				i[9] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Disable this to use the recipient choice and reason stored by Drowsy’s WFRP4e Toolkit. ", -1)
-			]),
-			W("fieldset", Xd, [
-				i[10] ||= W("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Experience journal", -1),
-				i[11] ||= W("label", {
-					class: "dui-label tw:whitespace-normal",
-					for: "xp-config-default-reason"
-				}, " Default award reason ", -1),
-				R(W("input", {
-					id: "xp-config-default-reason",
-					"onUpdate:modelValue": i[2] ||= (e) => t.value = e,
-					class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
-					type: "text"
-				}, null, 512), [[X, t.value]]),
-				i[12] ||= W("p", { class: "dui-label tw:whitespace-normal" }, [
-					K(" Supports the compatible "),
-					W("code", null, "%session%"),
-					K(" and "),
-					W("code", null, "%date%"),
-					K(" tokens. The award console can still edit the reason for one batch. ")
-				], -1)
-			])
-		])])]));
+		}, " Recipient and journal defaults "), W("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " These values seed a newly opened console when no eligible tokens are targeted. ")], -1), W("div", Jd, [W("fieldset", Yd, [
+			r[3] ||= W("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Default recipients", -1),
+			r[4] ||= W("label", {
+				class: "dui-label tw:whitespace-normal",
+				for: "xp-default-selection"
+			}, " When no tokens are targeted ", -1),
+			R(W("select", {
+				id: "xp-default-selection",
+				"onUpdate:modelValue": r[0] ||= (e) => n.value = e,
+				class: "dui-select dui-select-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
+			}, [...r[2] ||= [
+				W("option", { value: "party" }, "Party (assigned player characters)", -1),
+				W("option", { value: "company" }, "Company (party plus companions)", -1),
+				W("option", { value: "world" }, "World (every character actor)", -1)
+			]], 512), [[Oo, n.value]]),
+			r[5] ||= W("p", { class: "dui-label tw:whitespace-normal" }, " Explicit targets replace this Drowsy’s WFRP4e Toolkit default. ", -1)
+		]), W("fieldset", Xd, [
+			r[6] ||= W("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Experience journal", -1),
+			r[7] ||= W("label", {
+				class: "dui-label tw:whitespace-normal",
+				for: "xp-config-default-reason"
+			}, " Default award reason ", -1),
+			R(W("input", {
+				id: "xp-config-default-reason",
+				"onUpdate:modelValue": r[1] ||= (e) => t.value = e,
+				class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
+				type: "text"
+			}, null, 512), [[X, t.value]]),
+			r[8] ||= W("p", { class: "dui-label tw:whitespace-normal" }, [
+				K(" Supports the "),
+				W("code", null, "%session%"),
+				K(" and "),
+				W("code", null, "%date%"),
+				K(" tokens. The award console can still edit the reason for one batch. ")
+			], -1)
+		])])])]));
 	}
 }), Qd = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, $d = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, ef = {
 	key: 0,
@@ -5556,24 +5538,24 @@ var Ed = {
 }, rf = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-3 tw:min-[54rem]:grid-cols-[minmax(15rem,0.72fr)_minmax(0,2fr)]" }, af = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "xp-launcher-settings"
-}, of = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, sf = { class: "dui-fieldset tw:gap-2" }, cf = { class: "dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, lf = { class: "tw:mt-3 tw:min-w-0" }, uf = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:flex-col tw:items-stretch tw:gap-2 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4 tw:min-[34rem]:flex-row tw:min-[34rem]:items-center tw:min-[34rem]:justify-between" }, df = ["disabled"], ff = {
+}, of = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, sf = { class: "dui-fieldset tw:gap-2" }, cf = { class: "dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, lf = { class: "tw:mt-3 tw:min-w-0" }, uf = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:flex-col tw:items-stretch tw:gap-2 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4 tw:min-[34rem]:flex-row tw:min-[34rem]:items-center tw:min-[34rem]:justify-between" }, df = { class: "tw:flex tw:min-w-0 tw:flex-col tw:gap-2 tw:min-[30rem]:flex-row" }, ff = ["disabled"], pf = ["disabled"], mf = {
 	key: 0,
 	class: "dui-loading dui-loading-spinner dui-loading-sm",
 	"aria-hidden": "true"
-}, pf = {
+}, hf = {
 	key: 1,
 	class: "fa-solid fa-stamp",
 	"aria-hidden": "true"
-}, mf = /* @__PURE__ */ z({
+}, gf = /* @__PURE__ */ z({
 	__name: "XpCurveConfiguratorApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Ou();
+		let t = e, n = Au();
 		n.initialize(t.initialization, t.actions);
-		let { curveSamples: r, decaySamples: i, defaultReason: a, defaultSelection: o, errorMessage: s, isSaving: c, launchers: l, parameters: u, plan: d, statusMessage: f, useGmToolkitDefaults: p } = bs(n);
+		let { curveSamples: r, decaySamples: i, defaultReason: a, defaultSelection: o, errorMessage: s, isSaving: c, launchers: l, parameters: u, plan: d, statusMessage: f } = bs(n);
 		return (e, t) => (H(), U("main", Qd, [
 			G(xc, {
 				description: "Set launchers, recipient defaults, and the catch-up and decay curves used by new award consoles.",
@@ -5603,29 +5585,26 @@ var Ed = {
 				])]), G(Zd, {
 					"default-reason": F(a),
 					"onUpdate:defaultReason": t[1] ||= (e) => /* @__PURE__ */ N(a) ? a.value = e : null,
-					"use-gm-toolkit-defaults": F(p),
-					"onUpdate:useGmToolkitDefaults": t[2] ||= (e) => /* @__PURE__ */ N(p) ? p.value = e : null,
 					"default-selection": F(o),
 					"onUpdate:defaultSelection": F(n).setDefaultSelection
 				}, null, 8, [
 					"default-reason",
-					"use-gm-toolkit-defaults",
 					"default-selection",
 					"onUpdate:defaultSelection"
 				])]),
-				W("div", lf, [G(Ud, {
+				W("div", lf, [G(Gd, {
 					"companion-multiplier": F(u).companionMultiplier,
-					"onUpdate:companionMultiplier": t[3] ||= (e) => F(u).companionMultiplier = e,
+					"onUpdate:companionMultiplier": t[2] ||= (e) => F(u).companionMultiplier = e,
 					"curve-exponent": F(u).curveExponent,
-					"onUpdate:curveExponent": t[4] ||= (e) => F(u).curveExponent = e,
+					"onUpdate:curveExponent": t[3] ||= (e) => F(u).curveExponent = e,
 					"gap-for-maximum-award": F(u).gapForMaximumAward,
-					"onUpdate:gapForMaximumAward": t[5] ||= (e) => F(u).gapForMaximumAward = e,
+					"onUpdate:gapForMaximumAward": t[4] ||= (e) => F(u).gapForMaximumAward = e,
 					"maximum-award": F(u).maximumAward,
-					"onUpdate:maximumAward": t[6] ||= (e) => F(u).maximumAward = e,
+					"onUpdate:maximumAward": t[5] ||= (e) => F(u).maximumAward = e,
 					"scale-exponent": F(u).scaleExponent,
-					"onUpdate:scaleExponent": t[7] ||= (e) => F(u).scaleExponent = e,
+					"onUpdate:scaleExponent": t[6] ||= (e) => F(u).scaleExponent = e,
 					"scale-pivot": F(u).scalePivot,
-					"onUpdate:scalePivot": t[8] ||= (e) => F(u).scalePivot = e,
+					"onUpdate:scalePivot": t[7] ||= (e) => F(u).scalePivot = e,
 					awards: F(d).awards,
 					"decay-samples": F(i),
 					samples: F(r)
@@ -5641,63 +5620,71 @@ var Ed = {
 					"samples"
 				])])
 			]),
-			W("footer", uf, [t[17] ||= W("p", { class: "tw:m-0 tw:min-w-0 tw:text-xs tw:text-base-content/65!" }, " Saving configuration never awards XP. World defaults apply to the next console opening. ", -1), W("button", {
+			W("footer", uf, [t[18] ||= W("p", { class: "tw:m-0 tw:min-w-0 tw:text-xs tw:text-base-content/65!" }, " Saving configuration never awards XP. World defaults apply to the next console opening. ", -1), W("div", df, [W("button", {
+				class: "dui-btn dui-btn-ghost tw:min-w-44 tw:rounded-full tw:border tw:border-base-content/20! tw:bg-base-200!",
+				disabled: F(c),
+				type: "button",
+				onClick: t[8] ||= (...e) => F(n).resetToDefaults && F(n).resetToDefaults(...e)
+			}, [...t[16] ||= [W("i", {
+				class: "fa-solid fa-arrow-rotate-left",
+				"aria-hidden": "true"
+			}, null, -1), K(" Reset to defaults ", -1)]], 8, ff), W("button", {
 				class: "dui-btn dui-btn-primary tw:min-w-48 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md",
 				disabled: F(c),
 				type: "button",
 				onClick: t[9] ||= (...e) => F(n).saveConfiguration && F(n).saveConfiguration(...e)
-			}, [F(c) ? (H(), U("span", ff)) : (H(), U("i", pf)), t[16] ||= K(" Save configuration ", -1)], 8, df)])
+			}, [F(c) ? (H(), U("span", mf)) : (H(), U("i", hf)), t[17] ||= K(" Save configuration ", -1)], 8, pf)])])
 		]));
 	}
 });
 //#endregion
 //#region src/functions/xp-curve/selection.ts
-function hf(e) {
+function _f(e) {
 	let { assignedActorIds: t, candidates: n, defaultSelection: r, targetedActorIds: i } = e;
 	return n.map((e) => {
-		let n = gf(e, t);
+		let n = vf(e, t);
 		return {
 			category: n,
 			id: e.id,
 			name: e.name,
-			selected: i?.has(e.id) ?? _f(e.id, n, r, t),
+			selected: i?.has(e.id) ?? yf(e.id, n, r, t),
 			totalXp: e.totalXp
 		};
-	}).sort(vf);
-}
-function gf(e, t) {
-	return e.hasPlayerOwner && !t.has(e.id) ? "companion" : "standard";
-}
-function _f(e, t, n, r) {
-	return n === "world" ? !0 : n === "company" ? r.has(e) || t === "companion" : r.has(e);
+	}).sort(bf);
 }
 function vf(e, t) {
+	return e.hasPlayerOwner && !t.has(e.id) ? "companion" : "standard";
+}
+function yf(e, t, n, r) {
+	return n === "world" ? !0 : n === "company" ? r.has(e) || t === "companion" : r.has(e);
+}
+function bf(e, t) {
 	return e.selected === t.selected ? e.name.localeCompare(t.name) : e.selected ? -1 : 1;
 }
 //#endregion
 //#region src/module/xp-curve/actors.ts
-function yf(e) {
-	let t = wf(), n = Tf(), r = n === void 0 ? "default" : "targets";
+function xf(e) {
+	let t = Ef(), n = Df(), r = n === void 0 ? "default" : "targets";
 	return {
-		actors: hf({
+		actors: _f({
 			assignedActorIds: t,
-			candidates: Array.from(game.actors).filter((e) => e.type === "character").map(xf),
+			candidates: Array.from(game.actors).filter((e) => e.type === "character").map(Cf),
 			defaultSelection: e,
 			targetedActorIds: n
 		}),
 		selectionSource: r
 	};
 }
-function bf(e) {
-	let t = wf();
+function Sf(e) {
+	let t = Ef();
 	return e.map((e) => {
 		let n = game.actors.get(e);
 		if (!n || n.type !== "character") throw Error(`XP recipient ${e} is no longer an available character actor.`);
-		return Sf(n, gf(n, t), !0);
+		return wf(n, vf(n, t), !0);
 	});
 }
-function xf(e) {
-	let t = Cf(e);
+function Cf(e) {
+	let t = Tf(e);
 	return {
 		hasPlayerOwner: e.hasPlayerOwner,
 		id: e.id,
@@ -5705,8 +5692,8 @@ function xf(e) {
 		totalXp: t.totalXp
 	};
 }
-function Sf(e, t, n) {
-	let r = Cf(e);
+function wf(e, t, n) {
+	let r = Tf(e);
 	return {
 		awardExperience: r.awardExperience,
 		choice: {
@@ -5718,13 +5705,13 @@ function Sf(e, t, n) {
 		}
 	};
 }
-function Cf(e) {
+function Tf(e) {
 	let t = e.system;
-	if (!Ef(t)) throw Error(`WFRP4e actor "${e.name}" does not expose readable system data.`);
+	if (!Of(t)) throw Error(`WFRP4e actor "${e.name}" does not expose readable system data.`);
 	let n = t.details, r = t.awardExp;
-	if (!Ef(n) || typeof r != "function") throw Error(`WFRP4e actor "${e.name}" does not expose XP award operations.`);
+	if (!Of(n) || typeof r != "function") throw Error(`WFRP4e actor "${e.name}" does not expose XP award operations.`);
 	let i = n.experience;
-	if (!Ef(i) || !Number.isFinite(Number(i.total))) throw Error(`WFRP4e actor "${e.name}" does not expose a numeric total XP value.`);
+	if (!Of(i) || !Number.isFinite(Number(i.total))) throw Error(`WFRP4e actor "${e.name}" does not expose a numeric total XP value.`);
 	return {
 		awardExperience: async (e, n) => {
 			await r.call(t, e, n, null, !0);
@@ -5732,13 +5719,13 @@ function Cf(e) {
 		totalXp: Math.max(0, Math.round(Number(i.total)))
 	};
 }
-function wf() {
+function Ef() {
 	return new Set(Array.from(game.users).map((e) => e.character?.id).filter((e) => typeof e == "string"));
 }
-function Tf() {
+function Df() {
 	if (!(!game.user.targets || game.user.targets.size === 0)) return new Set(Array.from(game.user.targets).map((e) => e.actor).filter((e) => e?.type === "character").map((e) => e.id));
 }
-function Ef(e) {
+function Of(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
@@ -5752,150 +5739,25 @@ var Q = {
 	maximumAward: "xpCurveMaximumAward",
 	scaleExponent: "xpCurveScaleExponent",
 	scalePivot: "xpCurveScalePivot",
-	showTokenControlsLauncher: "showXpCurveTokenControlsLauncher",
-	useGmToolkitDefaults: "xpCurveUseGmToolkitDefaults"
-}, Df = {
-	currentSessionReference: "",
-	sessions: [],
-	version: 1
+	showTokenControlsLauncher: "showXpCurveTokenControlsLauncher"
 };
-//#endregion
-//#region src/functions/records/parse.ts
-function Of(e) {
-	if (typeof e != "string") return "";
-	let t = new Date(e);
-	return Number.isNaN(t.getTime()) ? "" : t.toISOString();
-}
-function kf(e) {
-	return typeof e == "string" ? e : "";
-}
-function Af(e) {
-	return typeof e == "object" && !!e;
-}
-//#endregion
-//#region src/functions/session-management/session.ts
-var jf = 500;
-function Mf(e) {
-	let t = e.trim();
-	if (!t) return "";
-	let n = Number(t);
-	return Number.isFinite(n) && Math.trunc(n) === n ? String(n + 1) : t;
-}
-function Nf(e, t, n) {
-	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = Rf(t.occurredAt, "session occurrence"), o = Rf(n.recordedAt, "session record");
-	if (!r) throw Error("Enter the session reference that is being completed.");
-	if (!i) throw Error("Enter the next session reference.");
-	let s = {
-		id: n.id,
-		occurredAt: a,
-		recordedAt: o,
-		reference: r
-	};
-	return {
-		record: s,
-		state: {
-			...e,
-			currentSessionReference: i,
-			sessions: [s, ...e.sessions].slice(0, jf)
-		}
-	};
-}
-function Pf(e) {
-	let t = Lf(e);
-	if (!t || t.version !== 1) return {
-		...Df,
-		sessions: []
-	};
-	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(Ff).slice(0, jf) : [], r = If(t.gmToolkitMigration);
-	return {
-		currentSessionReference: kf(t.currentSessionReference),
-		...r ? { gmToolkitMigration: r } : {},
-		sessions: n,
-		version: 1
-	};
-}
-function Ff(e) {
-	if (!Af(e)) return [];
-	let t = kf(e.id), n = Of(e.occurredAt), r = Of(e.recordedAt), i = kf(e.reference);
-	return t && n && r && i ? [{
-		id: t,
-		occurredAt: n,
-		recordedAt: r,
-		reference: i
-	}] : [];
-}
-function If(e) {
-	if (!Af(e) || !Af(e.xpAwardSettings)) return;
-	let t = Of(e.importedAt), n = kf(e.sessionReference), r = e.xpAwardSettings, i = r.defaultSelection;
-	if (!(!t || i !== "party" && i !== "company" || !Number.isFinite(Number(r.defaultAmount)))) return {
-		importedAt: t,
-		sessionReference: n,
-		xpAwardSettings: {
-			defaultAmount: Math.round(Number(r.defaultAmount)),
-			defaultReason: kf(r.defaultReason),
-			defaultSelection: i,
-			includeTimestampInReason: r.includeTimestampInReason === !0
-		}
-	};
-}
-function Lf(e) {
-	if (typeof e == "string") try {
-		let t = JSON.parse(e);
-		return Af(t) ? t : void 0;
-	} catch {
-		return;
-	}
-}
-function Rf(e, t) {
-	let n = new Date(e);
-	if (Number.isNaN(n.getTime())) throw Error(`Enter a valid ${t} date and time.`);
-	return n.toISOString();
-}
-//#endregion
-//#region src/module/session-management/settings/keys.ts
-var zf = { state: "sessionManagementState" };
-//#endregion
-//#region src/module/session-management/settings/load.ts
-function Bf() {
-	return Pf(game.settings.get(t, zf.state));
-}
-function Vf() {
-	return Bf().currentSessionReference;
-}
-async function Hf(e) {
-	await game.settings.set(t, zf.state, JSON.stringify(e));
-}
 //#endregion
 //#region src/module/xp-curve/settings/load.ts
-var Uf = {
-	defaultReason: "addXPDefaultReason",
-	defaultSelection: "defaultPartySessionTurnover",
-	session: "sessionID"
-};
-function Wf() {
-	let e = Zf(Q.useGmToolkitDefaults), t = {
-		defaultReason: $f(Q.defaultReason),
-		defaultSelection: ep(Q.defaultSelection),
+function kf() {
+	return {
+		defaultReason: Pf(Q.defaultReason),
+		defaultSelection: Ff(Q.defaultSelection),
 		parameters: {
-			companionMultiplier: Qf(Q.companionMultiplier),
-			curveExponent: Qf(Q.curveExponent),
-			gapForMaximumAward: Qf(Q.gapForMaximumAward),
-			maximumAward: Qf(Q.maximumAward),
-			scaleExponent: Qf(Q.scaleExponent),
-			scalePivot: Qf(Q.scalePivot)
-		},
-		useGmToolkitDefaults: e
-	};
-	return !e || !Yf() ? t : {
-		...t,
-		defaultReason: tp(Uf.defaultReason),
-		defaultSelection: np()
+			companionMultiplier: Nf(Q.companionMultiplier),
+			curveExponent: Nf(Q.curveExponent),
+			gapForMaximumAward: Nf(Q.gapForMaximumAward),
+			maximumAward: Nf(Q.maximumAward),
+			scaleExponent: Nf(Q.scaleExponent),
+			scalePivot: Nf(Q.scalePivot)
+		}
 	};
 }
-function Gf(e) {
-	return !e || !Jf() || !Xf(Uf.session) ? Vf() : tp(Uf.session);
-}
-async function Kf(e) {
+async function Af(e) {
 	let n = [
 		[Q.companionMultiplier, e.parameters.companionMultiplier],
 		[Q.curveExponent, e.parameters.curveExponent],
@@ -5904,67 +5766,49 @@ async function Kf(e) {
 		[Q.gapForMaximumAward, e.parameters.gapForMaximumAward],
 		[Q.maximumAward, e.parameters.maximumAward],
 		[Q.scaleExponent, e.parameters.scaleExponent],
-		[Q.scalePivot, e.parameters.scalePivot],
-		[Q.useGmToolkitDefaults, e.useGmToolkitDefaults]
+		[Q.scalePivot, e.parameters.scalePivot]
 	];
 	for (let [e, r] of n) await game.settings.set(t, e, r);
 }
-function qf(e) {
-	return Zf(e);
+function jf(e) {
+	return Mf(e);
 }
-function Jf() {
-	return game.modules.get(r)?.active === !0;
-}
-function Yf() {
-	return Jf() && Xf(Uf.defaultReason) && Xf(Uf.defaultSelection);
-}
-function Xf(e) {
-	return game.settings.settings.has(`${r}.${e}`);
-}
-function Zf(e) {
+function Mf(e) {
 	return game.settings.get(t, e) === !0;
 }
-function Qf(e) {
+function Nf(e) {
 	return Number(game.settings.get(t, e));
 }
-function $f(e) {
+function Pf(e) {
 	let n = game.settings.get(t, e);
 	return typeof n == "string" ? n : "";
 }
-function ep(e) {
-	return rp($f(e));
+function Ff(e) {
+	return If(Pf(e));
 }
-function tp(e) {
-	let t = game.settings.get(r, e);
-	return typeof t == "string" && t !== "null" ? t : "";
-}
-function np() {
-	return rp(tp(Uf.defaultSelection));
-}
-function rp(e) {
+function If(e) {
 	return e === "company" || e === "world" ? e : "party";
 }
 //#endregion
 //#region src/module/xp-curve/configuration.ts
-function ip() {
-	let e = Wf();
+function Lf() {
+	let e = kf();
 	return {
 		...e,
-		actors: yf(e.defaultSelection).actors,
-		launchers: { tokenControls: qf(Q.showTokenControlsLauncher) }
+		actors: xf(e.defaultSelection).actors,
+		launchers: { tokenControls: jf(Q.showTokenControlsLauncher) }
 	};
 }
-async function ap(e) {
-	Lc(Z.xpCurveConsole), await Kf({
+async function Rf(e) {
+	Lc(Z.xpCurveConsole), await Af({
 		defaultReason: e.defaultReason,
 		defaultSelection: e.defaultSelection,
-		parameters: fl(e.parameters),
-		useGmToolkitDefaults: e.useGmToolkitDefaults
+		parameters: fl(e.parameters)
 	}), await game.settings.set(t, Q.showTokenControlsLauncher, e.launchers.tokenControls), ui.notifications.info("XP Curve Console configuration saved.");
 }
 //#endregion
 //#region src/module/apps/xp-curve-configurator/XpCurveConfiguratorApplication.ts
-var op = class extends Hc {
+var zf = class extends Hc {
 	static ACCESS_POLICY = Z.xpCurveConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -5985,58 +5829,170 @@ var op = class extends Hc {
 		super(), this.#e = e;
 	}
 	getVueComponent() {
-		return mf;
+		return gf;
 	}
 	getVueProps() {
 		return {
 			actions: { saveConfiguration: async (e) => {
-				await ap(e), await this.#e.onSaved?.();
+				await Rf(e), await this.#e.onSaved?.();
 			} },
-			initialization: ip()
+			initialization: Lf()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-curve-configurator/open.ts
-async function sp(e = {}) {
-	let t = new op(e);
+async function Bf(e = {}) {
+	let t = new zf(e);
 	return await t.render(!0), t;
 }
-function cp(e = {}) {
-	sp(e).catch((e) => {
+function Vf(e = {}) {
+	Bf(e).catch((e) => {
 		console.error(`${t} | Failed to open the XP Curve Configurator.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Configurator. See the browser console for details.");
 	});
 }
 //#endregion
+//#region src/types/session-management/SessionManagement.ts
+var Hf = {
+	currentSessionReference: "",
+	sessions: [],
+	version: 1
+};
+//#endregion
+//#region src/functions/records/parse.ts
+function Uf(e) {
+	if (typeof e != "string") return "";
+	let t = new Date(e);
+	return Number.isNaN(t.getTime()) ? "" : t.toISOString();
+}
+function Wf(e) {
+	return typeof e == "string" ? e : "";
+}
+function Gf(e) {
+	return typeof e == "object" && !!e;
+}
+//#endregion
+//#region src/functions/session-management/session.ts
+var Kf = 500;
+function qf(e) {
+	let t = e.trim();
+	if (!t) return "";
+	let n = Number(t);
+	return Number.isFinite(n) && Math.trunc(n) === n ? String(n + 1) : t;
+}
+function Jf(e, t, n) {
+	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = $f(t.occurredAt, "session occurrence"), o = $f(n.recordedAt, "session record");
+	if (!r) throw Error("Enter the session reference that is being completed.");
+	if (!i) throw Error("Enter the next session reference.");
+	let s = {
+		id: n.id,
+		occurredAt: a,
+		recordedAt: o,
+		reference: r
+	};
+	return {
+		record: s,
+		state: {
+			...e,
+			currentSessionReference: i,
+			sessions: [s, ...e.sessions].slice(0, Kf)
+		}
+	};
+}
+function Yf(e) {
+	let t = Qf(e);
+	if (!t || t.version !== 1) return {
+		...Hf,
+		sessions: []
+	};
+	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(Xf).slice(0, Kf) : [], r = Zf(t.gmToolkitMigration);
+	return {
+		currentSessionReference: Wf(t.currentSessionReference),
+		...r ? { gmToolkitMigration: r } : {},
+		sessions: n,
+		version: 1
+	};
+}
+function Xf(e) {
+	if (!Gf(e)) return [];
+	let t = Wf(e.id), n = Uf(e.occurredAt), r = Uf(e.recordedAt), i = Wf(e.reference);
+	return t && n && r && i ? [{
+		id: t,
+		occurredAt: n,
+		recordedAt: r,
+		reference: i
+	}] : [];
+}
+function Zf(e) {
+	if (!Gf(e) || !Gf(e.xpAwardSettings)) return;
+	let t = Uf(e.importedAt), n = Wf(e.sessionReference), r = e.xpAwardSettings, i = r.defaultSelection;
+	if (!(!t || i !== "party" && i !== "company" || !Number.isFinite(Number(r.defaultAmount)))) return {
+		importedAt: t,
+		sessionReference: n,
+		xpAwardSettings: {
+			defaultAmount: Math.round(Number(r.defaultAmount)),
+			defaultReason: Wf(r.defaultReason),
+			defaultSelection: i,
+			includeTimestampInReason: r.includeTimestampInReason === !0
+		}
+	};
+}
+function Qf(e) {
+	if (typeof e == "string") try {
+		let t = JSON.parse(e);
+		return Gf(t) ? t : void 0;
+	} catch {
+		return;
+	}
+}
+function $f(e, t) {
+	let n = new Date(e);
+	if (Number.isNaN(n.getTime())) throw Error(`Enter a valid ${t} date and time.`);
+	return n.toISOString();
+}
+//#endregion
+//#region src/module/session-management/settings/keys.ts
+var ep = { state: "sessionManagementState" };
+//#endregion
+//#region src/module/session-management/settings/load.ts
+function tp() {
+	return Yf(game.settings.get(t, ep.state));
+}
+function np() {
+	return tp().currentSessionReference;
+}
+async function rp(e) {
+	await game.settings.set(t, ep.state, JSON.stringify(e));
+}
+//#endregion
 //#region src/module/xp-curve/initialization.ts
-function lp() {
-	let e = Wf(), t = yf(e.defaultSelection);
+function ip() {
+	let e = kf(), t = xf(e.defaultSelection);
 	return {
 		...e,
 		...t,
-		reasonContext: up(!0)
+		reasonContext: ap()
 	};
 }
-function up(e) {
+function ap() {
 	return {
 		date: game.world.nextSession?.slice(0, 10) || (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
-		session: Gf(e)
+		session: np()
 	};
 }
 //#endregion
 //#region src/module/xp-curve/service.ts
-async function dp(e) {
+async function op(e) {
 	Lc(Z.xpCurveConsole);
-	let t = bf(Array.from(new Set(e.actorIds))), n = fl(e.parameters), r = pl(t.map((e) => e.choice), n);
+	let t = Sf(Array.from(new Set(e.actorIds))), n = fl(e.parameters), r = pl(t.map((e) => e.choice), n);
 	if (r.awards.length < 2) throw Error("Select at least two character actors to calculate catch-up XP.");
 	if (r.totalAward < 1) throw Error("This curve produces no XP awards for the selected actors.");
-	await Kf({
+	await Af({
 		defaultReason: e.defaultReason,
 		defaultSelection: e.defaultSelection,
-		parameters: n,
-		useGmToolkitDefaults: e.useGmToolkitDefaults
+		parameters: n
 	});
-	let i = bl(e.defaultReason, up(e.useGmToolkitDefaults)), a = [];
+	let i = bl(e.defaultReason, ap()), a = [];
 	for (let [e, n] of t.entries()) {
 		let t = r.awards[e];
 		if (t.award !== 0) try {
@@ -6050,15 +6006,15 @@ async function dp(e) {
 		...r,
 		reason: i
 	};
-	return await fp(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
+	return await sp(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
 }
-async function fp(e) {
+async function sp(e) {
 	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${xl(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Curve Award</h2><p>${xl(e.reason)}</p><ul>${t}</ul><p><strong>${e.totalAward} XP awarded in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
 //#endregion
 //#region src/module/apps/xp-curve-console/XpCurveConsoleApplication.ts
-var pp = class extends Hc {
+var cp = class extends Hc {
 	static ACCESS_POLICY = Z.xpCurveConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6075,39 +6031,39 @@ var pp = class extends Hc {
 		}
 	};
 	getVueComponent() {
-		return Du;
+		return Ou;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				applyAwards: dp,
+				applyAwards: op,
 				onActionComplete: () => {
 					this.close().catch((e) => {
 						console.error(`${t} | Failed to close the XP Curve Console.`, e), ui.notifications.error("XP awards completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
 					});
 				},
 				openConfigurator: () => {
-					cp({ onSaved: () => this.render(!0) });
+					Vf({ onSaved: () => this.render(!0) });
 				}
 			},
-			initialization: lp()
+			initialization: ip()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-curve-console/open.ts
-async function mp() {
-	let e = new pp();
+async function lp() {
+	let e = new cp();
 	return await e.render(!0), e;
 }
-function hp() {
-	mp().catch((e) => {
+function up() {
+	lp().catch((e) => {
 		console.error(`${t} | Failed to open the XP Curve Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Console. See the browser console for details.");
 	});
 }
 //#endregion
 //#region src/state/apps/session-management/store.ts
-var gp = ys("session-management", () => {
+var dp = ys("session-management", () => {
 	let e = /* @__PURE__ */ P({
 		currentSessionReference: "",
 		sessions: [],
@@ -6117,14 +6073,14 @@ var gp = ys("session-management", () => {
 		c = l, e.value = {
 			...s.state,
 			sessions: s.state.sessions.map((e) => ({ ...e }))
-		}, t.value = s.state.currentSessionReference, n.value = Mf(t.value), r.value = s.occurredAtLocal, i.value = s.gmToolkitImport, a.value = void 0, o.value = void 0;
+		}, t.value = s.state.currentSessionReference, n.value = qf(t.value), r.value = s.occurredAtLocal, i.value = s.gmToolkitImport, a.value = void 0, o.value = void 0;
 	}
 	function u() {
-		n.value = Mf(t.value);
+		n.value = qf(t.value);
 	}
 	async function d() {
 		await h(async () => {
-			await g().saveCurrentSessionReference(t.value), e.value.currentSessionReference = t.value.trim(), t.value = e.value.currentSessionReference, n.value = Mf(t.value), o.value = "Current session reference saved.";
+			await g().saveCurrentSessionReference(t.value), e.value.currentSessionReference = t.value.trim(), t.value = e.value.currentSessionReference, n.value = qf(t.value), o.value = "Current session reference saved.";
 		});
 	}
 	async function f() {
@@ -6134,13 +6090,13 @@ var gp = ys("session-management", () => {
 				occurredAt: r.value,
 				sessionReference: t.value
 			});
-			e.value.sessions.unshift(i), e.value.currentSessionReference = n.value.trim(), t.value = e.value.currentSessionReference, n.value = Mf(t.value), o.value = `Session ${i.reference} recorded.`;
+			e.value.sessions.unshift(i), e.value.currentSessionReference = n.value.trim(), t.value = e.value.currentSessionReference, n.value = qf(t.value), o.value = `Session ${i.reference} recorded.`;
 		});
 	}
 	async function p() {
 		await h(async () => {
 			let r = await g().importGmToolkitData();
-			e.value.gmToolkitMigration = r, e.value.currentSessionReference = r.sessionReference, t.value = r.sessionReference, n.value = Mf(r.sessionReference), o.value = "GM Toolkit data imported. Future changes belong to Drowsy’s Toolkit.";
+			e.value.gmToolkitMigration = r, e.value.currentSessionReference = r.sessionReference, t.value = r.sessionReference, n.value = qf(r.sessionReference), o.value = "GM Toolkit data imported. Future changes belong to Drowsy’s Toolkit.";
 		});
 	}
 	function m() {
@@ -6178,15 +6134,15 @@ var gp = ys("session-management", () => {
 		statusMessage: o,
 		updateSuggestedNextSession: u
 	};
-}), _p = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, vp = {
+}), fp = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, pp = {
 	key: 0,
 	class: "dui-alert dui-alert-error tw:m-4 tw:mb-0",
 	role: "alert"
-}, yp = { class: "tw:min-w-0 tw:break-words" }, bp = {
+}, mp = { class: "tw:min-w-0 tw:break-words" }, hp = {
 	key: 1,
 	class: "dui-alert dui-alert-success tw:m-4 tw:mb-0",
 	role: "status"
-}, xp = { class: "tw:min-w-0 tw:break-words" }, Sp = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Cp = /* @__PURE__ */ z({
+}, gp = { class: "tw:min-w-0 tw:break-words" }, _p = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, vp = /* @__PURE__ */ z({
 	__name: "ConsoleFrame",
 	props: {
 		description: {},
@@ -6196,7 +6152,7 @@ var gp = ys("session-management", () => {
 		title: {}
 	},
 	setup(e) {
-		return (t, n) => (H(), U("main", _p, [
+		return (t, n) => (H(), U("main", fp, [
 			G(xc, {
 				description: e.description,
 				icon: e.icon,
@@ -6209,54 +6165,54 @@ var gp = ys("session-management", () => {
 				"icon",
 				"title"
 			]),
-			e.errorMessage ? (H(), U("div", vp, [n[0] ||= W("i", {
+			e.errorMessage ? (H(), U("div", pp, [n[0] ||= W("i", {
 				class: "fa-solid fa-triangle-exclamation",
 				"aria-hidden": "true"
-			}, null, -1), W("span", yp, O(e.errorMessage), 1)])) : q("", !0),
-			e.statusMessage ? (H(), U("div", bp, [n[1] ||= W("i", {
+			}, null, -1), W("span", mp, O(e.errorMessage), 1)])) : q("", !0),
+			e.statusMessage ? (H(), U("div", hp, [n[1] ||= W("i", {
 				class: "fa-solid fa-circle-check",
 				"aria-hidden": "true"
-			}, null, -1), W("span", xp, O(e.statusMessage), 1)])) : q("", !0),
-			W("div", Sp, [kr(t.$slots, "default")]),
+			}, null, -1), W("span", gp, O(e.statusMessage), 1)])) : q("", !0),
+			W("div", _p, [kr(t.$slots, "default")]),
 			kr(t.$slots, "footer")
 		]));
 	}
-}), wp = { class: "tw:grid tw:min-w-0 tw:gap-3" }, Tp = {
+}), yp = { class: "tw:grid tw:min-w-0 tw:gap-3" }, bp = {
 	key: 0,
 	class: "dui-card dui-card-border tw:border-2 tw:border-secondary/40! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "gm-toolkit-import-title"
-}, Ep = { class: "dui-card-body tw:gap-3 tw:p-4" }, Dp = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, Op = ["disabled"], kp = { class: "tw:grid tw:grid-cols-2 tw:gap-2 tw:text-sm tw:min-[36rem]:grid-cols-4" }, Ap = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, jp = { class: "tw:m-0 tw:font-semibold" }, Mp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Np = { class: "tw:m-0 tw:font-semibold" }, Pp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Fp = { class: "tw:m-0 tw:font-semibold tw:capitalize" }, Ip = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Lp = ["title"], Rp = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[52rem]:grid-cols-2" }, zp = {
+}, xp = { class: "dui-card-body tw:gap-3 tw:p-4" }, Sp = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, Cp = ["disabled"], wp = { class: "tw:grid tw:grid-cols-2 tw:gap-2 tw:text-sm tw:min-[36rem]:grid-cols-4" }, Tp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Ep = { class: "tw:m-0 tw:font-semibold" }, Dp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Op = { class: "tw:m-0 tw:font-semibold" }, kp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Ap = { class: "tw:m-0 tw:font-semibold tw:capitalize" }, jp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Mp = ["title"], Np = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[52rem]:grid-cols-2" }, Pp = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "current-session-title"
-}, Bp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Vp = ["disabled"], Hp = {
+}, Fp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Ip = ["disabled"], Lp = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-primary/40! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "turnover-title"
-}, Up = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Wp = ["disabled"], Gp = {
+}, Rp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, zp = ["disabled"], Bp = {
 	key: 0,
 	class: "dui-loading dui-loading-spinner dui-loading-sm",
 	"aria-hidden": "true"
-}, Kp = {
+}, Vp = {
 	key: 1,
 	class: "fa-solid fa-check",
 	"aria-hidden": "true"
-}, qp = {
+}, Hp = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "session-history-title"
-}, Jp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Yp = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Xp = { class: "dui-badge dui-badge-sm" }, Zp = {
+}, Up = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Wp = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Gp = { class: "dui-badge dui-badge-sm" }, Kp = {
 	key: 0,
 	class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, Qp = { class: "dui-table dui-table-sm tw:min-w-[28rem]" }, $p = { scope: "row" }, em = ["title"], tm = ["title"], nm = {
+}, qp = { class: "dui-table dui-table-sm tw:min-w-[28rem]" }, Jp = { scope: "row" }, Yp = ["title"], Xp = ["title"], Zp = {
 	key: 1,
 	class: "dui-alert",
 	role: "status"
-}, rm = /* @__PURE__ */ z({
+}, Qp = /* @__PURE__ */ z({
 	__name: "SessionManagementConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = gp();
+		let t = e, n = dp();
 		n.initialize(t.initialization, t.actions);
 		let { currentSessionReference: r, errorMessage: i, gmToolkitImport: a, isWorking: o, nextSessionReference: s, occurredAtLocal: c, state: l, statusMessage: u } = bs(n), d = Y(() => !!r.value.trim() && !!s.value.trim() && !!c.value && !o.value);
 		function f(e) {
@@ -6265,7 +6221,7 @@ var gp = ys("session-management", () => {
 				timeStyle: "short"
 			}).format(new Date(e));
 		}
-		return (e, t) => (H(), ta(Cp, {
+		return (e, t) => (H(), ta(vp, {
 			description: "Keep a module-owned session reference and record when each turnover takes place.",
 			"error-message": F(i),
 			icon: "fa-solid fa-calendar-check",
@@ -6280,8 +6236,8 @@ var gp = ys("session-management", () => {
 				class: "fa-solid fa-award",
 				"aria-hidden": "true"
 			}, null, -1), K(" Award XP ", -1)]])]),
-			default: Hn(() => [W("div", wp, [
-				F(a) ? (H(), U("section", Tp, [W("div", Ep, [W("div", Dp, [t[10] ||= W("div", { class: "tw:min-w-0 tw:flex-1" }, [W("h2", {
+			default: Hn(() => [W("div", yp, [
+				F(a) ? (H(), U("section", bp, [W("div", xp, [W("div", Sp, [t[10] ||= W("div", { class: "tw:min-w-0 tw:flex-1" }, [W("h2", {
 					id: "gm-toolkit-import-title",
 					class: "dui-card-title tw:font-serif tw:text-lg"
 				}, " GM Toolkit migration "), W("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " Copy its session reference and generic XP defaults once. GM Toolkit settings stay read-only and are never updated. ")], -1), W("button", {
@@ -6292,16 +6248,16 @@ var gp = ys("session-management", () => {
 				}, [t[9] ||= W("i", {
 					class: "fa-solid fa-file-import",
 					"aria-hidden": "true"
-				}, null, -1), K(" " + O(F(l).gmToolkitMigration ? "Import again" : "Import data"), 1)], 8, Op)]), W("dl", kp, [
-					W("div", Ap, [t[11] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Session", -1), W("dd", jp, O(F(a).sessionReference || "None"), 1)]),
-					W("div", Mp, [t[12] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP amount", -1), W("dd", Np, O(F(a).defaultXpAmount), 1)]),
-					W("div", Pp, [t[13] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients", -1), W("dd", Fp, O(F(a).defaultXpSelection), 1)]),
-					W("div", Ip, [t[14] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Reason", -1), W("dd", {
+				}, null, -1), K(" " + O(F(l).gmToolkitMigration ? "Import again" : "Import data"), 1)], 8, Cp)]), W("dl", wp, [
+					W("div", Tp, [t[11] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Session", -1), W("dd", Ep, O(F(a).sessionReference || "None"), 1)]),
+					W("div", Dp, [t[12] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP amount", -1), W("dd", Op, O(F(a).defaultXpAmount), 1)]),
+					W("div", kp, [t[13] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients", -1), W("dd", Ap, O(F(a).defaultXpSelection), 1)]),
+					W("div", jp, [t[14] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Reason", -1), W("dd", {
 						class: "tw:m-0 tw:truncate tw:font-semibold",
 						title: F(a).defaultXpReason
-					}, O(F(a).defaultXpReason || "None"), 9, Lp)])
+					}, O(F(a).defaultXpReason || "None"), 9, Mp)])
 				])])])) : q("", !0),
-				W("div", Rp, [W("section", zp, [W("div", Bp, [
+				W("div", Np, [W("section", Pp, [W("div", Fp, [
 					t[16] ||= W("div", null, [W("h2", {
 						id: "current-session-title",
 						class: "dui-card-title tw:font-serif tw:text-lg"
@@ -6329,8 +6285,8 @@ var gp = ys("session-management", () => {
 					}, [...t[15] ||= [W("i", {
 						class: "fa-solid fa-floppy-disk",
 						"aria-hidden": "true"
-					}, null, -1), K(" Save reference ", -1)]], 8, Vp)
-				])]), W("section", Hp, [W("div", Up, [
+					}, null, -1), K(" Save reference ", -1)]], 8, Ip)
+				])]), W("section", Lp, [W("div", Rp, [
 					t[19] ||= W("div", null, [W("h2", {
 						id: "turnover-title",
 						class: "dui-card-title tw:font-serif tw:text-lg"
@@ -6360,7 +6316,7 @@ var gp = ys("session-management", () => {
 						disabled: !d.value,
 						type: "button",
 						onClick: t[7] ||= (...e) => F(n).completeSession && F(n).completeSession(...e)
-					}, [F(o) ? (H(), U("span", Gp)) : (H(), U("i", Kp)), t[18] ||= K(" Record turnover ", -1)], 8, Wp)
+					}, [F(o) ? (H(), U("span", Bp)) : (H(), U("i", Vp)), t[18] ||= K(" Record turnover ", -1)], 8, zp)
 				])])]),
 				t[25] ||= W("div", {
 					class: "dui-alert tw:text-xs",
@@ -6369,18 +6325,18 @@ var gp = ys("session-management", () => {
 					class: "fa-solid fa-circle-info",
 					"aria-hidden": "true"
 				}), W("span", null, " This first turnover slice records and advances sessions. Award XP from the separate console; pause, holding-scene, Fortune, and chat-export steps remain future additions. ")], -1),
-				W("section", qp, [W("div", Jp, [W("div", Yp, [t[22] ||= W("div", null, [W("h2", {
+				W("section", Hp, [W("div", Up, [W("div", Wp, [t[22] ||= W("div", null, [W("h2", {
 					id: "session-history-title",
 					class: "dui-card-title tw:font-serif tw:text-lg"
-				}, " Session history "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Stored as module-owned world data in exact ISO timestamps. ")], -1), W("span", Xp, O(F(l).sessions.length) + " recorded", 1)]), F(l).sessions.length ? (H(), U("div", Zp, [W("table", Qp, [t[23] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+				}, " Session history "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Stored as module-owned world data in exact ISO timestamps. ")], -1), W("span", Gp, O(F(l).sessions.length) + " recorded", 1)]), F(l).sessions.length ? (H(), U("div", Kp, [W("table", qp, [t[23] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
 					W("th", { scope: "col" }, "Session"),
 					W("th", { scope: "col" }, "Took place"),
 					W("th", { scope: "col" }, "Recorded")
 				])], -1), W("tbody", null, [(H(!0), U(V, null, Or(F(l).sessions, (e) => (H(), U("tr", { key: e.id }, [
-					W("th", $p, O(e.reference), 1),
-					W("td", { title: e.occurredAt }, O(f(e.occurredAt)), 9, em),
-					W("td", { title: e.recordedAt }, O(f(e.recordedAt)), 9, tm)
-				]))), 128))])])])) : (H(), U("div", nm, [...t[24] ||= [W("i", {
+					W("th", Jp, O(e.reference), 1),
+					W("td", { title: e.occurredAt }, O(f(e.occurredAt)), 9, Yp),
+					W("td", { title: e.recordedAt }, O(f(e.recordedAt)), 9, Xp)
+				]))), 128))])])])) : (H(), U("div", Zp, [...t[24] ||= [W("i", {
 					class: "fa-solid fa-calendar",
 					"aria-hidden": "true"
 				}, null, -1), W("span", null, "No session turnovers have been recorded yet.", -1)]]))])])
@@ -6388,79 +6344,79 @@ var gp = ys("session-management", () => {
 			_: 1
 		}, 8, ["error-message", "status-message"]));
 	}
-}), im = {
+}), $p = {
 	defaultAmount: "addXPDefaultAmount",
 	defaultReason: "addXPDefaultReason",
 	defaultSelection: "defaultPartySessionTurnover",
 	sessionReference: "sessionID"
 };
-function am() {
-	if (game.modules.get("wfrp4e-gm-toolkit")?.active === !0 && Object.values(im).every(om)) return {
-		defaultXpAmount: Math.round(sm(im.defaultAmount)),
-		defaultXpReason: cm(im.defaultReason),
-		defaultXpSelection: cm(im.defaultSelection) === "company" ? "company" : "party",
-		sessionReference: cm(im.sessionReference)
+function em() {
+	if (game.modules.get("wfrp4e-gm-toolkit")?.active === !0 && Object.values($p).every(tm)) return {
+		defaultXpAmount: Math.round(nm($p.defaultAmount)),
+		defaultXpReason: rm($p.defaultReason),
+		defaultXpSelection: rm($p.defaultSelection) === "company" ? "company" : "party",
+		sessionReference: rm($p.sessionReference)
 	};
 }
-function om(e) {
+function tm(e) {
 	return game.settings.settings.has(`${r}.${e}`);
 }
-function sm(e) {
+function nm(e) {
 	let t = Number(game.settings.get(r, e));
 	return Number.isFinite(t) ? t : 0;
 }
-function cm(e) {
+function rm(e) {
 	let t = game.settings.get(r, e);
 	return typeof t == "string" && t !== "null" ? t : "";
 }
 //#endregion
 //#region src/module/session-management/initialization.ts
-function lm() {
+function im() {
 	return {
-		gmToolkitImport: am(),
-		occurredAtLocal: um(/* @__PURE__ */ new Date()),
-		state: Bf()
+		gmToolkitImport: em(),
+		occurredAtLocal: am(/* @__PURE__ */ new Date()),
+		state: tp()
 	};
 }
-function um(e) {
+function am(e) {
 	return (/* @__PURE__ */ new Date(e.getTime() - e.getTimezoneOffset() * 6e4)).toISOString().slice(0, 16);
 }
 //#endregion
 //#region src/types/xp-award/XpAward.ts
-var dm = {
+var om = {
 	batches: [],
 	version: 1
-}, fm = 500;
-function pm(e, t) {
+}, sm = 500;
+function cm(e, t) {
 	return {
-		batches: [t, ...e.batches].slice(0, fm),
+		batches: [t, ...e.batches].slice(0, sm),
 		version: 1
 	};
 }
-function mm(e) {
+function lm(e) {
 	if (typeof e != "string") return {
-		...dm,
+		...om,
 		batches: []
 	};
 	try {
 		let t = JSON.parse(e);
-		return !Af(t) || t.version !== 1 || !Array.isArray(t.batches) ? {
-			...dm,
+		return !Gf(t) || t.version !== 1 || !Array.isArray(t.batches) ? {
+			...om,
 			batches: []
 		} : {
-			batches: t.batches.flatMap(hm).slice(0, fm),
+			batches: t.batches.flatMap(um).slice(0, sm),
 			version: 1
 		};
 	} catch {
 		return {
-			...dm,
+			...om,
 			batches: []
 		};
 	}
 }
-function hm(e) {
-	if (!Af(e) || !Array.isArray(e.awards)) return [];
-	let t = Of(e.awardedAt), n = kf(e.id), r = kf(e.reason), i = kf(e.sessionReference), a = e.awards.flatMap(gm);
+function um(e) {
+	if (!Gf(e) || !Array.isArray(e.awards)) return [];
+	let t = Uf(e.awardedAt), n = Wf(e.id), r = Wf(e.reason), i = Wf(e.sessionReference), a = e.awards.flatMap(dm);
 	return !t || !n || a.length === 0 ? [] : [{
 		awardedAt: t,
 		awards: a,
@@ -6470,12 +6426,12 @@ function hm(e) {
 		totalChange: a.reduce((e, t) => e + t.amount, 0)
 	}];
 }
-function gm(e) {
-	if (!Af(e)) return [];
+function dm(e) {
+	if (!Gf(e)) return [];
 	let t = e.category, n = Number(e.amount), r = Number(e.beforeXp), i = Number(e.afterXp);
 	return t !== "standard" && t !== "companion" || !Number.isFinite(n) || !Number.isFinite(r) || !Number.isFinite(i) ? [] : [{
-		actorId: kf(e.actorId),
-		actorName: kf(e.actorName),
+		actorId: Wf(e.actorId),
+		actorName: Wf(e.actorName),
 		afterXp: Math.round(i),
 		amount: Math.round(n),
 		beforeXp: Math.round(r),
@@ -6493,15 +6449,15 @@ var $ = {
 };
 //#endregion
 //#region src/module/xp-award/settings/load.ts
-function _m() {
+function fm() {
 	return {
 		defaultAmount: Math.round(Number(game.settings.get(t, $.defaultAmount))),
-		defaultReason: xm($.defaultReason),
-		defaultSelection: Sm(),
+		defaultReason: gm($.defaultReason),
+		defaultSelection: _m(),
 		includeTimestampInReason: game.settings.get(t, $.includeTimestampInReason) === !0
 	};
 }
-async function vm(e) {
+async function pm(e) {
 	let n = [
 		[$.defaultAmount, Math.round(e.defaultAmount)],
 		[$.defaultReason, e.defaultReason],
@@ -6510,42 +6466,42 @@ async function vm(e) {
 	];
 	for (let [e, r] of n) await game.settings.set(t, e, r);
 }
-function ym() {
-	return mm(game.settings.get(t, $.auditLog));
+function mm() {
+	return lm(game.settings.get(t, $.auditLog));
 }
-async function bm(e) {
+async function hm(e) {
 	await game.settings.set(t, $.auditLog, JSON.stringify(e));
 }
-function xm(e) {
+function gm(e) {
 	let n = game.settings.get(t, e);
 	return typeof n == "string" ? n : "";
 }
-function Sm() {
-	let e = xm($.defaultSelection);
+function _m() {
+	let e = gm($.defaultSelection);
 	return e === "company" || e === "world" ? e : "party";
 }
 //#endregion
 //#region src/module/session-management/service.ts
-async function Cm(e) {
+async function vm(e) {
 	Lc(Z.sessionManagementConsole);
 	let t = e.trim();
 	if (!t) throw Error("Enter a current session reference.");
-	await Hf({
-		...Bf(),
+	await rp({
+		...tp(),
 		currentSessionReference: t
 	}), ui.notifications.info(`Current session reference saved as ${t}.`);
 }
-async function wm(e) {
+async function ym(e) {
 	Lc(Z.sessionManagementConsole);
-	let t = Nf(Bf(), e, {
+	let t = Jf(tp(), e, {
 		id: crypto.randomUUID(),
 		recordedAt: (/* @__PURE__ */ new Date()).toISOString()
 	});
-	return await Hf(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
+	return await rp(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
 }
-async function Tm() {
+async function bm() {
 	Lc(Z.sessionManagementConsole);
-	let e = am();
+	let e = em();
 	if (!e) throw Error("WFRP4e GM Toolkit is not active or its session settings are not registered yet.");
 	let t = {
 		importedAt: (/* @__PURE__ */ new Date()).toISOString(),
@@ -6556,8 +6512,8 @@ async function Tm() {
 			defaultSelection: e.defaultXpSelection,
 			includeTimestampInReason: !1
 		}
-	}, n = Bf();
-	return await vm(t.xpAwardSettings), await Hf({
+	}, n = tp();
+	return await pm(t.xpAwardSettings), await rp({
 		...n,
 		currentSessionReference: t.sessionReference,
 		gmToolkitMigration: t
@@ -6565,7 +6521,7 @@ async function Tm() {
 }
 //#endregion
 //#region src/functions/xp-award/calculate.ts
-function Em(e, t) {
+function xm(e, t) {
 	let n = Number.isFinite(t) ? Math.round(t) : 0, r = e.filter((e) => e.selected).map((e) => {
 		let t = e.category === "companion" ? Math.floor(n / 2) : n, r = Math.max(t, -e.totalXp);
 		return {
@@ -6584,19 +6540,19 @@ function Em(e, t) {
 }
 //#endregion
 //#region src/functions/xp-award/reason.ts
-function Dm(e, t, n) {
+function Sm(e, t, n) {
 	let r = e;
 	return n && !r.includes("%datetime%") && (r = r.trim() ? `${r} — awarded %datetime%` : "Awarded %datetime%"), bl(r, t);
 }
-function Om(e) {
+function Cm(e) {
 	return `${e.slice(0, 10)} ${e.slice(11, 19)} UTC`;
 }
 //#endregion
 //#region src/state/apps/xp-award-console/store.ts
-var km = ys("xp-award-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Cl("The XP Award Console"), o = /* @__PURE__ */ P(20), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P(!0), u = /* @__PURE__ */ P("default"), d = /* @__PURE__ */ P(), f = /* @__PURE__ */ P(!1), p, m, h = Y(() => Em(e.value, o.value)), g = Y(() => r.value.length > 0 && Number.isFinite(o.value) && Math.round(o.value) !== 0 && !f.value), _ = Y(() => {
+var wm = ys("xp-award-console", () => {
+	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = wl("The XP Award Console"), o = /* @__PURE__ */ P(20), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P(!0), u = /* @__PURE__ */ P("default"), d = /* @__PURE__ */ P(), f = /* @__PURE__ */ P(!1), p, m, h = Y(() => xm(e.value, o.value)), g = Y(() => r.value.length > 0 && Number.isFinite(o.value) && Math.round(o.value) !== 0 && !f.value), _ = Y(() => {
 		let e = x().reasonContext;
-		return Dm(s.value, e, l.value);
+		return Sm(s.value, e, l.value);
 	});
 	function v(e, n) {
 		p = n, m = e, t(e.actors), o.value = e.defaultAmount, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.includeTimestampInReason, u.value = e.selectionSource, d.value = void 0;
@@ -6647,33 +6603,33 @@ var km = ys("xp-award-console", () => {
 		setActorSelected: i,
 		setAllActorsSelected: a
 	};
-}), Am = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:whitespace-normal tw:py-1" }, jm = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[62rem]:grid-cols-[1.2fr_0.8fr]" }, Mm = {
+}), Tm = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:whitespace-normal tw:py-1" }, Em = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[62rem]:grid-cols-[1.2fr_0.8fr]" }, Dm = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "fixed-xp-recipients"
-}, Nm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Pm = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, Fm = { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, Im = { class: "tw:flex tw:flex-wrap tw:gap-1" }, Lm = ["disabled"], Rm = ["disabled"], zm = ["disabled"], Bm = {
+}, Om = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, km = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, Am = { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, jm = { class: "tw:flex tw:flex-wrap tw:gap-1" }, Mm = ["disabled"], Nm = ["disabled"], Pm = ["disabled"], Fm = {
 	key: 0,
 	class: "tw:max-w-full tw:min-w-0 tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, Vm = { class: "dui-table dui-table-sm tw:min-w-[34rem]" }, Hm = {
+}, Im = { class: "dui-table dui-table-sm tw:min-w-[34rem]" }, Lm = {
 	class: "tw:min-w-44",
 	scope: "row"
-}, Um = { class: "tw:block tw:font-semibold" }, Wm = {
+}, Rm = { class: "tw:block tw:font-semibold" }, zm = {
 	key: 0,
 	class: "dui-badge dui-badge-ghost dui-badge-xs"
-}, Gm = { class: "tw:text-right tw:tabular-nums" }, Km = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, qm = { class: "tw:text-right tw:tabular-nums" }, Jm = {
+}, Bm = { class: "tw:text-right tw:tabular-nums" }, Vm = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, Hm = { class: "tw:text-right tw:tabular-nums" }, Um = {
 	key: 1,
 	class: "dui-alert dui-alert-warning",
 	role: "status"
-}, Ym = {
+}, Wm = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "fixed-xp-details"
-}, Xm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Zm = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3" }, Qm = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, $m = { class: "tw:m-0 tw:break-words tw:font-semibold" }, eh = /* @__PURE__ */ z({
+}, Gm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Km = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3" }, qm = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, Jm = { class: "tw:m-0 tw:break-words tw:font-semibold" }, Ym = /* @__PURE__ */ z({
 	__name: "XpAwardConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = km();
+		let t = e, n = wm();
 		n.initialize(t.initialization, t.actions);
 		let { actors: r, amount: i, canApply: a, defaultReason: o, defaultSelection: s, errorMessage: c, includeTimestampInReason: l, isWorking: u, plan: d, resolvedReason: f, selectedActors: p, selectionSource: m } = bs(n), h = Y(() => m.value === "targets" ? "Targeted tokens seeded this award." : `The ${s.value} default seeded this award.`);
 		function g(e) {
@@ -6682,14 +6638,14 @@ var km = ys("xp-award-console", () => {
 		function _(e) {
 			return e > 0 ? `+${e}` : String(e);
 		}
-		return (e, t) => (H(), ta(Cp, {
+		return (e, t) => (H(), ta(vp, {
 			description: "Apply one XP change to selected characters, with GM Toolkit-compatible recipient defaults and reason tokens.",
 			"error-message": F(c),
 			icon: "fa-solid fa-award",
 			title: "XP Award Console"
 		}, {
-			"header-end": Hn(() => [W("span", Am, O(F(p).length) + " selected ", 1)]),
-			footer: Hn(() => [G(Ol, {
+			"header-end": Hn(() => [W("span", Tm, O(F(p).length) + " selected ", 1)]),
+			footer: Hn(() => [G(kl, {
 				disabled: !F(a),
 				icon: "fa-solid fa-award",
 				label: `Apply ${_(F(d).totalChange)} XP`,
@@ -6701,29 +6657,29 @@ var km = ys("xp-award-console", () => {
 				"working",
 				"onAction"
 			])]),
-			default: Hn(() => [W("div", jm, [W("section", Mm, [W("div", Nm, [W("div", Pm, [W("div", null, [t[7] ||= W("h2", {
+			default: Hn(() => [W("div", Em, [W("section", Dm, [W("div", Om, [W("div", km, [W("div", null, [t[7] ||= W("h2", {
 				id: "fixed-xp-recipients",
 				class: "dui-card-title tw:font-serif tw:text-lg"
-			}, " Recipients ", -1), W("p", Fm, O(h.value), 1)]), W("div", Im, [
+			}, " Recipients ", -1), W("p", Am, O(h.value), 1)]), W("div", jm, [
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[0] ||= (e) => F(n).setAllActorsSelected(!0)
-				}, " All ", 8, Lm),
+				}, " All ", 8, Mm),
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[1] ||= (e) => F(n).setAllActorsSelected(!1)
-				}, " None ", 8, Rm),
+				}, " None ", 8, Nm),
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[2] ||= (...e) => F(n).resetSelection && F(n).resetSelection(...e)
-				}, " Reset ", 8, zm)
-			])]), F(r).length ? (H(), U("div", Bm, [W("table", Vm, [t[8] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+				}, " Reset ", 8, Pm)
+			])]), F(r).length ? (H(), U("div", Fm, [W("table", Im, [t[8] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
 				W("th", { scope: "col" }, "Use"),
 				W("th", { scope: "col" }, "Actor"),
 				W("th", {
@@ -6742,7 +6698,7 @@ var km = ys("xp-award-console", () => {
 				key: e.id,
 				class: D({ "tw:bg-base-200!": e.selected })
 			}, [
-				W("td", null, [G(Ml, {
+				W("td", null, [G(Nl, {
 					"actor-id": e.id,
 					"actor-name": e.name,
 					checked: e.selected,
@@ -6756,14 +6712,14 @@ var km = ys("xp-award-console", () => {
 					"disabled",
 					"onChange"
 				])]),
-				W("th", Hm, [W("span", Um, O(e.name), 1), e.category === "companion" ? (H(), U("span", Wm, " Half award ")) : q("", !0)]),
-				W("td", Gm, O(e.totalXp), 1),
-				W("td", Km, O(g(e.id) ? _(g(e.id)?.amount ?? 0) : "—"), 1),
-				W("td", qm, O(g(e.id)?.afterXp ?? "—"), 1)
-			], 2))), 128))])])])) : (H(), U("div", Jm, [...t[9] ||= [W("i", {
+				W("th", Lm, [W("span", Rm, O(e.name), 1), e.category === "companion" ? (H(), U("span", zm, " Half award ")) : q("", !0)]),
+				W("td", Bm, O(e.totalXp), 1),
+				W("td", Vm, O(g(e.id) ? _(g(e.id)?.amount ?? 0) : "—"), 1),
+				W("td", Hm, O(g(e.id)?.afterXp ?? "—"), 1)
+			], 2))), 128))])])])) : (H(), U("div", Um, [...t[9] ||= [W("i", {
 				class: "fa-solid fa-user-slash",
 				"aria-hidden": "true"
-			}, null, -1), W("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]), W("section", Ym, [W("div", Xm, [
+			}, null, -1), W("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]), W("section", Wm, [W("div", Gm, [
 				t[13] ||= W("div", null, [W("h2", {
 					id: "fixed-xp-details",
 					class: "dui-card-title tw:font-serif tw:text-lg"
@@ -6818,12 +6774,12 @@ var km = ys("xp-award-console", () => {
 					W("code", null, "%datetime%"),
 					K(". ")
 				], -1),
-				W("label", Zm, [R(W("input", {
+				W("label", Km, [R(W("input", {
 					"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
 					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:appearance-none! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none!",
 					type: "checkbox"
 				}, null, 512), [[Eo, F(l)]]), t[11] ||= W("span", null, [W("span", { class: "tw:block tw:font-semibold" }, "Include timestamp in WFRP4e reason"), W("span", { class: "tw:block tw:text-xs tw:text-base-content/65!" }, " WFRP4e’s log schema has no timestamp field, so this appends UTC text to the reason. ")], -1)]),
-				W("div", Qm, [t[12] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), W("p", $m, O(F(f) || "No reason"), 1)]),
+				W("div", qm, [t[12] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), W("p", Jm, O(F(f) || "No reason"), 1)]),
 				t[19] ||= W("div", {
 					class: "dui-alert tw:text-xs",
 					role: "note"
@@ -6838,32 +6794,32 @@ var km = ys("xp-award-console", () => {
 });
 //#endregion
 //#region src/module/xp-award/initialization.ts
-function th() {
-	let e = _m(), t = yf(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
+function Xm() {
+	let e = fm(), t = xf(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
 	return {
 		...e,
 		...t,
 		awardedAt: n,
 		reasonContext: {
 			date: n.slice(0, 10),
-			datetime: Om(n),
-			session: Vf()
+			datetime: Cm(n),
+			session: np()
 		}
 	};
 }
 //#endregion
 //#region src/module/xp-award/service.ts
-async function nh(e) {
+async function Zm(e) {
 	Lc(Z.xpAwardConsole);
 	let t = Array.from(new Set(e.actorIds));
 	if (t.length === 0) throw Error("Select at least one character actor.");
 	if (!Number.isFinite(e.defaultAmount) || Math.round(e.defaultAmount) === 0) throw Error("Enter a non-zero whole-number XP change.");
-	let n = bf(t), r = Em(n.map((e) => e.choice), e.defaultAmount), i = (/* @__PURE__ */ new Date()).toISOString(), a = Vf(), o = Dm(e.defaultReason, {
+	let n = Sf(t), r = xm(n.map((e) => e.choice), e.defaultAmount), i = (/* @__PURE__ */ new Date()).toISOString(), a = np(), o = Sm(e.defaultReason, {
 		date: i.slice(0, 10),
-		datetime: Om(i),
+		datetime: Cm(i),
 		session: a
 	}, e.includeTimestampInReason);
-	await vm({
+	await pm({
 		defaultAmount: Math.round(e.defaultAmount),
 		defaultReason: e.defaultReason,
 		defaultSelection: e.defaultSelection,
@@ -6888,18 +6844,18 @@ async function nh(e) {
 		...c,
 		id: crypto.randomUUID()
 	};
-	return await bm(pm(ym(), l)), await rh(c), ui.notifications.info(`Applied ${ih(c.totalChange)} XP across ${c.awards.length} actors.`), c;
+	return await hm(cm(mm(), l)), await Qm(c), ui.notifications.info(`Applied ${$m(c.totalChange)} XP across ${c.awards.length} actors.`), c;
 }
-async function rh(e) {
-	let t = e.awards.map((e) => `<li><strong>${xl(e.actorName)}</strong>: ${ih(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${xl(e.reason || "No reason")}</p><p><small>${xl(Om(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${ih(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
+async function Qm(e) {
+	let t = e.awards.map((e) => `<li><strong>${xl(e.actorName)}</strong>: ${$m(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${xl(e.reason || "No reason")}</p><p><small>${xl(Cm(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${$m(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
-function ih(e) {
+function $m(e) {
 	return e > 0 ? `+${e}` : String(e);
 }
 //#endregion
 //#region src/module/apps/xp-award-console/XpAwardConsoleApplication.ts
-var ah = class extends Hc {
+var eh = class extends Hc {
 	static ACCESS_POLICY = Z.xpAwardConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6916,36 +6872,36 @@ var ah = class extends Hc {
 		}
 	};
 	getVueComponent() {
-		return eh;
+		return Ym;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				applyAwards: nh,
+				applyAwards: Zm,
 				onActionComplete: () => {
 					this.close().catch((e) => {
 						console.error(`${t} | Failed to close the XP Award Console.`, e), ui.notifications.error("XP changes completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
 					});
 				}
 			},
-			initialization: th()
+			initialization: Xm()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-award-console/open.ts
-async function oh() {
-	let e = new ah();
+async function th() {
+	let e = new eh();
 	return await e.render(!0), e;
 }
-function sh() {
-	oh().catch((e) => {
+function nh() {
+	th().catch((e) => {
 		console.error(`${t} | Failed to open the XP Award Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Award Console. See the browser console for details.");
 	});
 }
 //#endregion
 //#region src/module/apps/session-management/SessionManagementApplication.ts
-var ch = class extends Hc {
+var rh = class extends Hc {
 	static ACCESS_POLICY = Z.sessionManagementConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6962,40 +6918,40 @@ var ch = class extends Hc {
 		}
 	};
 	getVueComponent() {
-		return rm;
+		return Qp;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				completeSession: wm,
-				importGmToolkitData: Tm,
-				openXpAwardConsole: sh,
-				saveCurrentSessionReference: Cm
+				completeSession: ym,
+				importGmToolkitData: bm,
+				openXpAwardConsole: nh,
+				saveCurrentSessionReference: vm
 			},
-			initialization: lm()
+			initialization: im()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/session-management/open.ts
-async function lh() {
-	let e = new ch();
+async function ih() {
+	let e = new rh();
 	return await e.render(!0), e;
 }
 //#endregion
 //#region src/module/api/create-module-api.ts
-function uh() {
+function ah() {
 	return {
 		applyToSelectedActors: el,
-		awardXp: nh,
-		awardXpCurve: dp,
-		completeSession: wm,
+		awardXp: Zm,
+		awardXpCurve: op,
+		completeSession: ym,
 		copyLink: nl,
-		importGmToolkitSessionData: Tm,
+		importGmToolkitSessionData: bm,
 		openFearConsole: cl,
-		openSessionManagementConsole: lh,
-		openXpAwardConsole: oh,
-		openXpCurveConsole: mp,
+		openSessionManagementConsole: ih,
+		openXpAwardConsole: th,
+		openXpCurveConsole: lp,
 		openWorkbench: cl,
 		postPrompt: tl,
 		postSummaryPrompt: rl
@@ -7003,21 +6959,21 @@ function uh() {
 }
 //#endregion
 //#region src/module/api/register-module-api.ts
-function dh() {
+function oh() {
 	let e = game.modules.get(t);
 	if (!e) throw Error(`Foundry module registry entry was not found for ${t}.`);
-	e.api = uh();
+	e.api = ah();
 }
 //#endregion
 //#region src/module/fear-terror/actor-sheet/register.ts
-var fh = "openFearConsole", ph = "wfrp4e-enhanced-fear-terror-actor-header", mh = [
+var sh = "openFearConsole", ch = "wfrp4e-enhanced-fear-terror-actor-header", lh = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], hh = [
+], uh = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -7025,38 +6981,38 @@ var fh = "openFearConsole", ph = "wfrp4e-enhanced-fear-terror-actor-header", mh 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function gh() {
+function dh() {
 	if (!(!sl.canCurrentUserAccess() || !zc(Rc.actorSheet))) {
-		for (let e of mh) Hooks.on(e, (e, t) => {
-			_h(e, t);
+		for (let e of lh) Hooks.on(e, (e, t) => {
+			fh(e, t);
 		});
-		for (let e of hh) Hooks.on(e, (e) => {
-			vh(e);
+		for (let e of uh) Hooks.on(e, (e) => {
+			ph(e);
 		});
 	}
 }
-function _h(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === fh) || (t.push({
-		action: fh,
+function fh(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === sh) || (t.push({
+		action: sh,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[fh] = function() {
-		yh(this.document);
+	}), e.options.actions ??= {}, e.options.actions[sh] = function() {
+		mh(this.document);
 	}));
 }
-function vh(e) {
+function ph(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${ph}`)) return;
+	if (!r || r.querySelector(`.${ch}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(ph, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = fh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), yh(t);
+	i.type = "button", i.classList.add(ch, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = sh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), mh(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function yh(e) {
+function mh(e) {
 	try {
 		ll({ initialPayload: Jc(e) });
 	} catch (e) {
@@ -7065,7 +7021,7 @@ function yh(e) {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function bh(e, t) {
+function hh(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -7073,29 +7029,29 @@ function bh(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var xh = "openFearConsole";
-function Sh() {
+var gh = "openFearConsole";
+function _h() {
 	!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || Hooks.on("getSceneControlButtons", (e) => {
-		Ch(e);
+		vh(e);
 	});
 }
-function Ch(t) {
+function vh(t) {
 	let n = t.tokens;
-	n && (n.tools[xh] = {
+	n && (n.tools[gh] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: xh,
+		name: gh,
 		onChange: () => {
 			ll();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: bh("Fear Console", `${e}.SceneControls.OpenFearConsole`)
+		toolclip: hh("Fear Console", `${e}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/settings/register.ts
-function wh(n, r) {
+function yh(n, r) {
 	game.settings.register(t, n, {
 		config: !1,
 		default: !0,
@@ -7106,7 +7062,7 @@ function wh(n, r) {
 		type: Boolean
 	});
 }
-function Th(e, n, r, i, a = {}) {
+function bh(e, n, r, i, a = {}) {
 	game.settings.register(t, e, {
 		...a,
 		config: !1,
@@ -7119,8 +7075,8 @@ function Th(e, n, r, i, a = {}) {
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function Eh() {
-	wh(Rc.tokenControls, "TokenControlsLauncher"), wh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
+function xh() {
+	yh(Rc.tokenControls, "TokenControlsLauncher"), yh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
 		hint: `${e}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${e}.Menu.FearConsoleConfigurator.Label`,
@@ -7131,117 +7087,117 @@ function Eh() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function Dh() {
-	Oh(zf.state, JSON.stringify({
+function Sh() {
+	Ch(ep.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, "State"), Oh($.auditLog, JSON.stringify({
+	}), String, "State"), Ch($.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), Oh($.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), Ch($.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), Oh($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), Oh($.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), Ch($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), Ch($.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${e}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${e}.Settings.XpAward.DefaultSelection.World`
-	} }), Oh($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
+	} }), Ch($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
 		hint: `${e}.Menu.SessionManagementConsole.Hint`,
 		icon: "fa-solid fa-calendar-check",
 		label: `${e}.Menu.SessionManagementConsole.Label`,
 		name: `${e}.Menu.SessionManagementConsole.Name`,
-		restricted: ch.ACCESS_POLICY.gmOnly,
-		type: ch
+		restricted: rh.ACCESS_POLICY.gmOnly,
+		type: rh
 	}), game.settings.registerMenu(t, "xpAwardConsole", {
 		hint: `${e}.Menu.XpAwardConsole.Hint`,
 		icon: "fa-solid fa-award",
 		label: `${e}.Menu.XpAwardConsole.Label`,
 		name: `${e}.Menu.XpAwardConsole.Name`,
-		restricted: ah.ACCESS_POLICY.gmOnly,
-		type: ah
+		restricted: eh.ACCESS_POLICY.gmOnly,
+		type: eh
 	});
 }
-function Oh(t, n, r, i, a = {}) {
-	Th(t, n, r, `${e}.Settings.XpAward.${i}`, a);
+function Ch(t, n, r, i, a = {}) {
+	bh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var kh = "openXpCurveConsole";
-function Ah() {
-	!pp.canCurrentUserAccess() || !qf(Q.showTokenControlsLauncher) || Hooks.on("getSceneControlButtons", (t) => {
+var wh = "openXpCurveConsole";
+function Th() {
+	!cp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher) || Hooks.on("getSceneControlButtons", (t) => {
 		let n = t.tokens;
-		n && (n.tools[kh] = {
+		n && (n.tools[wh] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: kh,
-			onChange: hp,
+			name: wh,
+			onChange: up,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: bh("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
+			toolclip: hh("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function jh() {
-	wh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Mh(Q.maximumAward, 500, Number, "MaximumAward", { range: {
+function Eh() {
+	yh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Dh(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), Mh(Q.gapForMaximumAward, 1e3, Number, "GapForMaximumAward", { range: {
+	} }), Dh(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Mh(Q.curveExponent, .75, Number, "CurveExponent", { range: {
+	} }), Dh(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), Mh(Q.scalePivot, 5e3, Number, "ScalePivot", { range: {
+	} }), Dh(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Mh(Q.scaleExponent, .5, Number, "ScaleExponent", { range: {
+	} }), Dh(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), Mh(Q.companionMultiplier, .5, Number, "CompanionMultiplier", { range: {
+	} }), Dh(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), Mh(Q.defaultReason, "XP curve catch-up (%date%)", String, "DefaultReason"), Mh(Q.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), Dh(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Dh(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${e}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${e}.Settings.XpCurve.DefaultSelection.World`
-	} }), Mh(Q.useGmToolkitDefaults, !0, Boolean, "UseGmToolkitDefaults"), game.settings.registerMenu(t, "xpCurveConsole", {
+	} }), game.settings.registerMenu(t, "xpCurveConsole", {
 		hint: `${e}.Menu.XpCurveConfigurator.Hint`,
 		icon: "fa-solid fa-sliders",
 		label: `${e}.Menu.XpCurveConfigurator.Label`,
 		name: `${e}.Menu.XpCurveConfigurator.Name`,
-		restricted: op.ACCESS_POLICY.gmOnly,
-		type: op
+		restricted: zf.ACCESS_POLICY.gmOnly,
+		type: zf
 	});
 }
-function Mh(t, n, r, i, a = {}) {
-	Th(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
+function Dh(t, n, r, i, a = {}) {
+	bh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function Nh() {
+function Oh() {
 	Hooks.once("init", () => {
-		console.info(`${t} | Initializing`), Eh(), Dh(), jh(), gh(), Sh(), Ah();
+		console.info(`${t} | Initializing`), xh(), Sh(), Eh(), dh(), _h(), Th();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${t} | Loaded outside ${i}; skipping module API registration.`);
 			return;
 		}
-		dh(), console.info(`${t} | Ready`);
+		oh(), console.info(`${t} | Ready`);
 	});
 }
 //#endregion
 //#region src/main.ts
-Nh();
+Oh();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map

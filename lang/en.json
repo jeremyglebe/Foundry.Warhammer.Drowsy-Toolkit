@@ -74,10 +74,6 @@
         "ScalePivot": {
           "Hint": "Recipients at or below this total XP keep full catch-up strength. This is evaluated from each recipient, not the XP leader.",
           "Name": "Recipient decay start"
-        },
-        "UseGmToolkitDefaults": {
-          "Hint": "When WFRP4e GM Toolkit is active, prefer its session, reason, and recipient-group defaults. Disable this to use Drowsy’s WFRP4e Toolkit defaults.",
-          "Name": "Prefer compatible GM Toolkit defaults"
         }
       },
       "XpAward": {

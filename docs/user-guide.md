@@ -26,11 +26,11 @@ source such as `Ghouls` when a group should count as one source.
 ## XP Curve Console
 
 1. Open the XP Curve Configurator from Module Settings or the console cog when you need to change
-   launcher preferences, the no-target recipient default, GM Toolkit compatibility, or either XP
-   curve.
+   launcher preferences, the no-target recipient default, the award reason, or either XP curve.
 2. Edit the curve number fields or drag their diamond and round graph handles; both controls stay
    synchronized. Numbered recipient markers preview the current actors on both graphs.
-3. Use `Save configuration`. This persists the settings without awarding XP.
+3. Use `Reset to defaults` to restore the built-in values in the form, or use `Save configuration`
+   to persist the displayed settings. Neither action awards XP.
 4. Target the character tokens that should seed an award, or leave all tokens untargeted to use the
    configured Party, Company, or World default, then open the XP Curve Console.
 5. Review or adjust the recipients. Unassigned, player-owned actors display a `Companion rate`
@@ -45,9 +45,14 @@ XP; the leader's total is not part of decay. Recipients at or below `Decay start
 strength. Above it, `Recipient decay exponent` weakens the result; set that exponent to zero to
 disable decay. The companion rate is applied before rounding, and the hard limit is applied last.
 
-The reason supports `%session%` and `%date%`. When GM Toolkit compatibility is enabled and that
-module is active, Drowsy’s WFRP4e Toolkit reads its session reference, default XP reason, and
-default Party/Company group. Drowsy’s WFRP4e Toolkit does not overwrite GM Toolkit data.
+The built-in defaults are Company recipients, `XP Curve %session% (%date%)` as the award reason, a
+1,000 XP hard limit, a 5,000 XP reference gap, a 1.75 curve shape, a 7,500 XP decay start, decay
+strength 1, and companion rate 0.5. Reset also enables the Token Controls launcher.
+
+The reason supports `%session%` and `%date%`. XP Curve reads its recipient, reason, and curve values
+only from Drowsy’s WFRP4e Toolkit settings. `%session%` uses Drowsy’s current session reference;
+Session Management can import that reference from GM Toolkit explicitly, but XP Curve does not
+live-read GM Toolkit settings.
 
 Foundry's Module Settings shows one button for each dedicated configurator instead of exposing the
 underlying setting list. The same configurators are available from the cogs in their consoles.
