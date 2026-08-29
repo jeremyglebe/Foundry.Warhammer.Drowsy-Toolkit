@@ -3678,7 +3678,8 @@ var Es = ys("fear-console", () => {
 	}
 };
 function Ic(e) {
-	return !e.gmOnly || game.user.isGM;
+	let t = game.user;
+	return t !== null && (!e.gmOnly || t.isGM);
 }
 function Lc(e) {
 	if (!Ic(e)) throw Error(`Only a GM can use the ${e.name}.`);
@@ -3823,7 +3824,7 @@ function Zc() {
 }
 function Qc() {
 	let e = /* @__PURE__ */ new Map();
-	for (let t of game.user.targets ?? []) $c(e, t.actor);
+	for (let t of game.user?.targets ?? []) $c(e, t.actor);
 	return Array.from(e.values());
 }
 function $c(e, t) {
@@ -5723,7 +5724,8 @@ function Ef() {
 	return new Set(Array.from(game.users).map((e) => e.character?.id).filter((e) => typeof e == "string"));
 }
 function Df() {
-	if (!(!game.user.targets || game.user.targets.size === 0)) return new Set(Array.from(game.user.targets).map((e) => e.actor).filter((e) => e?.type === "character").map((e) => e.id));
+	let e = game.user?.targets;
+	if (!(!e || e.size === 0)) return new Set(Array.from(e).map((e) => e.actor).filter((e) => e?.type === "character").map((e) => e.id));
 }
 function Of(e) {
 	return typeof e == "object" && !!e;
@@ -6949,31 +6951,35 @@ function oh(e, t) {
 //#endregion
 //#region src/module/grid-scale/service.ts
 async function sh() {
-	let e = canvas?.scene;
+	let e = canvas?.scene, t = game.user;
 	if (!e) {
 		ui.notifications.warn("No Scene is currently viewed.");
 		return;
 	}
-	if (!e.canUserModify(game.user, "update")) {
+	if (!t) {
+		ui.notifications.error("No current Foundry user is available.");
+		return;
+	}
+	if (!e.canUserModify(t, "update")) {
 		ui.notifications.error("You do not have permission to update this Scene.");
 		return;
 	}
-	let t = {
+	let n = {
 		distance: Number(e.grid.distance),
 		size: Number(e.grid.size),
 		units: String(e.grid.units ?? "")
 	};
-	if (!ah(t)) {
+	if (!ah(n)) {
 		ui.notifications.error("The current Scene has an invalid grid size or distance.");
 		return;
 	}
-	let n = await ch(t);
-	if (n) {
-		if (!ah(n)) {
+	let r = await ch(n);
+	if (r) {
+		if (!ah(r)) {
 			ui.notifications.error("Grid size and distance must both be positive numbers.");
 			return;
 		}
-		await lh(e, t, n);
+		await lh(e, n, r);
 	}
 }
 async function ch(e) {
@@ -7134,37 +7140,38 @@ var hh = "openFearConsole", gh = "wfrp4e-enhanced-fear-terror-actor-header", _h 
 	"renderWarhammerActorSheetV2"
 ];
 function yh() {
-	if (!(!sl.canCurrentUserAccess() || !zc(Rc.actorSheet))) {
-		for (let e of _h) Hooks.on(e, (e, t) => {
-			bh(e, t);
-		});
-		for (let e of vh) Hooks.on(e, (e) => {
-			xh(e);
-		});
-	}
+	for (let e of _h) Hooks.on(e, (e, t) => {
+		bh() && xh(e, t);
+	});
+	for (let e of vh) Hooks.on(e, (e) => {
+		bh() && Sh(e);
+	});
 }
-function bh(e, t) {
+function bh() {
+	return sl.canCurrentUserAccess() && zc(Rc.actorSheet);
+}
+function xh(e, t) {
 	e.document.documentName === "Actor" && (t.some((e) => e.action === hh) || (t.push({
 		action: hh,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
 	}), e.options.actions ??= {}, e.options.actions[hh] = function() {
-		Sh(this.document);
+		Ch(this.document);
 	}));
 }
-function xh(e) {
+function Sh(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
 	if (!r || r.querySelector(`.${gh}`)) return;
 	let i = document.createElement("button");
 	i.type = "button", i.classList.add(gh, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = hh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), Sh(t);
+		e.preventDefault(), e.stopPropagation(), Ch(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function Sh(e) {
+function Ch(e) {
 	try {
 		ll({ initialPayload: Jc(e) });
 	} catch (e) {
@@ -7173,7 +7180,7 @@ function Sh(e) {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function Ch(e, t) {
+function wh(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -7181,29 +7188,29 @@ function Ch(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var wh = "openFearConsole";
-function Th() {
-	!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || Hooks.on("getSceneControlButtons", (e) => {
-		Eh(e);
+var Th = "openFearConsole";
+function Eh() {
+	Hooks.on("getSceneControlButtons", (e) => {
+		!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || Dh(e);
 	});
 }
-function Eh(t) {
+function Dh(t) {
 	let n = t.tokens;
-	n && (n.tools[wh] = {
+	n && (n.tools[Th] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: wh,
+		name: Th,
 		onChange: () => {
 			ll();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: Ch("Fear Console", `${e}.SceneControls.OpenFearConsole`)
+		toolclip: wh("Fear Console", `${e}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/settings/register.ts
-function Dh(n, r) {
+function Oh(n, r) {
 	game.settings.register(t, n, {
 		config: !1,
 		default: !0,
@@ -7214,7 +7221,7 @@ function Dh(n, r) {
 		type: Boolean
 	});
 }
-function Oh(e, n, r, i, a = {}) {
+function kh(e, n, r, i, a = {}) {
 	game.settings.register(t, e, {
 		...a,
 		config: !1,
@@ -7227,8 +7234,8 @@ function Oh(e, n, r, i, a = {}) {
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function kh() {
-	Dh(Rc.tokenControls, "TokenControlsLauncher"), Dh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
+function Ah() {
+	Oh(Rc.tokenControls, "TokenControlsLauncher"), Oh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
 		hint: `${e}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${e}.Menu.FearConsoleConfigurator.Label`,
@@ -7239,23 +7246,23 @@ function kh() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function Ah() {
-	jh(ep.state, JSON.stringify({
+function jh() {
+	Mh(ep.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, "State"), jh($.auditLog, JSON.stringify({
+	}), String, "State"), Mh($.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), jh($.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), Mh($.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), jh($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), jh($.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), Mh($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), Mh($.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${e}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${e}.Settings.XpAward.DefaultSelection.World`
-	} }), jh($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
+	} }), Mh($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
 		hint: `${e}.Menu.SessionManagementConsole.Hint`,
 		icon: "fa-solid fa-calendar-check",
 		label: `${e}.Menu.SessionManagementConsole.Label`,
@@ -7271,54 +7278,55 @@ function Ah() {
 		type: eh
 	});
 }
-function jh(t, n, r, i, a = {}) {
-	Oh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
+function Mh(t, n, r, i, a = {}) {
+	kh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var Mh = "openXpCurveConsole";
-function Nh() {
-	!cp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher) || Hooks.on("getSceneControlButtons", (t) => {
+var Nh = "openXpCurveConsole";
+function Ph() {
+	Hooks.on("getSceneControlButtons", (t) => {
+		if (!cp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher)) return;
 		let n = t.tokens;
-		n && (n.tools[Mh] = {
+		n && (n.tools[Nh] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: Mh,
+			name: Nh,
 			onChange: up,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: Ch("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
+			toolclip: wh("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function Ph() {
-	Dh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Fh(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
+function Fh() {
+	Oh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Ih(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), Fh(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), Ih(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Fh(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), Ih(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), Fh(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), Ih(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Fh(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), Ih(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), Fh(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
+	} }), Ih(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), Fh(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Fh(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
+	} }), Ih(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Ih(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${e}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${e}.Settings.XpCurve.DefaultSelection.World`
@@ -7331,14 +7339,14 @@ function Ph() {
 		type: zf
 	});
 }
-function Fh(t, n, r, i, a = {}) {
-	Oh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
+function Ih(t, n, r, i, a = {}) {
+	kh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function Ih() {
+function Lh() {
 	Hooks.once("init", () => {
-		console.info(`${t} | Initializing`), kh(), Ah(), Ph(), yh(), Th(), Nh();
+		console.info(`${t} | Initializing`), Ah(), jh(), Fh(), yh(), Eh(), Ph();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${t} | Loaded outside ${i}; skipping module API registration.`);
@@ -7349,7 +7357,7 @@ function Ih() {
 }
 //#endregion
 //#region src/main.ts
-Ih();
+Lh();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map
