@@ -72,8 +72,15 @@ same time should also appear as text in WFRP4e's reason.
 ## Session Management Console
 
 When migrating from GM Toolkit, open Session Management from Module Settings or its macro and review
-the detected session reference and generic XP defaults. `Import data` copies those values once into
-Drowsy’s world settings. It never changes GM Toolkit settings.
+the migration panel. It catalogues all 38 known GM Toolkit 9.2.0 settings and identifies values as
+persisted, registered defaults, or known baseline values. The source module may be active, disabled,
+or uninstalled as long as its world settings still exist.
+
+Select the session reference and generic XP defaults you want to keep, then choose
+`Import selected`. The panel identifies matching, new, and conflicting values before the import. The
+operation copies only those selected values into Drowsy’s world settings, records a versioned
+snapshot, and never changes or synchronizes GM Toolkit settings. Settings for replacement features
+that have not been implemented yet remain visible in the inventory count as awaiting features.
 
 Edit and save the current reference independently, or complete a session by selecting its best-known
 date/time and the next reference. The turnover saves an exact session occurrence time and record

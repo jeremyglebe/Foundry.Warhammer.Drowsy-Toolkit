@@ -5874,16 +5874,188 @@ function Gf(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
+//#region src/functions/gm-toolkit/migration.ts
+var Kf = [
+	"sessionReference",
+	"defaultXpAmount",
+	"defaultXpSelection",
+	"defaultXpReason"
+];
+function qf(e, t, n) {
+	let r = tp(e, t);
+	return {
+		disposition: e.disposition,
+		family: e.family,
+		key: e.key,
+		source: n,
+		valid: r.valid,
+		value: r.value
+	};
+}
+function Jf(e, t) {
+	let n = [
+		Zf(e, t, "sessionReference", "sessionID", "Session reference"),
+		Zf(e, t, "defaultXpAmount", "addXPDefaultAmount", "XP amount"),
+		Zf(e, t, "defaultXpSelection", "defaultPartySessionTurnover", "Recipients"),
+		Zf(e, t, "defaultXpReason", "addXPDefaultReason", "XP reason")
+	];
+	return {
+		dispositionCounts: rp(e.settings, "disposition", [
+			"import",
+			"pending",
+			"retire",
+			"skip",
+			"supersede"
+		]),
+		imports: n,
+		source: e,
+		sourceCounts: rp(e.settings, "source", [
+			"baseline",
+			"persisted",
+			"registered"
+		]),
+		version: 1
+	};
+}
+function Yf(e) {
+	if (!Gf(e) || e.schemaVersion !== "9.2.0") return;
+	let t = Array.isArray(e.settings) ? e.settings.flatMap(np) : [];
+	if (!t.length) return;
+	let n = Wf(e.moduleVersion);
+	return {
+		active: e.active === !0,
+		installed: e.installed === !0,
+		...n ? { moduleVersion: n } : {},
+		schemaVersion: "9.2.0",
+		settings: t,
+		warnings: Array.isArray(e.warnings) ? e.warnings.filter((e) => typeof e == "string") : []
+	};
+}
+function Xf(e) {
+	return typeof e == "string" && Kf.includes(e);
+}
+function Zf(e, t, n, r, i) {
+	let a = Qf(n, e.settings.find((e) => e.key === r)?.value), o = $f(n, t);
+	return {
+		comparison: ep(o, a),
+		currentValue: o,
+		field: n,
+		label: i,
+		sourceKey: r,
+		sourceValue: a
+	};
+}
+function Qf(e, t) {
+	if (e === "defaultXpAmount") {
+		let e = Number(t);
+		return Number.isFinite(e) ? Math.round(e) : 0;
+	}
+	return e === "defaultXpSelection" ? t === "company" ? "company" : "party" : typeof t == "string" && t !== "null" ? t : "";
+}
+function $f(e, t) {
+	switch (e) {
+		case "sessionReference": return t.sessionReference;
+		case "defaultXpAmount": return t.xpAwardSettings.defaultAmount;
+		case "defaultXpReason": return t.xpAwardSettings.defaultReason;
+		case "defaultXpSelection": return t.xpAwardSettings.defaultSelection;
+	}
+}
+function ep(e, t) {
+	return e === t ? "same" : e === "" ? "target-empty" : "different";
+}
+function tp(e, t) {
+	if (e.kind === "array") return Array.isArray(t) ? {
+		valid: !0,
+		value: t
+	} : {
+		valid: !1,
+		value: e.defaultValue
+	};
+	if (e.kind === "boolean") return typeof t == "boolean" ? {
+		valid: !0,
+		value: t
+	} : {
+		valid: !1,
+		value: e.defaultValue
+	};
+	if (e.kind === "number") {
+		let n = Number(t);
+		return Number.isFinite(n) ? {
+			valid: !0,
+			value: n
+		} : {
+			valid: !1,
+			value: e.defaultValue
+		};
+	}
+	return typeof t == "string" ? {
+		valid: !0,
+		value: t
+	} : {
+		valid: !1,
+		value: e.defaultValue
+	};
+}
+function np(e) {
+	if (!Gf(e)) return [];
+	let t = e.disposition, n = e.family, r = e.source, i = e.value;
+	return !ip(t) || !ap(n) || !op(r) || !sp(i) ? [] : [{
+		disposition: t,
+		family: n,
+		key: Wf(e.key),
+		source: r,
+		valid: e.valid === !0,
+		value: i
+	}];
+}
+function rp(e, t, n) {
+	return Object.fromEntries(n.map((n) => [n, e.filter((e) => e[t] === n).length]));
+}
+function ip(e) {
+	return [
+		"import",
+		"pending",
+		"retire",
+		"skip",
+		"supersede"
+	].includes(String(e));
+}
+function ap(e) {
+	return [
+		"advantage",
+		"dark-whispers",
+		"group-tests",
+		"session",
+		"spectators",
+		"token-hud",
+		"vision"
+	].includes(String(e));
+}
+function op(e) {
+	return [
+		"baseline",
+		"persisted",
+		"registered"
+	].includes(String(e));
+}
+function sp(e) {
+	return [
+		"boolean",
+		"number",
+		"string"
+	].includes(typeof e) || Array.isArray(e);
+}
+//#endregion
 //#region src/functions/session-management/session.ts
-var Kf = 500;
-function qf(e) {
+var cp = 500;
+function lp(e) {
 	let t = e.trim();
 	if (!t) return "";
 	let n = Number(t);
 	return Number.isFinite(n) && Math.trunc(n) === n ? String(n + 1) : t;
 }
-function Jf(e, t, n) {
-	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = $f(t.occurredAt, "session occurrence"), o = $f(n.recordedAt, "session record");
+function up(e, t, n) {
+	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = hp(t.occurredAt, "session occurrence"), o = hp(n.recordedAt, "session record");
 	if (!r) throw Error("Enter the session reference that is being completed.");
 	if (!i) throw Error("Enter the next session reference.");
 	let s = {
@@ -5897,17 +6069,17 @@ function Jf(e, t, n) {
 		state: {
 			...e,
 			currentSessionReference: i,
-			sessions: [s, ...e.sessions].slice(0, Kf)
+			sessions: [s, ...e.sessions].slice(0, cp)
 		}
 	};
 }
-function Yf(e) {
-	let t = Qf(e);
+function dp(e) {
+	let t = mp(e);
 	if (!t || t.version !== 1) return {
 		...Hf,
 		sessions: []
 	};
-	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(Xf).slice(0, Kf) : [], r = Zf(t.gmToolkitMigration);
+	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(fp).slice(0, cp) : [], r = pp(t.gmToolkitMigration);
 	return {
 		currentSessionReference: Wf(t.currentSessionReference),
 		...r ? { gmToolkitMigration: r } : {},
@@ -5915,7 +6087,7 @@ function Yf(e) {
 		version: 1
 	};
 }
-function Xf(e) {
+function fp(e) {
 	if (!Gf(e)) return [];
 	let t = Wf(e.id), n = Uf(e.occurredAt), r = Uf(e.recordedAt), i = Wf(e.reference);
 	return t && n && r && i ? [{
@@ -5925,12 +6097,17 @@ function Xf(e) {
 		reference: i
 	}] : [];
 }
-function Zf(e) {
+function pp(e) {
 	if (!Gf(e) || !Gf(e.xpAwardSettings)) return;
 	let t = Uf(e.importedAt), n = Wf(e.sessionReference), r = e.xpAwardSettings, i = r.defaultSelection;
-	if (!(!t || i !== "party" && i !== "company" || !Number.isFinite(Number(r.defaultAmount)))) return {
+	if (!t || i !== "party" && i !== "company" || !Number.isFinite(Number(r.defaultAmount))) return;
+	let a = Yf(e.source), o = Array.isArray(e.appliedFields) ? e.appliedFields.filter(Xf) : void 0;
+	return {
+		...o ? { appliedFields: o } : {},
 		importedAt: t,
 		sessionReference: n,
+		...a ? { source: a } : {},
+		...e.version === 2 ? { version: 2 } : {},
 		xpAwardSettings: {
 			defaultAmount: Math.round(Number(r.defaultAmount)),
 			defaultReason: Wf(r.defaultReason),
@@ -5939,7 +6116,7 @@ function Zf(e) {
 		}
 	};
 }
-function Qf(e) {
+function mp(e) {
 	if (typeof e == "string") try {
 		let t = JSON.parse(e);
 		return Gf(t) ? t : void 0;
@@ -5947,44 +6124,44 @@ function Qf(e) {
 		return;
 	}
 }
-function $f(e, t) {
+function hp(e, t) {
 	let n = new Date(e);
 	if (Number.isNaN(n.getTime())) throw Error(`Enter a valid ${t} date and time.`);
 	return n.toISOString();
 }
 //#endregion
 //#region src/module/session-management/settings/keys.ts
-var ep = { state: "sessionManagementState" };
+var gp = { state: "sessionManagementState" };
 //#endregion
 //#region src/module/session-management/settings/load.ts
-function tp() {
-	return Yf(game.settings.get(t, ep.state));
+function _p() {
+	return dp(game.settings.get(t, gp.state));
 }
-function np() {
-	return tp().currentSessionReference;
+function vp() {
+	return _p().currentSessionReference;
 }
-async function rp(e) {
-	await game.settings.set(t, ep.state, JSON.stringify(e));
+async function yp(e) {
+	await game.settings.set(t, gp.state, JSON.stringify(e));
 }
 //#endregion
 //#region src/module/xp-curve/initialization.ts
-function ip() {
+function bp() {
 	let e = kf(), t = xf(e.defaultSelection);
 	return {
 		...e,
 		...t,
-		reasonContext: ap()
+		reasonContext: xp()
 	};
 }
-function ap() {
+function xp() {
 	return {
 		date: game.world.nextSession?.slice(0, 10) || (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
-		session: np()
+		session: vp()
 	};
 }
 //#endregion
 //#region src/module/xp-curve/service.ts
-async function op(e) {
+async function Sp(e) {
 	Lc(Z.xpCurveConsole);
 	let t = Sf(Array.from(new Set(e.actorIds))), n = fl(e.parameters), r = pl(t.map((e) => e.choice), n);
 	if (r.awards.length < 2) throw Error("Select at least two character actors to calculate catch-up XP.");
@@ -5994,7 +6171,7 @@ async function op(e) {
 		defaultSelection: e.defaultSelection,
 		parameters: n
 	});
-	let i = bl(e.defaultReason, ap()), a = [];
+	let i = bl(e.defaultReason, xp()), a = [];
 	for (let [e, n] of t.entries()) {
 		let t = r.awards[e];
 		if (t.award !== 0) try {
@@ -6008,15 +6185,15 @@ async function op(e) {
 		...r,
 		reason: i
 	};
-	return await sp(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
+	return await Cp(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
 }
-async function sp(e) {
+async function Cp(e) {
 	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${xl(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Curve Award</h2><p>${xl(e.reason)}</p><ul>${t}</ul><p><strong>${e.totalAward} XP awarded in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
 //#endregion
 //#region src/module/apps/xp-curve-console/XpCurveConsoleApplication.ts
-var cp = class extends Hc {
+var wp = class extends Hc {
 	static ACCESS_POLICY = Z.xpCurveConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6038,7 +6215,7 @@ var cp = class extends Hc {
 	getVueProps() {
 		return {
 			actions: {
-				applyAwards: op,
+				applyAwards: Sp,
 				onActionComplete: () => {
 					this.close().catch((e) => {
 						console.error(`${t} | Failed to close the XP Curve Console.`, e), ui.notifications.error("XP awards completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
@@ -6048,103 +6225,147 @@ var cp = class extends Hc {
 					Vf({ onSaved: () => this.render(!0) });
 				}
 			},
-			initialization: ip()
+			initialization: bp()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-curve-console/open.ts
-async function lp() {
-	let e = new cp();
+async function Tp() {
+	let e = new wp();
 	return await e.render(!0), e;
 }
-function up() {
-	lp().catch((e) => {
+function Ep() {
+	Tp().catch((e) => {
 		console.error(`${t} | Failed to open the XP Curve Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Console. See the browser console for details.");
 	});
 }
 //#endregion
+//#region src/functions/gm-toolkit/selection.ts
+var Dp = [
+	"sessionReference",
+	"defaultXpAmount",
+	"defaultXpSelection",
+	"defaultXpReason"
+];
+function Op(e) {
+	if (e) return {
+		...e,
+		dispositionCounts: { ...e.dispositionCounts },
+		imports: e.imports.map((e) => ({ ...e })),
+		source: {
+			...e.source,
+			settings: e.source.settings.map((e) => ({
+				...e,
+				value: Array.isArray(e.value) ? [...e.value] : e.value
+			})),
+			warnings: [...e.source.warnings]
+		},
+		sourceCounts: { ...e.sourceCounts }
+	};
+}
+function kp(e, t) {
+	let n = Object.fromEntries(Dp.map((e) => [e, !1]));
+	if (t) for (let t of e?.imports ?? []) n[t.field] = t.comparison !== "same";
+	return n;
+}
+function Ap(e) {
+	return Dp.filter((t) => e[t]);
+}
+function jp(e, t) {
+	let n = Op(e);
+	if (!n) return;
+	let r = new Set(t);
+	for (let e of n.imports) r.has(e.field) && (e.currentValue = e.sourceValue, e.comparison = "same");
+	return n;
+}
+//#endregion
 //#region src/state/apps/session-management/store.ts
-var dp = ys("session-management", () => {
+var Mp = ys("session-management", () => {
 	let e = /* @__PURE__ */ P({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), t = /* @__PURE__ */ P(""), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P(""), i = /* @__PURE__ */ P(), a = /* @__PURE__ */ P(), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(!1), c;
-	function l(s, l) {
-		c = l, e.value = {
-			...s.state,
-			sessions: s.state.sessions.map((e) => ({ ...e }))
-		}, t.value = s.state.currentSessionReference, n.value = qf(t.value), r.value = s.occurredAtLocal, i.value = s.gmToolkitImport, a.value = void 0, o.value = void 0;
+	}), t = /* @__PURE__ */ P(""), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P(""), i = /* @__PURE__ */ P(), a = /* @__PURE__ */ P(kp(void 0, !1)), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(), c = /* @__PURE__ */ P(!1), l;
+	function u(c, u) {
+		l = u, e.value = {
+			...c.state,
+			sessions: c.state.sessions.map((e) => ({ ...e }))
+		}, t.value = c.state.currentSessionReference, n.value = lp(t.value), r.value = c.occurredAtLocal, i.value = Op(c.gmToolkitImport), a.value = kp(i.value, c.state.gmToolkitMigration === void 0), o.value = void 0, s.value = void 0;
 	}
-	function u() {
-		n.value = qf(t.value);
-	}
-	async function d() {
-		await h(async () => {
-			await g().saveCurrentSessionReference(t.value), e.value.currentSessionReference = t.value.trim(), t.value = e.value.currentSessionReference, n.value = qf(t.value), o.value = "Current session reference saved.";
-		});
+	function d() {
+		n.value = lp(t.value);
 	}
 	async function f() {
-		await h(async () => {
-			let i = await g().completeSession({
+		await _(async () => {
+			await v().saveCurrentSessionReference(t.value), e.value.currentSessionReference = t.value.trim(), t.value = e.value.currentSessionReference, n.value = lp(t.value), s.value = "Current session reference saved.";
+		});
+	}
+	async function p() {
+		await _(async () => {
+			let i = await v().completeSession({
 				nextSessionReference: n.value,
 				occurredAt: r.value,
 				sessionReference: t.value
 			});
-			e.value.sessions.unshift(i), e.value.currentSessionReference = n.value.trim(), t.value = e.value.currentSessionReference, n.value = qf(t.value), o.value = `Session ${i.reference} recorded.`;
+			e.value.sessions.unshift(i), e.value.currentSessionReference = n.value.trim(), t.value = e.value.currentSessionReference, n.value = lp(t.value), s.value = `Session ${i.reference} recorded.`;
 		});
 	}
-	async function p() {
-		await h(async () => {
-			let r = await g().importGmToolkitData();
-			e.value.gmToolkitMigration = r, e.value.currentSessionReference = r.sessionReference, t.value = r.sessionReference, n.value = qf(r.sessionReference), o.value = "GM Toolkit data imported. Future changes belong to Drowsy’s Toolkit.";
+	async function m() {
+		await _(async () => {
+			let r = Ap(a.value), o = await v().importGmToolkitData({ fields: r });
+			e.value.gmToolkitMigration = o, e.value.currentSessionReference = o.sessionReference, t.value = o.sessionReference, n.value = lp(o.sessionReference), i.value = jp(i.value, o.appliedFields ?? []), a.value = kp(i.value, !1), s.value = "GM Toolkit data imported. Future changes belong to Drowsy’s Toolkit.";
 		});
 	}
-	function m() {
-		g().openXpAwardConsole();
+	function h(e, t) {
+		a.value[e] = t;
 	}
-	async function h(e) {
-		if (!s.value) {
-			s.value = !0, a.value = void 0, o.value = void 0;
+	function g() {
+		v().openXpAwardConsole();
+	}
+	async function _(e) {
+		if (!c.value) {
+			c.value = !0, o.value = void 0, s.value = void 0;
 			try {
 				await e();
 			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | Session management action failed.", e), a.value = e instanceof Error ? e.message : "The session action could not be completed.";
+				console.error("Drowsy’s WFRP4e Toolkit | Session management action failed.", e), o.value = e instanceof Error ? e.message : "The session action could not be completed.";
 			} finally {
-				s.value = !1;
+				c.value = !1;
 			}
 		}
 	}
-	function g() {
-		if (!c) throw Error("The Session Management Console has not been initialized.");
-		return c;
+	function v() {
+		if (!l) throw Error("The Session Management Console has not been initialized.");
+		return l;
 	}
 	return {
-		completeSession: f,
+		completeSession: p,
 		currentSessionReference: t,
-		errorMessage: a,
+		errorMessage: o,
 		gmToolkitImport: i,
-		importGmToolkitData: p,
-		initialize: l,
-		isWorking: s,
+		gmToolkitSelections: a,
+		importGmToolkitData: m,
+		initialize: u,
+		isWorking: c,
 		nextSessionReference: n,
 		occurredAtLocal: r,
-		openXpAwardConsole: m,
-		saveCurrentReference: d,
+		openXpAwardConsole: g,
+		saveCurrentReference: f,
+		setGmToolkitSelection: h,
 		state: e,
-		statusMessage: o,
-		updateSuggestedNextSession: u
+		statusMessage: s,
+		updateSuggestedNextSession: d
 	};
-}), fp = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, pp = {
+}), Np = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, Pp = {
 	key: 0,
 	class: "dui-alert dui-alert-error tw:m-4 tw:mb-0",
 	role: "alert"
-}, mp = { class: "tw:min-w-0 tw:break-words" }, hp = {
+}, Fp = { class: "tw:min-w-0 tw:break-words" }, Ip = {
 	key: 1,
 	class: "dui-alert dui-alert-success tw:m-4 tw:mb-0",
 	role: "status"
-}, gp = { class: "tw:min-w-0 tw:break-words" }, _p = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, vp = /* @__PURE__ */ z({
+}, Lp = { class: "tw:min-w-0 tw:break-words" }, Rp = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, zp = /* @__PURE__ */ z({
 	__name: "ConsoleFrame",
 	props: {
 		description: {},
@@ -6154,7 +6375,7 @@ var dp = ys("session-management", () => {
 		title: {}
 	},
 	setup(e) {
-		return (t, n) => (H(), U("main", fp, [
+		return (t, n) => (H(), U("main", Np, [
 			G(xc, {
 				description: e.description,
 				icon: e.icon,
@@ -6167,100 +6388,201 @@ var dp = ys("session-management", () => {
 				"icon",
 				"title"
 			]),
-			e.errorMessage ? (H(), U("div", pp, [n[0] ||= W("i", {
+			e.errorMessage ? (H(), U("div", Pp, [n[0] ||= W("i", {
 				class: "fa-solid fa-triangle-exclamation",
 				"aria-hidden": "true"
-			}, null, -1), W("span", mp, O(e.errorMessage), 1)])) : q("", !0),
-			e.statusMessage ? (H(), U("div", hp, [n[1] ||= W("i", {
+			}, null, -1), W("span", Fp, O(e.errorMessage), 1)])) : q("", !0),
+			e.statusMessage ? (H(), U("div", Ip, [n[1] ||= W("i", {
 				class: "fa-solid fa-circle-check",
 				"aria-hidden": "true"
-			}, null, -1), W("span", gp, O(e.statusMessage), 1)])) : q("", !0),
-			W("div", _p, [kr(t.$slots, "default")]),
+			}, null, -1), W("span", Lp, O(e.statusMessage), 1)])) : q("", !0),
+			W("div", Rp, [kr(t.$slots, "default")]),
 			kr(t.$slots, "footer")
 		]));
 	}
-}), yp = { class: "tw:grid tw:min-w-0 tw:gap-3" }, bp = {
-	key: 0,
-	class: "dui-card dui-card-border tw:border-2 tw:border-secondary/40! tw:bg-base-100! tw:shadow-md",
+}), Bp = {
+	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-secondary/40! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "gm-toolkit-import-title"
-}, xp = { class: "dui-card-body tw:gap-3 tw:p-4" }, Sp = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, Cp = ["disabled"], wp = { class: "tw:grid tw:grid-cols-2 tw:gap-2 tw:text-sm tw:min-[36rem]:grid-cols-4" }, Tp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Ep = { class: "tw:m-0 tw:font-semibold" }, Dp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Op = { class: "tw:m-0 tw:font-semibold" }, kp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Ap = { class: "tw:m-0 tw:font-semibold tw:capitalize" }, jp = { class: "tw:rounded-box tw:bg-base-200! tw:p-2" }, Mp = ["title"], Np = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[52rem]:grid-cols-2" }, Pp = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "current-session-title"
-}, Fp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Ip = ["disabled"], Lp = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-primary/40! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "turnover-title"
-}, Rp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, zp = ["disabled"], Bp = {
+}, Vp = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Hp = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, Up = { class: "tw:min-w-0 tw:flex-1" }, Wp = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, Gp = { class: "dui-badge dui-badge-outline dui-badge-sm" }, Kp = {
+	key: 0,
+	class: "dui-badge dui-badge-sm"
+}, qp = {
+	key: 0,
+	class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/60!"
+}, Jp = ["disabled"], Yp = {
 	key: 0,
 	class: "dui-loading dui-loading-spinner dui-loading-sm",
 	"aria-hidden": "true"
-}, Vp = {
+}, Xp = {
+	key: 1,
+	class: "fa-solid fa-file-import",
+	"aria-hidden": "true"
+}, Zp = {
+	class: "tw:flex tw:flex-wrap tw:gap-2 tw:text-xs",
+	"aria-label": "Migration inventory"
+}, Qp = { class: "dui-badge dui-badge-sm" }, $p = { class: "dui-badge dui-badge-ghost dui-badge-sm" }, em = { class: "dui-badge dui-badge-sm" }, tm = { class: "dui-badge dui-badge-sm" }, nm = { class: "dui-badge dui-badge-sm" }, rm = {
+	key: 0,
+	class: "dui-alert tw:py-2 tw:text-xs",
+	role: "note"
+}, im = { class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!" }, am = { class: "dui-table dui-table-sm tw:min-w-[38rem]" }, om = { class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-2" }, sm = ["checked", "onChange"], cm = { class: "tw:sr-only" }, lm = { scope: "row" }, um = ["title"], dm = ["title"], fm = { class: "dui-badge dui-badge-sm" }, pm = { class: "tw:m-0 tw:text-xs tw:text-base-content/60!" }, mm = /* @__PURE__ */ z({
+	__name: "GmToolkitMigrationPanel",
+	props: {
+		isWorking: { type: Boolean },
+		lastImportedAt: {},
+		preview: {},
+		selections: {}
+	},
+	emits: ["import", "selectionChange"],
+	setup(e, { emit: t }) {
+		let n = e, r = t, i = Y(() => Object.values(n.selections).filter((e) => e).length), a = Y(() => n.preview.source.active ? "Active module" : n.preview.source.installed ? "Installed, disabled" : "Persisted world data");
+		function o(e) {
+			return e === "" ? "None" : String(e);
+		}
+		function s(e) {
+			return e === "same" ? "Already matches" : e === "target-empty" ? "New value" : "Different";
+		}
+		function c(e, t) {
+			let n = t.currentTarget;
+			r("selectionChange", e, n instanceof HTMLInputElement && n.checked);
+		}
+		return (t, n) => (H(), U("section", Bp, [W("div", Vp, [
+			W("div", Hp, [W("div", Up, [
+				W("div", Wp, [
+					n[1] ||= W("h2", {
+						id: "gm-toolkit-import-title",
+						class: "dui-card-title tw:font-serif tw:text-lg"
+					}, " GM Toolkit migration ", -1),
+					W("span", Gp, O(a.value), 1),
+					e.preview.source.moduleVersion ? (H(), U("span", Kp, O(e.preview.source.moduleVersion), 1)) : q("", !0)
+				]),
+				n[2] ||= W("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " Review a one-way snapshot. Source settings remain read-only and are never synchronized. ", -1),
+				e.lastImportedAt ? (H(), U("p", qp, " Last imported " + O(new Date(e.lastImportedAt).toLocaleString()), 1)) : q("", !0)
+			]), W("button", {
+				class: "dui-btn dui-btn-sm tw:border-secondary! tw:text-base-content!",
+				disabled: e.isWorking || i.value === 0,
+				type: "button",
+				onClick: n[0] ||= (e) => r("import")
+			}, [e.isWorking ? (H(), U("span", Yp)) : (H(), U("i", Xp)), K(" Import " + O(i.value || "selected"), 1)], 8, Jp)]),
+			W("div", Zp, [
+				W("span", Qp, O(e.preview.dispositionCounts.import) + " supported ", 1),
+				W("span", $p, O(e.preview.dispositionCounts.pending) + " awaiting features ", 1),
+				W("span", em, O(e.preview.dispositionCounts.supersede) + " superseded ", 1),
+				W("span", tm, O(e.preview.dispositionCounts.retire) + " retired ", 1),
+				W("span", nm, O(e.preview.dispositionCounts.skip) + " transient ", 1)
+			]),
+			e.preview.source.active ? q("", !0) : (H(), U("div", rm, [...n[3] ||= [W("i", {
+				class: "fa-solid fa-database",
+				"aria-hidden": "true"
+			}, null, -1), W("span", null, " Import uses persisted world settings plus the known 9.2.0 baseline; GM Toolkit does not need to run. ", -1)]])),
+			W("div", im, [W("table", am, [n[4] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+				W("th", { scope: "col" }, "Import"),
+				W("th", { scope: "col" }, "Value"),
+				W("th", { scope: "col" }, "GM Toolkit"),
+				W("th", { scope: "col" }, "Drowsy"),
+				W("th", { scope: "col" }, "Comparison")
+			])], -1), W("tbody", null, [(H(!0), U(V, null, Or(e.preview.imports, (t) => (H(), U("tr", { key: t.field }, [
+				W("td", null, [W("label", om, [W("input", {
+					class: "dui-checkbox dui-checkbox-sm",
+					checked: e.selections[t.field],
+					type: "checkbox",
+					onChange: (e) => c(t.field, e)
+				}, null, 40, sm), W("span", cm, "Import " + O(t.label), 1)])]),
+				W("th", lm, O(t.label), 1),
+				W("td", {
+					class: "tw:max-w-48 tw:truncate",
+					title: o(t.sourceValue)
+				}, O(o(t.sourceValue)), 9, um),
+				W("td", {
+					class: "tw:max-w-48 tw:truncate",
+					title: o(t.currentValue)
+				}, O(o(t.currentValue)), 9, dm),
+				W("td", null, [W("span", fm, O(s(t.comparison)), 1)])
+			]))), 128))])])]),
+			W("p", pm, O(e.preview.sourceCounts.persisted) + " persisted, " + O(e.preview.sourceCounts.registered) + " registered-default, and " + O(e.preview.sourceCounts.baseline) + " baseline values were catalogued. ", 1),
+			(H(!0), U(V, null, Or(e.preview.source.warnings, (e) => (H(), U("div", {
+				key: e,
+				class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
+				role: "alert"
+			}, [n[5] ||= W("i", {
+				class: "fa-solid fa-triangle-exclamation",
+				"aria-hidden": "true"
+			}, null, -1), W("span", null, O(e), 1)]))), 128))
+		])]));
+	}
+}), hm = { class: "tw:grid tw:min-w-0 tw:gap-3" }, gm = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[52rem]:grid-cols-2" }, _m = {
+	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
+	"aria-labelledby": "current-session-title"
+}, vm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, ym = ["disabled"], bm = {
+	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-primary/40! tw:bg-base-100! tw:shadow-md",
+	"aria-labelledby": "turnover-title"
+}, xm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Sm = ["disabled"], Cm = {
+	key: 0,
+	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	"aria-hidden": "true"
+}, wm = {
 	key: 1,
 	class: "fa-solid fa-check",
 	"aria-hidden": "true"
-}, Hp = {
+}, Tm = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "session-history-title"
-}, Up = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Wp = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Gp = { class: "dui-badge dui-badge-sm" }, Kp = {
+}, Em = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Dm = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Om = { class: "dui-badge dui-badge-sm" }, km = {
 	key: 0,
 	class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, qp = { class: "dui-table dui-table-sm tw:min-w-[28rem]" }, Jp = { scope: "row" }, Yp = ["title"], Xp = ["title"], Zp = {
+}, Am = { class: "dui-table dui-table-sm tw:min-w-[28rem]" }, jm = { scope: "row" }, Mm = ["title"], Nm = ["title"], Pm = {
 	key: 1,
 	class: "dui-alert",
 	role: "status"
-}, Qp = /* @__PURE__ */ z({
+}, Fm = /* @__PURE__ */ z({
 	__name: "SessionManagementConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = dp();
+		let t = e, n = Mp();
 		n.initialize(t.initialization, t.actions);
-		let { currentSessionReference: r, errorMessage: i, gmToolkitImport: a, isWorking: o, nextSessionReference: s, occurredAtLocal: c, state: l, statusMessage: u } = bs(n), d = Y(() => !!r.value.trim() && !!s.value.trim() && !!c.value && !o.value);
-		function f(e) {
+		let { currentSessionReference: r, errorMessage: i, gmToolkitImport: a, gmToolkitSelections: o, isWorking: s, nextSessionReference: c, occurredAtLocal: l, state: u, statusMessage: d } = bs(n), f = Y(() => !!r.value.trim() && !!c.value.trim() && !!l.value && !s.value);
+		function p(e) {
 			return new Intl.DateTimeFormat(void 0, {
 				dateStyle: "medium",
 				timeStyle: "short"
 			}).format(new Date(e));
 		}
-		return (e, t) => (H(), ta(vp, {
+		return (e, t) => (H(), ta(zp, {
 			description: "Keep a module-owned session reference and record when each turnover takes place.",
 			"error-message": F(i),
 			icon: "fa-solid fa-calendar-check",
-			"status-message": F(u),
+			"status-message": F(d),
 			title: "Session Management Console"
 		}, {
 			"header-end": Hn(() => [W("button", {
 				class: "dui-btn dui-btn-ghost dui-btn-sm tw:border tw:border-base-content/20! tw:bg-base-200!",
 				type: "button",
 				onClick: t[0] ||= (...e) => F(n).openXpAwardConsole && F(n).openXpAwardConsole(...e)
-			}, [...t[8] ||= [W("i", {
+			}, [...t[7] ||= [W("i", {
 				class: "fa-solid fa-award",
 				"aria-hidden": "true"
 			}, null, -1), K(" Award XP ", -1)]])]),
-			default: Hn(() => [W("div", yp, [
-				F(a) ? (H(), U("section", bp, [W("div", xp, [W("div", Sp, [t[10] ||= W("div", { class: "tw:min-w-0 tw:flex-1" }, [W("h2", {
-					id: "gm-toolkit-import-title",
-					class: "dui-card-title tw:font-serif tw:text-lg"
-				}, " GM Toolkit migration "), W("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " Copy its session reference and generic XP defaults once. GM Toolkit settings stay read-only and are never updated. ")], -1), W("button", {
-					class: "dui-btn dui-btn-sm tw:border-secondary! tw:text-base-content!",
-					disabled: F(o),
-					type: "button",
-					onClick: t[1] ||= (...e) => F(n).importGmToolkitData && F(n).importGmToolkitData(...e)
-				}, [t[9] ||= W("i", {
-					class: "fa-solid fa-file-import",
-					"aria-hidden": "true"
-				}, null, -1), K(" " + O(F(l).gmToolkitMigration ? "Import again" : "Import data"), 1)], 8, Cp)]), W("dl", wp, [
-					W("div", Tp, [t[11] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Session", -1), W("dd", Ep, O(F(a).sessionReference || "None"), 1)]),
-					W("div", Dp, [t[12] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP amount", -1), W("dd", Op, O(F(a).defaultXpAmount), 1)]),
-					W("div", kp, [t[13] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients", -1), W("dd", Ap, O(F(a).defaultXpSelection), 1)]),
-					W("div", jp, [t[14] ||= W("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Reason", -1), W("dd", {
-						class: "tw:m-0 tw:truncate tw:font-semibold",
-						title: F(a).defaultXpReason
-					}, O(F(a).defaultXpReason || "None"), 9, Mp)])
-				])])])) : q("", !0),
-				W("div", Np, [W("section", Pp, [W("div", Fp, [
-					t[16] ||= W("div", null, [W("h2", {
+			default: Hn(() => [W("div", hm, [
+				F(a) ? (H(), ta(mm, {
+					key: 0,
+					"is-working": F(s),
+					"last-imported-at": F(u).gmToolkitMigration?.importedAt,
+					preview: F(a),
+					selections: F(o),
+					onImport: F(n).importGmToolkitData,
+					onSelectionChange: F(n).setGmToolkitSelection
+				}, null, 8, [
+					"is-working",
+					"last-imported-at",
+					"preview",
+					"selections",
+					"onImport",
+					"onSelectionChange"
+				])) : q("", !0),
+				W("div", gm, [W("section", _m, [W("div", vm, [
+					t[9] ||= W("div", null, [W("h2", {
 						id: "current-session-title",
 						class: "dui-card-title tw:font-serif tw:text-lg"
 					}, " Current session "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, [
@@ -6268,77 +6590,77 @@ var dp = ys("session-management", () => {
 						W("code", null, "sessionID"),
 						K(" after migration. ")
 					])], -1),
-					t[17] ||= W("label", {
+					t[10] ||= W("label", {
 						class: "dui-label tw:whitespace-normal",
 						for: "current-session-reference"
 					}, " Session reference ", -1),
 					R(W("input", {
 						id: "current-session-reference",
-						"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ N(r) ? r.value = e : null,
+						"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ N(r) ? r.value = e : null,
 						class: "dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
 						type: "text",
-						onInput: t[3] ||= (...e) => F(n).updateSuggestedNextSession && F(n).updateSuggestedNextSession(...e)
+						onInput: t[2] ||= (...e) => F(n).updateSuggestedNextSession && F(n).updateSuggestedNextSession(...e)
 					}, null, 544), [[X, F(r)]]),
 					W("button", {
 						class: "dui-btn dui-btn-sm tw:self-end",
-						disabled: F(o) || !F(r).trim(),
+						disabled: F(s) || !F(r).trim(),
 						type: "button",
-						onClick: t[4] ||= (...e) => F(n).saveCurrentReference && F(n).saveCurrentReference(...e)
-					}, [...t[15] ||= [W("i", {
+						onClick: t[3] ||= (...e) => F(n).saveCurrentReference && F(n).saveCurrentReference(...e)
+					}, [...t[8] ||= [W("i", {
 						class: "fa-solid fa-floppy-disk",
 						"aria-hidden": "true"
-					}, null, -1), K(" Save reference ", -1)]], 8, Ip)
-				])]), W("section", Lp, [W("div", Rp, [
-					t[19] ||= W("div", null, [W("h2", {
+					}, null, -1), K(" Save reference ", -1)]], 8, ym)
+				])]), W("section", bm, [W("div", xm, [
+					t[12] ||= W("div", null, [W("h2", {
 						id: "turnover-title",
 						class: "dui-card-title tw:font-serif tw:text-lg"
 					}, " Complete session "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " The selected time becomes the best-known occurrence time for this session. ")], -1),
-					t[20] ||= W("label", {
+					t[13] ||= W("label", {
 						class: "dui-label tw:whitespace-normal",
 						for: "session-occurred-at"
 					}, " Session date and time ", -1),
 					R(W("input", {
 						id: "session-occurred-at",
-						"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ N(c) ? c.value = e : null,
+						"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
 						class: "dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
 						type: "datetime-local"
-					}, null, 512), [[X, F(c)]]),
-					t[21] ||= W("label", {
+					}, null, 512), [[X, F(l)]]),
+					t[14] ||= W("label", {
 						class: "dui-label tw:whitespace-normal",
 						for: "next-session-reference"
 					}, " Next session reference ", -1),
 					R(W("input", {
 						id: "next-session-reference",
-						"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ N(s) ? s.value = e : null,
+						"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ N(c) ? c.value = e : null,
 						class: "dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
 						type: "text"
-					}, null, 512), [[X, F(s)]]),
+					}, null, 512), [[X, F(c)]]),
 					W("button", {
 						class: "dui-btn dui-btn-primary tw:self-end tw:rounded-full",
-						disabled: !d.value,
+						disabled: !f.value,
 						type: "button",
-						onClick: t[7] ||= (...e) => F(n).completeSession && F(n).completeSession(...e)
-					}, [F(o) ? (H(), U("span", Bp)) : (H(), U("i", Vp)), t[18] ||= K(" Record turnover ", -1)], 8, zp)
+						onClick: t[6] ||= (...e) => F(n).completeSession && F(n).completeSession(...e)
+					}, [F(s) ? (H(), U("span", Cm)) : (H(), U("i", wm)), t[11] ||= K(" Record turnover ", -1)], 8, Sm)
 				])])]),
-				t[25] ||= W("div", {
+				t[18] ||= W("div", {
 					class: "dui-alert tw:text-xs",
 					role: "note"
 				}, [W("i", {
 					class: "fa-solid fa-circle-info",
 					"aria-hidden": "true"
 				}), W("span", null, " This first turnover slice records and advances sessions. Award XP from the separate console; pause, holding-scene, Fortune, and chat-export steps remain future additions. ")], -1),
-				W("section", Hp, [W("div", Up, [W("div", Wp, [t[22] ||= W("div", null, [W("h2", {
+				W("section", Tm, [W("div", Em, [W("div", Dm, [t[15] ||= W("div", null, [W("h2", {
 					id: "session-history-title",
 					class: "dui-card-title tw:font-serif tw:text-lg"
-				}, " Session history "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Stored as module-owned world data in exact ISO timestamps. ")], -1), W("span", Gp, O(F(l).sessions.length) + " recorded", 1)]), F(l).sessions.length ? (H(), U("div", Kp, [W("table", qp, [t[23] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+				}, " Session history "), W("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Stored as module-owned world data in exact ISO timestamps. ")], -1), W("span", Om, O(F(u).sessions.length) + " recorded", 1)]), F(u).sessions.length ? (H(), U("div", km, [W("table", Am, [t[16] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
 					W("th", { scope: "col" }, "Session"),
 					W("th", { scope: "col" }, "Took place"),
 					W("th", { scope: "col" }, "Recorded")
-				])], -1), W("tbody", null, [(H(!0), U(V, null, Or(F(l).sessions, (e) => (H(), U("tr", { key: e.id }, [
-					W("th", Jp, O(e.reference), 1),
-					W("td", { title: e.occurredAt }, O(f(e.occurredAt)), 9, Yp),
-					W("td", { title: e.recordedAt }, O(f(e.recordedAt)), 9, Xp)
-				]))), 128))])])])) : (H(), U("div", Zp, [...t[24] ||= [W("i", {
+				])], -1), W("tbody", null, [(H(!0), U(V, null, Or(F(u).sessions, (e) => (H(), U("tr", { key: e.id }, [
+					W("th", jm, O(e.reference), 1),
+					W("td", { title: e.occurredAt }, O(p(e.occurredAt)), 9, Mm),
+					W("td", { title: e.recordedAt }, O(p(e.recordedAt)), 9, Nm)
+				]))), 128))])])])) : (H(), U("div", Pm, [...t[17] ||= [W("i", {
 					class: "fa-solid fa-calendar",
 					"aria-hidden": "true"
 				}, null, -1), W("span", null, "No session turnovers have been recorded yet.", -1)]]))])])
@@ -6346,79 +6668,124 @@ var dp = ys("session-management", () => {
 			_: 1
 		}, 8, ["error-message", "status-message"]));
 	}
-}), $p = {
-	defaultAmount: "addXPDefaultAmount",
-	defaultReason: "addXPDefaultReason",
-	defaultSelection: "defaultPartySessionTurnover",
-	sessionReference: "sessionID"
-};
-function em() {
-	if (game.modules.get("wfrp4e-gm-toolkit")?.active === !0 && Object.values($p).every(tm)) return {
-		defaultXpAmount: Math.round(nm($p.defaultAmount)),
-		defaultXpReason: rm($p.defaultReason),
-		defaultXpSelection: rm($p.defaultSelection) === "company" ? "company" : "party",
-		sessionReference: rm($p.sessionReference)
-	};
-}
-function tm(e) {
-	return game.settings.settings.has(`${r}.${e}`);
-}
-function nm(e) {
-	let t = Number(game.settings.get(r, e));
-	return Number.isFinite(t) ? t : 0;
-}
-function rm(e) {
-	let t = game.settings.get(r, e);
-	return typeof t == "string" && t !== "null" ? t : "";
-}
+}), $ = (e, t, n, r, i) => ({
+	defaultValue: r,
+	disposition: i,
+	family: t,
+	key: e,
+	kind: n
+}), Im = [
+	$("automateOpposedTestAdvantage", "advantage", "boolean", !0, "pending"),
+	$("automateDamageAdvantage", "advantage", "boolean", !0, "pending"),
+	$("automateConditionAdvantage", "advantage", "boolean", !0, "pending"),
+	$("promptMomentumLoss", "advantage", "boolean", !0, "pending"),
+	$("clearAdvantageCombatJoin", "advantage", "boolean", !0, "pending"),
+	$("clearAdvantageCombatLeave", "advantage", "boolean", !0, "pending"),
+	$("persistAdvantageNotifications", "advantage", "boolean", !1, "pending"),
+	$("sessionID", "session", "string", "0", "import"),
+	$("defaultPartySessionTurnover", "session", "string", "party", "import"),
+	$("addXPPrompt", "session", "boolean", !1, "supersede"),
+	$("addXPDefaultAmount", "session", "number", 20, "import"),
+	$("addXPDefaultReason", "session", "string", "Session %session% (%date%)", "import"),
+	$("holdingScene", "session", "string", "", "pending"),
+	$("exportChat", "session", "boolean", !1, "pending"),
+	$("scenePullActivate", "session", "string", "never", "pending"),
+	$("rangeNormalSight", "vision", "number", 2, "pending"),
+	$("rangeDarkVision", "vision", "number", 120, "pending"),
+	$("overrideNightVision", "vision", "boolean", !1, "pending"),
+	$("overrideDarkVision", "vision", "boolean", !1, "pending"),
+	$("defaultGroupDarkWhispers", "dark-whispers", "string", "party", "pending"),
+	$("messageDarkWhispers", "dark-whispers", "string", "taunt", "pending"),
+	$("enableTokenHudExtensions", "token-hud", "boolean", !1, "retire"),
+	$("tokenHudStatusEffectsBackground", "token-hud", "string", "#cececeff", "retire"),
+	$("suppressSpectatorNotice", "spectators", "boolean", !1, "pending"),
+	$("quicktest1GroupTest", "group-tests", "string", "Perception", "pending"),
+	$("quicktest2GroupTest", "group-tests", "string", "Cool", "pending"),
+	$("quicktest3GroupTest", "group-tests", "string", "Intuition", "pending"),
+	$("quicktest4GroupTest", "group-tests", "string", "Gossip", "pending"),
+	$("defaultSkillGroupTest", "group-tests", "string", "Lore (Reikland)", "pending"),
+	$("bypassTestDialogGroupTest", "group-tests", "boolean", !0, "pending"),
+	$("defaultDifficultyGroupTest", "group-tests", "string", "average", "pending"),
+	$("defaultRollModeGroupTest", "group-tests", "string", "blindroll", "pending"),
+	$("defaultTestModifierGroupTest", "group-tests", "number", 0, "pending"),
+	$("defaultPartyGroupTest", "group-tests", "string", "party", "pending"),
+	$("fallbackAdvancedSkills", "group-tests", "boolean", !1, "pending"),
+	$("fallbackAdjustDifficulty", "group-tests", "number", 0, "pending"),
+	$("summariseResultsThresholdGroupTest", "group-tests", "number", 2, "pending"),
+	$("aggregateResultGroupTest", "group-tests", "array", [], "skip")
+];
 //#endregion
-//#region src/module/session-management/initialization.ts
-function im() {
+//#region src/module/gm-toolkit/source.ts
+function Lm() {
+	let e = game.modules.get(r), t = game.settings.storage?.get("world"), n = /* @__PURE__ */ new Map();
+	for (let e of Im) {
+		let r = t?.getItem(Bm(e.key));
+		r != null && n.set(e.key, r);
+	}
+	if (!e && n.size === 0) return;
+	let i = [], a = Im.map((e) => {
+		let t = Rm(e, n);
+		return t.valid || i.push(`${Bm(e.key)} could not be normalized; the 9.2.0 baseline is shown instead.`), t;
+	});
 	return {
-		gmToolkitImport: em(),
-		occurredAtLocal: am(/* @__PURE__ */ new Date()),
-		state: tp()
+		active: e?.active === !0,
+		installed: e !== void 0,
+		...e?.version ? { moduleVersion: e.version } : {},
+		schemaVersion: "9.2.0",
+		settings: a,
+		warnings: i
 	};
 }
-function am(e) {
-	return (/* @__PURE__ */ new Date(e.getTime() - e.getTimezoneOffset() * 6e4)).toISOString().slice(0, 16);
+function Rm(e, t) {
+	let n = t.get(e.key);
+	return n === void 0 ? game.settings.settings.has(Bm(e.key)) ? qf(e, game.settings.get(r, e.key), "registered") : qf(e, e.defaultValue, "baseline") : qf(e, zm(n, e), "persisted");
+}
+function zm(e, t) {
+	try {
+		return JSON.parse(e);
+	} catch {
+		return t.kind === "string" ? e : void 0;
+	}
+}
+function Bm(e) {
+	return `${r}.${e}`;
 }
 //#endregion
 //#region src/types/xp-award/XpAward.ts
-var om = {
+var Vm = {
 	batches: [],
 	version: 1
-}, sm = 500;
-function cm(e, t) {
+}, Hm = 500;
+function Um(e, t) {
 	return {
-		batches: [t, ...e.batches].slice(0, sm),
+		batches: [t, ...e.batches].slice(0, Hm),
 		version: 1
 	};
 }
-function lm(e) {
+function Wm(e) {
 	if (typeof e != "string") return {
-		...om,
+		...Vm,
 		batches: []
 	};
 	try {
 		let t = JSON.parse(e);
 		return !Gf(t) || t.version !== 1 || !Array.isArray(t.batches) ? {
-			...om,
+			...Vm,
 			batches: []
 		} : {
-			batches: t.batches.flatMap(um).slice(0, sm),
+			batches: t.batches.flatMap(Gm).slice(0, Hm),
 			version: 1
 		};
 	} catch {
 		return {
-			...om,
+			...Vm,
 			batches: []
 		};
 	}
 }
-function um(e) {
+function Gm(e) {
 	if (!Gf(e) || !Array.isArray(e.awards)) return [];
-	let t = Uf(e.awardedAt), n = Wf(e.id), r = Wf(e.reason), i = Wf(e.sessionReference), a = e.awards.flatMap(dm);
+	let t = Uf(e.awardedAt), n = Wf(e.id), r = Wf(e.reason), i = Wf(e.sessionReference), a = e.awards.flatMap(Km);
 	return !t || !n || a.length === 0 ? [] : [{
 		awardedAt: t,
 		awards: a,
@@ -6428,7 +6795,7 @@ function um(e) {
 		totalChange: a.reduce((e, t) => e + t.amount, 0)
 	}];
 }
-function dm(e) {
+function Km(e) {
 	if (!Gf(e)) return [];
 	let t = e.category, n = Number(e.amount), r = Number(e.beforeXp), i = Number(e.afterXp);
 	return t !== "standard" && t !== "companion" || !Number.isFinite(n) || !Number.isFinite(r) || !Number.isFinite(i) ? [] : [{
@@ -6442,7 +6809,7 @@ function dm(e) {
 }
 //#endregion
 //#region src/module/xp-award/settings/keys.ts
-var $ = {
+var qm = {
 	auditLog: "xpAwardAuditLog",
 	defaultAmount: "xpAwardDefaultAmount",
 	defaultReason: "xpAwardDefaultReason",
@@ -6451,79 +6818,126 @@ var $ = {
 };
 //#endregion
 //#region src/module/xp-award/settings/load.ts
-function fm() {
+function Jm() {
 	return {
-		defaultAmount: Math.round(Number(game.settings.get(t, $.defaultAmount))),
-		defaultReason: gm($.defaultReason),
-		defaultSelection: _m(),
-		includeTimestampInReason: game.settings.get(t, $.includeTimestampInReason) === !0
+		defaultAmount: Math.round(Number(game.settings.get(t, qm.defaultAmount))),
+		defaultReason: Qm(qm.defaultReason),
+		defaultSelection: $m(),
+		includeTimestampInReason: game.settings.get(t, qm.includeTimestampInReason) === !0
 	};
 }
-async function pm(e) {
+async function Ym(e) {
 	let n = [
-		[$.defaultAmount, Math.round(e.defaultAmount)],
-		[$.defaultReason, e.defaultReason],
-		[$.defaultSelection, e.defaultSelection],
-		[$.includeTimestampInReason, e.includeTimestampInReason]
+		[qm.defaultAmount, Math.round(e.defaultAmount)],
+		[qm.defaultReason, e.defaultReason],
+		[qm.defaultSelection, e.defaultSelection],
+		[qm.includeTimestampInReason, e.includeTimestampInReason]
 	];
 	for (let [e, r] of n) await game.settings.set(t, e, r);
 }
-function mm() {
-	return lm(game.settings.get(t, $.auditLog));
+function Xm() {
+	return Wm(game.settings.get(t, qm.auditLog));
 }
-async function hm(e) {
-	await game.settings.set(t, $.auditLog, JSON.stringify(e));
+async function Zm(e) {
+	await game.settings.set(t, qm.auditLog, JSON.stringify(e));
 }
-function gm(e) {
+function Qm(e) {
 	let n = game.settings.get(t, e);
 	return typeof n == "string" ? n : "";
 }
-function _m() {
-	let e = gm($.defaultSelection);
+function $m() {
+	let e = Qm(qm.defaultSelection);
 	return e === "company" || e === "world" ? e : "party";
 }
 //#endregion
+//#region src/module/session-management/migration.ts
+function eh() {
+	let e = Lm();
+	if (e) return Jf(e, {
+		sessionReference: _p().currentSessionReference,
+		xpAwardSettings: Jm()
+	});
+}
+//#endregion
+//#region src/module/session-management/initialization.ts
+function th() {
+	return {
+		gmToolkitImport: eh(),
+		occurredAtLocal: nh(/* @__PURE__ */ new Date()),
+		state: _p()
+	};
+}
+function nh(e) {
+	return (/* @__PURE__ */ new Date(e.getTime() - e.getTimezoneOffset() * 6e4)).toISOString().slice(0, 16);
+}
+//#endregion
+//#region src/functions/gm-toolkit/apply.ts
+function rh(e, t, n) {
+	let r = new Set(n), i = {
+		sessionReference: t.sessionReference,
+		xpAwardSettings: { ...t.xpAwardSettings }
+	};
+	for (let t of e.imports) if (r.has(t.field)) switch (t.field) {
+		case "sessionReference":
+			i.sessionReference = String(t.sourceValue);
+			break;
+		case "defaultXpAmount":
+			i.xpAwardSettings.defaultAmount = Number(t.sourceValue);
+			break;
+		case "defaultXpReason":
+			i.xpAwardSettings.defaultReason = String(t.sourceValue);
+			break;
+		case "defaultXpSelection":
+			i.xpAwardSettings.defaultSelection = t.sourceValue === "company" ? "company" : "party";
+			break;
+	}
+	return i;
+}
+//#endregion
 //#region src/module/session-management/service.ts
-async function vm(e) {
+async function ih(e) {
 	Lc(Z.sessionManagementConsole);
 	let t = e.trim();
 	if (!t) throw Error("Enter a current session reference.");
-	await rp({
-		...tp(),
+	await yp({
+		..._p(),
 		currentSessionReference: t
 	}), ui.notifications.info(`Current session reference saved as ${t}.`);
 }
-async function ym(e) {
+async function ah(e) {
 	Lc(Z.sessionManagementConsole);
-	let t = Jf(tp(), e, {
+	let t = up(_p(), e, {
 		id: crypto.randomUUID(),
 		recordedAt: (/* @__PURE__ */ new Date()).toISOString()
 	});
-	return await rp(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
+	return await yp(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
 }
-async function bm() {
+async function oh(e) {
 	Lc(Z.sessionManagementConsole);
-	let e = em();
-	if (!e) throw Error("WFRP4e GM Toolkit is not active or its session settings are not registered yet.");
-	let t = {
+	let t = eh();
+	if (!t) throw Error("No installed module or persisted GM Toolkit world settings were found.");
+	let n = Array.from(new Set(e.fields)).filter(Xf);
+	if (!n.length) throw Error("Select at least one GM Toolkit value to import.");
+	let r = _p(), i = rh(t, {
+		sessionReference: r.currentSessionReference,
+		xpAwardSettings: Jm()
+	}, n), a = {
+		appliedFields: n,
 		importedAt: (/* @__PURE__ */ new Date()).toISOString(),
-		sessionReference: e.sessionReference,
-		xpAwardSettings: {
-			defaultAmount: e.defaultXpAmount,
-			defaultReason: e.defaultXpReason,
-			defaultSelection: e.defaultXpSelection,
-			includeTimestampInReason: !1
-		}
-	}, n = tp();
-	return await pm(t.xpAwardSettings), await rp({
-		...n,
-		currentSessionReference: t.sessionReference,
-		gmToolkitMigration: t
-	}), ui.notifications.info("GM Toolkit session and XP defaults imported into Drowsy’s Toolkit."), t;
+		sessionReference: i.sessionReference,
+		source: t.source,
+		version: 2,
+		xpAwardSettings: i.xpAwardSettings
+	};
+	return n.some((e) => e !== "sessionReference") && await Ym(a.xpAwardSettings), await yp({
+		...r,
+		currentSessionReference: a.sessionReference,
+		gmToolkitMigration: a
+	}), ui.notifications.info(`${n.length} GM Toolkit value${n.length === 1 ? "" : "s"} imported into Drowsy’s Toolkit.`), a;
 }
 //#endregion
 //#region src/functions/xp-award/calculate.ts
-function xm(e, t) {
+function sh(e, t) {
 	let n = Number.isFinite(t) ? Math.round(t) : 0, r = e.filter((e) => e.selected).map((e) => {
 		let t = e.category === "companion" ? Math.floor(n / 2) : n, r = Math.max(t, -e.totalXp);
 		return {
@@ -6542,19 +6956,19 @@ function xm(e, t) {
 }
 //#endregion
 //#region src/functions/xp-award/reason.ts
-function Sm(e, t, n) {
+function ch(e, t, n) {
 	let r = e;
 	return n && !r.includes("%datetime%") && (r = r.trim() ? `${r} — awarded %datetime%` : "Awarded %datetime%"), bl(r, t);
 }
-function Cm(e) {
+function lh(e) {
 	return `${e.slice(0, 10)} ${e.slice(11, 19)} UTC`;
 }
 //#endregion
 //#region src/state/apps/xp-award-console/store.ts
-var wm = ys("xp-award-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = wl("The XP Award Console"), o = /* @__PURE__ */ P(20), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P(!0), u = /* @__PURE__ */ P("default"), d = /* @__PURE__ */ P(), f = /* @__PURE__ */ P(!1), p, m, h = Y(() => xm(e.value, o.value)), g = Y(() => r.value.length > 0 && Number.isFinite(o.value) && Math.round(o.value) !== 0 && !f.value), _ = Y(() => {
+var uh = ys("xp-award-console", () => {
+	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = wl("The XP Award Console"), o = /* @__PURE__ */ P(20), s = /* @__PURE__ */ P(""), c = /* @__PURE__ */ P("party"), l = /* @__PURE__ */ P(!0), u = /* @__PURE__ */ P("default"), d = /* @__PURE__ */ P(), f = /* @__PURE__ */ P(!1), p, m, h = Y(() => sh(e.value, o.value)), g = Y(() => r.value.length > 0 && Number.isFinite(o.value) && Math.round(o.value) !== 0 && !f.value), _ = Y(() => {
 		let e = x().reasonContext;
-		return Sm(s.value, e, l.value);
+		return ch(s.value, e, l.value);
 	});
 	function v(e, n) {
 		p = n, m = e, t(e.actors), o.value = e.defaultAmount, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.includeTimestampInReason, u.value = e.selectionSource, d.value = void 0;
@@ -6605,33 +7019,33 @@ var wm = ys("xp-award-console", () => {
 		setActorSelected: i,
 		setAllActorsSelected: a
 	};
-}), Tm = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:whitespace-normal tw:py-1" }, Em = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[62rem]:grid-cols-[1.2fr_0.8fr]" }, Dm = {
+}), dh = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:whitespace-normal tw:py-1" }, fh = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[62rem]:grid-cols-[1.2fr_0.8fr]" }, ph = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "fixed-xp-recipients"
-}, Om = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, km = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, Am = { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, jm = { class: "tw:flex tw:flex-wrap tw:gap-1" }, Mm = ["disabled"], Nm = ["disabled"], Pm = ["disabled"], Fm = {
+}, mh = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, hh = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, gh = { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, _h = { class: "tw:flex tw:flex-wrap tw:gap-1" }, vh = ["disabled"], yh = ["disabled"], bh = ["disabled"], xh = {
 	key: 0,
 	class: "tw:max-w-full tw:min-w-0 tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, Im = { class: "dui-table dui-table-sm tw:min-w-[34rem]" }, Lm = {
+}, Sh = { class: "dui-table dui-table-sm tw:min-w-[34rem]" }, Ch = {
 	class: "tw:min-w-44",
 	scope: "row"
-}, Rm = { class: "tw:block tw:font-semibold" }, zm = {
+}, wh = { class: "tw:block tw:font-semibold" }, Th = {
 	key: 0,
 	class: "dui-badge dui-badge-ghost dui-badge-xs"
-}, Bm = { class: "tw:text-right tw:tabular-nums" }, Vm = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, Hm = { class: "tw:text-right tw:tabular-nums" }, Um = {
+}, Eh = { class: "tw:text-right tw:tabular-nums" }, Dh = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, Oh = { class: "tw:text-right tw:tabular-nums" }, kh = {
 	key: 1,
 	class: "dui-alert dui-alert-warning",
 	role: "status"
-}, Wm = {
+}, Ah = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "fixed-xp-details"
-}, Gm = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Km = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3" }, qm = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, Jm = { class: "tw:m-0 tw:break-words tw:font-semibold" }, Ym = /* @__PURE__ */ z({
+}, jh = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Mh = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3" }, Nh = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, Ph = { class: "tw:m-0 tw:break-words tw:font-semibold" }, Fh = /* @__PURE__ */ z({
 	__name: "XpAwardConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = wm();
+		let t = e, n = uh();
 		n.initialize(t.initialization, t.actions);
 		let { actors: r, amount: i, canApply: a, defaultReason: o, defaultSelection: s, errorMessage: c, includeTimestampInReason: l, isWorking: u, plan: d, resolvedReason: f, selectedActors: p, selectionSource: m } = bs(n), h = Y(() => m.value === "targets" ? "Targeted tokens seeded this award." : `The ${s.value} default seeded this award.`);
 		function g(e) {
@@ -6640,13 +7054,13 @@ var wm = ys("xp-award-console", () => {
 		function _(e) {
 			return e > 0 ? `+${e}` : String(e);
 		}
-		return (e, t) => (H(), ta(vp, {
+		return (e, t) => (H(), ta(zp, {
 			description: "Apply one XP change to selected characters, with GM Toolkit-compatible recipient defaults and reason tokens.",
 			"error-message": F(c),
 			icon: "fa-solid fa-award",
 			title: "XP Award Console"
 		}, {
-			"header-end": Hn(() => [W("span", Tm, O(F(p).length) + " selected ", 1)]),
+			"header-end": Hn(() => [W("span", dh, O(F(p).length) + " selected ", 1)]),
 			footer: Hn(() => [G(kl, {
 				disabled: !F(a),
 				icon: "fa-solid fa-award",
@@ -6659,29 +7073,29 @@ var wm = ys("xp-award-console", () => {
 				"working",
 				"onAction"
 			])]),
-			default: Hn(() => [W("div", Em, [W("section", Dm, [W("div", Om, [W("div", km, [W("div", null, [t[7] ||= W("h2", {
+			default: Hn(() => [W("div", fh, [W("section", ph, [W("div", mh, [W("div", hh, [W("div", null, [t[7] ||= W("h2", {
 				id: "fixed-xp-recipients",
 				class: "dui-card-title tw:font-serif tw:text-lg"
-			}, " Recipients ", -1), W("p", Am, O(h.value), 1)]), W("div", jm, [
+			}, " Recipients ", -1), W("p", gh, O(h.value), 1)]), W("div", _h, [
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[0] ||= (e) => F(n).setAllActorsSelected(!0)
-				}, " All ", 8, Mm),
+				}, " All ", 8, vh),
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[1] ||= (e) => F(n).setAllActorsSelected(!1)
-				}, " None ", 8, Nm),
+				}, " None ", 8, yh),
 				W("button", {
 					class: "dui-btn dui-btn-ghost dui-btn-sm",
 					disabled: F(u),
 					type: "button",
 					onClick: t[2] ||= (...e) => F(n).resetSelection && F(n).resetSelection(...e)
-				}, " Reset ", 8, Pm)
-			])]), F(r).length ? (H(), U("div", Fm, [W("table", Im, [t[8] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
+				}, " Reset ", 8, bh)
+			])]), F(r).length ? (H(), U("div", xh, [W("table", Sh, [t[8] ||= W("thead", { class: "tw:bg-base-300/60!" }, [W("tr", null, [
 				W("th", { scope: "col" }, "Use"),
 				W("th", { scope: "col" }, "Actor"),
 				W("th", {
@@ -6714,14 +7128,14 @@ var wm = ys("xp-award-console", () => {
 					"disabled",
 					"onChange"
 				])]),
-				W("th", Lm, [W("span", Rm, O(e.name), 1), e.category === "companion" ? (H(), U("span", zm, " Half award ")) : q("", !0)]),
-				W("td", Bm, O(e.totalXp), 1),
-				W("td", Vm, O(g(e.id) ? _(g(e.id)?.amount ?? 0) : "—"), 1),
-				W("td", Hm, O(g(e.id)?.afterXp ?? "—"), 1)
-			], 2))), 128))])])])) : (H(), U("div", Um, [...t[9] ||= [W("i", {
+				W("th", Ch, [W("span", wh, O(e.name), 1), e.category === "companion" ? (H(), U("span", Th, " Half award ")) : q("", !0)]),
+				W("td", Eh, O(e.totalXp), 1),
+				W("td", Dh, O(g(e.id) ? _(g(e.id)?.amount ?? 0) : "—"), 1),
+				W("td", Oh, O(g(e.id)?.afterXp ?? "—"), 1)
+			], 2))), 128))])])])) : (H(), U("div", kh, [...t[9] ||= [W("i", {
 				class: "fa-solid fa-user-slash",
 				"aria-hidden": "true"
-			}, null, -1), W("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]), W("section", Wm, [W("div", Gm, [
+			}, null, -1), W("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]), W("section", Ah, [W("div", jh, [
 				t[13] ||= W("div", null, [W("h2", {
 					id: "fixed-xp-details",
 					class: "dui-card-title tw:font-serif tw:text-lg"
@@ -6776,12 +7190,12 @@ var wm = ys("xp-award-console", () => {
 					W("code", null, "%datetime%"),
 					K(". ")
 				], -1),
-				W("label", Km, [R(W("input", {
+				W("label", Mh, [R(W("input", {
 					"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
 					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:appearance-none! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none!",
 					type: "checkbox"
 				}, null, 512), [[Eo, F(l)]]), t[11] ||= W("span", null, [W("span", { class: "tw:block tw:font-semibold" }, "Include timestamp in WFRP4e reason"), W("span", { class: "tw:block tw:text-xs tw:text-base-content/65!" }, " WFRP4e’s log schema has no timestamp field, so this appends UTC text to the reason. ")], -1)]),
-				W("div", qm, [t[12] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), W("p", Jm, O(F(f) || "No reason"), 1)]),
+				W("div", Nh, [t[12] ||= W("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), W("p", Ph, O(F(f) || "No reason"), 1)]),
 				t[19] ||= W("div", {
 					class: "dui-alert tw:text-xs",
 					role: "note"
@@ -6796,32 +7210,32 @@ var wm = ys("xp-award-console", () => {
 });
 //#endregion
 //#region src/module/xp-award/initialization.ts
-function Xm() {
-	let e = fm(), t = xf(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
+function Ih() {
+	let e = Jm(), t = xf(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
 	return {
 		...e,
 		...t,
 		awardedAt: n,
 		reasonContext: {
 			date: n.slice(0, 10),
-			datetime: Cm(n),
-			session: np()
+			datetime: lh(n),
+			session: vp()
 		}
 	};
 }
 //#endregion
 //#region src/module/xp-award/service.ts
-async function Zm(e) {
+async function Lh(e) {
 	Lc(Z.xpAwardConsole);
 	let t = Array.from(new Set(e.actorIds));
 	if (t.length === 0) throw Error("Select at least one character actor.");
 	if (!Number.isFinite(e.defaultAmount) || Math.round(e.defaultAmount) === 0) throw Error("Enter a non-zero whole-number XP change.");
-	let n = Sf(t), r = xm(n.map((e) => e.choice), e.defaultAmount), i = (/* @__PURE__ */ new Date()).toISOString(), a = np(), o = Sm(e.defaultReason, {
+	let n = Sf(t), r = sh(n.map((e) => e.choice), e.defaultAmount), i = (/* @__PURE__ */ new Date()).toISOString(), a = vp(), o = ch(e.defaultReason, {
 		date: i.slice(0, 10),
-		datetime: Cm(i),
+		datetime: lh(i),
 		session: a
 	}, e.includeTimestampInReason);
-	await pm({
+	await Ym({
 		defaultAmount: Math.round(e.defaultAmount),
 		defaultReason: e.defaultReason,
 		defaultSelection: e.defaultSelection,
@@ -6846,18 +7260,18 @@ async function Zm(e) {
 		...c,
 		id: crypto.randomUUID()
 	};
-	return await hm(cm(mm(), l)), await Qm(c), ui.notifications.info(`Applied ${$m(c.totalChange)} XP across ${c.awards.length} actors.`), c;
+	return await Zm(Um(Xm(), l)), await Rh(c), ui.notifications.info(`Applied ${zh(c.totalChange)} XP across ${c.awards.length} actors.`), c;
 }
-async function Qm(e) {
-	let t = e.awards.map((e) => `<li><strong>${xl(e.actorName)}</strong>: ${$m(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${xl(e.reason || "No reason")}</p><p><small>${xl(Cm(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${$m(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
+async function Rh(e) {
+	let t = e.awards.map((e) => `<li><strong>${xl(e.actorName)}</strong>: ${zh(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${xl(e.reason || "No reason")}</p><p><small>${xl(lh(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${zh(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
-function $m(e) {
+function zh(e) {
 	return e > 0 ? `+${e}` : String(e);
 }
 //#endregion
 //#region src/module/apps/xp-award-console/XpAwardConsoleApplication.ts
-var eh = class extends Hc {
+var Bh = class extends Hc {
 	static ACCESS_POLICY = Z.xpAwardConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6874,36 +7288,36 @@ var eh = class extends Hc {
 		}
 	};
 	getVueComponent() {
-		return Ym;
+		return Fh;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				applyAwards: Zm,
+				applyAwards: Lh,
 				onActionComplete: () => {
 					this.close().catch((e) => {
 						console.error(`${t} | Failed to close the XP Award Console.`, e), ui.notifications.error("XP changes completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
 					});
 				}
 			},
-			initialization: Xm()
+			initialization: Ih()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-award-console/open.ts
-async function th() {
-	let e = new eh();
+async function Vh() {
+	let e = new Bh();
 	return await e.render(!0), e;
 }
-function nh() {
-	th().catch((e) => {
+function Hh() {
+	Vh().catch((e) => {
 		console.error(`${t} | Failed to open the XP Award Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Award Console. See the browser console for details.");
 	});
 }
 //#endregion
 //#region src/module/apps/session-management/SessionManagementApplication.ts
-var rh = class extends Hc {
+var Uh = class extends Hc {
 	static ACCESS_POLICY = Z.sessionManagementConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
@@ -6920,37 +7334,37 @@ var rh = class extends Hc {
 		}
 	};
 	getVueComponent() {
-		return Qp;
+		return Fm;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				completeSession: ym,
-				importGmToolkitData: bm,
-				openXpAwardConsole: nh,
-				saveCurrentSessionReference: vm
+				completeSession: ah,
+				importGmToolkitData: oh,
+				openXpAwardConsole: Hh,
+				saveCurrentSessionReference: ih
 			},
-			initialization: im()
+			initialization: th()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/session-management/open.ts
-async function ih() {
-	let e = new rh();
+async function Wh() {
+	let e = new Uh();
 	return await e.render(!0), e;
 }
 //#endregion
 //#region src/functions/grid-scale/calculate.ts
-function ah(e) {
+function Gh(e) {
 	return Number.isFinite(e.size) && e.size > 0 && Number.isFinite(e.distance) && e.distance > 0;
 }
-function oh(e, t) {
+function Kh(e, t) {
 	return e.size / t.size * (t.distance / e.distance);
 }
 //#endregion
 //#region src/module/grid-scale/service.ts
-async function sh() {
+async function qh() {
 	let e = canvas?.scene, t = game.user;
 	if (!e) {
 		ui.notifications.warn("No Scene is currently viewed.");
@@ -6969,20 +7383,20 @@ async function sh() {
 		size: Number(e.grid.size),
 		units: String(e.grid.units ?? "")
 	};
-	if (!ah(n)) {
+	if (!Gh(n)) {
 		ui.notifications.error("The current Scene has an invalid grid size or distance.");
 		return;
 	}
-	let r = await ch(n);
+	let r = await Jh(n);
 	if (r) {
-		if (!ah(r)) {
+		if (!Gh(r)) {
 			ui.notifications.error("Grid size and distance must both be positive numbers.");
 			return;
 		}
-		await lh(e, n, r);
+		await Yh(e, n, r);
 	}
 }
-async function ch(e) {
+async function Jh(e) {
 	let t = foundry.utils.escapeHTML(e.units), n = await foundry.applications.api.DialogV2.input({
 		window: { title: "Change Grid Scale" },
 		position: { width: 480 },
@@ -7049,8 +7463,8 @@ async function ch(e) {
 		units: String(n.units ?? "").trim()
 	} : null;
 }
-async function lh(e, t, n) {
-	let r = oh(t, n), i = e.lights.map((e) => ({
+async function Yh(e, t, n) {
+	let r = Kh(t, n), i = e.lights.map((e) => ({
 		_id: e.id,
 		"config.bright": e.config.bright,
 		"config.dim": e.config.dim
@@ -7068,9 +7482,9 @@ async function lh(e, t, n) {
 		"light.dim": e.light.dim * r
 	})), c = !1, l = !1;
 	try {
-		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(dh(n)), ui.notifications.info(`Grid updated from ${fh(t)} to ${fh(n)}.`);
+		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(Zh(n)), ui.notifications.info(`Grid updated from ${Qh(t)} to ${Qh(n)}.`);
 	} catch (n) {
-		let r = await uh({
+		let r = await Xh({
 			ambientLightsChanged: c,
 			oldAmbientLights: i,
 			oldGrid: t,
@@ -7081,35 +7495,36 @@ async function lh(e, t, n) {
 		throw console.error("Change Grid Scale macro failed.", n, r), Error(a, { cause: n });
 	}
 }
-async function uh(e) {
+async function Xh(e) {
 	let t = [];
-	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(dh(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
+	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(Zh(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
 }
-function dh(e) {
+function Zh(e) {
 	return {
 		"grid.distance": e.distance,
 		"grid.size": e.size,
 		"grid.units": e.units
 	};
 }
-function fh(e) {
+function Qh(e) {
 	return `${e.size}px/${e.distance}${e.units}`;
 }
 //#endregion
 //#region src/module/api/create-module-api.ts
-function ph() {
+function $h() {
 	return {
 		applyToSelectedActors: el,
-		awardXp: Zm,
-		awardXpCurve: op,
-		changeGridScalePreservingLighting: sh,
-		completeSession: ym,
+		awardXp: Lh,
+		awardXpCurve: Sp,
+		changeGridScalePreservingLighting: qh,
+		completeSession: ah,
 		copyLink: nl,
-		importGmToolkitSessionData: bm,
+		getGmToolkitMigrationPreview: eh,
+		importGmToolkitSessionData: oh,
 		openFearConsole: cl,
-		openSessionManagementConsole: ih,
-		openXpAwardConsole: th,
-		openXpCurveConsole: lp,
+		openSessionManagementConsole: Wh,
+		openXpAwardConsole: Vh,
+		openXpCurveConsole: Tp,
 		openWorkbench: cl,
 		postPrompt: tl,
 		postSummaryPrompt: rl
@@ -7117,21 +7532,21 @@ function ph() {
 }
 //#endregion
 //#region src/module/api/register-module-api.ts
-function mh() {
+function eg() {
 	let e = game.modules.get(t);
 	if (!e) throw Error(`Foundry module registry entry was not found for ${t}.`);
-	e.api = ph();
+	e.api = $h();
 }
 //#endregion
 //#region src/module/fear-terror/actor-sheet/register.ts
-var hh = "openFearConsole", gh = "wfrp4e-enhanced-fear-terror-actor-header", _h = [
+var tg = "openFearConsole", ng = "wfrp4e-enhanced-fear-terror-actor-header", rg = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], vh = [
+], ig = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -7139,39 +7554,39 @@ var hh = "openFearConsole", gh = "wfrp4e-enhanced-fear-terror-actor-header", _h 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function yh() {
-	for (let e of _h) Hooks.on(e, (e, t) => {
-		bh() && xh(e, t);
+function ag() {
+	for (let e of rg) Hooks.on(e, (e, t) => {
+		og() && sg(e, t);
 	});
-	for (let e of vh) Hooks.on(e, (e) => {
-		bh() && Sh(e);
+	for (let e of ig) Hooks.on(e, (e) => {
+		og() && cg(e);
 	});
 }
-function bh() {
+function og() {
 	return sl.canCurrentUserAccess() && zc(Rc.actorSheet);
 }
-function xh(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === hh) || (t.push({
-		action: hh,
+function sg(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === tg) || (t.push({
+		action: tg,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[hh] = function() {
-		Ch(this.document);
+	}), e.options.actions ??= {}, e.options.actions[tg] = function() {
+		lg(this.document);
 	}));
 }
-function Sh(e) {
+function cg(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${gh}`)) return;
+	if (!r || r.querySelector(`.${ng}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(gh, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = hh, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), Ch(t);
+	i.type = "button", i.classList.add(ng, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = tg, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), lg(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function Ch(e) {
+function lg(e) {
 	try {
 		ll({ initialPayload: Jc(e) });
 	} catch (e) {
@@ -7180,7 +7595,7 @@ function Ch(e) {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function wh(e, t) {
+function ug(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -7188,29 +7603,29 @@ function wh(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var Th = "openFearConsole";
-function Eh() {
+var dg = "openFearConsole";
+function fg() {
 	Hooks.on("getSceneControlButtons", (e) => {
-		!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || Dh(e);
+		!sl.canCurrentUserAccess() || !zc(Rc.tokenControls) || pg(e);
 	});
 }
-function Dh(t) {
+function pg(t) {
 	let n = t.tokens;
-	n && (n.tools[Th] = {
+	n && (n.tools[dg] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: Th,
+		name: dg,
 		onChange: () => {
 			ll();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: wh("Fear Console", `${e}.SceneControls.OpenFearConsole`)
+		toolclip: ug("Fear Console", `${e}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/settings/register.ts
-function Oh(n, r) {
+function mg(n, r) {
 	game.settings.register(t, n, {
 		config: !1,
 		default: !0,
@@ -7221,7 +7636,7 @@ function Oh(n, r) {
 		type: Boolean
 	});
 }
-function kh(e, n, r, i, a = {}) {
+function hg(e, n, r, i, a = {}) {
 	game.settings.register(t, e, {
 		...a,
 		config: !1,
@@ -7234,8 +7649,8 @@ function kh(e, n, r, i, a = {}) {
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function Ah() {
-	Oh(Rc.tokenControls, "TokenControlsLauncher"), Oh(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
+function gg() {
+	mg(Rc.tokenControls, "TokenControlsLauncher"), mg(Rc.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(t, "fearConsole", {
 		hint: `${e}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${e}.Menu.FearConsoleConfigurator.Label`,
@@ -7246,87 +7661,87 @@ function Ah() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function jh() {
-	Mh(ep.state, JSON.stringify({
+function _g() {
+	vg(gp.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, "State"), Mh($.auditLog, JSON.stringify({
+	}), String, "State"), vg(qm.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), Mh($.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), vg(qm.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), Mh($.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), Mh($.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), vg(qm.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), vg(qm.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${e}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${e}.Settings.XpAward.DefaultSelection.World`
-	} }), Mh($.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
+	} }), vg(qm.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(t, "sessionManagementConsole", {
 		hint: `${e}.Menu.SessionManagementConsole.Hint`,
 		icon: "fa-solid fa-calendar-check",
 		label: `${e}.Menu.SessionManagementConsole.Label`,
 		name: `${e}.Menu.SessionManagementConsole.Name`,
-		restricted: rh.ACCESS_POLICY.gmOnly,
-		type: rh
+		restricted: Uh.ACCESS_POLICY.gmOnly,
+		type: Uh
 	}), game.settings.registerMenu(t, "xpAwardConsole", {
 		hint: `${e}.Menu.XpAwardConsole.Hint`,
 		icon: "fa-solid fa-award",
 		label: `${e}.Menu.XpAwardConsole.Label`,
 		name: `${e}.Menu.XpAwardConsole.Name`,
-		restricted: eh.ACCESS_POLICY.gmOnly,
-		type: eh
+		restricted: Bh.ACCESS_POLICY.gmOnly,
+		type: Bh
 	});
 }
-function Mh(t, n, r, i, a = {}) {
-	kh(t, n, r, `${e}.Settings.XpAward.${i}`, a);
+function vg(t, n, r, i, a = {}) {
+	hg(t, n, r, `${e}.Settings.XpAward.${i}`, a);
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var Nh = "openXpCurveConsole";
-function Ph() {
+var yg = "openXpCurveConsole";
+function bg() {
 	Hooks.on("getSceneControlButtons", (t) => {
-		if (!cp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher)) return;
+		if (!wp.canCurrentUserAccess() || !jf(Q.showTokenControlsLauncher)) return;
 		let n = t.tokens;
-		n && (n.tools[Nh] = {
+		n && (n.tools[yg] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: Nh,
-			onChange: up,
+			name: yg,
+			onChange: Ep,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: wh("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
+			toolclip: ug("XP Curve Console", `${e}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function Fh() {
-	Oh(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Ih(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
+function xg() {
+	mg(Q.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), Sg(Q.maximumAward, Cl.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), Ih(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), Sg(Q.gapForMaximumAward, Cl.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Ih(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), Sg(Q.curveExponent, Cl.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), Ih(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), Sg(Q.scalePivot, Cl.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), Ih(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), Sg(Q.scaleExponent, Cl.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), Ih(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
+	} }), Sg(Q.companionMultiplier, Cl.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), Ih(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Ih(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
+	} }), Sg(Q.defaultReason, Cl.defaultReason, String, "DefaultReason"), Sg(Q.defaultSelection, Cl.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${e}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${e}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${e}.Settings.XpCurve.DefaultSelection.World`
@@ -7339,25 +7754,25 @@ function Fh() {
 		type: zf
 	});
 }
-function Ih(t, n, r, i, a = {}) {
-	kh(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
+function Sg(t, n, r, i, a = {}) {
+	hg(t, n, r, `${e}.Settings.XpCurve.${i}`, a);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function Lh() {
+function Cg() {
 	Hooks.once("init", () => {
-		console.info(`${t} | Initializing`), Ah(), jh(), Fh(), yh(), Eh(), Ph();
+		console.info(`${t} | Initializing`), gg(), _g(), xg(), ag(), fg(), bg();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${t} | Loaded outside ${i}; skipping module API registration.`);
 			return;
 		}
-		mh(), console.info(`${t} | Ready`);
+		eg(), console.info(`${t} | Ready`);
 	});
 }
 //#endregion
 //#region src/main.ts
-Lh();
+Cg();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map
