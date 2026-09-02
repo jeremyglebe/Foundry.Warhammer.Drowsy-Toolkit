@@ -2,11 +2,11 @@
 
 ## Opening a Console
 
-All four current consoles are GM-only. Their bundled macro pack and optional launchers are hidden
+Current toolkit applications are GM-only. Their bundled macro pack and optional launchers are hidden
 from Player and Trusted Player users. The Fear and XP Curve consoles are available from Token
 Controls, their macros, and the module API; the Fear Console also appears in supported WFRP4e
-actor-sheet headers. Open a console's configurator from its cog button or from Foundry's Module
-Settings. Every optional Foundry UI launcher is enabled by default; changing one requires a reload.
+actor-sheet headers. Open configurators and the GM Toolkit Importer from Foundry's Module Settings.
+Every optional Foundry UI launcher is enabled by default; changing one requires a reload.
 
 ## Fear Console
 
@@ -50,9 +50,8 @@ The built-in defaults are Company recipients, `XP Curve %session% (%date%)` as t
 strength 1, and companion rate 0.5. Reset also enables the Token Controls launcher.
 
 The reason supports `%session%` and `%date%`. XP Curve reads its recipient, reason, and curve values
-only from Drowsy’s WFRP4e Toolkit settings. `%session%` uses Drowsy’s current session reference;
-Session Management can import that reference from GM Toolkit explicitly, but XP Curve does not
-live-read GM Toolkit settings.
+only from Drowsy’s WFRP4e Toolkit settings. `%session%` uses Drowsy’s current session reference. The
+GM Toolkit Importer can copy that reference once; XP Curve never reads GM Toolkit settings directly.
 
 Foundry's Module Settings shows one button for each dedicated configurator instead of exposing the
 underlying setting list. The same configurators are available from the cogs in their consoles.
@@ -69,38 +68,35 @@ UTC time, session reference, reason, and per-actor before/change/after values in
 data. WFRP4e has no timestamp field in an experience-log entry. Enable the timestamp switch when the
 same time should also appear as text in WFRP4e's reason.
 
-## Session Management Console
+## Import from GM Toolkit
 
-When migrating from GM Toolkit, open Session Management from Module Settings or its macro and review
-the migration panel. It catalogues all 38 known GM Toolkit 9.2.0 settings and identifies values as
-persisted, registered defaults, or known baseline values. The source module may be active, disabled,
-or uninstalled as long as its world settings still exist.
+Open `Import from GM Toolkit` in Module Settings. The importer can read saved world data while GM
+Toolkit is active, disabled, or no longer installed.
 
 Select the session reference and generic XP defaults you want to keep, then choose
-`Import selected`. The panel identifies matching, new, and conflicting values before the import. The
-operation copies only those selected values into Drowsy’s world settings, records a versioned
-snapshot, and never changes or synchronizes GM Toolkit settings. Settings for replacement features
-that have not been implemented yet remain visible in the inventory count as awaiting features.
+`Import selected`. The comparison shows the saved GM Toolkit value beside the current Drowsy value.
+Only selected values are copied, and GM Toolkit settings are never changed or synchronized. Values
+marked `not transferred` will not be available after GM Toolkit is disabled.
 
-If the world contains an imported Dark Whispers RollTable, the same screen also previews its prompt
-rows. Select the prompts to copy into Drowsy’s library. New prompts are selected automatically;
-unchanged, duplicate, and locally edited prompts are identified separately. Re-import keeps the
-Drowsy version of an edited prompt unless you explicitly choose to replace it. The source RollTable
-is never changed or deleted, and Drowsy does not need GM Toolkit to use the saved library later.
+If the world contains a Dark Whispers RollTable, select the prompts to copy into Drowsy’s library.
+New, unchanged, duplicate, and locally edited prompts are identified separately. Re-import keeps the
+Drowsy version of an edited prompt unless you explicitly replace it. The source RollTable is never
+changed or deleted.
 
-The Launcher Cutover section reviews all imported GM Toolkit macros and the current user's 50 hotbar
-slots. It marks stock, customized, and name-only review matches and shows whether each Drowsy
-replacement is complete, partial, or still pending. Only stock Add XP and Change Scene to Yards
-slots can currently be selected for automatic remap. The action imports the canonical Drowsy macro
-when needed and changes only the selected slots; it never edits or deletes a GM Toolkit macro.
+The Hotbar Launchers section checks the current user's hotbars. Stock launchers with an available
+Drowsy equivalent can be selected for remapping. Customized macros and uncertain matches are left
+untouched for manual review.
+
+Before disabling GM Toolkit, review the final summary and save your acknowledgement. Changing source
+data or import choices makes the earlier review stale. Finish any active combat first because
+combat-specific state is not copied. Drowsy uses only its own saved data after the import.
+
+## Session Management Console
 
 Edit and save the current reference independently, or complete a session by selecting its best-known
 date/time and the next reference. The turnover saves an exact session occurrence time and record
 time, then makes the next reference current. Whole-number references are suggested one number
 higher; descriptive references are preserved for editing.
-
-This initial workflow keeps XP in its separate console. Automatic pause, holding-scene activation,
-Fortune reset, and chat export are not yet part of Drowsy’s turnover action.
 
 ## Change Grid Scale Macro
 

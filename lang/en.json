@@ -12,9 +12,14 @@
         "Name": "XP Curve Configurator"
       },
       "SessionManagementConsole": {
-        "Hint": "Import GM Toolkit defaults, manage the current session, and record session turnovers.",
+        "Hint": "Manage the current session reference and record session turnovers.",
         "Label": "Open Session Management Console",
         "Name": "Session Management Console"
+      },
+      "GmToolkitMigration": {
+        "Hint": "Import saved settings and content from GM Toolkit, then review hotbar replacements.",
+        "Label": "Import from GM Toolkit",
+        "Name": "GM Toolkit Importer"
       },
       "XpAwardConsole": {
         "Hint": "Apply a generic XP change to selected WFRP4e characters.",
@@ -31,6 +36,18 @@
         "PromptLibrary": {
           "Hint": "Drowsy-owned Dark Whispers prompts and their one-way import provenance.",
           "Name": "Dark Whispers prompt library"
+        }
+      },
+      "GmToolkitMigration": {
+        "State": {
+          "Hint": "Saved GM Toolkit import record and review confirmation.",
+          "Name": "GM Toolkit import record"
+        }
+      },
+      "SessionManagement": {
+        "State": {
+          "Hint": "Saved session reference and turnover history.",
+          "Name": "Session management state"
         }
       },
       "ActorSheetLauncher": {
@@ -105,10 +122,6 @@
         "IncludeTimestampInReason": {
           "Hint": "Append an exact UTC award time to the WFRP4e experience-log reason.",
           "Name": "Include timestamp in XP reason"
-        },
-        "State": {
-          "Hint": "Internal module-owned session management data.",
-          "Name": "Session management state"
         }
       }
     }
