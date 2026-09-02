@@ -27,6 +27,12 @@
       "OpenXpCurveConsole": "Open Drowsy’s WFRP4e Toolkit XP Curve Console."
     },
     "Settings": {
+      "DarkWhispers": {
+        "PromptLibrary": {
+          "Hint": "Drowsy-owned Dark Whispers prompts and their one-way import provenance.",
+          "Name": "Dark Whispers prompt library"
+        }
+      },
       "ActorSheetLauncher": {
         "Hint": "Show a Fear Console launcher in supported WFRP4e actor-sheet headers. Requires a reload.",
         "Name": "Fear Console: actor-sheet launcher"

@@ -82,6 +82,18 @@ operation copies only those selected values into Drowsy’s world settings, reco
 snapshot, and never changes or synchronizes GM Toolkit settings. Settings for replacement features
 that have not been implemented yet remain visible in the inventory count as awaiting features.
 
+If the world contains an imported Dark Whispers RollTable, the same screen also previews its prompt
+rows. Select the prompts to copy into Drowsy’s library. New prompts are selected automatically;
+unchanged, duplicate, and locally edited prompts are identified separately. Re-import keeps the
+Drowsy version of an edited prompt unless you explicitly choose to replace it. The source RollTable
+is never changed or deleted, and Drowsy does not need GM Toolkit to use the saved library later.
+
+The Launcher Cutover section reviews all imported GM Toolkit macros and the current user's 50 hotbar
+slots. It marks stock, customized, and name-only review matches and shows whether each Drowsy
+replacement is complete, partial, or still pending. Only stock Add XP and Change Scene to Yards
+slots can currently be selected for automatic remap. The action imports the canonical Drowsy macro
+when needed and changes only the selected slots; it never edits or deletes a GM Toolkit macro.
+
 Edit and save the current reference independently, or complete a session by selecting its best-known
 date/time and the next reference. The turnover saves an exact session occurrence time and record
 time, then makes the next reference current. Whole-number references are suggested one number
