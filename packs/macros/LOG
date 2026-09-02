@@ -1,5 +1,5 @@
-2026/09/02-10:00:04.880 d080 Delete type=3 #1
-2026/09/02-10:00:04.904 de88 Level-0 table #5: started
-2026/09/02-10:00:04.921 de88 Level-0 table #5: 1421 bytes OK
-2026/09/02-10:00:04.937 de88 Delete type=0 #3
-2026/09/02-10:00:04.937 de88 Manual compaction at level-0 from '!macros!DrowsyGridScale1' @ 72057594037927935 : 1 .. '!macros!xP7cV4nK2mQ9rT6w' @ 0 : 0; will stop at (end)
+2026/09/02-13:26:00.109 db70 Delete type=3 #1
+2026/09/02-13:26:00.117 c894 Level-0 table #5: started
+2026/09/02-13:26:00.129 c894 Level-0 table #5: 2660 bytes OK
+2026/09/02-13:26:00.143 c894 Delete type=0 #3
+2026/09/02-13:26:00.143 c894 Manual compaction at level-0 from '!macros!DrowsyAdmin0001X' @ 72057594037927935 : 1 .. '!macros!xP7cV4nK2mQ9rT6w' @ 0 : 0; will stop at (end)

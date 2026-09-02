@@ -1,6 +1,16 @@
 {
   "WFRP4E_DROWSYS_TOOLKIT": {
     "Menu": {
+      "AdministrationConsole": {
+        "Hint": "Manage Scene lighting, compendium visibility, player assignments, and utility rolls.",
+        "Label": "Open Administration Console",
+        "Name": "Administration Console"
+      },
+      "ToolkitHome": {
+        "Hint": "Open every Drowsy gameplay and campaign tool from one place.",
+        "Label": "Open Drowsy’s WFRP4e Toolkit",
+        "Name": "Drowsy’s WFRP4e Toolkit"
+      },
       "FearConsoleConfigurator": {
         "Hint": "Choose where the Fear Console can be opened.",
         "Label": "Configure Fear Console",
@@ -12,12 +22,12 @@
         "Name": "XP Curve Configurator"
       },
       "SessionManagementConsole": {
-        "Hint": "Manage the current session reference and record session turnovers.",
+        "Hint": "Run resumable session turnover and manage Scene, XP, Fortune, chat export, and session records.",
         "Label": "Open Session Management Console",
         "Name": "Session Management Console"
       },
       "GmToolkitMigration": {
-        "Hint": "Import saved settings and content from GM Toolkit, then review hotbar replacements.",
+        "Hint": "Copy compatible settings and content from GM Toolkit once, then review hotbar replacements and cutover safety.",
         "Label": "Import from GM Toolkit",
         "Name": "GM Toolkit Importer"
       },
@@ -32,6 +42,12 @@
       "OpenXpCurveConsole": "Open Drowsy’s WFRP4e Toolkit XP Curve Console."
     },
     "Settings": {
+      "Administration": {
+        "ShowUnassignedPlayerWarning": {
+          "Hint": "Warn GMs after startup when a player has no assigned character.",
+          "Name": "Warn about unassigned players"
+        }
+      },
       "DarkWhispers": {
         "PromptLibrary": {
           "Hint": "Drowsy-owned Dark Whispers prompts and their one-way import provenance.",
@@ -45,6 +61,20 @@
         }
       },
       "SessionManagement": {
+        "ExportChat": {
+          "Hint": "Offer chat export as part of session turnover.",
+          "Name": "Export chat during turnover"
+        },
+        "HoldingSceneUuid": {
+          "Hint": "Scene UUID to activate during session turnover. Leave blank to skip it.",
+          "Name": "Holding scene UUID"
+        },
+        "PullPolicy": {
+          "Activate": "Activate the viewed scene",
+          "Hint": "Choose whether Pull Everyone activates the viewed scene or only moves connected players.",
+          "Name": "Pull Everyone behavior",
+          "Pull": "Pull players without activating"
+        },
         "State": {
           "Hint": "Saved session reference and turnover history.",
           "Name": "Session management state"

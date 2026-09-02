@@ -8,6 +8,10 @@ Controls, their macros, and the module API; the Fear Console also appears in sup
 actor-sheet headers. Open configurators and the GM Toolkit Importer from Foundry's Module Settings.
 Every optional Foundry UI launcher is enabled by default; changing one requires a reload.
 
+Open **Drowsy’s WFRP4e Toolkit** from Module Settings or its macro to reach every console from one
+place. Each feature remains a separate window so combat, session, content, and administration work
+do not share one oversized form.
+
 ## Fear Console
 
 1. Open the console.
@@ -73,19 +77,21 @@ same time should also appear as text in WFRP4e's reason.
 Open `Import from GM Toolkit` in Module Settings. The importer can read saved world data while GM
 Toolkit is active, disabled, or no longer installed.
 
-Select the session reference and generic XP defaults you want to keep, then choose
-`Import selected`. The comparison shows the saved GM Toolkit value beside the current Drowsy value.
-Only selected values are copied, and GM Toolkit settings are never changed or synchronized. Values
-marked `not transferred` will not be available after GM Toolkit is disabled.
+Select any of the 34 compatible settings you want to keep, then choose `Import selected`. The
+comparison shows the saved GM Toolkit value beside the current Drowsy value. Only selected values
+are copied, and GM Toolkit settings are never changed or synchronized. Values marked superseded,
+retired, or transient are explained and are not copied. A holding Scene name must resolve to exactly
+one current Scene; otherwise choose its UUID in Session Management.
 
 If the world contains a Dark Whispers RollTable, select the prompts to copy into Drowsy’s library.
 New, unchanged, duplicate, and locally edited prompts are identified separately. Re-import keeps the
 Drowsy version of an edited prompt unless you explicitly replace it. The source RollTable is never
 changed or deleted.
 
-The Hotbar Launchers section checks the current user's hotbars. Stock launchers with an available
-Drowsy equivalent can be selected for remapping. Customized macros and uncertain matches are left
-untouched for manual review.
+The Hotbar Launchers section checks the current user's hotbars. All 20 active stock launchers have a
+Drowsy equivalent and can be selected for remapping. The simple d100 launcher remains independent;
+Foundry `/r 1d100` and the Administration Console both cover it. Customized macros and uncertain
+matches are left untouched for manual review.
 
 Before disabling GM Toolkit, review the final summary and save your acknowledgement. Changing source
 data or import choices makes the earlier review stale. Finish any active combat first because
@@ -94,9 +100,66 @@ combat-specific state is not copied. Drowsy uses only its own saved data after t
 ## Session Management Console
 
 Edit and save the current reference independently, or complete a session by selecting its best-known
-date/time and the next reference. The turnover saves an exact session occurrence time and record
-time, then makes the next reference current. Whole-number references are suggested one number
-higher; descriptive references are preserved for editing.
+date/time and the next reference. A turnover can pause the game, activate the configured holding
+Scene, apply the fixed XP defaults, reset Fortune from Fate plus Luck, export chat, and record the
+session. Each result is saved before the next step, so retrying after a failure skips work that
+already completed. Whole-number references are suggested one number higher; descriptive references
+are preserved for editing.
+
+The holding Scene is stored by UUID. Non-GMs cannot move tokens on that Scene while the policy is
+configured. **Pull Everyone to Scene** follows the saved activate, pull-only, or prompt behavior and
+is also available as a standalone macro. **Reset Fortune** uses the fixed-XP Party/Company/World
+recipient default and is likewise available independently.
+
+## Combat Console
+
+Select actors, enter an amount, and add, reduce, or clear Advantage. Add and reduce require combat;
+clear remains available outside combat. The automation section controls opposed-test results,
+qualifying unopposed damage, condition loss, combat join/leave, round-end momentum loss, and whether
+notices remain visible. WFRP4e still owns personal maximums and group Advantage.
+
+Condition checks support Surprised, Ablaze, Poisoned, and Broken. Keep **Require end of round** on
+for the normal round-end workflow, and decide explicitly whether assigned player characters should
+be skipped.
+
+## Damage Console
+
+Select characters, creatures, or vehicles, enter a number or dice formula, and choose whether the
+damage and rolled hit location are shared or rolled per actor. A fixed hit location ignores the
+per-actor roll switch. Choose normal protection, ignore armour, ignore Toughness, or ignore both,
+then apply. WFRP4e calculates the damage and a private GM summary reports successes and failures.
+
+## Secret Group Tests
+
+Select actors and choose an indexed skill or enter its exact name. Configure difficulty, modifier,
+roll mode, dialog bypass, advanced-skill fallback, and fallback difficulty. The saved defaults also
+include the initial Party/Company group, four quick-test buttons, default skill, and the private
+summary threshold. When a visible dialog belongs to an active assigned player, that player rolls;
+otherwise the GM performs the test. Results are accepted only for the requested actor and batch.
+
+## Dark Whispers
+
+Eligible Party or Company characters with Corruption appear with their assigned player and owner
+information. Choose recipients, edit or randomize the whisper, select its presentation, and send to
+the assigned player or all owners. Players can Accept or Reject once from the Drowsy card; their
+response is whispered to GMs. Corruption is not changed automatically.
+
+Expand **Prompt library** to add, edit, remove, and save Drowsy-owned prompts. Imported GM Toolkit
+prompts become ordinary Drowsy content after the one-way copy.
+
+## Token Vision & Light
+
+Control the tokens to change, then choose normal, blinded, Night Vision, Dark Vision, or no vision
+and one of fourteen light choices. Expand **Vision defaults** to set normal/Dark Vision ranges and
+the two trait overrides. Night Vision accounts for its advances, emitted light, and current Scene
+lighting; changes affect only controlled tokens.
+
+## Administration Console
+
+Use explicit buttons to switch the viewed Scene between Token Vision and global illumination. Select
+compendium packs and make them visible to players or hidden, review players without assigned
+characters and the startup warning preference, or roll d100. A chat-message context action also
+edits message flavour with escaped text.
 
 ## Change Grid Scale Macro
 
