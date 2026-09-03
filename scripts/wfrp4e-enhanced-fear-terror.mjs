@@ -11283,7 +11283,7 @@ var kw = ws("xp-award-console", () => {
 }, Yw = {
 	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
 	"aria-labelledby": "fixed-xp-details"
-}, Xw = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Zw = { class: "dui-label tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3" }, Qw = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, $w = { class: "tw:m-0 tw:break-words tw:font-semibold" }, eT = /* @__PURE__ */ P({
+}, Xw = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Zw = { class: "dui-label tw:w-full tw:min-w-0 tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3 tw:whitespace-normal" }, Qw = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, $w = { class: "tw:m-0 tw:break-words tw:font-semibold" }, eT = /* @__PURE__ */ P({
 	__name: "XpAwardConsoleApp",
 	props: {
 		actions: {},
@@ -11437,9 +11437,9 @@ var kw = ws("xp-award-console", () => {
 				], -1),
 				z("label", Zw, [N(z("input", {
 					"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ k(l) ? l.value = e : null,
-					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:appearance-none! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none!",
+					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:appearance-none! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none! tw:checked:text-primary-content!",
 					type: "checkbox"
-				}, null, 512), [[G, j(l)]]), t[11] ||= z("span", null, [z("span", { class: "tw:block tw:font-semibold" }, "Include timestamp in WFRP4e reason"), z("span", { class: "tw:block tw:text-xs tw:text-base-content/65!" }, " WFRP4e’s log schema has no timestamp field, so this appends UTC text to the reason. ")], -1)]),
+				}, null, 512), [[G, j(l)]]), t[11] ||= z("span", { class: "tw:min-w-0 tw:flex-1 tw:break-words" }, [z("span", { class: "tw:block tw:font-semibold" }, "Include timestamp in WFRP4e reason"), z("span", { class: "tw:block tw:text-xs tw:text-base-content/65!" }, " WFRP4e’s log schema has no timestamp field, so this appends UTC text to the reason. ")], -1)]),
 				z("div", Qw, [t[12] ||= z("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), z("p", $w, E(j(f) || "No reason"), 1)]),
 				t[19] ||= z("div", {
 					class: "dui-alert tw:text-xs",
@@ -11557,7 +11557,7 @@ async function oT() {
 }
 //#endregion
 //#region src/view/apps/toolkit-home/ToolkitHomeApp.vue?vue&type=script&setup=true&lang.ts
-var sT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, cT = { class: "tw:m-0 tw:font-serif tw:text-lg" }, lT = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, uT = ["onClick"], dT = { class: "dui-card-body tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, fT = { class: "tw:min-w-0" }, pT = { class: "tw:block tw:font-semibold" }, mT = { class: "tw:block tw:text-xs tw:text-base-content/65!" }, hT = /* @__PURE__ */ P({
+var sT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, cT = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, lT = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, uT = ["onClick"], dT = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, fT = { class: "tw:min-w-0 tw:flex-1" }, pT = { class: "tw:block tw:font-semibold tw:text-base-content!" }, mT = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, hT = /* @__PURE__ */ P({
 	__name: "ToolkitHomeApp",
 	props: { sections: {} },
 	setup(e) {
@@ -11571,11 +11571,11 @@ var sT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, cT = { class: "tw:m-0 tw:font
 				class: "tw:grid tw:gap-2"
 			}, [z("h2", cT, E(e.label), 1), z("div", lT, [(L(!0), R(I, null, F(e.actions, (e) => (L(), R("button", {
 				key: e.id,
-				class: "dui-card dui-card-border tw:min-w-0 tw:cursor-pointer tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-left tw:shadow-sm tw:transition hover:tw:border-primary/60!",
+				class: "dui-card dui-card-border tw:m-0! tw:h-auto! tw:min-h-0! tw:w-full! tw:min-w-0 tw:cursor-pointer tw:items-stretch! tw:justify-start! tw:gap-0! tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-0! tw:text-left tw:text-base-content! tw:shadow-sm tw:transition tw:leading-normal! hover:tw:border-primary/60!",
 				type: "button",
 				onClick: e.open
 			}, [z("span", dT, [z("i", {
-				class: Ce([e.icon, "tw:mt-1 tw:text-lg tw:text-primary!"]),
+				class: Ce([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
 				"aria-hidden": "true"
 			}, null, 2), z("span", fT, [z("span", pT, E(e.label), 1), z("span", mT, E(e.description), 1)])])], 8, uT))), 128))])]))), 128))])]),
 			_: 1
