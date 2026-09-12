@@ -111,6 +111,24 @@ configured. **Pull Everyone to Scene** follows the saved activate, pull-only, or
 is also available as a standalone macro. **Reset Fortune** uses the fixed-XP Party/Company/World
 recipient default and is likewise available independently.
 
+## Imperial Calendar Calculator
+
+Open **Imperial Calendar Calculator** from Toolkit Home or import its macro from the toolkit pack.
+Choose each date's month or festival, day, and I.C. year. Time is optional: use `HH:MM` or
+`HH:MM:SS` on a 24-hour clock, or leave it blank for midnight. Results update as you type.
+
+The result counts elapsed time: the same date and time is zero; midnight to the next midnight is one
+day. The six festivals each count as a full day. For example, Jahrdrung 33 at 23:00 to Pflugzeit 1
+at 01:00 is **1 day, 2 hours**, because Mitterfruhl falls between them. Longer durations also show
+400-day years and remaining days. An earlier end date is clearly marked; **Swap dates** reverses the
+calculation.
+
+The fixed calendar matches Simple Calendar Reborn's default Warhammer preset: Nachexen and
+Nachgeheim have 32 days, the other ten months have 33, and there are six festival days, with no leap
+years. Supported years are 1–99,999 I.C. Invalid entries display a correction message. This helper
+uses manually entered dates, requires neither calendar module, does not read customized calendars,
+and never advances or synchronizes game time.
+
 ## Combat Console
 
 Select actors, enter an amount, and add, reduce, or clear Advantage. Add and reduce require combat;
