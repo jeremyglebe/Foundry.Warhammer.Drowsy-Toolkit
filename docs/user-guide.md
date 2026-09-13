@@ -172,6 +172,13 @@ and one of fourteen light choices. Expand **Vision defaults** to set normal/Dark
 the two trait overrides. Night Vision accounts for its advances, emitted light, and current Scene
 lighting; changes affect only controlled tokens.
 
+## Scene Management Console
+
+Use this launcher when working on a Scene to reach **Change Grid Scale**, **Pull Everyone to
+Scene**, **Use Token Vision**, **Use Global Light**, and **Open Token Vision & Light** from one
+window. Each action remains available as its own macro in the toolkit compendium; the console is an
+additional grouped entrypoint rather than a replacement.
+
 ## Administration Console
 
 Use explicit buttons to switch the viewed Scene between Token Vision and global illumination. Select

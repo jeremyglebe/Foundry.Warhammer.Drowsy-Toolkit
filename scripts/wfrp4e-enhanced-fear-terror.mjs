@@ -127,7 +127,7 @@ function s(e, t, n, r) {
 	if (!Number.isInteger(e) || e < t || e > n) throw RangeError(`${r} must be a whole number from ${t} to ${n}.`);
 }
 //#endregion
-//#region D:/Repos/FoundryVTT WFRP Enhanced Fear and Terror/node_modules/@vue/shared/dist/shared.esm-bundler.js
+//#region node_modules/@vue/shared/dist/shared.esm-bundler.js
 // @__NO_SIDE_EFFECTS__
 function c(e) {
 	let t = /* @__PURE__ */ Object.create(null);
@@ -1066,7 +1066,7 @@ function En(e, t = Infinity, n) {
 	return e;
 }
 //#endregion
-//#region D:/Repos/FoundryVTT WFRP Enhanced Fear and Terror/node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js
+//#region node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js
 function Dn(e, t, n, r) {
 	try {
 		return r ? e(...r) : e();
@@ -3087,7 +3087,7 @@ function Yo(e) {
 	return C(e) ? document.querySelector(e) : e;
 }
 //#endregion
-//#region D:/Repos/FoundryVTT WFRP Enhanced Fear and Terror/node_modules/pinia/dist/pinia.mjs
+//#region node_modules/pinia/dist/pinia.mjs
 var Xo = typeof window < "u", Zo, Qo = (e) => Zo = e, $o = Symbol();
 function es(e) {
 	return e && typeof e == "object" && Object.prototype.toString.call(e) === "[object Object]" && typeof e.toJSON != "function";
@@ -3631,6 +3631,10 @@ var Ps = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 	sessionManagementConsole: {
 		gmOnly: !0,
 		name: "Session Management Console"
+	},
+	sceneManagementConsole: {
+		gmOnly: !0,
+		name: "Scene Management Console"
 	},
 	toolkitHome: {
 		gmOnly: !0,
@@ -11882,15 +11886,36 @@ async function KT() {
 	return await e.render(!0), e;
 }
 //#endregion
-//#region src/view/apps/toolkit-home/ToolkitHomeApp.vue?vue&type=script&setup=true&lang.ts
-var qT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, JT = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, YT = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, XT = ["onClick"], ZT = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, QT = { class: "tw:min-w-0 tw:flex-1" }, $T = { class: "tw:block tw:font-semibold tw:text-base-content!" }, eE = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, tE = /* @__PURE__ */ P({
-	__name: "ToolkitHomeApp",
-	props: { sections: {} },
+//#region src/view/apps/shared/LauncherConsole.vue?vue&type=script&setup=true&lang.ts
+var qT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, JT = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, YT = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, XT = ["disabled", "onClick"], ZT = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, QT = { class: "tw:min-w-0 tw:flex-1" }, $T = { class: "tw:block tw:font-semibold tw:text-base-content!" }, eE = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, tE = {
+	key: 0,
+	class: "dui-loading dui-loading-sm dui-loading-spinner tw:shrink-0",
+	"aria-label": "Working"
+}, nE = /* @__PURE__ */ P({
+	__name: "LauncherConsole",
+	props: {
+		description: {},
+		icon: {},
+		sections: {},
+		title: {}
+	},
 	setup(e) {
-		return (t, n) => (L(), ua(Xs, {
-			description: "Open the tools you need without relying on world macro names.",
-			icon: "fa-solid fa-toolbox",
-			title: "Drowsy’s WFRP4e Toolkit"
+		let t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j();
+		async function r(e) {
+			t.value = void 0, n.value = e.id;
+			try {
+				await e.open();
+			} catch (n) {
+				console.error(`Launcher action "${e.label}" failed.`, n), t.value = n instanceof Error ? n.message : `${e.label} could not be completed.`;
+			} finally {
+				n.value = void 0;
+			}
+		}
+		return (i, a) => (L(), ua(Xs, {
+			description: e.description,
+			"error-message": t.value,
+			icon: e.icon,
+			title: e.title
 		}, {
 			default: Xn(() => [z("div", qT, [(L(!0), R(I, null, F(e.sections, (e) => (L(), R("section", {
 				key: e.id,
@@ -11898,16 +11923,37 @@ var qT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, JT = { class: "tw:m-0 tw:font
 			}, [z("h2", JT, D(e.label), 1), z("div", YT, [(L(!0), R(I, null, F(e.actions, (e) => (L(), R("button", {
 				key: e.id,
 				class: "dui-card dui-card-border tw:m-0! tw:h-auto! tw:min-h-0! tw:w-full! tw:min-w-0 tw:cursor-pointer tw:items-stretch! tw:justify-start! tw:gap-0! tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-0! tw:text-left tw:text-base-content! tw:shadow-sm tw:transition tw:leading-normal! hover:tw:border-primary/60!",
+				disabled: n.value !== void 0,
 				type: "button",
-				onClick: e.open
-			}, [z("span", ZT, [z("i", {
-				class: Te([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
-				"aria-hidden": "true"
-			}, null, 2), z("span", QT, [z("span", $T, D(e.label), 1), z("span", eE, D(e.description), 1)])])], 8, XT))), 128))])]))), 128))])]),
+				onClick: (t) => r(e)
+			}, [z("span", ZT, [
+				z("i", {
+					class: Te([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
+					"aria-hidden": "true"
+				}, null, 2),
+				z("span", QT, [z("span", $T, D(e.label), 1), z("span", eE, D(e.description), 1)]),
+				n.value === e.id ? (L(), R("span", tE)) : H("", !0)
+			])], 8, XT))), 128))])]))), 128))])]),
 			_: 1
-		}));
+		}, 8, [
+			"description",
+			"error-message",
+			"icon",
+			"title"
+		]));
 	}
-}), nE = class extends Ec {
+}), rE = /* @__PURE__ */ P({
+	__name: "ToolkitHomeApp",
+	props: { sections: {} },
+	setup(e) {
+		return (t, n) => (L(), ua(nE, {
+			description: "Open the tools you need without relying on world macro names.",
+			icon: "fa-solid fa-toolbox",
+			sections: e.sections,
+			title: "Drowsy’s WFRP4e Toolkit"
+		}, null, 8, ["sections"]));
+	}
+}), iE = class extends Ec {
 	sections;
 	static ACCESS_POLICY = J.toolkitHome;
 	static DEFAULT_OPTIONS = {
@@ -11928,51 +11974,12 @@ var qT = { class: "tw:grid tw:min-w-0 tw:gap-4" }, JT = { class: "tw:m-0 tw:font
 		super(), this.sections = e;
 	}
 	getVueComponent() {
-		return tE;
+		return rE;
 	}
 	getVueProps() {
 		return { sections: this.sections };
 	}
 };
-//#endregion
-//#region src/module/apps/toolkit-home/open.ts
-async function rE() {
-	let e = new nE([{
-		id: "gameplay",
-		label: "Gameplay",
-		actions: [
-			iE("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", Gd),
-			iE("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Ef),
-			iE("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", Nm),
-			iE("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", bp),
-			iE("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", ru),
-			iE("xp-curve", "XP Curve Console", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", aw),
-			iE("xp-award", "XP Award Console", "Apply a fixed XP change to selected characters.", "fa-solid fa-award", UT),
-			iE("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", fh)
-		]
-	}, {
-		id: "campaign",
-		label: "Campaign",
-		actions: [
-			iE("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Oc),
-			iE("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", KT),
-			iE("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", Gu),
-			iE("import", "Import from GM Toolkit", "Copy supported settings, prompts, and launchers.", "fa-solid fa-file-import", Sb)
-		]
-	}]);
-	return await e.render(!0), e;
-}
-function iE(e, t, n, r, i) {
-	return {
-		description: n,
-		icon: r,
-		id: e,
-		label: t,
-		open: async () => {
-			await i();
-		}
-	};
-}
 //#endregion
 //#region src/functions/grid-scale/calculate.ts
 function aE(e) {
@@ -12125,8 +12132,118 @@ function fE(e) {
 	return `${e.size}px/${e.distance}${e.units}`;
 }
 //#endregion
+//#region src/view/apps/scene-management-console/SceneManagementConsoleApp.vue
+var pE = /* @__PURE__ */ P({
+	__name: "SceneManagementConsoleApp",
+	props: { sections: {} },
+	setup(e) {
+		return (t, n) => (L(), ua(nE, {
+			description: "Run common Scene and token-viewing actions from one place.",
+			icon: "fa-solid fa-map",
+			sections: e.sections,
+			title: "Scene Management Console"
+		}, null, 8, ["sections"]));
+	}
+}), mE = class extends Ec {
+	sections;
+	static ACCESS_POLICY = J.sceneManagementConsole;
+	static DEFAULT_OPTIONS = {
+		...super.DEFAULT_OPTIONS,
+		classes: [q, `${q}-scene-management`],
+		id: `${q}-scene-management`,
+		position: {
+			height: 580,
+			width: 680
+		},
+		window: {
+			icon: "fa-solid fa-map",
+			resizable: !0,
+			title: `${Sc} — Scene Management`
+		}
+	};
+	constructor(e) {
+		super(), this.sections = e;
+	}
+	getVueComponent() {
+		return pE;
+	}
+	getVueProps() {
+		return { sections: this.sections };
+	}
+};
+//#endregion
+//#region src/module/apps/scene-management-console/open.ts
+async function hE() {
+	let e = new mE([{
+		id: "scene",
+		label: "Viewed Scene",
+		actions: [
+			gE("grid-scale", "Change Grid Scale (Preserve Lighting)", "Change grid measurements while preserving rendered light sizes.", "fa-solid fa-grid-2", sE),
+			gE("pull-everyone", "Pull Everyone to Scene", "Activate this Scene or pull connected players using your saved policy.", "fa-solid fa-people-pulling", aT),
+			gE("token-vision", "Use Token Vision", "Enable Token Vision and disable global illumination for this Scene.", "fa-solid fa-eye", () => Bu("token-vision")),
+			gE("global-light", "Use Global Light", "Enable global illumination and disable Token Vision for this Scene.", "fa-solid fa-sun", () => Bu("global-light"))
+		]
+	}, {
+		id: "tokens",
+		label: "Controlled Tokens",
+		actions: [gE("token-tools", "Open Token Vision & Light", "Apply vision modes and light presets to controlled tokens.", "fa-solid fa-lightbulb", async () => {
+			await fh();
+		})]
+	}]);
+	return await e.render(!0), e;
+}
+function gE(e, t, n, r, i) {
+	return {
+		description: n,
+		icon: r,
+		id: e,
+		label: t,
+		open: i
+	};
+}
+//#endregion
+//#region src/module/apps/toolkit-home/open.ts
+async function _E() {
+	let e = new iE([{
+		id: "gameplay",
+		label: "Gameplay",
+		actions: [
+			vE("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", Gd),
+			vE("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Ef),
+			vE("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", Nm),
+			vE("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", bp),
+			vE("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", ru),
+			vE("xp-curve", "XP Curve Console", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", aw),
+			vE("xp-award", "XP Award Console", "Apply a fixed XP change to selected characters.", "fa-solid fa-award", UT),
+			vE("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", fh)
+		]
+	}, {
+		id: "campaign",
+		label: "Campaign",
+		actions: [
+			vE("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Oc),
+			vE("scene-management", "Scene Management", "Open common Scene and token-viewing actions.", "fa-solid fa-map", hE),
+			vE("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", KT),
+			vE("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", Gu),
+			vE("import", "Import from GM Toolkit", "Copy supported settings, prompts, and launchers.", "fa-solid fa-file-import", Sb)
+		]
+	}]);
+	return await e.render(!0), e;
+}
+function vE(e, t, n, r, i) {
+	return {
+		description: n,
+		icon: r,
+		id: e,
+		label: t,
+		open: async () => {
+			await i();
+		}
+	};
+}
+//#endregion
 //#region src/module/api/create-module-api.ts
-function pE() {
+function yE() {
 	return {
 		calculateImperialElapsedTime: i,
 		openImperialCalendarCalculator: Oc,
@@ -12153,7 +12270,8 @@ function pE() {
 		openGmToolkitMigration: Sb,
 		openGroupTestConsole: Nm,
 		openSessionManagementConsole: KT,
-		openToolkitHome: rE,
+		openSceneManagementConsole: hE,
+		openToolkitHome: _E,
 		openTokenToolsConsole: fh,
 		openXpAwardConsole: UT,
 		openXpCurveConsole: aw,
@@ -12173,29 +12291,29 @@ function pE() {
 }
 //#endregion
 //#region src/module/api/register-module-api.ts
-function mE() {
+function bE() {
 	let e = game.modules.get(q);
 	if (!e) throw Error(`Foundry module registry entry was not found for ${q}.`);
-	e.api = pE();
+	e.api = yE();
 }
 //#endregion
 //#region src/module/administration/hooks.ts
-function hE() {
+function xE() {
 	Hooks.on("getChatMessageContextOptions", (e, t) => {
 		t.push({
-			callback: _E,
+			callback: CE,
 			condition: () => game.user?.isGM === !0,
 			icon: "<i class=\"fa-solid fa-pen-fancy\"></i>",
 			name: "Edit message flavor"
 		});
 	});
 }
-function gE() {
+function SE() {
 	if (game.settings.get("wfrp4e-enhanced-fear-terror", Ru.showUnassignedPlayerWarning) !== !0) return;
 	let e = Array.from(game.users).filter((e) => !e.isGM && e.active !== !1 && !e.character).map(({ name: e }) => e);
 	e.length > 0 && ui.notifications.warn(`${e.join(", ")} ${e.length === 1 ? "has" : "have"} no assigned character.`);
 }
-async function _E(e) {
+async function CE(e) {
 	try {
 		let t = e instanceof HTMLElement ? e : e?.[0];
 		if (!(t instanceof HTMLElement)) throw Error("The selected chat message element is unavailable.");
@@ -12221,7 +12339,7 @@ async function _E(e) {
 }
 //#endregion
 //#region src/module/settings/register.ts
-function vE(e, t) {
+function wE(e, t) {
 	game.settings.register(q, e, {
 		config: !1,
 		default: !0,
@@ -12232,7 +12350,7 @@ function vE(e, t) {
 		type: Boolean
 	});
 }
-function yE(e, t, n, r, i = {}) {
+function TE(e, t, n, r, i = {}) {
 	game.settings.register(q, e, {
 		...i,
 		config: !1,
@@ -12245,8 +12363,8 @@ function yE(e, t, n, r, i = {}) {
 }
 //#endregion
 //#region src/module/administration/settings/register.ts
-function bE() {
-	yE(Ru.showUnassignedPlayerWarning, !0, Boolean, `${K}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(q, "administrationConsole", {
+function EE() {
+	TE(Ru.showUnassignedPlayerWarning, !0, Boolean, `${K}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(q, "administrationConsole", {
 		hint: `${K}.Menu.AdministrationConsole.Hint`,
 		icon: "fa-solid fa-screwdriver-wrench",
 		label: `${K}.Menu.AdministrationConsole.Label`,
@@ -12257,7 +12375,7 @@ function bE() {
 }
 //#endregion
 //#region src/functions/combat/advantage.ts
-function xE(e, t) {
+function DE(e, t) {
 	return t ? e === "attacker" ? [{
 		amount: 1,
 		mode: "add",
@@ -12272,47 +12390,47 @@ function xE(e, t) {
 		participant: e
 	}];
 }
-function SE(e) {
+function OE(e) {
 	return e.filter(({ currentAdvantage: e, roundStartAdvantage: t }) => e > 0 && e <= t).map(({ actorId: e }) => e);
 }
 //#endregion
 //#region src/module/combat/hooks.ts
-var CE = /* @__PURE__ */ new Set();
-function wE() {
-	Hooks.on("wfrp4e:opposedTestResult", TE), Hooks.on("wfrp4e:applyDamage", EE), Hooks.on("createActiveEffect", DE), Hooks.on("createCombatant", (e) => void OE(e, "join")), Hooks.on("deleteCombatant", (e) => void OE(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void kE(e, t)), Hooks.on("updateCombat", (e, t) => void jE(e, t));
+var kE = /* @__PURE__ */ new Set();
+function AE() {
+	Hooks.on("wfrp4e:opposedTestResult", jE), Hooks.on("wfrp4e:applyDamage", ME), Hooks.on("createActiveEffect", NE), Hooks.on("createCombatant", (e) => void PE(e, "join")), Hooks.on("deleteCombatant", (e) => void PE(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void FE(e, t)), Hooks.on("updateCombat", (e, t) => void LE(e, t));
 }
-async function TE(...e) {
-	if (!LE() || !Bd().automateOpposed) return;
+async function jE(...e) {
+	if (!UE() || !Bd().automateOpposed) return;
 	let [t, n, r] = e;
 	if (!t || !n || !r || r.context?.unopposed === !0) return;
 	let i = n.data?.result;
 	if (i?.options?.preventAdvantage === !0 || i?.canDualWield === !0) return;
 	let a = t.result, o = Pd(n.actor), s = Pd(r.actor);
 	if (!o || !s || !a) return;
-	let c = PE(n);
-	if (c && CE.has(c)) return;
-	c && FE(c);
+	let c = BE(n);
+	if (c && kE.has(c)) return;
+	c && VE(c);
 	let l = a.winner === "attacker" ? o : s, u = l === o ? s : o, d = {
 		attacker: o,
 		defender: s
-	}, f = xE(l === o ? "attacker" : "defender", IE());
+	}, f = DE(l === o ? "attacker" : "defender", HE());
 	for (let e of f) {
 		let t = d[e.participant];
 		e.mode === "set" ? await Nd(t, e.amount) : await Md(t, e.amount);
 	}
-	RE(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
+	WE(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
 }
-async function EE(e) {
-	if (!LE() || !Bd().automateDamage || !zE(e)) return;
+async function ME(e) {
+	if (!UE() || !Bd().automateDamage || !GE(e)) return;
 	let t = e.opposedTest;
 	if (t?.defenderTest?.context?.unopposed !== !0) return;
 	let n = Pd(e.attacker), r = Pd(e.actor);
 	if (!n || !r) return;
-	let i = t?.attackerTest, a = i ? PE(i) : "";
-	a && CE.has(a) || (a && FE(a), IE() || await Nd(r, 0), await Md(n, 1), RE(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
+	let i = t?.attackerTest, a = i ? BE(i) : "";
+	a && kE.has(a) || (a && VE(a), HE() || await Nd(r, 0), await Md(n, 1), WE(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
 }
-async function DE(e) {
-	if (!LE() || !Bd().automateCondition || !zE(e) || e.isCondition !== !0 || IE()) return;
+async function NE(e) {
+	if (!UE() || !Bd().automateCondition || !GE(e) || e.isCondition !== !0 || HE()) return;
 	let t = String(e.conditionId ?? "");
 	if ([
 		"dead",
@@ -12321,25 +12439,25 @@ async function DE(e) {
 		"grappling"
 	].includes(t)) return;
 	let n = Pd(e.parent);
-	n && n.inCombat === !0 && (await Nd(n, 0), RE(`${n.name} lost Advantage after receiving a condition.`));
+	n && n.inCombat === !0 && (await Nd(n, 0), WE(`${n.name} lost Advantage after receiving a condition.`));
 }
-async function OE(e, t) {
-	if (!LE() || !zE(e)) return;
+async function PE(e, t) {
+	if (!UE() || !GE(e)) return;
 	let n = Bd();
-	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && IE()) return;
+	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && HE()) return;
 	let r = Pd(e.actor);
 	r && await Nd(r, 0);
 }
-async function kE(e, t) {
-	if (!LE() || IE() || !Bd().promptMomentumLoss || !zE(e) || !zE(t)) return;
+async function FE(e, t) {
+	if (!UE() || HE() || !Bd().promptMomentumLoss || !GE(e) || !GE(t)) return;
 	let n = Number(t.round), r = Number(e.round);
 	if (!Number.isFinite(n) || n <= r || r <= 0) return;
-	let i = ME(e), a = new Set(SE(i.flatMap((e) => {
+	let i = RE(e), a = new Set(OE(i.flatMap((e) => {
 		let t = Pd(e.actor);
 		return t ? [{
 			actorId: t.id,
 			currentAdvantage: Number(t.system.status?.advantage?.value ?? 0),
-			roundStartAdvantage: Number(NE(e, "roundStartAdvantage") ?? 0)
+			roundStartAdvantage: Number(zE(e, "roundStartAdvantage") ?? 0)
 		}] : [];
 	}))), o = i.filter((e) => {
 		let t = Pd(e.actor);
@@ -12357,55 +12475,55 @@ async function kE(e, t) {
 			let t = Pd(e.actor);
 			t && await Md(t, -1);
 		}
-		await AE(o.flatMap((e) => {
+		await IE(o.flatMap((e) => {
 			let t = Pd(e.actor)?.name;
 			return t ? [t] : [];
-		})), RE(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
+		})), WE(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
 	}
 }
-async function AE(e) {
+async function IE(e) {
 	let t = Array.from(game.users).filter((e) => e.isGM).map((e) => e.id), n = e.map((e) => `<li>${foundry.utils.escapeHTML(e)}</li>`).join("");
 	await ChatMessage.create({
 		content: `<h3>Momentum Loss</h3><p>Advantage reduced by 1:</p><ul>${n}</ul>`,
 		whisper: t
 	});
 }
-async function jE(e, t) {
-	if (!(!LE() || !zE(e) || !zE(t) || !("round" in t))) for (let t of ME(e)) {
+async function LE(e, t) {
+	if (!(!UE() || !GE(e) || !GE(t) || !("round" in t))) for (let t of RE(e)) {
 		let e = Pd(t.actor), n = t.setFlag;
 		e && typeof n == "function" && await n.call(t, q, "roundStartAdvantage", Number(e.system.status?.advantage?.value ?? 0));
 	}
 }
-function ME(e) {
+function RE(e) {
 	let t = e.combatants;
 	return t && typeof t == "object" ? Array.from(t) : [];
 }
-function NE(e, t) {
+function zE(e, t) {
 	let n = e.getFlag;
 	return typeof n == "function" ? n.call(e, q, t) : void 0;
 }
-function PE(e) {
+function BE(e) {
 	let t = e.message;
 	return String(t?.id ?? "");
 }
-function FE(e) {
-	CE.add(e), CE.size > 100 && CE.delete(CE.values().next().value ?? "");
+function VE(e) {
+	kE.add(e), kE.size > 100 && kE.delete(kE.values().next().value ?? "");
 }
-function IE() {
+function HE() {
 	return game.settings.get("wfrp4e", "useGroupAdvantage") === !0;
 }
-function LE() {
+function UE() {
 	return game.user?.isGM === !0 && game.user.isUniqueGM !== !1;
 }
-function RE(e) {
+function WE(e) {
 	ui.notifications.info(e, { permanent: Bd().persistentNotifications });
 }
-function zE(e) {
+function GE(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
 //#region src/module/combat/settings/register.ts
-function BE() {
+function KE() {
 	for (let [e, t] of Object.entries(zd)) game.settings.register(q, t, {
 		config: !1,
 		default: e !== "persistentNotifications",
@@ -12417,14 +12535,14 @@ function BE() {
 }
 //#endregion
 //#region src/module/fear-terror/actor-sheet/register.ts
-var VE = "openFearConsole", HE = "wfrp4e-enhanced-fear-terror-actor-header", UE = [
+var qE = "openFearConsole", JE = "wfrp4e-enhanced-fear-terror-actor-header", YE = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], WE = [
+], XE = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -12432,39 +12550,39 @@ var VE = "openFearConsole", HE = "wfrp4e-enhanced-fear-terror-actor-header", UE 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function GE() {
-	for (let e of UE) Hooks.on(e, (e, t) => {
-		KE() && qE(e, t);
+function ZE() {
+	for (let e of YE) Hooks.on(e, (e, t) => {
+		QE() && $E(e, t);
 	});
-	for (let e of WE) Hooks.on(e, (e) => {
-		KE() && JE(e);
+	for (let e of XE) Hooks.on(e, (e) => {
+		QE() && eD(e);
 	});
 }
-function KE() {
+function QE() {
 	return nu.canCurrentUserAccess() && Fl(Pl.actorSheet);
 }
-function qE(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === VE) || (t.push({
-		action: VE,
+function $E(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === qE) || (t.push({
+		action: qE,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[VE] = function() {
-		YE(this.document);
+	}), e.options.actions ??= {}, e.options.actions[qE] = function() {
+		tD(this.document);
 	}));
 }
-function JE(e) {
+function eD(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${HE}`)) return;
+	if (!r || r.querySelector(`.${JE}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(HE, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = VE, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), YE(t);
+	i.type = "button", i.classList.add(JE, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = qE, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), tD(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function YE(e) {
+function tD(e) {
 	try {
 		iu({ initialPayload: Ul(e) });
 	} catch (e) {
@@ -12473,16 +12591,16 @@ function YE(e) {
 }
 //#endregion
 //#region src/module/dark-whispers/settings/register.ts
-function XE() {
-	yE(ap.promptLibrary, JSON.stringify({
+function nD() {
+	TE(ap.promptLibrary, JSON.stringify({
 		prompts: [],
 		version: 1
-	}), String, `${K}.Settings.DarkWhispers.PromptLibrary`), yE(ap.defaultGroup, "party", String, `${K}.Settings.DarkWhispers.DefaultGroup`), yE(ap.messageStyle, "taunt", String, `${K}.Settings.DarkWhispers.MessageStyle`);
+	}), String, `${K}.Settings.DarkWhispers.PromptLibrary`), TE(ap.defaultGroup, "party", String, `${K}.Settings.DarkWhispers.DefaultGroup`), TE(ap.messageStyle, "taunt", String, `${K}.Settings.DarkWhispers.MessageStyle`);
 }
 //#endregion
 //#region src/module/gm-toolkit/settings/register.ts
-function ZE() {
-	yE(Xy.state, JSON.stringify({ version: 1 }), String, `${K}.Settings.GmToolkitMigration.State`), game.settings.registerMenu(q, "gmToolkitMigration", {
+function rD() {
+	TE(Xy.state, JSON.stringify({ version: 1 }), String, `${K}.Settings.GmToolkitMigration.State`), game.settings.registerMenu(q, "gmToolkitMigration", {
 		hint: `${K}.Menu.GmToolkitMigration.Hint`,
 		icon: "fa-solid fa-box-archive",
 		label: `${K}.Menu.GmToolkitMigration.Label`,
@@ -12493,7 +12611,7 @@ function ZE() {
 }
 //#endregion
 //#region src/module/group-test/settings/register.ts
-var QE = {
+var iD = {
 	bypassDialog: !0,
 	defaultDifficulty: "average",
 	defaultGroup: "party",
@@ -12508,9 +12626,9 @@ var QE = {
 	quickTest4: "Gossip",
 	summaryThreshold: 2
 };
-function $E() {
+function aD() {
 	for (let [e, t] of Object.entries($p)) {
-		let n = QE[e];
+		let n = iD[e];
 		game.settings.register(q, t, {
 			config: !1,
 			default: n,
@@ -12523,7 +12641,7 @@ function $E() {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function eD(e, t) {
+function oD(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -12531,30 +12649,30 @@ function eD(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var tD = "openFearConsole";
-function nD() {
+var sD = "openFearConsole";
+function cD() {
 	Hooks.on("getSceneControlButtons", (e) => {
-		!nu.canCurrentUserAccess() || !Fl(Pl.tokenControls) || rD(e);
+		!nu.canCurrentUserAccess() || !Fl(Pl.tokenControls) || lD(e);
 	});
 }
-function rD(e) {
+function lD(e) {
 	let t = e.tokens;
-	t && (t.tools[tD] = {
+	t && (t.tools[sD] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: tD,
+		name: sD,
 		onChange: () => {
 			iu();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: eD("Fear Console", `${K}.SceneControls.OpenFearConsole`)
+		toolclip: oD("Fear Console", `${K}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function iD() {
-	vE(Pl.tokenControls, "TokenControlsLauncher"), vE(Pl.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(q, "fearConsole", {
+function uD() {
+	wE(Pl.tokenControls, "TokenControlsLauncher"), wE(Pl.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(q, "fearConsole", {
 		hint: `${K}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${K}.Menu.FearConsoleConfigurator.Label`,
@@ -12565,12 +12683,12 @@ function iD() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function aD() {
-	yE(wy.state, JSON.stringify({
+function dD() {
+	TE(wy.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, `${K}.Settings.SessionManagement.State`), yE(wy.holdingSceneUuid, "", String, `${K}.Settings.SessionManagement.HoldingSceneUuid`), yE(wy.exportChat, !1, Boolean, `${K}.Settings.SessionManagement.ExportChat`), yE(wy.pullPolicy, "pull", String, `${K}.Settings.SessionManagement.PullPolicy`, { choices: {
+	}), String, `${K}.Settings.SessionManagement.State`), TE(wy.holdingSceneUuid, "", String, `${K}.Settings.SessionManagement.HoldingSceneUuid`), TE(wy.exportChat, !1, Boolean, `${K}.Settings.SessionManagement.ExportChat`), TE(wy.pullPolicy, "pull", String, `${K}.Settings.SessionManagement.PullPolicy`, { choices: {
 		activate: `${K}.Settings.SessionManagement.PullPolicy.Activate`,
 		pull: `${K}.Settings.SessionManagement.PullPolicy.Pull`
 	} }), game.settings.registerMenu(q, "sessionManagementConsole", {
@@ -12584,26 +12702,26 @@ function aD() {
 }
 //#endregion
 //#region src/module/session-management/hooks.ts
-function oD() {
-	Hooks.on("preUpdateToken", sD);
+function fD() {
+	Hooks.on("preUpdateToken", pD);
 }
-function sD(e, t) {
-	if (game.user?.isGM || !cD(e) || !cD(t)) return;
+function pD(e, t) {
+	if (game.user?.isGM || !mD(e) || !mD(t)) return;
 	let n = Dy().holdingSceneUuid, r = canvas?.scene?.uuid;
 	!n || r !== n || (t.x !== void 0 && (t.x = e.x), t.y !== void 0 && (t.y = e.y));
 }
-function cD(e) {
+function mD(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
 //#region src/module/toolkit-home/settings/register.ts
-function lD() {
-	class e extends nE {
+function hD() {
+	class e extends iE {
 		constructor() {
 			super([]);
 		}
 		async render(e) {
-			return await rE(), this;
+			return await _E(), this;
 		}
 	}
 	game.settings.registerMenu(q, "toolkitHome", {
@@ -12611,13 +12729,13 @@ function lD() {
 		icon: "fa-solid fa-toolbox",
 		label: `${K}.Menu.ToolkitHome.Label`,
 		name: `${K}.Menu.ToolkitHome.Name`,
-		restricted: nE.ACCESS_POLICY.gmOnly,
+		restricted: iE.ACCESS_POLICY.gmOnly,
 		type: e
 	});
 }
 //#endregion
 //#region src/module/token-tools/settings/register.ts
-function uD() {
+function gD() {
 	let e = {
 		darkRange: 120,
 		normalRange: 2,
@@ -12638,50 +12756,50 @@ function uD() {
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var dD = "openXpCurveConsole";
-function fD() {
+var _D = "openXpCurveConsole";
+function vD() {
 	Hooks.on("getSceneControlButtons", (e) => {
 		if (!iw.canCurrentUserAccess() || !UC($.showTokenControlsLauncher)) return;
 		let t = e.tokens;
-		t && (t.tools[dD] = {
+		t && (t.tools[_D] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: dD,
+			name: _D,
 			onChange: ow,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: eD("XP Curve Console", `${K}.SceneControls.OpenXpCurveConsole`)
+			toolclip: oD("XP Curve Console", `${K}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function pD() {
-	vE($.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), mD($.maximumAward, Ib.parameters.maximumAward, Number, "MaximumAward", { range: {
+function yD() {
+	wE($.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), bD($.maximumAward, Ib.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), mD($.gapForMaximumAward, Ib.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), bD($.gapForMaximumAward, Ib.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), mD($.curveExponent, Ib.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), bD($.curveExponent, Ib.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), mD($.scalePivot, Ib.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), bD($.scalePivot, Ib.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), mD($.scaleExponent, Ib.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), bD($.scaleExponent, Ib.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), mD($.companionMultiplier, Ib.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
+	} }), bD($.companionMultiplier, Ib.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), mD($.defaultReason, Ib.defaultReason, String, "DefaultReason"), mD($.defaultSelection, Ib.defaultSelection, String, "DefaultSelection", { choices: {
+	} }), bD($.defaultReason, Ib.defaultReason, String, "DefaultReason"), bD($.defaultSelection, Ib.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${K}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${K}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${K}.Settings.XpCurve.DefaultSelection.World`
@@ -12694,24 +12812,24 @@ function pD() {
 		type: ZC
 	});
 }
-function mD(e, t, n, r, i = {}) {
-	yE(e, t, n, `${K}.Settings.XpCurve.${r}`, i);
+function bD(e, t, n, r, i = {}) {
+	TE(e, t, n, `${K}.Settings.XpCurve.${r}`, i);
 }
 //#endregion
 //#region src/module/xp-award/settings/register.ts
-function hD() {
-	gD(Iy.auditLog, JSON.stringify({
+function xD() {
+	SD(Iy.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), gD(Iy.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), SD(Iy.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), gD(Iy.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), gD(Iy.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), SD(Iy.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), SD(Iy.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${K}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${K}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${K}.Settings.XpAward.DefaultSelection.World`
-	} }), gD(Iy.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(q, "xpAwardConsole", {
+	} }), SD(Iy.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(q, "xpAwardConsole", {
 		hint: `${K}.Menu.XpAwardConsole.Hint`,
 		icon: "fa-solid fa-award",
 		label: `${K}.Menu.XpAwardConsole.Label`,
@@ -12720,25 +12838,25 @@ function hD() {
 		type: HT
 	});
 }
-function gD(e, t, n, r, i = {}) {
-	yE(e, t, n, `${K}.Settings.XpAward.${r}`, i);
+function SD(e, t, n, r, i = {}) {
+	TE(e, t, n, `${K}.Settings.XpAward.${r}`, i);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function _D() {
-	hE(), wE(), hp(), ym(), oD(), Hooks.once("init", () => {
-		console.info(`${q} | Initializing`), bE(), BE(), iD(), XE(), ZE(), $E(), aD(), lD(), uD(), hD(), pD(), GE(), nD(), fD();
+function CD() {
+	xE(), AE(), hp(), ym(), fD(), Hooks.once("init", () => {
+		console.info(`${q} | Initializing`), EE(), KE(), uD(), nD(), rD(), aD(), dD(), hD(), gD(), xD(), yD(), ZE(), cD(), vD();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${q} | Loaded outside ${wc}; skipping module API registration.`);
 			return;
 		}
-		mE(), gE(), console.info(`${q} | Ready`);
+		bE(), SE(), console.info(`${q} | Ready`);
 	});
 }
 //#endregion
 //#region src/main.ts
-_D();
+CD();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map

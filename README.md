@@ -32,6 +32,8 @@ Current applications and their bundled launchers are GM-only.
 - `Secret Group Tests` supports private delegated and GM-run tests with aggregation.
 - `Dark Whispers` owns editable prompts, recipients, private delivery, and responses.
 - `Token Vision & Light` provides five vision modes and fourteen light choices.
+- `Scene Management Console` groups grid scaling, player pulls, Scene lighting modes, and the Token
+  Vision & Light launcher while keeping each action available as its own macro.
 - `Administration Console` manages Scene lighting, compendium visibility, player assignments, chat
   flavour, and d100 rolls.
 - `GM Toolkit Importer` copies selected settings and content from GM Toolkit and reviews hotbar
@@ -48,10 +50,9 @@ Drowsy’s Toolkit owns the copied data. GM Toolkit settings remain read-only.
 
 ## Macro and API Access
 
-As a GM, import any `Open … Console` launcher or `Change Grid Scale (Preserve Lighting)` from the
-GM-only macro compendium. The grid utility changes the active Scene's grid settings while preserving
-the rendered size of its Ambient Lights and Token-emitted lights. Equivalent custom script macros
-can use:
+As a GM, import any `Open … Console` launcher or standalone Scene action from the GM-only macro
+compendium. The grid utility changes the active Scene's grid settings while preserving the rendered
+size of its Ambient Lights and Token-emitted lights. Equivalent custom script macros can use:
 
 ```js
 const api = game.modules.get("wfrp4e-enhanced-fear-terror")?.api;
@@ -68,6 +69,7 @@ await api.openGmToolkitMigration();
 await api.openXpAwardConsole();
 await api.openXpCurveConsole();
 await api.openSessionManagementConsole();
+await api.openSceneManagementConsole();
 await api.openImperialCalendarCalculator();
 await api.changeGridScalePreservingLighting();
 ```
