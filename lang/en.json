@@ -23,8 +23,8 @@
       },
       "SessionManagementConsole": {
         "Hint": "Run resumable session turnover and manage Scene, XP, Fortune, chat export, and session records.",
-        "Label": "Open Session Management Console",
-        "Name": "Session Management Console"
+        "Label": "End Session",
+        "Name": "Session Turnover Console"
       },
       "GmToolkitMigration": {
         "Hint": "Copy compatible settings and content from GM Toolkit once, then review hotbar replacements and cutover safety.",
@@ -33,7 +33,7 @@
       },
       "XpAwardConsole": {
         "Hint": "Apply a generic XP change to selected WFRP4e characters.",
-        "Label": "Open XP Award Console",
+        "Label": "Award XP",
         "Name": "XP Award Console"
       }
     },

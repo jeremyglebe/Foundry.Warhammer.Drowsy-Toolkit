@@ -23,7 +23,7 @@ Current applications and their bundled launchers are GM-only.
 - `XP Curve Console` previews and awards capped catch-up XP to targeted actors or a configurable
   Party, Company, or World fallback group.
 - `XP Award Console` applies one reviewed XP change with compatible Party and Company behavior.
-- `Session Management Console` runs resumable pause, holding Scene, XP, Fortune, chat export, and
+- `Session Turnover Console` runs resumable pause, holding Scene, XP, Fortune, chat export, and
   record turnover steps.
 - `Imperial Calendar Calculator` measures the exact time between two Imperial dates, including all
   six festival days, without changing game time or requiring a calendar module.

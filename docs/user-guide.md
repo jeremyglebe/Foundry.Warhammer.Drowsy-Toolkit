@@ -62,15 +62,26 @@ underlying setting list. The same configurators are available from the cogs in t
 
 ## XP Award Console
 
-Use the XP Award Console for a fixed award instead of catch-up calculation. Target eligible
-character tokens before opening it, or leave all tokens untargeted to use the saved Party, Company,
-or World default. Company companions receive half the entered change. Negative values remove XP, but
-the preview prevents an actor's total from going below zero.
+Open **Award XP**, enter the XP amount and reason, review the preview and recipient checklist, then
+choose **Confirm**. Target character tokens before opening to select those actors. With no targets,
+the saved Party, Company, or World group is selected. Adjust individual checkboxes as needed; only
+the list needs to scroll for a large company.
 
-The reason accepts `%session%`, `%date%`, and `%datetime%`. Every completed batch stores its exact
-UTC time, session reference, reason, and per-actor before/change/after values in Drowsy’s world
-data. WFRP4e has no timestamp field in an experience-log entry. Enable the timestamp switch when the
-same time should also appear as text in WFRP4e's reason.
+Companions receive half the entered change, rounded down. Negative amounts remove XP, clamped so no
+total falls below zero. Each selected recipient shows their actual XP change.
+
+The **cog** opens **XP Award Settings** for the default amount, reason, fallback recipient group,
+and date/time in XP entries. Save there to change future defaults. Confirming an individual award
+never changes them. Saving settings preserves any amount, reason, or recipient selection already
+edited in the open award form; untouched fields adopt the new defaults.
+
+Reasons support `%session%`, `%date%`, and `%datetime%`. Preview resolves those values; the final
+award timestamp is set on confirmation. Each completed batch retains its UTC time, session, reason,
+and per-actor before/change/after values in Drowsy’s world data.
+
+The packaged launchers are now **Award XP** and **End Session**. Existing imported world macro
+copies keep their previous names; rename those copies or reimport the packaged macros if desired.
+Their IDs and API entry points are unchanged.
 
 ## Import from GM Toolkit
 
@@ -97,20 +108,21 @@ Before disabling GM Toolkit, review the final summary and save your acknowledgem
 data or import choices makes the earlier review stale. Finish any active combat first because
 combat-specific state is not copied. Drowsy uses only its own saved data after the import.
 
-## Session Management Console
+## Session Turnover Console
 
-Open **End of Session**, check the date/time, Session XP, session number, and recipients, then
-select **Confirm**. The number starts at the current session. Completing session 12 automatically
-sets the current session to 13; editing the submission to 20 advances it to 21. Enter 0 XP when no
-award is needed. Companions receive half the displayed Session XP, rounded down.
+Open **End Session**, select **End of Session**, check the date/time, Session XP, session number,
+and recipients, then select **Confirm**. The number starts at the current session. Completing
+session 12 automatically sets the current session to 13; editing the submission to 20 advances it
+to 21. Enter 0 XP when no award is needed. Companions receive half the displayed Session XP, rounded
+down.
 
 **Preview** shows the session log entry and XP reason; individual XP amounts appear next to selected
 recipients. The recipient list scrolls independently. **Log** displays recorded sessions.
 
-The **cog** opens a separate settings window for default XP, recipient selection, XP entry text,
-pause, Fortune reset, holding-scene movement, chat export, and Pull Everyone behavior. Correct the
-current session number there without recording a session or awarding XP. Session defaults are saved
-separately from the generic XP Award Console.
+The **cog** opens **Session Management Settings** for default XP, recipient selection, XP entry
+text, pause, Fortune reset, holding-scene movement, chat export, and Pull Everyone behavior. Correct
+the current session number there without recording a session or awarding XP. Session defaults are
+saved separately from the generic XP Award Console.
 
 Confirm runs the configured steps and records the session. Fortune is restored for the selected
 recipients. If a later step fails, **Retry** uses the saved submission and skips completed steps.

@@ -3650,7 +3650,7 @@ var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 	},
 	sessionManagementConsole: {
 		gmOnly: !0,
-		name: "Session Management Console"
+		name: "Session Turnover Console"
 	},
 	sceneManagementConsole: {
 		gmOnly: !0,
@@ -6795,7 +6795,7 @@ function _h(e) {
 //#region src/functions/gm-toolkit/launcher-catalog.ts
 var vh = {
 	AjUYYy7qAN55BERN: bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	rzKeTLKp0bOp5SK9: bh("Use Drowsy’s XP Award Console.", "aW4rD8xP2cN7sL5q", "Open XP Award Console"),
+	rzKeTLKp0bOp5SK9: bh("Use Drowsy’s XP Award Console.", "aW4rD8xP2cN7sL5q", "Award XP"),
 	GfXvMqsynxpHTYPt: bh("Use Drowsy’s toolkit home.", "tK8hM3pQ6vR2nW5x", "Open Drowsy’s WFRP4e Toolkit"),
 	PsZADfqRKnbnAT5Q: bh("Use Drowsy’s grid-scale utility.", "DrowsyGridScale1", "Change Grid Scale (Preserve Lighting)"),
 	vUzIl1uDkykO5DmG: bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
@@ -6809,8 +6809,8 @@ var vh = {
 	"2sefSFqqAbySw2nz": bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
 	pZmPtsEZHOpyJfnq: bh("Use Drowsy’s Reset Fortune action.", "DrowsyFortune01X", "Reset Fortune"),
 	roGO31Lo4pyL5kvg: bh("Use Drowsy’s Dark Whispers Console.", "DrowsyWhisper01X", "Open Dark Whispers"),
-	WcBTP5xRO9jcJMVa: bh("Use Drowsy’s Session Management Console.", "sE5sN8mG2cT7rV4q", "Open Session Management Console"),
-	g9Wohpie7ODdbRKX: bh("Use Drowsy’s resumable Session Turnover workflow.", "sE5sN8mG2cT7rV4q", "Open Session Management Console"),
+	WcBTP5xRO9jcJMVa: bh("Use Drowsy’s Session Turnover Console.", "sE5sN8mG2cT7rV4q", "End Session"),
+	g9Wohpie7ODdbRKX: bh("Use Drowsy’s resumable Session Turnover workflow.", "sE5sN8mG2cT7rV4q", "End Session"),
 	DGYdRmtbMZ81NmQ3: bh("Use Drowsy’s Token Vision & Light Console.", "DrowsyVision001X", "Open Token Vision & Light"),
 	nvqeTARBoSP89WT5: bh("Use Drowsy’s Administration Console.", "DrowsyAdmin0001X", "Open Administration Console"),
 	OiQ0cS3QsmQadxqR: bh("Use Drowsy’s Administration Console.", "DrowsyAdmin0001X", "Open Administration Console")
@@ -11388,8 +11388,8 @@ var xw = As("session-management", () => {
 			}, " Log ", 10, oT)], 32), z("button", {
 				class: "dui-btn dui-btn-ghost dui-btn-square dui-btn-sm tw:mb-2",
 				type: "button",
-				"aria-label": "Session settings",
-				title: "Session settings",
+				"aria-label": "Session Management Settings",
+				title: "Session Management Settings",
 				disabled: M(a) || M(s) || M(o),
 				onClick: t[2] ||= (...e) => M(n).openSettings && M(n).openSettings(...e)
 			}, [...t[3] ||= [z("i", {
@@ -11461,19 +11461,12 @@ async function gT(e, t) {
 	Y(J.xpAwardConsole);
 	let n = Array.from(new Set(e.actorIds));
 	if (n.length === 0) throw Error("Select at least one character actor.");
-	if (!Number.isFinite(e.defaultAmount) || Math.round(e.defaultAmount) === 0) throw Error("Enter a non-zero whole-number XP change.");
+	if (!Number.isSafeInteger(e.defaultAmount) || e.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP change.");
 	let r = UC(n), i = bw(r.map((e) => e.choice), e.defaultAmount), a = (/* @__PURE__ */ new Date()).toISOString(), o = t?.reference ?? Yy(), s = t?.reason ?? Cy(e.defaultReason, {
 		date: a.slice(0, 10),
 		datetime: wy(a),
 		session: o
-	}, e.includeTimestampInReason);
-	t || await gy({
-		defaultAmount: Math.round(e.defaultAmount),
-		defaultReason: e.defaultReason,
-		defaultSelection: e.defaultSelection,
-		includeTimestampInReason: e.includeTimestampInReason
-	});
-	let c = [];
+	}, e.includeTimestampInReason), c = [];
 	for (let [e, t] of r.entries()) {
 		let n = i.awards[e];
 		try {
@@ -11689,7 +11682,7 @@ var kT = As("session-configuration", () => {
 		n.initialize(t.initialization, t.actions);
 		let { errorMessage: r, isWorking: i, reference: a, settings: o } = js(n);
 		return (t, s) => (L(), ua(Qs, {
-			title: "Session settings",
+			title: "Session Management Settings",
 			description: "Defaults and occasional corrections.",
 			icon: "fa-solid fa-gear",
 			"error-message": M(r)
@@ -11820,7 +11813,7 @@ var kT = As("session-configuration", () => {
 			height: 720
 		},
 		window: {
-			title: `${wc} — Session settings`,
+			title: `${wc} — Session Management Settings`,
 			icon: "fa-solid fa-gear",
 			resizable: !0
 		}
@@ -11873,7 +11866,7 @@ var XT = class extends Oc {
 		window: {
 			icon: "fa-solid fa-calendar-check",
 			resizable: !0,
-			title: `${wc} — Session Management Console`
+			title: `${wc} — Session Turnover Console`
 		}
 	};
 	getVueComponent() {
@@ -11899,15 +11892,30 @@ async function ZT() {
 //#endregion
 //#region src/state/apps/xp-award-console/store.ts
 var QT = As("xp-award-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Kb("The XP Award Console"), o = /* @__PURE__ */ j(20), s = /* @__PURE__ */ j(""), c = /* @__PURE__ */ j("party"), l = /* @__PURE__ */ j(!0), u = /* @__PURE__ */ j("default"), d = /* @__PURE__ */ j(), f = /* @__PURE__ */ j(!1), p, m, h = U(() => bw(e.value, o.value)), g = U(() => r.value.length > 0 && Number.isFinite(o.value) && Math.round(o.value) !== 0 && !f.value), _ = U(() => {
-		let e = x().reasonContext;
+	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Kb("The XP Award Console"), o = /* @__PURE__ */ j(20), s = /* @__PURE__ */ j(""), c = /* @__PURE__ */ j("party"), l = /* @__PURE__ */ j(!0), u = /* @__PURE__ */ j("default"), d = /* @__PURE__ */ j(), f = /* @__PURE__ */ j(!1), p = /* @__PURE__ */ j(!1), m, h, g = U(() => bw(e.value, o.value)), _ = U(() => r.value.length > 0 && Number.isSafeInteger(o.value) && o.value !== 0 && !f.value && !p.value), v = U(() => {
+		let e = S().reasonContext;
 		return Cy(s.value, e, l.value);
 	});
-	function v(e, n) {
-		p = n, m = e, t(e.actors), o.value = e.defaultAmount, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.includeTimestampInReason, u.value = e.selectionSource, d.value = void 0;
+	function y(e, n) {
+		m = n, h = e, t(e.actors), o.value = e.defaultAmount, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.includeTimestampInReason, u.value = e.selectionSource, d.value = void 0;
 	}
-	async function y() {
-		if (!(!g.value || f.value)) {
+	async function b() {
+		if (!(f.value || p.value)) {
+			p.value = !0, d.value = void 0;
+			try {
+				await ee().openSettings((n) => {
+					let r = S();
+					o.value === r.defaultAmount && (o.value = n.defaultAmount), s.value === r.defaultReason && (s.value = n.defaultReason), e.value.every((e) => e.selected === r.actors.find((t) => t.id === e.id)?.selected) && (t(n.actors), u.value = n.selectionSource), c.value = n.defaultSelection, l.value = n.includeTimestampInReason, h = n;
+				});
+			} catch (e) {
+				console.error("Drowsy’s WFRP4e Toolkit | Could not open XP settings.", e), d.value = e instanceof Error ? e.message : "Could not open XP settings.";
+			} finally {
+				p.value = !1;
+			}
+		}
+	}
+	async function x() {
+		if (!(!_.value || f.value)) {
 			f.value = !0, d.value = void 0;
 			try {
 				let e = {
@@ -11916,8 +11924,8 @@ var QT = As("xp-award-console", () => {
 					defaultReason: s.value,
 					defaultSelection: c.value,
 					includeTimestampInReason: l.value
-				}, t = await b().applyAwards(e);
-				b().onActionComplete(t);
+				}, t = await ee().applyAwards(e);
+				ee().onActionComplete(t);
 			} catch (e) {
 				console.error("Drowsy’s WFRP4e Toolkit | Fixed XP award failed.", e), d.value = e instanceof Error ? e.message : "The XP changes could not be completed.";
 			} finally {
@@ -11925,53 +11933,72 @@ var QT = As("xp-award-console", () => {
 			}
 		}
 	}
-	function b() {
-		if (!p) throw Error("The XP Award Console has not been initialized.");
-		return p;
-	}
-	function x() {
+	function ee() {
 		if (!m) throw Error("The XP Award Console has not been initialized.");
 		return m;
+	}
+	function S() {
+		if (!h) throw Error("The XP Award Console has not been initialized.");
+		return h;
 	}
 	return {
 		actors: e,
 		amount: o,
-		applyAwards: y,
-		canApply: g,
+		applyAwards: x,
+		canApply: _,
 		defaultReason: s,
 		defaultSelection: c,
 		errorMessage: d,
 		includeTimestampInReason: l,
-		initialize: v,
+		initialize: y,
 		isWorking: f,
-		plan: h,
+		isSettingsOpen: p,
+		openSettings: b,
+		plan: g,
 		resetSelection: n,
-		resolvedReason: _,
+		resolvedReason: v,
 		selectedActors: r,
 		selectionSource: u,
 		setActorSelected: i,
 		setAllActorsSelected: a
 	};
-}), $T = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:whitespace-normal tw:py-1" }, eE = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[62rem]:grid-cols-[1.2fr_0.8fr]" }, tE = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "fixed-xp-recipients"
-}, nE = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, rE = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, iE = { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, aE = { class: "tw:flex tw:flex-wrap tw:gap-1" }, oE = ["disabled"], sE = ["disabled"], cE = ["disabled"], lE = {
+}), $T = { class: "tw:@container tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, eE = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-b tw:border-base-content/20 tw:px-4 tw:py-2" }, tE = ["disabled"], nE = {
 	key: 0,
-	class: "tw:max-w-full tw:min-w-0 tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, uE = { class: "dui-table dui-table-sm tw:min-w-[34rem]" }, dE = {
-	class: "tw:min-w-44",
-	scope: "row"
-}, fE = { class: "tw:block tw:font-semibold" }, pE = {
+	class: "dui-alert dui-alert-error tw:m-3 tw:mb-0 tw:shrink-0",
+	role: "alert"
+}, rE = { class: "tw:grid tw:min-h-0 tw:flex-1 tw:grid-cols-2 tw:gap-4 tw:@max-[32rem]:grid-cols-1 tw:@max-[32rem]:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]" }, iE = { class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:gap-3" }, aE = ["disabled"], oE = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "fixed-xp-amount"
+}, sE = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "fixed-xp-reason"
+}, cE = {
+	class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-2",
+	"aria-labelledby": "xp-preview-title"
+}, lE = {
+	class: "tw:min-h-0 tw:overflow-y-auto tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100! tw:p-3 tw:text-sm tw:break-words",
+	"aria-live": "polite"
+}, uE = { class: "tw:mt-1 tw:mb-2" }, dE = {
 	key: 0,
-	class: "dui-badge dui-badge-ghost dui-badge-xs"
-}, mE = { class: "tw:text-right tw:tabular-nums" }, hE = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, gE = { class: "tw:text-right tw:tabular-nums" }, _E = {
-	key: 1,
-	class: "dui-alert dui-alert-warning",
-	role: "status"
-}, vE = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "fixed-xp-details"
-}, yE = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, bE = { class: "dui-label tw:w-full tw:min-w-0 tw:cursor-pointer tw:items-start tw:justify-start tw:gap-3 tw:whitespace-normal" }, xE = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, SE = { class: "tw:m-0 tw:break-words tw:font-semibold" }, CE = /* @__PURE__ */ P({
+	class: "tw:mt-2 tw:mb-0 tw:text-xs tw:text-base-content/65!"
+}, fE = {
+	class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100!",
+	"aria-labelledby": "xp-recipients-title"
+}, pE = { class: "tw:shrink-0 tw:border-b tw:border-base-content/15 tw:p-3" }, mE = {
+	id: "xp-recipients-title",
+	class: "tw:m-0 tw:font-serif tw:text-lg"
+}, hE = { class: "tw:text-sm tw:font-normal" }, gE = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, _E = { class: "tw:min-h-0 tw:flex-1 tw:overflow-y-auto tw:overscroll-contain tw:p-2" }, vE = { class: "tw:min-w-0 tw:flex-1 tw:break-words tw:text-sm" }, yE = { class: "tw:block tw:font-semibold" }, bE = { class: "tw:block tw:text-xs tw:text-base-content/65!" }, xE = [
+	"onUpdate:modelValue",
+	"aria-label",
+	"disabled"
+], SE = {
+	key: 0,
+	class: "tw:p-3 tw:text-sm"
+}, CE = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-t tw:border-base-content/15 tw:pt-3" }, wE = { class: "tw:m-0 tw:text-sm" }, TE = ["disabled"], EE = {
+	key: 0,
+	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	"aria-hidden": "true"
+}, DE = /* @__PURE__ */ P({
 	__name: "XpAwardConsoleApp",
 	props: {
 		actions: {},
@@ -11980,170 +12007,81 @@ var QT = As("xp-award-console", () => {
 	setup(e) {
 		let t = e, n = QT();
 		n.initialize(t.initialization, t.actions);
-		let { actors: r, amount: i, canApply: a, defaultReason: o, defaultSelection: s, errorMessage: c, includeTimestampInReason: l, isWorking: u, plan: d, resolvedReason: f, selectedActors: p, selectionSource: m } = js(n), h = U(() => m.value === "targets" ? "Targeted tokens seeded this award." : `The ${s.value} default seeded this award.`);
+		let { actors: r, amount: i, canApply: a, defaultReason: o, defaultSelection: s, errorMessage: c, includeTimestampInReason: l, isSettingsOpen: u, isWorking: d, plan: f, resolvedReason: p, selectedActors: m, selectionSource: h } = js(n);
 		function g(e) {
-			return d.value.awards.find((t) => t.actorId === e);
-		}
-		function _(e) {
 			return e > 0 ? `+${e}` : String(e);
 		}
-		return (e, t) => (L(), ua(Qs, {
-			description: "Apply one reviewed XP change to selected characters using your saved recipient and reason defaults.",
-			"error-message": M(c),
-			icon: "fa-solid fa-award",
-			title: "XP Award Console"
-		}, {
-			"header-end": Xn(() => [z("span", $T, D(M(p).length) + " selected ", 1)]),
-			footer: Xn(() => [B(Zb, {
-				disabled: !M(a),
-				icon: "fa-solid fa-award",
-				label: `Apply ${_(M(d).totalChange)} XP`,
-				working: M(u),
-				onAction: M(n).applyAwards
-			}, null, 8, [
-				"disabled",
-				"label",
-				"working",
-				"onAction"
-			])]),
-			default: Xn(() => [z("div", eE, [z("section", tE, [z("div", nE, [z("div", rE, [z("div", null, [t[7] ||= z("h2", {
-				id: "fixed-xp-recipients",
-				class: "dui-card-title tw:font-serif tw:text-lg"
-			}, " Recipients ", -1), z("p", iE, D(h.value), 1)]), z("div", aE, [
-				z("button", {
-					class: "dui-btn dui-btn-ghost dui-btn-sm",
-					disabled: M(u),
-					type: "button",
-					onClick: t[0] ||= (e) => M(n).setAllActorsSelected(!0)
-				}, " All ", 8, oE),
-				z("button", {
-					class: "dui-btn dui-btn-ghost dui-btn-sm",
-					disabled: M(u),
-					type: "button",
-					onClick: t[1] ||= (e) => M(n).setAllActorsSelected(!1)
-				}, " None ", 8, sE),
-				z("button", {
-					class: "dui-btn dui-btn-ghost dui-btn-sm",
-					disabled: M(u),
-					type: "button",
-					onClick: t[2] ||= (...e) => M(n).resetSelection && M(n).resetSelection(...e)
-				}, " Reset ", 8, cE)
-			])]), M(r).length ? (L(), R("div", lE, [z("table", uE, [t[8] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Use"),
-				z("th", { scope: "col" }, "Actor"),
-				z("th", {
-					class: "tw:text-right",
-					scope: "col"
-				}, "Current XP"),
-				z("th", {
-					class: "tw:text-right",
-					scope: "col"
-				}, "Change"),
-				z("th", {
-					class: "tw:text-right",
-					scope: "col"
-				}, "New total")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("tr", {
-				key: e.id,
-				class: E({ "tw:bg-base-200!": e.selected })
-			}, [
-				z("td", null, [B(tx, {
-					"actor-id": e.id,
-					"actor-name": e.name,
-					checked: e.selected,
-					disabled: M(u),
-					purpose: "the XP award",
-					onChange: M(n).setActorSelected
-				}, null, 8, [
-					"actor-id",
-					"actor-name",
-					"checked",
-					"disabled",
-					"onChange"
-				])]),
-				z("th", dE, [z("span", fE, D(e.name), 1), e.category === "companion" ? (L(), R("span", pE, " Half award ")) : H("", !0)]),
-				z("td", mE, D(e.totalXp), 1),
-				z("td", hE, D(g(e.id) ? _(g(e.id)?.amount ?? 0) : "—"), 1),
-				z("td", gE, D(g(e.id)?.afterXp ?? "—"), 1)
-			], 2))), 128))])])])) : (L(), R("div", _E, [...t[9] ||= [z("i", {
-				class: "fa-solid fa-user-slash",
+		return (e, t) => (L(), R("main", $T, [
+			z("header", eE, [t[5] ||= z("h1", { class: "tw:m-0 tw:font-serif tw:text-xl" }, "Award XP", -1), z("button", {
+				class: "dui-btn dui-btn-ghost dui-btn-square dui-btn-sm",
+				type: "button",
+				"aria-label": "Open XP Award Settings",
+				title: "XP Award Settings",
+				disabled: M(d) || M(u),
+				onClick: t[0] ||= (...e) => M(n).openSettings && M(n).openSettings(...e)
+			}, [...t[4] ||= [z("i", {
+				class: "fa-solid fa-gear",
 				"aria-hidden": "true"
-			}, null, -1), z("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]), z("section", vE, [z("div", yE, [
-				t[13] ||= z("div", null, [z("h2", {
-					id: "fixed-xp-details",
-					class: "dui-card-title tw:font-serif tw:text-lg"
-				}, " Award details "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " These values become the next console defaults after a successful award. ")], -1),
-				t[14] ||= z("label", {
-					class: "dui-label tw:whitespace-normal",
-					for: "fixed-xp-amount"
-				}, "XP change", -1),
-				N(z("input", {
-					id: "fixed-xp-amount",
-					"onUpdate:modelValue": t[3] ||= (e) => /* @__PURE__ */ A(i) ? i.value = e : null,
-					class: "dui-input dui-input-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
-					inputmode: "numeric",
-					step: "1",
-					type: "number"
-				}, null, 512), [[
-					W,
-					M(i),
-					void 0,
-					{ number: !0 }
-				]]),
-				t[15] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Negative values remove XP. Companion awards are rounded down to half, matching GM Toolkit. ", -1),
-				t[16] ||= z("label", {
-					class: "dui-label tw:whitespace-normal",
-					for: "fixed-xp-default-group"
-				}, " Default recipients on next open ", -1),
-				N(z("select", {
-					id: "fixed-xp-default-group",
-					"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ A(s) ? s.value = e : null,
-					class: "dui-select dui-select-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!"
-				}, [...t[10] ||= [
-					z("option", { value: "party" }, "Party", -1),
-					z("option", { value: "company" }, "Company", -1),
-					z("option", { value: "world" }, "World", -1)
-				]], 512), [[zo, M(s)]]),
-				t[17] ||= z("label", {
-					class: "dui-label tw:whitespace-normal",
-					for: "fixed-xp-reason"
-				}, " Experience log reason ", -1),
-				N(z("input", {
-					id: "fixed-xp-reason",
-					"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-					class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:border-base-content/25! tw:bg-base-100!",
-					type: "text"
-				}, null, 512), [[W, M(o)]]),
-				t[18] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, [
-					V(" Supports "),
-					z("code", null, "%session%"),
-					V(", "),
-					z("code", null, "%date%"),
-					V(", and "),
-					z("code", null, "%datetime%"),
-					V(". ")
-				], -1),
-				z("label", bE, [N(z("input", {
-					"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ A(l) ? l.value = e : null,
-					class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:appearance-none! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none! tw:checked:text-primary-content!",
-					type: "checkbox"
-				}, null, 512), [[G, M(l)]]), t[11] ||= z("span", { class: "tw:min-w-0 tw:flex-1 tw:break-words" }, [z("span", { class: "tw:block tw:font-semibold" }, "Include timestamp in WFRP4e reason"), z("span", { class: "tw:block tw:text-xs tw:text-base-content/65!" }, " WFRP4e’s log schema has no timestamp field, so this appends UTC text to the reason. ")], -1)]),
-				z("div", xE, [t[12] ||= z("span", { class: "tw:text-xs tw:text-base-content/60!" }, "WFRP4e will record", -1), z("p", SE, D(M(f) || "No reason"), 1)]),
-				t[19] ||= z("div", {
-					class: "dui-alert tw:text-xs",
-					role: "note"
-				}, [z("i", {
-					class: "fa-solid fa-clock-rotate-left",
+			}, null, -1)]], 8, tE)]),
+			M(c) ? (L(), R("p", nE, D(M(c)), 1)) : H("", !0),
+			z("form", {
+				class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-3 tw:p-4",
+				onSubmit: t[3] ||= Go((...e) => M(n).applyAwards && M(n).applyAwards(...e), ["prevent"])
+			}, [z("div", rE, [z("div", iE, [z("fieldset", {
+				class: "tw:m-0 tw:grid tw:shrink-0 tw:gap-3 tw:border-0 tw:p-0",
+				disabled: M(d) || M(u)
+			}, [z("label", oE, [t[6] ||= z("span", null, "XP", -1), N(z("input", {
+				id: "fixed-xp-amount",
+				"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ A(i) ? i.value = e : null,
+				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
+				type: "number",
+				step: "1",
+				required: ""
+			}, null, 512), [[
+				W,
+				M(i),
+				void 0,
+				{ number: !0 }
+			]])]), z("label", sE, [t[7] ||= z("span", null, "Reason", -1), N(z("input", {
+				id: "fixed-xp-reason",
+				"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
+				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
+				type: "text"
+			}, null, 512), [[W, M(o)]])])], 8, aE), z("section", cE, [t[10] ||= z("h2", {
+				id: "xp-preview-title",
+				class: "tw:m-0 tw:font-serif tw:text-lg"
+			}, "Preview", -1), z("div", lE, [
+				t[8] ||= z("p", { class: "tw:m-0 tw:font-semibold" }, "XP entries", -1),
+				z("p", uE, D(M(p) || "No reason"), 1),
+				t[9] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Amounts appear beside selected recipients. Companions receive half XP. ", -1),
+				M(l) ? (L(), R("p", dE, " The timestamp is set when you confirm. ")) : H("", !0)
+			])])]), z("section", fE, [z("div", pE, [z("h2", mE, [t[11] ||= V(" Recipients ", -1), z("span", hE, "(" + D(M(m).length) + ")", 1)]), z("p", gE, D(M(h) === "targets" ? "From your targets" : `From your ${M(s)} default`), 1)]), z("div", _E, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("label", {
+				key: e.id,
+				class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-3 tw:rounded-box tw:p-3 tw:hover:bg-base-200"
+			}, [
+				t[12] ||= z("i", {
+					class: "fa-solid fa-user tw:shrink-0 tw:text-xl tw:text-base-content/60!",
 					"aria-hidden": "true"
-				}), z("span", null, " The exact UTC time and per-actor changes are always saved in Drowsy’s world audit log, whether or not the reason includes it. ")], -1)
-			])])])]),
-			_: 1
-		}, 8, ["error-message"]));
+				}, null, -1),
+				z("span", vE, [z("span", yE, D(e.name), 1), z("span", bE, [V(D(e.category === "companion" ? "Companion" : "Character"), 1), e.selected ? (L(), R(I, { key: 0 }, [V(" · " + D(g(M(f).awards.find((t) => t.actorId === e.id)?.amount ?? 0)) + " XP", 1)], 64)) : H("", !0)])]),
+				N(z("input", {
+					"onUpdate:modelValue": (t) => e.selected = t,
+					class: "dui-checkbox dui-checkbox-sm dui-checkbox-primary tw:shrink-0",
+					"aria-label": `Include ${e.name}`,
+					disabled: M(d) || M(u),
+					type: "checkbox"
+				}, null, 8, xE), [[G, e.selected]])
+			]))), 128)), M(r).length ? H("", !0) : (L(), R("p", SE, " No character actors are available. "))])])]), z("footer", CE, [z("p", wE, D(M(m).length ? `${g(M(f).totalChange)} XP in total` : "Select at least one recipient."), 1), z("button", {
+				class: "dui-btn dui-btn-primary tw:shrink-0",
+				disabled: !M(a),
+				type: "submit"
+			}, [M(d) ? (L(), R("span", EE)) : H("", !0), t[13] ||= V("Confirm ", -1)], 8, TE)])], 32)
+		]));
 	}
 });
 //#endregion
 //#region src/module/xp-award/initialization.ts
-function wE() {
+function OE() {
 	let e = hy(), t = HC(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
 	return {
 		...e,
@@ -12157,16 +12095,169 @@ function wE() {
 	};
 }
 //#endregion
+//#region src/state/apps/xp-award-console/settings.ts
+var kE = As("xp-award-settings", () => {
+	let e = /* @__PURE__ */ j(), t = /* @__PURE__ */ j(!1), n = /* @__PURE__ */ j(), r;
+	function i(t, n) {
+		e.value = { ...t }, r = n;
+	}
+	async function a() {
+		if (!(t.value || !e.value)) {
+			t.value = !0, n.value = void 0;
+			try {
+				if (!Number.isSafeInteger(e.value.defaultAmount) || e.value.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
+				await r.save({ ...e.value });
+			} catch (e) {
+				console.error("Drowsy’s WFRP4e Toolkit | Could not save XP settings.", e), n.value = e instanceof Error ? e.message : "Could not save XP settings.";
+			} finally {
+				t.value = !1;
+			}
+		}
+	}
+	return {
+		errorMessage: n,
+		initialize: i,
+		isWorking: t,
+		save: a,
+		settings: e
+	};
+}), AE = ["disabled"], jE = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "xp-default-amount"
+}, ME = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "xp-default-reason"
+}, NE = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "xp-default-recipients"
+}, PE = { class: "tw:flex tw:items-center tw:gap-3 tw:text-sm" }, FE = { class: "tw:flex tw:shrink-0 tw:justify-end tw:border-t tw:border-base-content/15 tw:p-4" }, IE = ["disabled"], LE = /* @__PURE__ */ P({
+	__name: "XpAwardSettingsApp",
+	props: {
+		actions: {},
+		initialization: {}
+	},
+	setup(e) {
+		let t = e, n = kE();
+		n.initialize(t.initialization, t.actions);
+		let { settings: r, isWorking: i, errorMessage: a } = js(n);
+		return (e, t) => (L(), ua(Qs, {
+			title: "XP Award Settings",
+			description: "Defaults for new awards.",
+			icon: "fa-solid fa-gear",
+			"error-message": M(a)
+		}, {
+			footer: Xn(() => [z("div", FE, [z("button", {
+				form: "xp-award-settings-form",
+				class: "dui-btn dui-btn-primary",
+				disabled: M(i),
+				type: "submit"
+			}, " Save settings ", 8, IE)])]),
+			default: Xn(() => [M(r) ? (L(), R("form", {
+				key: 0,
+				id: "xp-award-settings-form",
+				onSubmit: t[4] ||= Go((...e) => M(n).save && M(n).save(...e), ["prevent"])
+			}, [z("fieldset", {
+				class: "tw:m-0 tw:grid tw:gap-4 tw:border-0 tw:p-0",
+				disabled: M(i)
+			}, [
+				z("label", jE, [
+					t[5] ||= z("span", null, "Default XP", -1),
+					N(z("input", {
+						id: "xp-default-amount",
+						"onUpdate:modelValue": t[0] ||= (e) => M(r).defaultAmount = e,
+						class: "dui-input dui-input-sm tw:w-full",
+						type: "number",
+						step: "1",
+						required: ""
+					}, null, 512), [[
+						W,
+						M(r).defaultAmount,
+						void 0,
+						{ number: !0 }
+					]]),
+					t[6] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Negative amounts remove XP. Totals cannot fall below zero.", -1)
+				]),
+				z("label", ME, [
+					t[7] ||= z("span", null, "Default reason", -1),
+					N(z("input", {
+						id: "xp-default-reason",
+						"onUpdate:modelValue": t[1] ||= (e) => M(r).defaultReason = e,
+						class: "dui-input dui-input-sm tw:w-full",
+						type: "text"
+					}, null, 512), [[W, M(r).defaultReason]]),
+					t[8] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Supports %session%, %date%, and %datetime%.", -1)
+				]),
+				z("label", NE, [t[10] ||= z("span", null, "Recipients when nothing is targeted", -1), N(z("select", {
+					id: "xp-default-recipients",
+					"onUpdate:modelValue": t[2] ||= (e) => M(r).defaultSelection = e,
+					class: "dui-select dui-select-sm tw:w-full"
+				}, [...t[9] ||= [
+					z("option", { value: "party" }, "Party — assigned characters", -1),
+					z("option", { value: "company" }, "Company — player-owned characters", -1),
+					z("option", { value: "world" }, "World — all characters", -1)
+				]], 512), [[zo, M(r).defaultSelection]])]),
+				z("label", PE, [N(z("input", {
+					"onUpdate:modelValue": t[3] ||= (e) => M(r).includeTimestampInReason = e,
+					class: "dui-checkbox dui-checkbox-sm",
+					type: "checkbox",
+					"aria-label": "Include award date and time in the reason"
+				}, null, 512), [[G, M(r).includeTimestampInReason]]), t[11] ||= V("Include award date and time in the reason", -1)])
+			], 8, AE)], 32)) : H("", !0)]),
+			_: 1
+		}, 8, ["error-message"]));
+	}
+}), RE = class extends Oc {
+	static ACCESS_POLICY = J.xpAwardConsole;
+	static DEFAULT_OPTIONS = {
+		...super.DEFAULT_OPTIONS,
+		id: `${q}-xp-award-settings`,
+		position: {
+			width: 460,
+			height: 530
+		},
+		window: {
+			title: `${wc} — XP Award Settings`,
+			icon: "fa-solid fa-gear",
+			resizable: !0
+		}
+	};
+	onSaved;
+	onClosed;
+	getVueComponent() {
+		return LE;
+	}
+	getVueProps() {
+		return {
+			actions: { save: async (e) => {
+				if (Y(J.xpAwardConsole), !Number.isSafeInteger(e.defaultAmount) || e.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
+				await gy(e), this.onSaved?.(OE()), await this.close();
+			} },
+			initialization: hy()
+		};
+	}
+	async _preClose(e) {
+		await super._preClose(e), this.onClosed?.();
+	}
+};
+async function zE(e) {
+	let t = new RE();
+	t.onSaved = e;
+	let n = new Promise((e) => {
+		t.onClosed = e;
+	});
+	await t.render(!0), await n;
+}
+//#endregion
 //#region src/module/apps/xp-award-console/XpAwardConsoleApplication.ts
-var TE = class extends Oc {
+var BE = class extends Oc {
 	static ACCESS_POLICY = J.xpAwardConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		classes: [q, `${q}-xp-award-console`],
 		id: `${q}-xp-award-console`,
 		position: {
-			height: 720,
-			width: 780
+			height: 500,
+			width: 700
 		},
 		window: {
 			icon: "fa-solid fa-award",
@@ -12175,35 +12266,36 @@ var TE = class extends Oc {
 		}
 	};
 	getVueComponent() {
-		return CE;
+		return DE;
 	}
 	getVueProps() {
 		return {
 			actions: {
 				applyAwards: gT,
+				openSettings: zE,
 				onActionComplete: () => {
 					this.close().catch((e) => {
 						console.error(`${q} | Failed to close the XP Award Console.`, e), ui.notifications.error("XP changes completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
 					});
 				}
 			},
-			initialization: wE()
+			initialization: OE()
 		};
 	}
 };
 //#endregion
 //#region src/module/apps/xp-award-console/open.ts
-async function EE() {
-	let e = new TE();
+async function VE() {
+	let e = new BE();
 	return await e.render(!0), e;
 }
 //#endregion
 //#region src/view/apps/shared/LauncherConsole.vue?vue&type=script&setup=true&lang.ts
-var DE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, OE = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, kE = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, AE = ["disabled", "onClick"], jE = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, ME = { class: "tw:min-w-0 tw:flex-1" }, NE = { class: "tw:block tw:font-semibold tw:text-base-content!" }, PE = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, FE = {
+var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, WE = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, GE = ["disabled", "onClick"], KE = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, qE = { class: "tw:min-w-0 tw:flex-1" }, JE = { class: "tw:block tw:font-semibold tw:text-base-content!" }, YE = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, XE = {
 	key: 0,
 	class: "dui-loading dui-loading-sm dui-loading-spinner tw:shrink-0",
 	"aria-label": "Working"
-}, IE = /* @__PURE__ */ P({
+}, ZE = /* @__PURE__ */ P({
 	__name: "LauncherConsole",
 	props: {
 		description: {},
@@ -12229,23 +12321,23 @@ var DE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, OE = { class: "tw:m-0 tw:font
 			icon: e.icon,
 			title: e.title
 		}, {
-			default: Xn(() => [z("div", DE, [(L(!0), R(I, null, F(e.sections, (e) => (L(), R("section", {
+			default: Xn(() => [z("div", HE, [(L(!0), R(I, null, F(e.sections, (e) => (L(), R("section", {
 				key: e.id,
 				class: "tw:grid tw:gap-2"
-			}, [z("h2", OE, D(e.label), 1), z("div", kE, [(L(!0), R(I, null, F(e.actions, (e) => (L(), R("button", {
+			}, [z("h2", UE, D(e.label), 1), z("div", WE, [(L(!0), R(I, null, F(e.actions, (e) => (L(), R("button", {
 				key: e.id,
 				class: "dui-card dui-card-border tw:m-0! tw:h-auto! tw:min-h-0! tw:w-full! tw:min-w-0 tw:cursor-pointer tw:items-stretch! tw:justify-start! tw:gap-0! tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-0! tw:text-left tw:text-base-content! tw:shadow-sm tw:transition tw:leading-normal! hover:tw:border-primary/60!",
 				disabled: n.value !== void 0,
 				type: "button",
 				onClick: (t) => r(e)
-			}, [z("span", jE, [
+			}, [z("span", KE, [
 				z("i", {
 					class: E([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
 					"aria-hidden": "true"
 				}, null, 2),
-				z("span", ME, [z("span", NE, D(e.label), 1), z("span", PE, D(e.description), 1)]),
-				n.value === e.id ? (L(), R("span", FE)) : H("", !0)
-			])], 8, AE))), 128))])]))), 128))])]),
+				z("span", qE, [z("span", JE, D(e.label), 1), z("span", YE, D(e.description), 1)]),
+				n.value === e.id ? (L(), R("span", XE)) : H("", !0)
+			])], 8, GE))), 128))])]))), 128))])]),
 			_: 1
 		}, 8, [
 			"description",
@@ -12254,18 +12346,18 @@ var DE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, OE = { class: "tw:m-0 tw:font
 			"title"
 		]));
 	}
-}), LE = /* @__PURE__ */ P({
+}), QE = /* @__PURE__ */ P({
 	__name: "ToolkitHomeApp",
 	props: { sections: {} },
 	setup(e) {
-		return (t, n) => (L(), ua(IE, {
+		return (t, n) => (L(), ua(ZE, {
 			description: "Open the tools you need without relying on world macro names.",
 			icon: "fa-solid fa-toolbox",
 			sections: e.sections,
 			title: "Drowsy’s WFRP4e Toolkit"
 		}, null, 8, ["sections"]));
 	}
-}), RE = class extends Oc {
+}), $E = class extends Oc {
 	sections;
 	static ACCESS_POLICY = J.toolkitHome;
 	static DEFAULT_OPTIONS = {
@@ -12286,7 +12378,7 @@ var DE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, OE = { class: "tw:m-0 tw:font
 		super(), this.sections = e;
 	}
 	getVueComponent() {
-		return LE;
+		return QE;
 	}
 	getVueProps() {
 		return { sections: this.sections };
@@ -12294,15 +12386,15 @@ var DE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, OE = { class: "tw:m-0 tw:font
 };
 //#endregion
 //#region src/functions/grid-scale/calculate.ts
-function zE(e) {
+function eD(e) {
 	return Number.isFinite(e.size) && e.size > 0 && Number.isFinite(e.distance) && e.distance > 0;
 }
-function BE(e, t) {
+function tD(e, t) {
 	return e.size / t.size * (t.distance / e.distance);
 }
 //#endregion
 //#region src/module/grid-scale/service.ts
-async function VE() {
+async function nD() {
 	let e = canvas?.scene, t = game.user;
 	if (!e) {
 		ui.notifications.warn("No Scene is currently viewed.");
@@ -12321,20 +12413,20 @@ async function VE() {
 		size: Number(e.grid.size),
 		units: String(e.grid.units ?? "")
 	};
-	if (!zE(n)) {
+	if (!eD(n)) {
 		ui.notifications.error("The current Scene has an invalid grid size or distance.");
 		return;
 	}
-	let r = await HE(n);
+	let r = await rD(n);
 	if (r) {
-		if (!zE(r)) {
+		if (!eD(r)) {
 			ui.notifications.error("Grid size and distance must both be positive numbers.");
 			return;
 		}
-		await UE(e, n, r);
+		await iD(e, n, r);
 	}
 }
-async function HE(e) {
+async function rD(e) {
 	let t = foundry.utils.escapeHTML(e.units), n = await foundry.applications.api.DialogV2.input({
 		window: { title: "Change Grid Scale" },
 		position: { width: 480 },
@@ -12397,8 +12489,8 @@ async function HE(e) {
 		units: String(n.units ?? "").trim()
 	} : null;
 }
-async function UE(e, t, n) {
-	let r = BE(t, n), i = e.lights.map((e) => ({
+async function iD(e, t, n) {
+	let r = tD(t, n), i = e.lights.map((e) => ({
 		_id: e.id,
 		"config.bright": e.config.bright,
 		"config.dim": e.config.dim
@@ -12416,9 +12508,9 @@ async function UE(e, t, n) {
 		"light.dim": e.light.dim * r
 	})), c = !1, l = !1;
 	try {
-		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(GE(n)), ui.notifications.info(`Grid updated from ${KE(t)} to ${KE(n)}.`);
+		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(oD(n)), ui.notifications.info(`Grid updated from ${sD(t)} to ${sD(n)}.`);
 	} catch (n) {
-		let r = await WE({
+		let r = await aD({
 			ambientLightsChanged: c,
 			oldAmbientLights: i,
 			oldGrid: t,
@@ -12429,34 +12521,34 @@ async function UE(e, t, n) {
 		throw console.error("Change Grid Scale macro failed.", n, r), Error(a, { cause: n });
 	}
 }
-async function WE(e) {
+async function aD(e) {
 	let t = [];
-	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(GE(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
+	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(oD(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
 }
-function GE(e) {
+function oD(e) {
 	return {
 		"grid.distance": e.distance,
 		"grid.size": e.size,
 		"grid.units": e.units
 	};
 }
-function KE(e) {
+function sD(e) {
 	return `${e.size}px/${e.distance}${e.units}`;
 }
 //#endregion
 //#region src/view/apps/scene-management-console/SceneManagementConsoleApp.vue
-var qE = /* @__PURE__ */ P({
+var cD = /* @__PURE__ */ P({
 	__name: "SceneManagementConsoleApp",
 	props: { sections: {} },
 	setup(e) {
-		return (t, n) => (L(), ua(IE, {
+		return (t, n) => (L(), ua(ZE, {
 			description: "Run common Scene and token-viewing actions from one place.",
 			icon: "fa-solid fa-map",
 			sections: e.sections,
 			title: "Scene Management Console"
 		}, null, 8, ["sections"]));
 	}
-}), JE = class extends Oc {
+}), lD = class extends Oc {
 	sections;
 	static ACCESS_POLICY = J.sceneManagementConsole;
 	static DEFAULT_OPTIONS = {
@@ -12477,7 +12569,7 @@ var qE = /* @__PURE__ */ P({
 		super(), this.sections = e;
 	}
 	getVueComponent() {
-		return qE;
+		return cD;
 	}
 	getVueProps() {
 		return { sections: this.sections };
@@ -12485,26 +12577,26 @@ var qE = /* @__PURE__ */ P({
 };
 //#endregion
 //#region src/module/apps/scene-management-console/open.ts
-async function YE() {
-	let e = new JE([{
+async function uD() {
+	let e = new lD([{
 		id: "scene",
 		label: "Viewed Scene",
 		actions: [
-			XE("grid-scale", "Change Grid Scale (Preserve Lighting)", "Change grid measurements while preserving rendered light sizes.", "fa-solid fa-grid-2", VE),
-			XE("pull-everyone", "Pull Everyone to Scene", "Activate this Scene or pull connected players using your saved policy.", "fa-solid fa-people-pulling", ST),
-			XE("token-vision", "Use Token Vision", "Enable Token Vision and disable global illumination for this Scene.", "fa-solid fa-eye", () => Hu("token-vision")),
-			XE("global-light", "Use Global Light", "Enable global illumination and disable Token Vision for this Scene.", "fa-solid fa-sun", () => Hu("global-light"))
+			dD("grid-scale", "Change Grid Scale (Preserve Lighting)", "Change grid measurements while preserving rendered light sizes.", "fa-solid fa-grid-2", nD),
+			dD("pull-everyone", "Pull Everyone to Scene", "Activate this Scene or pull connected players using your saved policy.", "fa-solid fa-people-pulling", ST),
+			dD("token-vision", "Use Token Vision", "Enable Token Vision and disable global illumination for this Scene.", "fa-solid fa-eye", () => Hu("token-vision")),
+			dD("global-light", "Use Global Light", "Enable global illumination and disable Token Vision for this Scene.", "fa-solid fa-sun", () => Hu("global-light"))
 		]
 	}, {
 		id: "tokens",
 		label: "Controlled Tokens",
-		actions: [XE("token-tools", "Open Token Vision & Light", "Apply vision modes and light presets to controlled tokens.", "fa-solid fa-lightbulb", async () => {
+		actions: [dD("token-tools", "Open Token Vision & Light", "Apply vision modes and light presets to controlled tokens.", "fa-solid fa-lightbulb", async () => {
 			await mh();
 		})]
 	}]);
 	return await e.render(!0), e;
 }
-function XE(e, t, n, r, i) {
+function dD(e, t, n, r, i) {
 	return {
 		description: n,
 		icon: r,
@@ -12515,34 +12607,34 @@ function XE(e, t, n, r, i) {
 }
 //#endregion
 //#region src/module/apps/toolkit-home/open.ts
-async function ZE() {
-	let e = new RE([{
+async function fD() {
+	let e = new $E([{
 		id: "gameplay",
 		label: "Gameplay",
 		actions: [
-			QE("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", qd),
-			QE("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Of),
-			QE("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", Fm),
-			QE("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", Sp),
-			QE("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", au),
-			QE("xp-curve", "XP Curve Console", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", mw),
-			QE("xp-award", "XP Award Console", "Apply a fixed XP change to selected characters.", "fa-solid fa-award", EE),
-			QE("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", mh)
+			pD("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", qd),
+			pD("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Of),
+			pD("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", Fm),
+			pD("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", Sp),
+			pD("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", au),
+			pD("xp-curve", "XP Curve Console", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", mw),
+			pD("xp-award", "XP Award Console", "Apply a fixed XP change to selected characters.", "fa-solid fa-award", VE),
+			pD("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", mh)
 		]
 	}, {
 		id: "campaign",
 		label: "Campaign",
 		actions: [
-			QE("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Ac),
-			QE("scene-management", "Scene Management", "Open common Scene and token-viewing actions.", "fa-solid fa-map", YE),
-			QE("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", ZT),
-			QE("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", qu),
-			QE("import", "Import from GM Toolkit", "Copy supported settings, prompts, and launchers.", "fa-solid fa-file-import", Nb)
+			pD("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Ac),
+			pD("scene-management", "Scene Management", "Open common Scene and token-viewing actions.", "fa-solid fa-map", uD),
+			pD("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", ZT),
+			pD("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", qu),
+			pD("import", "Import from GM Toolkit", "Copy supported settings, prompts, and launchers.", "fa-solid fa-file-import", Nb)
 		]
 	}]);
 	return await e.render(!0), e;
 }
-function QE(e, t, n, r, i) {
+function pD(e, t, n, r, i) {
 	return {
 		description: n,
 		icon: r,
@@ -12555,7 +12647,7 @@ function QE(e, t, n, r, i) {
 }
 //#endregion
 //#region src/module/api/create-module-api.ts
-function $E() {
+function mD() {
 	return {
 		calculateImperialElapsedTime: i,
 		openImperialCalendarCalculator: Ac,
@@ -12569,7 +12661,7 @@ function $E() {
 		applyToSelectedActors: Zl,
 		awardXp: gT,
 		awardXpCurve: dw,
-		changeGridScalePreservingLighting: VE,
+		changeGridScalePreservingLighting: nD,
 		checkConditions: Ld,
 		completeSession: bT,
 		copyLink: $l,
@@ -12582,10 +12674,10 @@ function $E() {
 		openGmToolkitMigration: Nb,
 		openGroupTestConsole: Fm,
 		openSessionManagementConsole: ZT,
-		openSceneManagementConsole: YE,
-		openToolkitHome: ZE,
+		openSceneManagementConsole: uD,
+		openToolkitHome: fD,
 		openTokenToolsConsole: mh,
-		openXpAwardConsole: EE,
+		openXpAwardConsole: VE,
 		openXpCurveConsole: mw,
 		openWorkbench: au,
 		postPrompt: Ql,
@@ -12603,29 +12695,29 @@ function $E() {
 }
 //#endregion
 //#region src/module/api/register-module-api.ts
-function eD() {
+function hD() {
 	let e = game.modules.get(q);
 	if (!e) throw Error(`Foundry module registry entry was not found for ${q}.`);
-	e.api = $E();
+	e.api = mD();
 }
 //#endregion
 //#region src/module/administration/hooks.ts
-function tD() {
+function gD() {
 	Hooks.on("getChatMessageContextOptions", (e, t) => {
 		t.push({
-			callback: rD,
+			callback: vD,
 			condition: () => game.user?.isGM === !0,
 			icon: "<i class=\"fa-solid fa-pen-fancy\"></i>",
 			name: "Edit message flavor"
 		});
 	});
 }
-function nD() {
+function _D() {
 	if (game.settings.get("wfrp4e-enhanced-fear-terror", Bu.showUnassignedPlayerWarning) !== !0) return;
 	let e = Array.from(game.users).filter((e) => !e.isGM && e.active !== !1 && !e.character).map(({ name: e }) => e);
 	e.length > 0 && ui.notifications.warn(`${e.join(", ")} ${e.length === 1 ? "has" : "have"} no assigned character.`);
 }
-async function rD(e) {
+async function vD(e) {
 	try {
 		let t = e instanceof HTMLElement ? e : e?.[0];
 		if (!(t instanceof HTMLElement)) throw Error("The selected chat message element is unavailable.");
@@ -12651,7 +12743,7 @@ async function rD(e) {
 }
 //#endregion
 //#region src/module/settings/register.ts
-function iD(e, t) {
+function yD(e, t) {
 	game.settings.register(q, e, {
 		config: !1,
 		default: !0,
@@ -12662,7 +12754,7 @@ function iD(e, t) {
 		type: Boolean
 	});
 }
-function aD(e, t, n, r, i = {}) {
+function bD(e, t, n, r, i = {}) {
 	game.settings.register(q, e, {
 		...i,
 		config: !1,
@@ -12675,8 +12767,8 @@ function aD(e, t, n, r, i = {}) {
 }
 //#endregion
 //#region src/module/administration/settings/register.ts
-function oD() {
-	aD(Bu.showUnassignedPlayerWarning, !0, Boolean, `${K}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(q, "administrationConsole", {
+function xD() {
+	bD(Bu.showUnassignedPlayerWarning, !0, Boolean, `${K}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(q, "administrationConsole", {
 		hint: `${K}.Menu.AdministrationConsole.Hint`,
 		icon: "fa-solid fa-screwdriver-wrench",
 		label: `${K}.Menu.AdministrationConsole.Label`,
@@ -12687,7 +12779,7 @@ function oD() {
 }
 //#endregion
 //#region src/functions/combat/advantage.ts
-function sD(e, t) {
+function SD(e, t) {
 	return t ? e === "attacker" ? [{
 		amount: 1,
 		mode: "add",
@@ -12702,47 +12794,47 @@ function sD(e, t) {
 		participant: e
 	}];
 }
-function cD(e) {
+function CD(e) {
 	return e.filter(({ currentAdvantage: e, roundStartAdvantage: t }) => e > 0 && e <= t).map(({ actorId: e }) => e);
 }
 //#endregion
 //#region src/module/combat/hooks.ts
-var lD = /* @__PURE__ */ new Set();
-function uD() {
-	Hooks.on("wfrp4e:opposedTestResult", dD), Hooks.on("wfrp4e:applyDamage", fD), Hooks.on("createActiveEffect", pD), Hooks.on("createCombatant", (e) => void mD(e, "join")), Hooks.on("deleteCombatant", (e) => void mD(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void hD(e, t)), Hooks.on("updateCombat", (e, t) => void _D(e, t));
+var wD = /* @__PURE__ */ new Set();
+function TD() {
+	Hooks.on("wfrp4e:opposedTestResult", ED), Hooks.on("wfrp4e:applyDamage", DD), Hooks.on("createActiveEffect", OD), Hooks.on("createCombatant", (e) => void kD(e, "join")), Hooks.on("deleteCombatant", (e) => void kD(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void AD(e, t)), Hooks.on("updateCombat", (e, t) => void MD(e, t));
 }
-async function dD(...e) {
-	if (!CD() || !Hd().automateOpposed) return;
+async function ED(...e) {
+	if (!RD() || !Hd().automateOpposed) return;
 	let [t, n, r] = e;
 	if (!t || !n || !r || r.context?.unopposed === !0) return;
 	let i = n.data?.result;
 	if (i?.options?.preventAdvantage === !0 || i?.canDualWield === !0) return;
 	let a = t.result, o = Id(n.actor), s = Id(r.actor);
 	if (!o || !s || !a) return;
-	let c = bD(n);
-	if (c && lD.has(c)) return;
-	c && xD(c);
+	let c = FD(n);
+	if (c && wD.has(c)) return;
+	c && ID(c);
 	let l = a.winner === "attacker" ? o : s, u = l === o ? s : o, d = {
 		attacker: o,
 		defender: s
-	}, f = sD(l === o ? "attacker" : "defender", SD());
+	}, f = SD(l === o ? "attacker" : "defender", LD());
 	for (let e of f) {
 		let t = d[e.participant];
 		e.mode === "set" ? await Fd(t, e.amount) : await Pd(t, e.amount);
 	}
-	wD(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
+	zD(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
 }
-async function fD(e) {
-	if (!CD() || !Hd().automateDamage || !TD(e)) return;
+async function DD(e) {
+	if (!RD() || !Hd().automateDamage || !BD(e)) return;
 	let t = e.opposedTest;
 	if (t?.defenderTest?.context?.unopposed !== !0) return;
 	let n = Id(e.attacker), r = Id(e.actor);
 	if (!n || !r) return;
-	let i = t?.attackerTest, a = i ? bD(i) : "";
-	a && lD.has(a) || (a && xD(a), SD() || await Fd(r, 0), await Pd(n, 1), wD(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
+	let i = t?.attackerTest, a = i ? FD(i) : "";
+	a && wD.has(a) || (a && ID(a), LD() || await Fd(r, 0), await Pd(n, 1), zD(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
 }
-async function pD(e) {
-	if (!CD() || !Hd().automateCondition || !TD(e) || e.isCondition !== !0 || SD()) return;
+async function OD(e) {
+	if (!RD() || !Hd().automateCondition || !BD(e) || e.isCondition !== !0 || LD()) return;
 	let t = String(e.conditionId ?? "");
 	if ([
 		"dead",
@@ -12751,25 +12843,25 @@ async function pD(e) {
 		"grappling"
 	].includes(t)) return;
 	let n = Id(e.parent);
-	n && n.inCombat === !0 && (await Fd(n, 0), wD(`${n.name} lost Advantage after receiving a condition.`));
+	n && n.inCombat === !0 && (await Fd(n, 0), zD(`${n.name} lost Advantage after receiving a condition.`));
 }
-async function mD(e, t) {
-	if (!CD() || !TD(e)) return;
+async function kD(e, t) {
+	if (!RD() || !BD(e)) return;
 	let n = Hd();
-	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && SD()) return;
+	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && LD()) return;
 	let r = Id(e.actor);
 	r && await Fd(r, 0);
 }
-async function hD(e, t) {
-	if (!CD() || SD() || !Hd().promptMomentumLoss || !TD(e) || !TD(t)) return;
+async function AD(e, t) {
+	if (!RD() || LD() || !Hd().promptMomentumLoss || !BD(e) || !BD(t)) return;
 	let n = Number(t.round), r = Number(e.round);
 	if (!Number.isFinite(n) || n <= r || r <= 0) return;
-	let i = vD(e), a = new Set(cD(i.flatMap((e) => {
+	let i = ND(e), a = new Set(CD(i.flatMap((e) => {
 		let t = Id(e.actor);
 		return t ? [{
 			actorId: t.id,
 			currentAdvantage: Number(t.system.status?.advantage?.value ?? 0),
-			roundStartAdvantage: Number(yD(e, "roundStartAdvantage") ?? 0)
+			roundStartAdvantage: Number(PD(e, "roundStartAdvantage") ?? 0)
 		}] : [];
 	}))), o = i.filter((e) => {
 		let t = Id(e.actor);
@@ -12787,55 +12879,55 @@ async function hD(e, t) {
 			let t = Id(e.actor);
 			t && await Pd(t, -1);
 		}
-		await gD(o.flatMap((e) => {
+		await jD(o.flatMap((e) => {
 			let t = Id(e.actor)?.name;
 			return t ? [t] : [];
-		})), wD(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
+		})), zD(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
 	}
 }
-async function gD(e) {
+async function jD(e) {
 	let t = Array.from(game.users).filter((e) => e.isGM).map((e) => e.id), n = e.map((e) => `<li>${foundry.utils.escapeHTML(e)}</li>`).join("");
 	await ChatMessage.create({
 		content: `<h3>Momentum Loss</h3><p>Advantage reduced by 1:</p><ul>${n}</ul>`,
 		whisper: t
 	});
 }
-async function _D(e, t) {
-	if (!(!CD() || !TD(e) || !TD(t) || !("round" in t))) for (let t of vD(e)) {
+async function MD(e, t) {
+	if (!(!RD() || !BD(e) || !BD(t) || !("round" in t))) for (let t of ND(e)) {
 		let e = Id(t.actor), n = t.setFlag;
 		e && typeof n == "function" && await n.call(t, q, "roundStartAdvantage", Number(e.system.status?.advantage?.value ?? 0));
 	}
 }
-function vD(e) {
+function ND(e) {
 	let t = e.combatants;
 	return t && typeof t == "object" ? Array.from(t) : [];
 }
-function yD(e, t) {
+function PD(e, t) {
 	let n = e.getFlag;
 	return typeof n == "function" ? n.call(e, q, t) : void 0;
 }
-function bD(e) {
+function FD(e) {
 	let t = e.message;
 	return String(t?.id ?? "");
 }
-function xD(e) {
-	lD.add(e), lD.size > 100 && lD.delete(lD.values().next().value ?? "");
+function ID(e) {
+	wD.add(e), wD.size > 100 && wD.delete(wD.values().next().value ?? "");
 }
-function SD() {
+function LD() {
 	return game.settings.get("wfrp4e", "useGroupAdvantage") === !0;
 }
-function CD() {
+function RD() {
 	return game.user?.isGM === !0 && game.user.isUniqueGM !== !1;
 }
-function wD(e) {
+function zD(e) {
 	ui.notifications.info(e, { permanent: Hd().persistentNotifications });
 }
-function TD(e) {
+function BD(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
 //#region src/module/combat/settings/register.ts
-function ED() {
+function VD() {
 	for (let [e, t] of Object.entries(Vd)) game.settings.register(q, t, {
 		config: !1,
 		default: e !== "persistentNotifications",
@@ -12847,14 +12939,14 @@ function ED() {
 }
 //#endregion
 //#region src/module/fear-terror/actor-sheet/register.ts
-var DD = "openFearConsole", OD = "wfrp4e-enhanced-fear-terror-actor-header", kD = [
+var HD = "openFearConsole", UD = "wfrp4e-enhanced-fear-terror-actor-header", WD = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], AD = [
+], GD = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -12862,39 +12954,39 @@ var DD = "openFearConsole", OD = "wfrp4e-enhanced-fear-terror-actor-header", kD 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function jD() {
-	for (let e of kD) Hooks.on(e, (e, t) => {
-		MD() && ND(e, t);
+function KD() {
+	for (let e of WD) Hooks.on(e, (e, t) => {
+		qD() && JD(e, t);
 	});
-	for (let e of AD) Hooks.on(e, (e) => {
-		MD() && PD(e);
+	for (let e of GD) Hooks.on(e, (e) => {
+		qD() && YD(e);
 	});
 }
-function MD() {
+function qD() {
 	return iu.canCurrentUserAccess() && Ll(Il.actorSheet);
 }
-function ND(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === DD) || (t.push({
-		action: DD,
+function JD(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === HD) || (t.push({
+		action: HD,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[DD] = function() {
-		FD(this.document);
+	}), e.options.actions ??= {}, e.options.actions[HD] = function() {
+		XD(this.document);
 	}));
 }
-function PD(e) {
+function YD(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${OD}`)) return;
+	if (!r || r.querySelector(`.${UD}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(OD, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = DD, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), FD(t);
+	i.type = "button", i.classList.add(UD, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = HD, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), XD(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function FD(e) {
+function XD(e) {
 	try {
 		ou({ initialPayload: Gl(e) });
 	} catch (e) {
@@ -12903,16 +12995,16 @@ function FD(e) {
 }
 //#endregion
 //#region src/module/dark-whispers/settings/register.ts
-function ID() {
-	aD(sp.promptLibrary, JSON.stringify({
+function ZD() {
+	bD(sp.promptLibrary, JSON.stringify({
 		prompts: [],
 		version: 1
-	}), String, `${K}.Settings.DarkWhispers.PromptLibrary`), aD(sp.defaultGroup, "party", String, `${K}.Settings.DarkWhispers.DefaultGroup`), aD(sp.messageStyle, "taunt", String, `${K}.Settings.DarkWhispers.MessageStyle`);
+	}), String, `${K}.Settings.DarkWhispers.PromptLibrary`), bD(sp.defaultGroup, "party", String, `${K}.Settings.DarkWhispers.DefaultGroup`), bD(sp.messageStyle, "taunt", String, `${K}.Settings.DarkWhispers.MessageStyle`);
 }
 //#endregion
 //#region src/module/gm-toolkit/settings/register.ts
-function LD() {
-	aD(sb.state, JSON.stringify({ version: 1 }), String, `${K}.Settings.GmToolkitMigration.State`), game.settings.registerMenu(q, "gmToolkitMigration", {
+function QD() {
+	bD(sb.state, JSON.stringify({ version: 1 }), String, `${K}.Settings.GmToolkitMigration.State`), game.settings.registerMenu(q, "gmToolkitMigration", {
 		hint: `${K}.Menu.GmToolkitMigration.Hint`,
 		icon: "fa-solid fa-box-archive",
 		label: `${K}.Menu.GmToolkitMigration.Label`,
@@ -12923,7 +13015,7 @@ function LD() {
 }
 //#endregion
 //#region src/module/group-test/settings/register.ts
-var RD = {
+var $D = {
 	bypassDialog: !0,
 	defaultDifficulty: "average",
 	defaultGroup: "party",
@@ -12938,9 +13030,9 @@ var RD = {
 	quickTest4: "Gossip",
 	summaryThreshold: 2
 };
-function zD() {
+function eO() {
 	for (let [e, t] of Object.entries(tm)) {
-		let n = RD[e];
+		let n = $D[e];
 		game.settings.register(q, t, {
 			config: !1,
 			default: n,
@@ -12953,7 +13045,7 @@ function zD() {
 }
 //#endregion
 //#region src/functions/scene-controls/toolclip.ts
-function BD(e, t) {
+function tO(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
@@ -12961,30 +13053,30 @@ function BD(e, t) {
 }
 //#endregion
 //#region src/module/fear-terror/scene-controls/register.ts
-var VD = "openFearConsole";
-function HD() {
+var nO = "openFearConsole";
+function rO() {
 	Hooks.on("getSceneControlButtons", (e) => {
-		!iu.canCurrentUserAccess() || !Ll(Il.tokenControls) || UD(e);
+		!iu.canCurrentUserAccess() || !Ll(Il.tokenControls) || iO(e);
 	});
 }
-function UD(e) {
+function iO(e) {
 	let t = e.tokens;
-	t && (t.tools[VD] = {
+	t && (t.tools[nO] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: VD,
+		name: nO,
 		onChange: () => {
 			ou();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: BD("Fear Console", `${K}.SceneControls.OpenFearConsole`)
+		toolclip: tO("Fear Console", `${K}.SceneControls.OpenFearConsole`)
 	});
 }
 //#endregion
 //#region src/module/fear-terror/settings/register.ts
-function WD() {
-	iD(Il.tokenControls, "TokenControlsLauncher"), iD(Il.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(q, "fearConsole", {
+function aO() {
+	yD(Il.tokenControls, "TokenControlsLauncher"), yD(Il.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(q, "fearConsole", {
 		hint: `${K}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
 		label: `${K}.Menu.FearConsoleConfigurator.Label`,
@@ -12995,12 +13087,12 @@ function WD() {
 }
 //#endregion
 //#region src/module/session-management/settings/register.ts
-function GD() {
-	aD(qy.options, "{}", String, `${K}.Settings.SessionManagement.State`), aD(qy.state, JSON.stringify({
+function oO() {
+	bD(qy.options, "{}", String, `${K}.Settings.SessionManagement.State`), bD(qy.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, `${K}.Settings.SessionManagement.State`), aD(qy.holdingSceneUuid, "", String, `${K}.Settings.SessionManagement.HoldingSceneUuid`), aD(qy.exportChat, !1, Boolean, `${K}.Settings.SessionManagement.ExportChat`), aD(qy.pullPolicy, "pull", String, `${K}.Settings.SessionManagement.PullPolicy`, { choices: {
+	}), String, `${K}.Settings.SessionManagement.State`), bD(qy.holdingSceneUuid, "", String, `${K}.Settings.SessionManagement.HoldingSceneUuid`), bD(qy.exportChat, !1, Boolean, `${K}.Settings.SessionManagement.ExportChat`), bD(qy.pullPolicy, "pull", String, `${K}.Settings.SessionManagement.PullPolicy`, { choices: {
 		activate: `${K}.Settings.SessionManagement.PullPolicy.Activate`,
 		pull: `${K}.Settings.SessionManagement.PullPolicy.Pull`
 	} }), game.settings.registerMenu(q, "sessionManagementConsole", {
@@ -13014,26 +13106,26 @@ function GD() {
 }
 //#endregion
 //#region src/module/session-management/hooks.ts
-function KD() {
-	Hooks.on("preUpdateToken", qD);
+function sO() {
+	Hooks.on("preUpdateToken", cO);
 }
-function qD(e, t) {
-	if (game.user?.isGM || !JD(e) || !JD(t)) return;
+function cO(e, t) {
+	if (game.user?.isGM || !lO(e) || !lO(t)) return;
 	let n = Xy().holdingSceneUuid, r = canvas?.scene?.uuid;
 	!n || r !== n || (t.x !== void 0 && (t.x = e.x), t.y !== void 0 && (t.y = e.y));
 }
-function JD(e) {
+function lO(e) {
 	return typeof e == "object" && !!e;
 }
 //#endregion
 //#region src/module/toolkit-home/settings/register.ts
-function YD() {
-	class e extends RE {
+function uO() {
+	class e extends $E {
 		constructor() {
 			super([]);
 		}
 		async render(e) {
-			return await ZE(), this;
+			return await fD(), this;
 		}
 	}
 	game.settings.registerMenu(q, "toolkitHome", {
@@ -13041,13 +13133,13 @@ function YD() {
 		icon: "fa-solid fa-toolbox",
 		label: `${K}.Menu.ToolkitHome.Label`,
 		name: `${K}.Menu.ToolkitHome.Name`,
-		restricted: RE.ACCESS_POLICY.gmOnly,
+		restricted: $E.ACCESS_POLICY.gmOnly,
 		type: e
 	});
 }
 //#endregion
 //#region src/module/token-tools/settings/register.ts
-function XD() {
+function dO() {
 	let e = {
 		darkRange: 120,
 		normalRange: 2,
@@ -13068,50 +13160,50 @@ function XD() {
 }
 //#endregion
 //#region src/module/xp-curve/scene-controls/register.ts
-var ZD = "openXpCurveConsole";
-function QD() {
+var fO = "openXpCurveConsole";
+function pO() {
 	Hooks.on("getSceneControlButtons", (e) => {
 		if (!pw.canCurrentUserAccess() || !QC($.showTokenControlsLauncher)) return;
 		let t = e.tokens;
-		t && (t.tools[ZD] = {
+		t && (t.tools[fO] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: ZD,
+			name: fO,
 			onChange: hw,
 			order: 98,
 			title: "XP Curve Console",
-			toolclip: BD("XP Curve Console", `${K}.SceneControls.OpenXpCurveConsole`)
+			toolclip: tO("XP Curve Console", `${K}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
 //#endregion
 //#region src/module/xp-curve/settings/register.ts
-function $D() {
-	iD($.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), eO($.maximumAward, Gb.parameters.maximumAward, Number, "MaximumAward", { range: {
+function mO() {
+	yD($.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), hO($.maximumAward, Gb.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), eO($.gapForMaximumAward, Gb.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), hO($.gapForMaximumAward, Gb.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), eO($.curveExponent, Gb.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), hO($.curveExponent, Gb.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), eO($.scalePivot, Gb.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), hO($.scalePivot, Gb.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), eO($.scaleExponent, Gb.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), hO($.scaleExponent, Gb.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), eO($.companionMultiplier, Gb.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
+	} }), hO($.companionMultiplier, Gb.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
 		max: 1,
 		min: 0,
 		step: .05
-	} }), eO($.defaultReason, Gb.defaultReason, String, "DefaultReason"), eO($.defaultSelection, Gb.defaultSelection, String, "DefaultSelection", { choices: {
+	} }), hO($.defaultReason, Gb.defaultReason, String, "DefaultReason"), hO($.defaultSelection, Gb.defaultSelection, String, "DefaultSelection", { choices: {
 		company: `${K}.Settings.XpCurve.DefaultSelection.Company`,
 		party: `${K}.Settings.XpCurve.DefaultSelection.Party`,
 		world: `${K}.Settings.XpCurve.DefaultSelection.World`
@@ -13124,51 +13216,51 @@ function $D() {
 		type: ow
 	});
 }
-function eO(e, t, n, r, i = {}) {
-	aD(e, t, n, `${K}.Settings.XpCurve.${r}`, i);
+function hO(e, t, n, r, i = {}) {
+	bD(e, t, n, `${K}.Settings.XpCurve.${r}`, i);
 }
 //#endregion
 //#region src/module/xp-award/settings/register.ts
-function tO() {
-	nO(my.auditLog, JSON.stringify({
+function gO() {
+	_O(my.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), nO(my.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), _O(my.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), nO(my.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), nO(my.defaultSelection, "party", String, "DefaultSelection", { choices: {
+	} }), _O(my.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), _O(my.defaultSelection, "party", String, "DefaultSelection", { choices: {
 		company: `${K}.Settings.XpAward.DefaultSelection.Company`,
 		party: `${K}.Settings.XpAward.DefaultSelection.Party`,
 		world: `${K}.Settings.XpAward.DefaultSelection.World`
-	} }), nO(my.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(q, "xpAwardConsole", {
+	} }), _O(my.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(q, "xpAwardConsole", {
 		hint: `${K}.Menu.XpAwardConsole.Hint`,
 		icon: "fa-solid fa-award",
 		label: `${K}.Menu.XpAwardConsole.Label`,
 		name: `${K}.Menu.XpAwardConsole.Name`,
-		restricted: TE.ACCESS_POLICY.gmOnly,
-		type: TE
+		restricted: BE.ACCESS_POLICY.gmOnly,
+		type: BE
 	});
 }
-function nO(e, t, n, r, i = {}) {
-	aD(e, t, n, `${K}.Settings.XpAward.${r}`, i);
+function _O(e, t, n, r, i = {}) {
+	bD(e, t, n, `${K}.Settings.XpAward.${r}`, i);
 }
 //#endregion
 //#region src/module/hooks/register-module-hooks.ts
-function rO() {
-	tD(), uD(), _p(), xm(), KD(), Hooks.once("init", () => {
-		console.info(`${q} | Initializing`), oD(), ED(), WD(), ID(), LD(), zD(), GD(), YD(), XD(), tO(), $D(), jD(), HD(), QD();
+function vO() {
+	gD(), TD(), _p(), xm(), sO(), Hooks.once("init", () => {
+		console.info(`${q} | Initializing`), xD(), VD(), aO(), ZD(), QD(), eO(), oO(), uO(), dO(), gO(), mO(), KD(), rO(), pO();
 	}), Hooks.once("ready", () => {
 		if (game.system.id !== "wfrp4e") {
 			console.warn(`${q} | Loaded outside ${Ec}; skipping module API registration.`);
 			return;
 		}
-		eD(), nD(), console.info(`${q} | Ready`);
+		hD(), _D(), console.info(`${q} | Ready`);
 	});
 }
 //#endregion
 //#region src/main.ts
-rO();
+vO();
 //#endregion
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map
