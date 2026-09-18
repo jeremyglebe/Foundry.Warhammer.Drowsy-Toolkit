@@ -99,12 +99,21 @@ combat-specific state is not copied. Drowsy uses only its own saved data after t
 
 ## Session Management Console
 
-Edit and save the current reference independently, or complete a session by selecting its best-known
-date/time and the next reference. A turnover can pause the game, activate the configured holding
-Scene, apply the fixed XP defaults, reset Fortune from Fate plus Luck, export chat, and record the
-session. Each result is saved before the next step, so retrying after a failure skips work that
-already completed. Whole-number references are suggested one number higher; descriptive references
-are preserved for editing.
+Open **End of Session**, check the date/time, Session XP, session number, and recipients, then
+select **Confirm**. The number starts at the current session. Completing session 12 automatically
+sets the current session to 13; editing the submission to 20 advances it to 21. Enter 0 XP when no
+award is needed. Companions receive half the displayed Session XP, rounded down.
+
+**Preview** shows the session log entry and XP reason; individual XP amounts appear next to selected
+recipients. The recipient list scrolls independently. **Log** displays recorded sessions.
+
+The **cog** opens a separate settings window for default XP, recipient selection, XP entry text,
+pause, Fortune reset, holding-scene movement, chat export, and Pull Everyone behavior. Correct the
+current session number there without recording a session or awarding XP. Session defaults are saved
+separately from the generic XP Award Console.
+
+Confirm runs the configured steps and records the session. Fortune is restored for the selected
+recipients. If a later step fails, **Retry** uses the saved submission and skips completed steps.
 
 The holding Scene is stored by UUID. Non-GMs cannot move tokens on that Scene while the policy is
 configured. **Pull Everyone to Scene** follows the saved activate, pull-only, or prompt behavior and
