@@ -11577,7 +11577,7 @@ async function wT(e, t) {
 	if (e === "holding-scene") {
 		let e = Xy().holdingSceneUuid;
 		if (!e) throw Error("Choose a holding Scene first.");
-		let t = await n.fromUuid(e);
+		let t = await fromUuid(e);
 		if (!t || t.documentName !== "Scene") throw Error("The configured holding Scene no longer exists.");
 		return await t.activate(), `${t.name} activated.`;
 	}
@@ -11617,11 +11617,7 @@ function DT() {
 	return (/* @__PURE__ */ new Date()).toISOString();
 }
 function OT() {
-	let e = globalThis;
-	return {
-		...game,
-		fromUuid: e.fromUuid
-	};
+	return game;
 }
 //#endregion
 //#region src/state/apps/session-management/configuration.ts
