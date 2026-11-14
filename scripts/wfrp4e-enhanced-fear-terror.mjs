@@ -1,5 +1,5 @@
-//#region src/functions/imperial-calendar/calendar.ts
-var e = 86400, t = 99999, n = [
+// src/module/constants.ts
+var e = "wfrp4e-enhanced-fear-terror", t = "Drowsy’s WFRP4e Toolkit", n = "WFRP4E_DROWSYS_TOOLKIT", r = e, i = t, a = "wfrp4e", o = 86400, s = 99999, c = [
 	{
 		name: "Hexenstag",
 		days: 1,
@@ -91,130 +91,150 @@ var e = 86400, t = 99999, n = [
 		intercalary: !1
 	}
 ];
-function r(e) {
-	let t = n.find((t) => t.name === e);
+function l(e) {
+	let t = c.find((t) => t.name === e);
 	if (!t) throw RangeError("Choose an Imperial month or festival.");
 	return t;
 }
-//#endregion
-//#region src/functions/imperial-calendar/calculate.ts
-function i(t, n) {
-	let r = o(n) - o(t), i = Math.abs(r), a = Math.floor(i / e);
+// src/module/functions/imperial-calendar/calculate.ts
+function u(e, t) {
+	let n = f(t) - f(e), r = Math.abs(n), i = Math.floor(r / o);
 	return {
-		totalSeconds: r,
-		wholeDays: a,
-		years: Math.floor(a / 400),
-		days: a % 400,
-		hours: Math.floor(i % e / 3600),
-		minutes: Math.floor(i % 3600 / 60),
-		seconds: i % 60
+		totalSeconds: n,
+		wholeDays: i,
+		years: Math.floor(i / 400),
+		days: i % 400,
+		hours: Math.floor(r % o / 3600),
+		minutes: Math.floor(r % 3600 / 60),
+		seconds: r % 60
 	};
 }
-function a(e) {
-	let n = r(e.period);
-	s(e.year, 1, t, "Year (I.C.)"), s(e.day, 1, n.days, `Day in ${n.name}`), s(e.hour ?? 0, 0, 23, "Hour"), s(e.minute ?? 0, 0, 59, "Minute"), s(e.second ?? 0, 0, 59, "Second");
+function d(e) {
+	let t = l(e.period);
+	p(e.year, 1, s, "Year (I.C.)"), p(e.day, 1, t.days, `Day in ${t.name}`), p(e.hour ?? 0, 0, 23, "Hour"), p(e.minute ?? 0, 0, 59, "Minute"), p(e.second ?? 0, 0, 59, "Second");
 }
-function o(t) {
-	a(t);
-	let r = (t.year - 1) * 400 + t.day - 1;
-	for (let e of n) {
-		if (e.name === t.period) break;
-		r += e.days;
+function f(e) {
+	d(e);
+	let t = (e.year - 1) * 400 + e.day - 1;
+	for (let n of c) {
+		if (n.name === e.period) break;
+		t += n.days;
 	}
-	return r * e + (t.hour ?? 0) * 3600 + (t.minute ?? 0) * 60 + (t.second ?? 0);
+	return t * o + (e.hour ?? 0) * 3600 + (e.minute ?? 0) * 60 + (e.second ?? 0);
 }
-function s(e, t, n, r) {
+function p(e, t, n, r) {
 	if (!Number.isInteger(e) || e < t || e > n) throw RangeError(`${r} must be a whole number from ${t} to ${n}.`);
 }
-//#endregion
-//#region node_modules/@vue/shared/dist/shared.esm-bundler.js
+// node_modules/@vue/shared/dist/shared.esm-bundler.js
 // @__NO_SIDE_EFFECTS__
-function c(e) {
+function m(e) {
 	let t = /* @__PURE__ */ Object.create(null);
 	for (let n of e.split(",")) t[n] = 1;
 	return (e) => e in t;
 }
-var l = {}, u = [], d = () => {}, f = () => !1, p = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && (e.charCodeAt(2) > 122 || e.charCodeAt(2) < 97), m = (e) => e.startsWith("onUpdate:"), h = Object.assign, g = (e, t) => {
+var h = {}, g = [], _ = () => {}, v = () => !1, y = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && (e.charCodeAt(2) > 122 || e.charCodeAt(2) < 97), b = (e) => e.startsWith("onUpdate:"), x = Object.assign, ee = (e, t) => {
 	let n = e.indexOf(t);
 	n > -1 && e.splice(n, 1);
-}, _ = Object.prototype.hasOwnProperty, v = (e, t) => _.call(e, t), y = Array.isArray, b = (e) => ie(e) === "[object Map]", x = (e) => ie(e) === "[object Set]", ee = (e) => ie(e) === "[object Date]", S = (e) => typeof e == "function", C = (e) => typeof e == "string", te = (e) => typeof e == "symbol", w = (e) => typeof e == "object" && !!e, ne = (e) => (w(e) || S(e)) && S(e.then) && S(e.catch), re = Object.prototype.toString, ie = (e) => re.call(e), ae = (e) => ie(e).slice(8, -1), oe = (e) => ie(e) === "[object Object]", se = (e) => C(e) && e !== "NaN" && e[0] !== "-" && "" + parseInt(e, 10) === e, ce = /* @__PURE__ */ c(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"), le = (e) => {
+}, te = Object.prototype.hasOwnProperty, S = (e, t) => te.call(e, t), C = Array.isArray, ne = (e) => ce(e) === "[object Map]", re = (e) => ce(e) === "[object Set]", ie = (e) => ce(e) === "[object Date]", w = (e) => typeof e == "function", T = (e) => typeof e == "string", ae = (e) => typeof e == "symbol", E = (e) => typeof e == "object" && !!e, oe = (e) => (E(e) || w(e)) && w(e.then) && w(e.catch), se = Object.prototype.toString, ce = (e) => se.call(e), le = (e) => ce(e).slice(8, -1), ue = (e) => ce(e) === "[object Object]", de = (e) => T(e) && e !== "NaN" && e[0] !== "-" && "" + parseInt(e, 10) === e, fe = /* @__PURE__ */ m(",key,ref,ref_for,ref_key,onVnodeBeforeMount,onVnodeMounted,onVnodeBeforeUpdate,onVnodeUpdated,onVnodeBeforeUnmount,onVnodeUnmounted"), pe = (e) => {
 	let t = /* @__PURE__ */ Object.create(null);
 	return ((n) => t[n] || (t[n] = e(n)));
-}, ue = /-\w/g, de = le((e) => e.replace(ue, (e) => e.slice(1).toUpperCase())), fe = /\B([A-Z])/g, pe = le((e) => e.replace(fe, "-$1").toLowerCase()), me = le((e) => e.charAt(0).toUpperCase() + e.slice(1)), he = le((e) => e ? `on${me(e)}` : ""), T = (e, t) => !Object.is(e, t), ge = (e, ...t) => {
+}, me = /-\w/g, D = /* @__PURE__ */ pe((e) => e.replace(me, (e) => e.slice(1).toUpperCase())), he = /\B([A-Z])/g, ge = /* @__PURE__ */ pe((e) => e.replace(he, "-$1").toLowerCase()), _e = /* @__PURE__ */ pe((e) => e.charAt(0).toUpperCase() + e.slice(1)), ve = /* @__PURE__ */ pe((e) => e ? `on${_e(e)}` : ""), O = (e, t) => !Object.is(e, t), ye = (e, ...t) => {
 	for (let n = 0; n < e.length; n++) e[n](...t);
-}, _e = (e, t, n, r = !1) => {
+}, be = (e, t, n, r = !1) => {
 	Object.defineProperty(e, t, {
 		configurable: !0,
 		enumerable: !1,
 		writable: r,
 		value: n
 	});
-}, ve = (e) => {
+}, xe = (e) => {
 	let t = parseFloat(e);
 	return isNaN(t) ? e : t;
-}, ye, be = () => ye ||= typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : typeof global < "u" ? global : {};
-function xe(e) {
-	if (y(e)) {
+}, Se, Ce = () => Se ||= typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof window < "u" ? window : typeof global < "u" ? global : {};
+function we(e) {
+	if (C(e)) {
 		let t = {};
 		for (let n = 0; n < e.length; n++) {
-			let r = e[n], i = C(r) ? Te(r) : xe(r);
+			let r = e[n], i = T(r) ? Oe(r) : we(r);
 			if (i) for (let e in i) t[e] = i[e];
 		}
 		return t;
-	} else if (C(e) || w(e)) return e;
+	}
+	if (T(e) || E(e)) return e;
 }
-var Se = /;(?![^(]*\))/g, Ce = /:([^]+)/, we = /\/\*[^]*?\*\//g;
-function Te(e) {
+var Te = /;(?![^(]*\))/g, Ee = /:([^]+)/, De = /"(?:[^"\\]|\\[^])*"|'(?:[^'\\]|\\[^])*'|\\[^]|\/\*[^]*?\*\//g;
+function Oe(e) {
 	let t = {};
-	return e.replace(we, "").split(Se).forEach((e) => {
+	return e.replace(De, (e) => e.startsWith("/*") ? "" : e).split(Te).forEach((e) => {
 		if (e) {
-			let n = e.split(Ce);
+			let n = e.split(Ee);
 			n.length > 1 && (t[n[0].trim()] = n[1].trim());
 		}
 	}), t;
 }
-function E(e) {
+function ke(e) {
 	let t = "";
-	if (C(e)) t = e;
-	else if (y(e)) for (let n = 0; n < e.length; n++) {
-		let r = E(e[n]);
+	if (T(e)) t = e;
+	else if (C(e)) for (let n = 0; n < e.length; n++) {
+		let r = ke(e[n]);
 		r && (t += r + " ");
 	}
-	else if (w(e)) for (let n in e) e[n] && (t += n + " ");
+	else if (E(e)) for (let n in e) e[n] && (t += n + " ");
 	return t.trim();
 }
-var Ee = "itemscope,allowfullscreen,formnovalidate,ismap,nomodule,novalidate,readonly", De = /* @__PURE__ */ c(Ee);
-Ee + "";
-function Oe(e) {
+var Ae = /* @__PURE__ */ m("itemscope,allowfullscreen,disablepictureinpicture,disableremoteplayback,formnovalidate,ismap,nomodule,novalidate,playsinline,readonly");
+function je(e) {
 	return !!e || e === "";
 }
-function ke(e, t) {
+function Me(e, t, n) {
 	if (e.length !== t.length) return !1;
-	let n = !0;
-	for (let r = 0; n && r < e.length; r++) n = Ae(e[r], t[r]);
-	return n;
+	let r = !0;
+	for (let i = 0; r && i < e.length; i++) r = Ie(e[i], t[i], n);
+	return r;
 }
-function Ae(e, t) {
-	if (e === t) return !0;
-	let n = ee(e), r = ee(t);
-	if (n || r) return n && r ? e.getTime() === t.getTime() : !1;
-	if (n = te(e), r = te(t), n || r) return e === t;
-	if (n = y(e), r = y(t), n || r) return n && r ? ke(e, t) : !1;
-	if (n = w(e), r = w(t), n || r) {
-		if (!n || !r || Object.keys(e).length !== Object.keys(t).length) return !1;
-		for (let n in e) {
-			let r = e.hasOwnProperty(n), i = t.hasOwnProperty(n);
-			if (r && !i || !r && i || !Ae(e[n], t[n])) return !1;
+function Ne(e, t, n) {
+	if (e.size !== t.size) return !1;
+	let r = Array.from(t), i = new Uint8Array(r.length);
+	for (let t of e) {
+		let e = -1;
+		for (let a = 0; a < r.length; a++) if (!i[a] && Ie(t, r[a], n)) {
+			e = a;
+			break;
 		}
+		if (e < 0) return !1;
+		i[e] = 1;
+	}
+	return !0;
+}
+function Pe(e, t, n) {
+	let r = ne(e), i = ne(t);
+	if (r || i || (r = re(e), i = re(t), r || i)) return r && i ? Ne(e, t, n) : !1;
+	if (Object.keys(e).length !== Object.keys(t).length) return !1;
+	for (let r in e) {
+		let i = e.hasOwnProperty(r), a = t.hasOwnProperty(r);
+		if (i && !a || !i && a || !Ie(e[r], t[r], n)) return !1;
 	}
 	return String(e) === String(t);
 }
-function je(e, t) {
-	return e.findIndex((e) => Ae(e, t));
+function Fe(e, t, n, r) {
+	n ||= [/* @__PURE__ */ new Map(), /* @__PURE__ */ new Map()];
+	let [i, a] = n;
+	if (i.has(e) || a.has(t)) return i.get(e) === t && a.get(t) === e;
+	i.set(e, t), a.set(t, e);
+	let o = r(e, t, n);
+	return i.delete(e), a.delete(t), o;
 }
-var Me = (e) => !!(e && e.__v_isRef === !0), D = (e) => C(e) ? e : e == null ? "" : y(e) || w(e) && (e.toString === re || !S(e.toString)) ? Me(e) ? D(e.value) : JSON.stringify(e, Ne, 2) : String(e), Ne = (e, t) => Me(t) ? Ne(e, t.value) : b(t) ? { [`Map(${t.size})`]: [...t.entries()].reduce((e, [t, n], r) => (e[Pe(t, r) + " =>"] = n, e), {}) } : x(t) ? { [`Set(${t.size})`]: [...t.values()].map((e) => Pe(e)) } : te(t) ? Pe(t) : w(t) && !y(t) && !oe(t) ? String(t) : t, Pe = (e, t = "") => te(e) ? `Symbol(${e.description ?? t})` : e, Fe, Ie = class {
+function Ie(e, t, n) {
+	if (e === t) return !0;
+	let r = ie(e), i = ie(t);
+	return r || i ? r && i ? e.getTime() === t.getTime() : !1 : (r = ae(e), i = ae(t), r || i ? e === t : (r = C(e), i = C(t), r || i ? r && i ? Fe(e, t, n, Me) : !1 : (r = E(e), i = E(t), r || i ? !r || !i ? !1 : Fe(e, t, n, Pe) : String(e) === String(t))));
+}
+function Le(e, t) {
+	return e.findIndex((e) => Ie(e, t));
+}
+var Re = (e) => !!(e && e.__v_isRef === !0), k = (e) => T(e) ? e : e == null ? "" : C(e) || E(e) && (e.toString === se || !w(e.toString)) ? Re(e) ? k(e.value) : JSON.stringify(e, ze, 2) : String(e), ze = (e, t) => Re(t) ? ze(e, t.value) : ne(t) ? { [`Map(${t.size})`]: [...t.entries()].reduce((e, [t, n], r) => (e[Be(t, r) + " =>"] = n, e), {}) } : re(t) ? { [`Set(${t.size})`]: [...t.values()].map((e) => Be(e)) } : ae(t) ? Be(t) : E(t) && !C(t) && !ue(t) ? String(t) : t, Be = (e, t = "") => ae(e) ? `Symbol(${e.description ?? t})` : e, A, Ve = class {
 	constructor(e = !1) {
-		this.detached = e, this._active = !0, this._on = 0, this.effects = [], this.cleanups = [], this._isPaused = !1, this._warnOnRun = !0, this.__v_skip = !0, !e && Fe && (Fe.active ? (this.parent = Fe, this.index = (Fe.scopes ||= []).push(this) - 1) : (this._active = !1, this._warnOnRun = !1));
+		this.detached = e, this._active = !0, this._on = 0, this.effects = [], this.cleanups = [], this._isPaused = !1, this._warnOnRun = !0, this.__v_skip = !0, !e && A && (A.active ? (this.parent = A, this.index = (A.scopes || (A.scopes = [])).push(this) - 1) : (this._active = !1, this._warnOnRun = !1));
 	}
 	get active() {
 		return this._active;
@@ -223,7 +243,10 @@ var Me = (e) => !!(e && e.__v_isRef === !0), D = (e) => C(e) ? e : e == null ? "
 		if (this._active) {
 			this._isPaused = !0;
 			let e, t;
-			if (this.scopes) for (e = 0, t = this.scopes.length; e < t; e++) this.scopes[e].pause();
+			if (this.scopes) {
+				let n = this.scopes.slice();
+				for (e = 0, t = n.length; e < t; e++) n[e].pause();
+			}
 			for (e = 0, t = this.effects.length; e < t; e++) this.effects[e].pause();
 		}
 	}
@@ -231,28 +254,32 @@ var Me = (e) => !!(e && e.__v_isRef === !0), D = (e) => C(e) ? e : e == null ? "
 		if (this._active && this._isPaused) {
 			this._isPaused = !1;
 			let e, t;
-			if (this.scopes) for (e = 0, t = this.scopes.length; e < t; e++) this.scopes[e].resume();
-			for (e = 0, t = this.effects.length; e < t; e++) this.effects[e].resume();
+			if (this.scopes) {
+				let n = this.scopes.slice();
+				for (e = 0, t = n.length; e < t; e++) n[e].resume();
+			}
+			let n = this.effects.slice();
+			for (e = 0, t = n.length; e < t; e++) n[e].resume();
 		}
 	}
 	run(e) {
 		if (this._active) {
-			let t = Fe;
+			let t = A;
 			try {
-				return Fe = this, e();
+				return A = this, e();
 			} finally {
-				Fe = t;
+				A = t;
 			}
 		}
 	}
 	on() {
-		++this._on === 1 && (this.prevScope = Fe, Fe = this);
+		++this._on === 1 && (this.prevScope = A, A = this);
 	}
 	off() {
 		if (this._on > 0 && --this._on === 0) {
-			if (Fe === this) Fe = this.prevScope;
+			if (A === this) A = this.prevScope;
 			else {
-				let e = Fe;
+				let e = A;
 				for (; e;) {
 					if (e.prevScope === this) {
 						e.prevScope = this.prevScope;
@@ -271,7 +298,8 @@ var Me = (e) => !!(e && e.__v_isRef === !0), D = (e) => C(e) ? e : e == null ? "
 			for (t = 0, n = this.effects.length; t < n; t++) this.effects[t].stop();
 			for (this.effects.length = 0, t = 0, n = this.cleanups.length; t < n; t++) this.cleanups[t]();
 			if (this.cleanups.length = 0, this.scopes) {
-				for (t = 0, n = this.scopes.length; t < n; t++) this.scopes[t].stop(!0);
+				let e = this.scopes.slice();
+				for (t = 0, n = e.length; t < n; t++) e[t].stop(!0);
 				this.scopes.length = 0;
 			}
 			if (!this.detached && this.parent && !e) {
@@ -282,78 +310,74 @@ var Me = (e) => !!(e && e.__v_isRef === !0), D = (e) => C(e) ? e : e == null ? "
 		}
 	}
 };
-function Le(e) {
-	return new Ie(e);
+function He(e) {
+	return new Ve(e);
 }
-function Re() {
-	return Fe;
+function Ue() {
+	return A;
 }
-function ze(e, t = !1) {
-	Fe && Fe.cleanups.push(e);
+function We(e, t = !1) {
+	A && (A.active ? A.cleanups.push(e) : e());
 }
-var O, Be = /* @__PURE__ */ new WeakSet(), Ve = class {
+var j, Ge = /* @__PURE__ */ new WeakSet(), Ke = class {
 	constructor(e) {
-		this.fn = e, this.deps = void 0, this.depsTail = void 0, this.flags = 5, this.next = void 0, this.cleanup = void 0, this.scheduler = void 0, Fe && (Fe.active ? Fe.effects.push(this) : this.flags &= -2);
+		this.fn = e, this.deps = void 0, this.depsTail = void 0, this.flags = 5, this.next = void 0, this.cleanup = void 0, this.scheduler = void 0, A && (A.active ? A.effects.push(this) : this.flags &= -2);
 	}
 	pause() {
 		this.flags |= 64;
 	}
 	resume() {
-		this.flags & 64 && (this.flags &= -65, Be.has(this) && (Be.delete(this), this.trigger()));
+		this.flags & 64 && (this.flags &= -65, Ge.has(this) && (Ge.delete(this), this.trigger()));
 	}
 	notify() {
-		this.flags & 2 && !(this.flags & 32) || this.flags & 8 || Ge(this);
+		this.flags & 2 && !(this.flags & 32) || this.flags & 8 || Xe(this);
 	}
 	run() {
 		if (!(this.flags & 1)) return this.fn();
-		this.flags |= 2, it(this), Je(this);
-		let e = O, t = et;
-		O = this, et = !0;
+		this.flags |= 2, lt(this), $e(this);
+		let e = j, t = at;
+		j = this, at = !0;
 		try {
 			return this.fn();
 		} finally {
-			Ye(this), O = e, et = t, this.flags &= -3;
+			et(this), j = e, at = t, this.flags &= -3;
 		}
 	}
 	stop() {
 		if (this.flags & 1) {
-			for (let e = this.deps; e; e = e.nextDep) Qe(e);
-			this.deps = this.depsTail = void 0, it(this), this.onStop && this.onStop(), this.flags &= -2;
+			for (let e = this.deps; e; e = e.nextDep) rt(e);
+			this.deps = this.depsTail = void 0, lt(this), this.onStop && this.onStop(), this.flags &= -2;
 		}
 	}
 	trigger() {
-		this.flags & 64 ? Be.add(this) : this.scheduler ? this.scheduler() : this.runIfDirty();
+		this.flags & 64 ? Ge.add(this) : this.scheduler ? this.scheduler() : this.runIfDirty();
 	}
 	runIfDirty() {
-		Xe(this) && this.run();
+		tt(this) && this.run();
 	}
 	get dirty() {
-		return Xe(this);
+		return tt(this);
 	}
-}, He = 0, Ue, We;
-function Ge(e, t = !1) {
-	if (e.flags |= 8, t) {
-		e.next = We, We = e;
-		return;
-	}
-	e.next = Ue, Ue = e;
+}, qe = 0, Je, Ye;
+function Xe(e, t = !1) {
+	e.flags |= 8, t ? (e.next = Ye, Ye = e) : (e.next = Je, Je = e);
 }
-function Ke() {
-	He++;
+function Ze() {
+	qe++;
 }
-function qe() {
-	if (--He > 0) return;
-	if (We) {
-		let e = We;
-		for (We = void 0; e;) {
+function Qe() {
+	if (--qe > 0) return;
+	if (Ye) {
+		let e = Ye;
+		for (Ye = void 0; e;) {
 			let t = e.next;
 			e.next = void 0, e.flags &= -9, e = t;
 		}
 	}
 	let e;
-	for (; Ue;) {
-		let t = Ue;
-		for (Ue = void 0; t;) {
+	for (; Je;) {
+		let t = Je;
+		for (Je = void 0; t;) {
 			let n = t.next;
 			if (t.next = void 0, t.flags &= -9, t.flags & 1) try {
 				t.trigger();
@@ -365,298 +389,312 @@ function qe() {
 	}
 	if (e) throw e;
 }
-function Je(e) {
+function $e(e) {
 	for (let t = e.deps; t; t = t.nextDep) t.version = -1, t.prevActiveLink = t.dep.activeLink, t.dep.activeLink = t;
 }
-function Ye(e) {
+function et(e) {
 	let t, n = e.depsTail, r = n;
 	for (; r;) {
 		let e = r.prevDep;
-		r.version === -1 ? (r === n && (n = e), Qe(r), $e(r)) : t = r, r.dep.activeLink = r.prevActiveLink, r.prevActiveLink = void 0, r = e;
+		r.version === -1 ? (r === n && (n = e), rt(r), it(r)) : t = r, r.dep.activeLink = r.prevActiveLink, r.prevActiveLink = void 0, r = e;
 	}
 	e.deps = t, e.depsTail = n;
 }
-function Xe(e) {
-	for (let t = e.deps; t; t = t.nextDep) if (t.dep.version !== t.version || t.dep.computed && (Ze(t.dep.computed) || t.dep.version !== t.version)) return !0;
+function tt(e) {
+	for (let t = e.deps; t; t = t.nextDep) if (t.dep.version !== t.version || t.dep.computed && (nt(t.dep.computed) || t.dep.version !== t.version)) return !0;
 	return !!e._dirty;
 }
-function Ze(e) {
-	if (e.flags & 4 && !(e.flags & 16) || (e.flags &= -17, e.globalVersion === at) || (e.globalVersion = at, !e.isSSR && e.flags & 128 && (!e.deps && !e._dirty || !Xe(e)))) return;
+function nt(e) {
+	if (e.flags & 4 && !(e.flags & 16) || (e.flags &= -17, e.globalVersion === ut) || (e.globalVersion = ut, !e.isSSR && e.flags & 128 && (!e.deps && !e._dirty || !tt(e)))) return;
 	e.flags |= 2;
-	let t = e.dep, n = O, r = et;
-	O = e, et = !0;
+	let t = e.dep, n = j, r = at;
+	j = e, at = !0;
 	try {
-		Je(e);
+		$e(e);
 		let n = e.fn(e._value);
-		(t.version === 0 || T(n, e._value)) && (e.flags |= 128, e._value = n, t.version++);
+		(t.version === 0 || O(n, e._value)) && (e.flags |= 128, e._value = n, t.version++);
 	} catch (e) {
 		throw t.version++, e;
 	} finally {
-		O = n, et = r, Ye(e), e.flags &= -3;
+		j = n, at = r, et(e), e.flags &= -3;
 	}
 }
-function Qe(e, t = !1) {
+function rt(e, t = !1) {
 	let { dep: n, prevSub: r, nextSub: i } = e;
 	if (r && (r.nextSub = i, e.prevSub = void 0), i && (i.prevSub = r, e.nextSub = void 0), n.subs === e && (n.subs = r, !r && n.computed)) {
 		n.computed.flags &= -5;
-		for (let e = n.computed.deps; e; e = e.nextDep) Qe(e, !0);
+		for (let e = n.computed.deps; e; e = e.nextDep) rt(e, !0);
 	}
 	!t && !--n.sc && n.map && n.map.delete(n.key);
 }
-function $e(e) {
+function it(e) {
 	let { prevDep: t, nextDep: n } = e;
 	t && (t.nextDep = n, e.prevDep = void 0), n && (n.prevDep = t, e.nextDep = void 0);
 }
-var et = !0, tt = [];
-function nt() {
-	tt.push(et), et = !1;
+var at = !0, ot = [];
+function st() {
+	ot.push(at), at = !1;
 }
-function rt() {
-	let e = tt.pop();
-	et = e === void 0 ? !0 : e;
+function ct() {
+	let e = ot.pop();
+	at = e === void 0 || e;
 }
-function it(e) {
+function lt(e) {
 	let { cleanup: t } = e;
 	if (e.cleanup = void 0, t) {
-		let e = O;
-		O = void 0;
+		let e = j;
+		j = void 0;
 		try {
 			t();
 		} finally {
-			O = e;
+			j = e;
 		}
 	}
 }
-var at = 0, ot = class {
+var ut = 0, dt = class {
 	constructor(e, t) {
 		this.sub = e, this.dep = t, this.version = t.version, this.nextDep = this.prevDep = this.nextSub = this.prevSub = this.prevActiveLink = void 0;
 	}
-}, st = class {
+}, ft = class {
 	constructor(e) {
 		this.computed = e, this.version = 0, this.activeLink = void 0, this.subs = void 0, this.map = void 0, this.key = void 0, this.sc = 0, this.__v_skip = !0;
 	}
 	track(e) {
-		if (!O || !et || O === this.computed) return;
+		if (!j || !at || j === this.computed) return;
 		let t = this.activeLink;
-		if (t === void 0 || t.sub !== O) t = this.activeLink = new ot(O, this), O.deps ? (t.prevDep = O.depsTail, O.depsTail.nextDep = t, O.depsTail = t) : O.deps = O.depsTail = t, ct(t);
+		if (t === void 0 || t.sub !== j) t = this.activeLink = new dt(j, this), j.deps ? (t.prevDep = j.depsTail, j.depsTail.nextDep = t, j.depsTail = t) : j.deps = j.depsTail = t, pt(t);
 		else if (t.version === -1 && (t.version = this.version, t.nextDep)) {
 			let e = t.nextDep;
-			e.prevDep = t.prevDep, t.prevDep && (t.prevDep.nextDep = e), t.prevDep = O.depsTail, t.nextDep = void 0, O.depsTail.nextDep = t, O.depsTail = t, O.deps === t && (O.deps = e);
+			e.prevDep = t.prevDep, t.prevDep && (t.prevDep.nextDep = e), t.prevDep = j.depsTail, t.nextDep = void 0, j.depsTail.nextDep = t, j.depsTail = t, j.deps === t && (j.deps = e);
 		}
 		return t;
 	}
 	trigger(e) {
-		this.version++, at++, this.notify(e);
+		this.version++, ut++, this.notify(e);
 	}
 	notify(e) {
-		Ke();
+		Ze();
 		try {
 			for (let e = this.subs; e; e = e.prevSub) e.sub.notify() && e.sub.dep.notify();
 		} finally {
-			qe();
+			Qe();
 		}
 	}
 };
-function ct(e) {
+function pt(e) {
 	if (e.dep.sc++, e.sub.flags & 4) {
 		let t = e.dep.computed;
 		if (t && !e.dep.subs) {
 			t.flags |= 20;
-			for (let e = t.deps; e; e = e.nextDep) ct(e);
+			for (let e = t.deps; e; e = e.nextDep) pt(e);
 		}
 		let n = e.dep.subs;
 		n !== e && (e.prevSub = n, n && (n.nextSub = e)), e.dep.subs = e;
 	}
 }
-var lt = /* @__PURE__ */ new WeakMap(), ut = /* @__PURE__ */ Symbol(""), dt = /* @__PURE__ */ Symbol(""), ft = /* @__PURE__ */ Symbol("");
-function pt(e, t, n) {
-	if (et && O) {
-		let t = lt.get(e);
-		t || lt.set(e, t = /* @__PURE__ */ new Map());
+var mt = /* @__PURE__ */ new WeakMap(), ht = /* @__PURE__ */ Symbol(""), gt = /* @__PURE__ */ Symbol(""), _t = /* @__PURE__ */ Symbol("");
+function vt(e, t, n) {
+	if (at && j) {
+		let t = mt.get(e);
+		t || mt.set(e, t = /* @__PURE__ */ new Map());
 		let r = t.get(n);
-		r || (t.set(n, r = new st()), r.map = t, r.key = n), r.track();
+		r || (t.set(n, r = new ft()), r.map = t, r.key = n), r.track();
 	}
 }
-function mt(e, t, n, r, i, a) {
-	let o = lt.get(e);
+function yt(e, t, n, r, i, a) {
+	let o = mt.get(e);
 	if (!o) {
-		at++;
+		ut++;
 		return;
 	}
 	let s = (e) => {
 		e && e.trigger();
 	};
-	if (Ke(), t === "clear") o.forEach(s);
+	if (Ze(), t === "clear") o.forEach(s);
 	else {
-		let i = y(e), a = i && se(n);
+		let i = C(e), a = i && de(n);
 		if (i && n === "length") {
 			let e = Number(r);
 			o.forEach((t, n) => {
-				(n === "length" || n === ft || !te(n) && n >= e) && s(t);
+				(n === "length" || n === _t || !ae(n) && n >= e) && s(t);
 			});
-		} else switch ((n !== void 0 || o.has(void 0)) && s(o.get(n)), a && s(o.get(ft)), t) {
+		} else switch ((n !== void 0 || o.has(void 0)) && s(o.get(n)), a && s(o.get(_t)), t) {
 			case "add":
-				i ? a && s(o.get("length")) : (s(o.get(ut)), b(e) && s(o.get(dt)));
+				i ? a && s(o.get("length")) : (s(o.get(ht)), ne(e) && s(o.get(gt)));
 				break;
 			case "delete":
-				i || (s(o.get(ut)), b(e) && s(o.get(dt)));
+				i || (s(o.get(ht)), ne(e) && s(o.get(gt)));
 				break;
-			case "set":
-				b(e) && s(o.get(ut));
-				break;
+			case "set": ne(e) && s(o.get(ht));
 		}
 	}
-	qe();
+	Qe();
 }
-function ht(e, t) {
-	let n = lt.get(e);
+function bt(e, t) {
+	let n = mt.get(e);
 	return n && n.get(t);
 }
-function gt(e) {
-	let t = /* @__PURE__ */ k(e);
-	return t === e ? t : (pt(t, "iterate", ft), /* @__PURE__ */ tn(e) ? t : t.map(an));
+function xt(e) {
+	let t = /* @__PURE__ */ M(e);
+	return t === e || (vt(t, "iterate", _t), /* @__PURE__ */ cn(e)) ? t : /* @__PURE__ */ sn(e) ? /* @__PURE__ */ on(e) ? t.map((e) => fn(dn(e))) : t.map(fn) : t.map(dn);
 }
-function _t(e) {
-	return pt(e = /* @__PURE__ */ k(e), "iterate", ft), e;
+function St(e) {
+	return vt(e = /* @__PURE__ */ M(e), "iterate", _t), e;
 }
-function vt(e, t) {
-	return /* @__PURE__ */ en(e) ? on(/* @__PURE__ */ $t(e) ? an(t) : t) : an(t);
+function Ct(e, t) {
+	return /* @__PURE__ */ sn(e) ? fn(/* @__PURE__ */ on(e) ? dn(t) : t) : dn(t);
 }
-var yt = {
+var wt = {
 	__proto__: null,
 	[Symbol.iterator]() {
-		return bt(this, Symbol.iterator, (e) => vt(this, e));
+		return Tt(this, Symbol.iterator, (e) => Ct(this, e));
 	},
 	concat(...e) {
-		return gt(this).concat(...e.map((e) => y(e) ? gt(e) : e));
+		return xt(this).concat(...e.map((e) => C(e) ? xt(e) : e));
 	},
 	entries() {
-		return bt(this, "entries", (e) => (e[1] = vt(this, e[1]), e));
+		return Tt(this, "entries", (e) => (e[1] = Ct(this, e[1]), e));
 	},
 	every(e, t) {
-		return St(this, "every", e, t, void 0, arguments);
+		return Ot(this, "every", e, t, void 0, arguments);
 	},
 	filter(e, t) {
-		return St(this, "filter", e, t, (e) => e.map((e) => vt(this, e)), arguments);
+		return Ot(this, "filter", e, t, (e) => e.map((e) => Ct(this, e)), arguments);
 	},
 	find(e, t) {
-		return St(this, "find", e, t, (e) => vt(this, e), arguments);
+		return Ot(this, "find", e, t, (e) => Ct(this, e), arguments);
 	},
 	findIndex(e, t) {
-		return St(this, "findIndex", e, t, void 0, arguments);
+		return Ot(this, "findIndex", e, t, void 0, arguments);
 	},
 	findLast(e, t) {
-		return St(this, "findLast", e, t, (e) => vt(this, e), arguments);
+		return Ot(this, "findLast", e, t, (e) => Ct(this, e), arguments);
 	},
 	findLastIndex(e, t) {
-		return St(this, "findLastIndex", e, t, void 0, arguments);
+		return Ot(this, "findLastIndex", e, t, void 0, arguments);
 	},
 	forEach(e, t) {
-		return St(this, "forEach", e, t, void 0, arguments);
+		return Ot(this, "forEach", e, t, void 0, arguments);
 	},
 	includes(...e) {
-		return wt(this, "includes", e);
+		return At(this, "includes", e);
 	},
 	indexOf(...e) {
-		return wt(this, "indexOf", e);
+		return At(this, "indexOf", e);
 	},
 	join(e) {
-		return gt(this).join(e);
+		return xt(this).join(e);
 	},
 	lastIndexOf(...e) {
-		return wt(this, "lastIndexOf", e);
+		return At(this, "lastIndexOf", e);
 	},
 	map(e, t) {
-		return St(this, "map", e, t, void 0, arguments);
+		return Ot(this, "map", e, t, void 0, arguments);
 	},
 	pop() {
-		return Tt(this, "pop");
+		return jt(this, "pop");
 	},
 	push(...e) {
-		return Tt(this, "push", e);
+		return jt(this, "push", e);
 	},
 	reduce(e, ...t) {
-		return Ct(this, "reduce", e, t);
+		return kt(this, "reduce", e, t);
 	},
 	reduceRight(e, ...t) {
-		return Ct(this, "reduceRight", e, t);
+		return kt(this, "reduceRight", e, t);
 	},
 	shift() {
-		return Tt(this, "shift");
+		return jt(this, "shift");
 	},
 	some(e, t) {
-		return St(this, "some", e, t, void 0, arguments);
+		return Ot(this, "some", e, t, void 0, arguments);
 	},
 	splice(...e) {
-		return Tt(this, "splice", e);
+		return jt(this, "splice", e);
 	},
 	toReversed() {
-		return gt(this).toReversed();
+		return xt(this).toReversed();
 	},
 	toSorted(e) {
-		return gt(this).toSorted(e);
+		return xt(this).toSorted(e);
 	},
 	toSpliced(...e) {
-		return gt(this).toSpliced(...e);
+		return xt(this).toSpliced(...e);
 	},
 	unshift(...e) {
-		return Tt(this, "unshift", e);
+		return jt(this, "unshift", e);
 	},
 	values() {
-		return bt(this, "values", (e) => vt(this, e));
+		return Tt(this, "values", (e) => Ct(this, e));
 	}
 };
-function bt(e, t, n) {
-	let r = _t(e), i = r[t]();
-	return r !== e && !/* @__PURE__ */ tn(e) && (i._next = i.next, i.next = () => {
-		let e = i._next();
-		return e.done || (e.value = n(e.value)), e;
-	}), i;
+function Tt(e, t, n) {
+	let r = St(e), i = r[t], a = i.call(r);
+	if (r !== e && !/* @__PURE__ */ cn(e)) {
+		if (a[Symbol.toStringTag] === "Array Iterator") {
+			let e = Object.create(Object.getPrototypeOf(a));
+			return e.next = () => Et(a.next(), n), i !== Dt[t] && Object.defineProperties(e, {
+				return: { get() {
+					let e = a.return;
+					return typeof e == "function" ? e.bind(a) : e;
+				} },
+				throw: { get() {
+					let e = a.throw;
+					return typeof e == "function" ? e.bind(a) : e;
+				} }
+			}), e;
+		}
+		a._next = a.next, a.next = () => Et(a._next(), n);
+	}
+	return a;
 }
-var xt = Array.prototype;
-function St(e, t, n, r, i, a) {
-	let o = _t(e), s = o !== e && !/* @__PURE__ */ tn(e), c = o[t];
-	if (c !== xt[t]) {
+function Et(e, t) {
+	return e.done || (e.value = t(e.value)), e;
+}
+var Dt = Array.prototype;
+function Ot(e, t, n, r, i, a) {
+	let o = St(e), s = o !== e && !/* @__PURE__ */ cn(e), c = o[t];
+	if (c !== Dt[t]) {
 		let t = c.apply(e, a);
-		return s ? an(t) : t;
+		return s ? dn(t) : t;
 	}
 	let l = n;
 	o !== e && (s ? l = function(t, r) {
-		return n.call(this, vt(e, t), r, e);
+		return n.call(this, Ct(e, t), r, e);
 	} : n.length > 2 && (l = function(t, r) {
 		return n.call(this, t, r, e);
 	}));
 	let u = c.call(o, l, r);
 	return s && i ? i(u) : u;
 }
-function Ct(e, t, n, r) {
-	let i = _t(e), a = i !== e && !/* @__PURE__ */ tn(e), o = n, s = !1;
+function kt(e, t, n, r) {
+	let i = St(e), a = i !== e && !/* @__PURE__ */ cn(e), o = n, s = !1;
 	i !== e && (a ? (s = r.length === 0, o = function(t, r, i) {
-		return s && (s = !1, t = vt(e, t)), n.call(this, t, vt(e, r), i, e);
+		return s && (s = !1, t = Ct(e, t)), n.call(this, t, Ct(e, r), i, e);
 	}) : n.length > 3 && (o = function(t, r, i) {
 		return n.call(this, t, r, i, e);
 	}));
 	let c = i[t](o, ...r);
-	return s ? vt(e, c) : c;
+	return s ? Ct(e, c) : c;
 }
-function wt(e, t, n) {
-	let r = /* @__PURE__ */ k(e);
-	pt(r, "iterate", ft);
+function At(e, t, n) {
+	let r = /* @__PURE__ */ M(e);
+	vt(r, "iterate", _t);
 	let i = r[t](...n);
-	return (i === -1 || i === !1) && /* @__PURE__ */ nn(n[0]) ? (n[0] = /* @__PURE__ */ k(n[0]), r[t](...n)) : i;
+	return (i === -1 || i === !1) && /* @__PURE__ */ ln(n[0]) ? (n[0] = /* @__PURE__ */ M(n[0]), r[t](...n)) : i;
 }
-function Tt(e, t, n = []) {
-	nt(), Ke();
-	let r = (/* @__PURE__ */ k(e))[t].apply(e, n);
-	return qe(), rt(), r;
+function jt(e, t, n = []) {
+	st(), Ze();
+	let r = (/* @__PURE__ */ M(e))[t].apply(e, n);
+	return Qe(), ct(), r;
 }
-var Et = /* @__PURE__ */ c("__proto__,__v_isRef,__isVue"), Dt = new Set(/* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((e) => e !== "arguments" && e !== "caller").map((e) => Symbol[e]).filter(te));
-function Ot(e) {
-	te(e) || (e = String(e));
-	let t = /* @__PURE__ */ k(this);
-	return pt(t, "has", e), t.hasOwnProperty(e);
+var Mt = /* @__PURE__ */ m("__proto__,__v_isRef,__isVue"), Nt = /* @__PURE__ */ new Set(/* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((e) => e !== "arguments" && e !== "caller").map((e) => Symbol[e]).filter(ae));
+function Pt(e) {
+	ae(e) || (e = String(e));
+	let t = /* @__PURE__ */ M(this);
+	return vt(t, "has", e), t.hasOwnProperty(e);
 }
-var kt = class {
+var Ft = class {
 	constructor(e = !1, t = !1) {
 		this._isReadonly = e, this._isShallow = t;
 	}
@@ -666,46 +704,46 @@ var kt = class {
 		if (t === "__v_isReactive") return !r;
 		if (t === "__v_isReadonly") return r;
 		if (t === "__v_isShallow") return i;
-		if (t === "__v_raw") return n === (r ? i ? qt : Kt : i ? Gt : Wt).get(e) || Object.getPrototypeOf(e) === Object.getPrototypeOf(n) ? e : void 0;
-		let a = y(e);
+		if (t === "__v_raw") return n === (r ? i ? $t : Qt : i ? Zt : Xt).get(e) || Object.getPrototypeOf(e) === Object.getPrototypeOf(n) ? e : void 0;
+		let a = C(e);
 		if (!r) {
 			let e;
-			if (a && (e = yt[t])) return e;
-			if (t === "hasOwnProperty") return Ot;
+			if (a && (e = wt[t])) return e;
+			if (t === "hasOwnProperty") return Pt;
 		}
-		let o = Reflect.get(e, t, /* @__PURE__ */ A(e) ? e : n);
-		if ((te(t) ? Dt.has(t) : Et(t)) || (r || pt(e, "get", t), i)) return o;
-		if (/* @__PURE__ */ A(o)) {
-			let e = a && se(t) ? o : o.value;
-			return r && w(e) ? /* @__PURE__ */ Zt(e) : e;
+		let o = Reflect.get(e, t, /* @__PURE__ */ N(e) ? e : n);
+		if ((ae(t) ? Nt.has(t) : Mt(t)) || (r || vt(e, "get", t), i)) return o;
+		if (/* @__PURE__ */ N(o)) {
+			let e = a && de(t) ? o : o.value;
+			return r && E(e) ? /* @__PURE__ */ rn(e) : e;
 		}
-		return w(o) ? r ? /* @__PURE__ */ Zt(o) : /* @__PURE__ */ Yt(o) : o;
+		return E(o) ? r ? /* @__PURE__ */ rn(o) : /* @__PURE__ */ tn(o) : o;
 	}
-}, At = class extends kt {
+}, It = class extends Ft {
 	constructor(e = !1) {
 		super(!1, e);
 	}
 	set(e, t, n, r) {
-		let i = e[t], a = y(e) && se(t);
+		let i = e[t], a = C(e) && de(t);
 		if (!this._isShallow) {
-			let e = /* @__PURE__ */ en(i);
-			if (!/* @__PURE__ */ tn(n) && !/* @__PURE__ */ en(n) && (i = /* @__PURE__ */ k(i), n = /* @__PURE__ */ k(n)), !a && /* @__PURE__ */ A(i) && !/* @__PURE__ */ A(n)) return e || (i.value = n), !0;
+			let e = /* @__PURE__ */ sn(i);
+			if (!/* @__PURE__ */ cn(n) && !/* @__PURE__ */ sn(n) && (i = /* @__PURE__ */ M(i), n = /* @__PURE__ */ M(n)), !a && /* @__PURE__ */ N(i) && !/* @__PURE__ */ N(n)) return e || (i.value = n), !0;
 		}
-		let o = a ? Number(t) < e.length : v(e, t), s = Reflect.set(e, t, n, /* @__PURE__ */ A(e) ? e : r);
-		return e === /* @__PURE__ */ k(r) && (o ? T(n, i) && mt(e, "set", t, n, i) : mt(e, "add", t, n)), s;
+		let o = a ? Number(t) < e.length : S(e, t), s = Reflect.set(e, t, n, /* @__PURE__ */ N(e) ? e : r);
+		return e === /* @__PURE__ */ M(r) && s && (o ? O(n, i) && yt(e, "set", t, n, i) : yt(e, "add", t, n)), s;
 	}
 	deleteProperty(e, t) {
-		let n = v(e, t), r = e[t], i = Reflect.deleteProperty(e, t);
-		return i && n && mt(e, "delete", t, void 0, r), i;
+		let n = S(e, t), r = e[t], i = Reflect.deleteProperty(e, t);
+		return i && n && yt(e, "delete", t, void 0, r), i;
 	}
 	has(e, t) {
 		let n = Reflect.has(e, t);
-		return (!te(t) || !Dt.has(t)) && pt(e, "has", t), n;
+		return ae(t) && Nt.has(t) || vt(e, "has", t), n;
 	}
 	ownKeys(e) {
-		return pt(e, "iterate", y(e) ? "length" : ut), Reflect.ownKeys(e);
+		return vt(e, "iterate", C(e) ? "length" : ht), Reflect.ownKeys(e);
 	}
-}, jt = class extends kt {
+}, Lt = class extends Ft {
 	constructor(e = !1) {
 		super(!0, e);
 	}
@@ -715,11 +753,11 @@ var kt = class {
 	deleteProperty(e, t) {
 		return !0;
 	}
-}, Mt = /* @__PURE__ */ new At(), Nt = /* @__PURE__ */ new jt(), Pt = /* @__PURE__ */ new At(!0), Ft = (e) => e, It = (e) => Reflect.getPrototypeOf(e);
-function Lt(e, t, n) {
+}, Rt = /* @__PURE__ */ new It(), zt = /* @__PURE__ */ new Lt(), Bt = /* @__PURE__ */ new It(!0), Vt = (e) => e, Ht = (e) => Reflect.getPrototypeOf(e);
+function Ut(e, t, n) {
 	return function(...r) {
-		let i = this.__v_raw, a = /* @__PURE__ */ k(i), o = b(a), s = e === "entries" || e === Symbol.iterator && o, c = e === "keys" && o, l = i[e](...r), u = n ? Ft : t ? on : an;
-		return !t && pt(a, "iterate", c ? dt : ut), h(Object.create(l), { next() {
+		let i = this.__v_raw, a = /* @__PURE__ */ M(i), o = ne(a), s = e === "entries" || e === Symbol.iterator && o, c = e === "keys" && o, l = i[e](...r), u = n ? Vt : t ? fn : dn;
+		return !t && vt(a, "iterate", c ? gt : ht), x(Object.create(l), { next() {
 			let { value: e, done: t } = l.next();
 			return t ? {
 				value: e,
@@ -731,60 +769,60 @@ function Lt(e, t, n) {
 		} });
 	};
 }
-function Rt(e) {
+function Wt(e) {
 	return function(...t) {
 		return e === "delete" ? !1 : e === "clear" ? void 0 : this;
 	};
 }
-function zt(e, t) {
+function Gt(e, t) {
 	let n = {
 		get(n) {
-			let r = this.__v_raw, i = /* @__PURE__ */ k(r), a = /* @__PURE__ */ k(n);
-			e || (T(n, a) && pt(i, "get", n), pt(i, "get", a));
-			let { has: o } = It(i), s = t ? Ft : e ? on : an;
+			let r = this.__v_raw, i = /* @__PURE__ */ M(r), a = /* @__PURE__ */ M(n);
+			e || (O(n, a) && vt(i, "get", n), vt(i, "get", a));
+			let { has: o } = Ht(i), s = t ? Vt : e ? fn : dn;
 			if (o.call(i, n)) return s(r.get(n));
 			if (o.call(i, a)) return s(r.get(a));
 			r !== i && r.get(n);
 		},
 		get size() {
 			let t = this.__v_raw;
-			return !e && pt(/* @__PURE__ */ k(t), "iterate", ut), t.size;
+			return !e && vt(/* @__PURE__ */ M(t), "iterate", ht), t.size;
 		},
 		has(t) {
-			let n = this.__v_raw, r = /* @__PURE__ */ k(n), i = /* @__PURE__ */ k(t);
-			return e || (T(t, i) && pt(r, "has", t), pt(r, "has", i)), t === i ? n.has(t) : n.has(t) || n.has(i);
+			let n = this.__v_raw, r = /* @__PURE__ */ M(n), i = /* @__PURE__ */ M(t);
+			return e || (O(t, i) && vt(r, "has", t), vt(r, "has", i)), t === i ? n.has(t) : n.has(t) || n.has(i);
 		},
 		forEach(n, r) {
-			let i = this, a = i.__v_raw, o = /* @__PURE__ */ k(a), s = t ? Ft : e ? on : an;
-			return !e && pt(o, "iterate", ut), a.forEach((e, t) => n.call(r, s(e), s(t), i));
+			let i = this, a = i.__v_raw, o = /* @__PURE__ */ M(a), s = t ? Vt : e ? fn : dn;
+			return !e && vt(o, "iterate", ht), a.forEach((e, t) => n.call(r, s(e), s(t), i));
 		}
 	};
-	return h(n, e ? {
-		add: Rt("add"),
-		set: Rt("set"),
-		delete: Rt("delete"),
-		clear: Rt("clear")
+	return x(n, e ? {
+		add: Wt("add"),
+		set: Wt("set"),
+		delete: Wt("delete"),
+		clear: Wt("clear")
 	} : {
 		add(e) {
-			let n = /* @__PURE__ */ k(this), r = It(n), i = /* @__PURE__ */ k(e), a = !t && !/* @__PURE__ */ tn(e) && !/* @__PURE__ */ en(e) ? i : e;
-			return r.has.call(n, a) || T(e, a) && r.has.call(n, e) || T(i, a) && r.has.call(n, i) || (n.add(a), mt(n, "add", a, a)), this;
+			let n = /* @__PURE__ */ M(this), r = Ht(n), i = /* @__PURE__ */ M(e), a = !t && !/* @__PURE__ */ cn(e) && !/* @__PURE__ */ sn(e) ? i : e;
+			return r.has.call(n, a) || O(e, a) && r.has.call(n, e) || O(i, a) && r.has.call(n, i) || (n.add(a), yt(n, "add", a, a)), this;
 		},
 		set(e, n) {
-			!t && !/* @__PURE__ */ tn(n) && !/* @__PURE__ */ en(n) && (n = /* @__PURE__ */ k(n));
-			let r = /* @__PURE__ */ k(this), { has: i, get: a } = It(r), o = i.call(r, e);
-			o ||= (e = /* @__PURE__ */ k(e), i.call(r, e));
+			t || /* @__PURE__ */ cn(n) || /* @__PURE__ */ sn(n) || (n = /* @__PURE__ */ M(n));
+			let r = /* @__PURE__ */ M(this), { has: i, get: a } = Ht(r), o = i.call(r, e);
+			o ||= (e = /* @__PURE__ */ M(e), i.call(r, e));
 			let s = a.call(r, e);
-			return r.set(e, n), o ? T(n, s) && mt(r, "set", e, n, s) : mt(r, "add", e, n), this;
+			return r.set(e, n), o ? O(n, s) && yt(r, "set", e, n, s) : yt(r, "add", e, n), this;
 		},
 		delete(e) {
-			let t = /* @__PURE__ */ k(this), { has: n, get: r } = It(t), i = n.call(t, e);
-			i ||= (e = /* @__PURE__ */ k(e), n.call(t, e));
+			let t = /* @__PURE__ */ M(this), { has: n, get: r } = Ht(t), i = n.call(t, e);
+			i ||= (e = /* @__PURE__ */ M(e), n.call(t, e));
 			let a = r ? r.call(t, e) : void 0, o = t.delete(e);
-			return i && mt(t, "delete", e, void 0, a), o;
+			return i && yt(t, "delete", e, void 0, a), o;
 		},
 		clear() {
-			let e = /* @__PURE__ */ k(this), t = e.size !== 0, n = e.clear();
-			return t && mt(e, "clear", void 0, void 0, void 0), n;
+			let e = /* @__PURE__ */ M(this), t = e.size !== 0, n = e.clear();
+			return t && yt(e, "clear", void 0, void 0, void 0), n;
 		}
 	}), [
 		"keys",
@@ -792,15 +830,15 @@ function zt(e, t) {
 		"entries",
 		Symbol.iterator
 	].forEach((r) => {
-		n[r] = Lt(r, e, t);
+		n[r] = Ut(r, e, t);
 	}), n;
 }
-function Bt(e, t) {
-	let n = zt(e, t);
-	return (t, r, i) => r === "__v_isReactive" ? !e : r === "__v_isReadonly" ? e : r === "__v_raw" ? t : Reflect.get(v(n, r) && r in t ? n : t, r, i);
+function Kt(e, t) {
+	let n = Gt(e, t);
+	return (r, i, a) => i === "__v_isReactive" ? !e : i === "__v_isReadonly" ? e : i === "__v_isShallow" ? t : i === "__v_raw" ? r : Reflect.get(S(n, i) && i in r ? n : r, i, a);
 }
-var Vt = { get: /* @__PURE__ */ Bt(!1, !1) }, Ht = { get: /* @__PURE__ */ Bt(!1, !0) }, Ut = { get: /* @__PURE__ */ Bt(!0, !1) }, Wt = /* @__PURE__ */ new WeakMap(), Gt = /* @__PURE__ */ new WeakMap(), Kt = /* @__PURE__ */ new WeakMap(), qt = /* @__PURE__ */ new WeakMap();
-function Jt(e) {
+var qt = { get: /* @__PURE__ */ Kt(!1, !1) }, Jt = { get: /* @__PURE__ */ Kt(!1, !0) }, Yt = { get: /* @__PURE__ */ Kt(!0, !1) }, Xt = /* @__PURE__ */ new WeakMap(), Zt = /* @__PURE__ */ new WeakMap(), Qt = /* @__PURE__ */ new WeakMap(), $t = /* @__PURE__ */ new WeakMap();
+function en(e) {
 	switch (e) {
 		case "Object":
 		case "Array": return 1;
@@ -812,95 +850,95 @@ function Jt(e) {
 	}
 }
 // @__NO_SIDE_EFFECTS__
-function Yt(e) {
-	return /* @__PURE__ */ en(e) ? e : Qt(e, !1, Mt, Vt, Wt);
+function tn(e) {
+	return /* @__PURE__ */ sn(e) ? e : an(e, !1, Rt, qt, Xt);
 }
 // @__NO_SIDE_EFFECTS__
-function Xt(e) {
-	return Qt(e, !1, Pt, Ht, Gt);
+function nn(e) {
+	return an(e, !1, Bt, Jt, Zt);
 }
 // @__NO_SIDE_EFFECTS__
-function Zt(e) {
-	return Qt(e, !0, Nt, Ut, Kt);
+function rn(e) {
+	return an(e, !0, zt, Yt, Qt);
 }
-function Qt(e, t, n, r, i) {
-	if (!w(e) || e.__v_raw && !(t && e.__v_isReactive) || e.__v_skip || !Object.isExtensible(e)) return e;
+function an(e, t, n, r, i) {
+	if (!E(e) || e.__v_raw && !(t && e.__v_isReactive) || e.__v_skip || !Object.isExtensible(e)) return e;
 	let a = i.get(e);
 	if (a) return a;
-	let o = Jt(ae(e));
+	let o = en(le(e));
 	if (o === 0) return e;
 	let s = new Proxy(e, o === 2 ? r : n);
 	return i.set(e, s), s;
 }
 // @__NO_SIDE_EFFECTS__
-function $t(e) {
-	return /* @__PURE__ */ en(e) ? /* @__PURE__ */ $t(e.__v_raw) : !!(e && e.__v_isReactive);
-}
-// @__NO_SIDE_EFFECTS__
-function en(e) {
-	return !!(e && e.__v_isReadonly);
-}
-// @__NO_SIDE_EFFECTS__
-function tn(e) {
-	return !!(e && e.__v_isShallow);
-}
-// @__NO_SIDE_EFFECTS__
-function nn(e) {
-	return e ? !!e.__v_raw : !1;
-}
-// @__NO_SIDE_EFFECTS__
-function k(e) {
-	let t = e && e.__v_raw;
-	return t ? /* @__PURE__ */ k(t) : e;
-}
-function rn(e) {
-	return !v(e, "__v_skip") && Object.isExtensible(e) && _e(e, "__v_skip", !0), e;
-}
-var an = (e) => w(e) ? /* @__PURE__ */ Yt(e) : e, on = (e) => w(e) ? /* @__PURE__ */ Zt(e) : e;
-// @__NO_SIDE_EFFECTS__
-function A(e) {
-	return e ? e.__v_isRef === !0 : !1;
-}
-// @__NO_SIDE_EFFECTS__
-function j(e) {
-	return cn(e, !1);
+function on(e) {
+	return /* @__PURE__ */ sn(e) ? /* @__PURE__ */ on(e.__v_raw) : !!(e && e.__v_isReactive);
 }
 // @__NO_SIDE_EFFECTS__
 function sn(e) {
-	return cn(e, !0);
+	return !!(e && e.__v_isReadonly);
 }
-function cn(e, t) {
-	return /* @__PURE__ */ A(e) ? e : new ln(e, t);
+// @__NO_SIDE_EFFECTS__
+function cn(e) {
+	return !!(e && e.__v_isShallow);
 }
-var ln = class {
+// @__NO_SIDE_EFFECTS__
+function ln(e) {
+	return e ? !!e.__v_raw : !1;
+}
+// @__NO_SIDE_EFFECTS__
+function M(e) {
+	let t = e && e.__v_raw;
+	return t ? /* @__PURE__ */ M(t) : e;
+}
+function un(e) {
+	return !S(e, "__v_skip") && Object.isExtensible(e) && be(e, "__v_skip", !0), e;
+}
+var dn = (e) => E(e) ? /* @__PURE__ */ tn(e) : e, fn = (e) => E(e) ? /* @__PURE__ */ rn(e) : e;
+// @__NO_SIDE_EFFECTS__
+function N(e) {
+	return e ? e.__v_isRef === !0 : !1;
+}
+// @__NO_SIDE_EFFECTS__
+function P(e) {
+	return mn(e, !1);
+}
+// @__NO_SIDE_EFFECTS__
+function pn(e) {
+	return mn(e, !0);
+}
+function mn(e, t) {
+	return /* @__PURE__ */ N(e) ? e : new hn(e, t);
+}
+var hn = class {
 	constructor(e, t) {
-		this.dep = new st(), this.__v_isRef = !0, this.__v_isShallow = !1, this._rawValue = t ? e : /* @__PURE__ */ k(e), this._value = t ? e : an(e), this.__v_isShallow = t;
+		this.dep = new ft(), this.__v_isRef = !0, this.__v_isShallow = !1, this._rawValue = t ? e : /* @__PURE__ */ M(e), this._value = t ? e : dn(e), this.__v_isShallow = t;
 	}
 	get value() {
 		return this.dep.track(), this._value;
 	}
 	set value(e) {
-		let t = this._rawValue, n = this.__v_isShallow || /* @__PURE__ */ tn(e) || /* @__PURE__ */ en(e);
-		e = n ? e : /* @__PURE__ */ k(e), T(e, t) && (this._rawValue = e, this._value = n ? e : an(e), this.dep.trigger());
+		let t = this._rawValue, n = this.__v_isShallow || /* @__PURE__ */ cn(e) || /* @__PURE__ */ sn(e);
+		e = n ? e : /* @__PURE__ */ M(e), O(e, t) && (this._rawValue = e, this._value = n ? e : dn(e), this.dep.trigger());
 	}
 };
-function M(e) {
-	return /* @__PURE__ */ A(e) ? e.value : e;
+function F(e) {
+	return /* @__PURE__ */ N(e) ? e.value : e;
 }
-var un = {
-	get: (e, t, n) => t === "__v_raw" ? e : M(Reflect.get(e, t, n)),
+var gn = {
+	get: (e, t, n) => t === "__v_raw" ? e : F(Reflect.get(e, t, n)),
 	set: (e, t, n, r) => {
 		let i = e[t];
-		return /* @__PURE__ */ A(i) && !/* @__PURE__ */ A(n) ? (i.value = n, !0) : Reflect.set(e, t, n, r);
+		return /* @__PURE__ */ N(i) && !/* @__PURE__ */ N(n) ? (i.value = n, !0) : Reflect.set(e, t, n, r);
 	}
 };
-function dn(e) {
-	return /* @__PURE__ */ $t(e) ? e : new Proxy(e, un);
+function _n(e) {
+	return /* @__PURE__ */ on(e) ? e : new Proxy(e, gn);
 }
-var fn = class {
+var vn = class {
 	constructor(e) {
 		this.__v_isRef = !0, this._value = void 0;
-		let t = this.dep = new st(), { get: n, set: r } = e(t.track.bind(t), t.trigger.bind(t));
+		let t = this.dep = new ft(), { get: n, set: r } = e(t.track.bind(t), t.trigger.bind(t));
 		this._get = n, this._set = r;
 	}
 	get value() {
@@ -910,32 +948,32 @@ var fn = class {
 		this._set(e);
 	}
 };
-function pn(e) {
-	return new fn(e);
+function yn(e) {
+	return new vn(e);
 }
 // @__NO_SIDE_EFFECTS__
-function mn(e) {
-	let t = y(e) ? Array(e.length) : {};
-	for (let n in e) t[n] = vn(e, n);
+function bn(e) {
+	let t = C(e) ? Array(e.length) : {};
+	for (let n in e) t[n] = wn(e, n);
 	return t;
 }
-var hn = class {
+var xn = class {
 	constructor(e, t, n) {
-		this._object = e, this._defaultValue = n, this.__v_isRef = !0, this._value = void 0, this._key = te(t) ? t : String(t), this._raw = /* @__PURE__ */ k(e);
+		this._object = e, this._defaultValue = n, this.__v_isRef = !0, this._value = void 0, this._key = ae(t) ? t : String(t), this._raw = /* @__PURE__ */ M(e);
 		let r = !0, i = e;
-		if (!y(e) || te(this._key) || !se(this._key)) do
-			r = !/* @__PURE__ */ nn(i) || /* @__PURE__ */ tn(i);
+		if (!C(e) || ae(this._key) || !de(this._key)) do
+			r = !/* @__PURE__ */ ln(i) || /* @__PURE__ */ cn(i);
 		while (r && (i = i.__v_raw));
 		this._shallow = r;
 	}
 	get value() {
 		let e = this._object[this._key];
-		return this._shallow && (e = M(e)), this._value = e === void 0 ? this._defaultValue : e;
+		return this._shallow && (e = F(e)), this._value = e === void 0 ? this._defaultValue : e;
 	}
 	set value(e) {
-		if (this._shallow && /* @__PURE__ */ A(this._raw[this._key])) {
+		if (this._shallow && /* @__PURE__ */ N(this._raw[this._key])) {
 			let t = this._object[this._key];
-			if (/* @__PURE__ */ A(t)) {
+			if (/* @__PURE__ */ N(t)) {
 				t.value = e;
 				return;
 			}
@@ -943,9 +981,9 @@ var hn = class {
 		this._object[this._key] = e;
 	}
 	get dep() {
-		return ht(this._raw, this._key);
+		return bt(this._raw, this._key);
 	}
-}, gn = class {
+}, Sn = class {
 	constructor(e) {
 		this._getter = e, this.__v_isRef = !0, this.__v_isReadonly = !0, this._value = void 0;
 	}
@@ -954,256 +992,285 @@ var hn = class {
 	}
 };
 // @__NO_SIDE_EFFECTS__
-function _n(e, t, n) {
-	return /* @__PURE__ */ A(e) ? e : S(e) ? new gn(e) : w(e) && arguments.length > 1 ? vn(e, t, n) : /* @__PURE__ */ j(e);
+function Cn(e, t, n) {
+	return /* @__PURE__ */ N(e) ? e : w(e) ? new Sn(e) : E(e) && arguments.length > 1 ? wn(e, t, n) : /* @__PURE__ */ P(e);
 }
-function vn(e, t, n) {
-	return new hn(e, t, n);
+function wn(e, t, n) {
+	return new xn(e, t, n);
 }
-var yn = class {
+var Tn = class {
 	constructor(e, t, n) {
-		this.fn = e, this.setter = t, this._value = void 0, this.dep = new st(this), this.__v_isRef = !0, this.deps = void 0, this.depsTail = void 0, this.flags = 16, this.globalVersion = at - 1, this.next = void 0, this.effect = this, this.__v_isReadonly = !t, this.isSSR = n;
+		this.fn = e, this.setter = t, this._value = void 0, this.dep = new ft(this), this.__v_isRef = !0, this.deps = void 0, this.depsTail = void 0, this.flags = 16, this.globalVersion = ut - 1, this.next = void 0, this.effect = this, this.__v_isReadonly = !t, this.isSSR = n;
 	}
 	notify() {
-		if (this.flags |= 16, !(this.flags & 8) && O !== this) return Ge(this, !0), !0;
+		if (this.flags |= 16, !(this.flags & 8) && j !== this) return Xe(this, !0), !0;
 	}
 	get value() {
 		let e = this.dep.track();
-		return Ze(this), e && (e.version = this.dep.version), this._value;
+		return nt(this), e && (e.version = this.dep.version), this._value;
 	}
 	set value(e) {
 		this.setter && this.setter(e);
 	}
 };
 // @__NO_SIDE_EFFECTS__
-function bn(e, t, n = !1) {
+function En(e, t, n = !1) {
 	let r, i;
-	return S(e) ? r = e : (r = e.get, i = e.set), new yn(r, i, n);
+	return w(e) ? r = e : (r = e.get, i = e.set), new Tn(r, i, n);
 }
-var xn = {}, Sn = /* @__PURE__ */ new WeakMap(), Cn = void 0;
-function wn(e, t = !1, n = Cn) {
+var Dn = {}, On = /* @__PURE__ */ new WeakMap(), kn = void 0;
+function An(e, t = !1, n = kn) {
 	if (n) {
-		let t = Sn.get(n);
-		t || Sn.set(n, t = []), t.push(e);
+		let t = On.get(n);
+		t || On.set(n, t = []), t.push(e);
 	}
 }
-function Tn(e, t, n = l) {
-	let { immediate: r, deep: i, once: a, scheduler: o, augmentJob: s, call: c } = n, u = (e) => i ? e : /* @__PURE__ */ tn(e) || i === !1 || i === 0 ? En(e, 1) : En(e), f, p, m, h, _ = !1, v = !1;
-	if (/* @__PURE__ */ A(e) ? (p = () => e.value, _ = /* @__PURE__ */ tn(e)) : /* @__PURE__ */ $t(e) ? (p = () => u(e), _ = !0) : y(e) ? (v = !0, _ = e.some((e) => /* @__PURE__ */ $t(e) || /* @__PURE__ */ tn(e)), p = () => e.map((e) => {
-		if (/* @__PURE__ */ A(e)) return e.value;
-		if (/* @__PURE__ */ $t(e)) return u(e);
-		if (S(e)) return c ? c(e, 2) : e();
-	})) : p = S(e) ? t ? c ? () => c(e, 2) : e : () => {
-		if (m) {
-			nt();
+function jn(e, t, n = h) {
+	let { immediate: r, deep: i, once: a, scheduler: o, augmentJob: s, call: c } = n, l = (e) => i ? e : /* @__PURE__ */ cn(e) || i === !1 || i === 0 ? Mn(e, 1) : Mn(e), u, d, f, p, m = !1, g = !1;
+	if (/* @__PURE__ */ N(e) ? (d = () => e.value, m = /* @__PURE__ */ cn(e)) : /* @__PURE__ */ on(e) ? (d = () => l(e), m = !0) : C(e) ? (g = !0, m = e.some((e) => /* @__PURE__ */ on(e) || /* @__PURE__ */ cn(e)), d = () => e.map((e) => {
+		if (/* @__PURE__ */ N(e)) return e.value;
+		if (/* @__PURE__ */ on(e)) return l(e);
+		if (w(e)) return c ? c(e, 2) : e();
+	})) : d = w(e) ? t ? c ? () => c(e, 2) : e : () => {
+		if (f) {
+			st();
 			try {
-				m();
+				f();
 			} finally {
-				rt();
+				ct();
 			}
 		}
-		let t = Cn;
-		Cn = f;
+		let t = kn;
+		kn = u;
 		try {
-			return c ? c(e, 3, [h]) : e(h);
+			return c ? c(e, 3, [p]) : e(p);
 		} finally {
-			Cn = t;
+			kn = t;
 		}
-	} : d, t && i) {
-		let e = p, t = i === !0 ? Infinity : i;
-		p = () => En(e(), t);
+	} : _, t && i) {
+		let e = d, t = i === !0 ? Infinity : i;
+		d = () => Mn(e(), t);
 	}
-	let b = Re(), x = () => {
-		f.stop(), b && b.active && g(b.effects, f);
+	let v = Ue(), y = () => {
+		u.stop(), v && v.active && ee(v.effects, u);
 	};
 	if (a && t) {
 		let e = t;
 		t = (...t) => {
-			let n = e(...t);
-			return x(), n;
+			try {
+				return e(...t);
+			} finally {
+				y();
+			}
 		};
 	}
-	let ee = v ? Array(e.length).fill(xn) : xn, C = (e) => {
-		if (!(!(f.flags & 1) || !f.dirty && !e)) if (t) {
-			let n = f.run();
-			if (e || i || _ || (v ? n.some((e, t) => T(e, ee[t])) : T(n, ee))) {
-				m && m();
-				let e = Cn;
-				Cn = f;
-				try {
-					let e = [
-						n,
-						ee === xn ? void 0 : v && ee[0] === xn ? [] : ee,
-						h
-					];
-					ee = n, c ? c(t, 3, e) : t(...e);
-				} finally {
-					Cn = e;
+	let b = g ? Array(e.length).fill(Dn) : Dn, x = (e) => {
+		if (u.flags & 1 && (u.dirty || e)) {
+			if (t) {
+				let n = u.run();
+				if (e || i || m || (g ? n.some((e, t) => O(e, b[t])) : O(n, b))) {
+					let e = kn;
+					st();
+					try {
+						f && f(), kn = u;
+						let e = [
+							n,
+							b === Dn ? void 0 : g && b[0] === Dn ? [] : b,
+							p
+						];
+						b = n, c ? c(t, 3, e) : t(...e);
+					} finally {
+						kn = e, ct();
+					}
 				}
-			}
-		} else f.run();
+			} else u.run();
+		}
 	};
-	return s && s(C), f = new Ve(p), f.scheduler = o ? () => o(C, !1) : C, h = (e) => wn(e, !1, f), m = f.onStop = () => {
-		let e = Sn.get(f);
+	return s && s(x), u = new Ke(d), u.scheduler = o ? () => o(x, !1) : x, p = (e) => An(e, !1, u), f = u.onStop = () => {
+		let e = On.get(u);
 		if (e) {
 			if (c) c(e, 4);
 			else for (let t of e) t();
-			Sn.delete(f);
+			On.delete(u);
 		}
-	}, t ? r ? C(!0) : ee = f.run() : o ? o(C.bind(null, !0), !0) : f.run(), x.pause = f.pause.bind(f), x.resume = f.resume.bind(f), x.stop = x, x;
+	}, t ? r ? x(!0) : b = u.run() : o ? o(x.bind(null, !0), !0) : u.run(), y.pause = u.pause.bind(u), y.resume = u.resume.bind(u), y.stop = y, y;
 }
-function En(e, t = Infinity, n) {
-	if (t <= 0 || !w(e) || e.__v_skip || (n ||= /* @__PURE__ */ new Map(), (n.get(e) || 0) >= t)) return e;
-	if (n.set(e, t), t--, /* @__PURE__ */ A(e)) En(e.value, t, n);
-	else if (y(e)) for (let r = 0; r < e.length; r++) En(e[r], t, n);
-	else if (x(e) || b(e)) e.forEach((e) => {
-		En(e, t, n);
+function Mn(e, t = Infinity, n) {
+	if (t <= 0 || !E(e) || e.__v_skip || (n ||= /* @__PURE__ */ new Map(), (n.get(e) || 0) >= t)) return e;
+	if (n.set(e, t), t--, /* @__PURE__ */ N(e)) Mn(e.value, t, n);
+	else if (C(e)) for (let r = 0; r < e.length; r++) Mn(e[r], t, n);
+	else if (re(e) || ne(e)) e.forEach((e) => {
+		Mn(e, t, n);
 	});
-	else if (oe(e)) {
-		for (let r in e) En(e[r], t, n);
-		for (let r of Object.getOwnPropertySymbols(e)) Object.prototype.propertyIsEnumerable.call(e, r) && En(e[r], t, n);
+	else if (ue(e)) {
+		for (let r in e) Mn(e[r], t, n);
+		for (let r of Object.getOwnPropertySymbols(e)) Object.prototype.propertyIsEnumerable.call(e, r) && Mn(e[r], t, n);
 	}
 	return e;
 }
-//#endregion
-//#region node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js
-function Dn(e, t, n, r) {
+// node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js
+function Nn(e, t, n, r) {
 	try {
 		return r ? e(...r) : e();
 	} catch (e) {
-		kn(e, t, n);
+		Fn(e, t, n);
 	}
 }
-function On(e, t, n, r) {
-	if (S(e)) {
-		let i = Dn(e, t, n, r);
-		return i && ne(i) && i.catch((e) => {
-			kn(e, t, n);
+function Pn(e, t, n, r) {
+	if (w(e)) {
+		let i = Nn(e, t, n, r);
+		return i && oe(i) && i.catch((e) => {
+			Fn(e, t, n, void 0, !0);
 		}), i;
 	}
-	if (y(e)) {
+	if (C(e)) {
 		let i = [];
-		for (let a = 0; a < e.length; a++) i.push(On(e[a], t, n, r));
+		for (let a = 0; a < e.length; a++) i.push(Pn(e[a], t, n, r));
 		return i;
 	}
 }
-function kn(e, t, n, r = !0) {
-	let i = t ? t.vnode : null, { errorHandler: a, throwUnhandledErrorInProduction: o } = t && t.appContext.config || l;
+function Fn(e, t, n, r = !0, i = !1) {
+	let a = t ? t.vnode : null, { errorHandler: o, throwUnhandledErrorInProduction: s } = t && t.appContext.config || h;
 	if (t) {
-		let r = t.parent, i = t.proxy, o = `https://vuejs.org/error-reference/#runtime-${n}`;
+		let r = t.parent, a = t.proxy, s = `https://vuejs.org/error-reference/#runtime-${n}`;
 		for (; r;) {
 			let t = r.ec;
-			if (t) {
-				for (let n = 0; n < t.length; n++) if (t[n](e, i, o) === !1) return;
+			if (t && !r.isUnmounted && (!i || r.scope.active)) {
+				for (let n = 0; n < t.length; n++) if (t[n](e, a, s) === !1) return;
 			}
 			r = r.parent;
 		}
-		if (a) {
-			nt(), Dn(a, null, 10, [
+		if (o) {
+			st(), Nn(o, null, 10, [
 				e,
-				i,
-				o
-			]), rt();
+				a,
+				s
+			]), ct();
 			return;
 		}
 	}
-	An(e, n, i, r, o);
+	In(e, n, a, r, s);
 }
-function An(e, t, n, r = !0, i = !1) {
+function In(e, t, n, r = !0, i = !1) {
 	if (i) throw e;
 	console.error(e);
 }
-var jn = [], Mn = -1, Nn = [], Pn = null, Fn = 0, In = /* @__PURE__ */ Promise.resolve(), Ln = null;
-function Rn(e) {
-	let t = Ln || In;
+var Ln = [], Rn = -1, zn = [], Bn = null, Vn = 0, Hn = /* @__PURE__ */ Promise.resolve(), Un = null;
+function Wn(e) {
+	let t = Un || Hn;
 	return e ? t.then(this ? e.bind(this) : e) : t;
 }
-function zn(e) {
-	let t = Mn + 1, n = jn.length;
+function Gn(e) {
+	let t = Rn + 1, n = Ln.length;
 	for (; t < n;) {
-		let r = t + n >>> 1, i = jn[r], a = Gn(i);
+		let r = t + n >>> 1, i = Ln[r], a = $n(i);
 		a < e || a === e && i.flags & 2 ? t = r + 1 : n = r;
 	}
 	return t;
 }
-function Bn(e) {
+function Kn(e) {
 	if (!(e.flags & 1)) {
-		let t = Gn(e), n = jn[jn.length - 1];
-		!n || !(e.flags & 2) && t >= Gn(n) ? jn.push(e) : jn.splice(zn(t), 0, e), e.flags |= 1, Vn();
+		let t = $n(e), n = Ln[Ln.length - 1];
+		!n || !(e.flags & 2) && t >= $n(n) ? Ln.push(e) : Ln.splice(Gn(t), 0, e), e.flags |= 1, qn();
 	}
 }
-function Vn() {
-	Ln ||= In.then(Kn);
+function qn() {
+	Un ||= Hn.then(er);
 }
-function Hn(e) {
-	y(e) ? Nn.push(...e) : Pn && e.id === -1 ? Pn.splice(Fn + 1, 0, e) : e.flags & 1 || (Nn.push(e), e.flags |= 1), Vn();
+function Jn(e) {
+	if (!C(e)) Bn && e.id === -1 ? Bn.splice(Vn + 1, 0, e) : e.flags & 1 || (zn.push(e), e.flags |= 1);
+	else for (let t = 0; t < e.length; t++) zn.push(e[t]);
+	qn();
 }
-function Un(e, t, n = Mn + 1) {
-	for (; n < jn.length; n++) {
-		let t = jn[n];
-		if (t && t.flags & 2) {
-			if (e && t.id !== e.uid) continue;
-			jn.splice(n, 1), n--, t.flags & 4 && (t.flags &= -2), t(), t.flags & 4 || (t.flags &= -2);
+function Yn(e, t, n, r = Rn + 1) {
+	for (; r < Ln.length; r++) {
+		let n = Ln[r];
+		if (n && n.flags & 2) {
+			if (e && n.id !== e.uid || t !== void 0 && !(n.id >= t)) continue;
+			Ln.splice(r, 1), r = e ? r - 1 : Rn, n.flags & 4 && (n.flags &= -2), n(), n.flags & 4 || (n.flags &= -2);
 		}
 	}
 }
-function Wn(e) {
-	if (Nn.length) {
-		let e = [...new Set(Nn)].sort((e, t) => Gn(e) - Gn(t));
-		if (Nn.length = 0, Pn) {
-			Pn.push(...e);
+function Xn(e, t, n = 0) {
+	if (zn.length) {
+		let e = zn, r = 0;
+		if (t) {
+			e = [];
+			for (let i = 0; i < zn.length; i++) {
+				let a = zn[i];
+				(a.i === void 0 ? t.has(a) : !a.i || a.i.uid < n) ? zn[r++] = a : e.push(a);
+			}
+		}
+		let i = [...new Set(e)].sort((e, t) => $n(e) - $n(t));
+		if (zn.length = r, Bn) {
+			for (let e = 0; e < i.length; e++) Bn.push(i[e]);
 			return;
 		}
-		for (Pn = e, Fn = 0; Fn < Pn.length; Fn++) {
-			let e = Pn[Fn];
+		for (Bn = i, Vn = 0; Vn < Bn.length; Vn++) {
+			let e = Bn[Vn];
 			e.flags & 4 && (e.flags &= -2), e.flags & 8 || e(), e.flags &= -2;
 		}
-		Pn = null, Fn = 0;
+		Bn = null, Vn = 0;
 	}
 }
-var Gn = (e) => e.id == null ? e.flags & 2 ? -1 : Infinity : e.id;
-function Kn(e) {
+var Zn = !1;
+function Qn(e, t) {
+	if (Zn) {
+		e();
+		return;
+	}
+	let n = t === void 0 ? void 0 : new Set(zn);
+	e(), Zn = !0;
 	try {
-		for (Mn = 0; Mn < jn.length; Mn++) {
-			let e = jn[Mn];
-			e && !(e.flags & 8) && (e.flags & 4 && (e.flags &= -2), Dn(e, e.i, e.i ? 15 : 14), e.flags & 4 || (e.flags &= -2));
+		Yn(void 0, t), Xn(void 0, n, t);
+	} finally {
+		Zn = !1;
+	}
+}
+var $n = (e) => e.id == null ? e.flags & 2 ? -1 : Infinity : e.id;
+function er(e) {
+	try {
+		for (Rn = 0; Rn < Ln.length; Rn++) {
+			let e = Ln[Rn];
+			e && !(e.flags & 8) && (e.flags & 4 && (e.flags &= -2), Nn(e, e.i, e.i ? 15 : 14), e.flags & 4 || (e.flags &= -2));
 		}
 	} finally {
-		for (; Mn < jn.length; Mn++) {
-			let e = jn[Mn];
+		for (; Rn < Ln.length; Rn++) {
+			let e = Ln[Rn];
 			e && (e.flags &= -2);
 		}
-		Mn = -1, jn.length = 0, Wn(e), Ln = null, (jn.length || Nn.length) && Kn(e);
+		Rn = -1, Ln.length = 0, Xn(e), Un = null, (Ln.length || zn.length) && er(e);
 	}
 }
-var qn = null, Jn = null;
-function Yn(e) {
-	let t = qn;
-	return qn = e, Jn = e && e.type.__scopeId || null, t;
+var tr = null, nr = null;
+function rr(e) {
+	let t = tr;
+	return tr = e, nr = e && e.type.__scopeId || null, t;
 }
-function Xn(e, t = qn, n) {
+function ir(e, t = tr, n) {
 	if (!t || e._n) return e;
 	let r = (...n) => {
-		r._d && ca(-1);
-		let i = Yn(t), a;
+		r._d && xa(-1);
+		let i = rr(t), a = _a.length, o;
 		try {
-			a = e(...n);
+			o = e(...n);
 		} finally {
-			Yn(i), r._d && ca(1);
+			for (let e = _a.length; e > a; e--) ya();
+			rr(i), r._d && xa(1);
 		}
-		return a;
+		return o;
 	};
 	return r._n = !0, r._c = !0, r._d = !0, r;
 }
-function N(e, t) {
-	if (qn === null) return e;
-	let n = Ua(qn), r = e.dirs ||= [];
+function I(e, t) {
+	if (tr === null) return e;
+	let n = no(tr), r = e.dirs ||= [];
 	for (let e = 0; e < t.length; e++) {
-		let [i, a, o, s = l] = t[e];
-		i && (S(i) && (i = {
+		let [i, a, o, s = h] = t[e];
+		i && (w(i) && (i = {
 			mounted: i,
 			updated: i
-		}), i.deep && En(a), r.push({
+		}), i.deep && Mn(a), r.push({
 			dir: i,
 			instance: n,
 			value: a,
@@ -1214,75 +1281,84 @@ function N(e, t) {
 	}
 	return e;
 }
-function Zn(e, t, n, r) {
-	let i = e.dirs, a = t && t.dirs;
-	for (let o = 0; o < i.length; o++) {
-		let s = i[o];
-		a && (s.oldValue = a[o].value);
-		let c = s.dir[r];
-		c && (nt(), On(c, n, 8, [
+function ar(e, t, n, r) {
+	let i = e;
+	if (r === "beforeMount") e._mount = e;
+	else if (r === "beforeUpdate") {
+		let n = t && t._mount;
+		n && (n._latest = e, e._mount = n);
+	} else if (r === "mounted") {
+		let t = e._latest;
+		e._mount = e._latest = void 0, t && (i = t, t._mount = void 0);
+	}
+	let a = i.dirs, o = t && t.dirs;
+	for (let s = 0; s < a.length; s++) {
+		let c = a[s];
+		o ? c.oldValue = o[s].value : r === "mounted" && c.oldValue !== void 0 && (c = x({}, c, { oldValue: void 0 }));
+		let l = c.dir[r];
+		l && (st(), Pn(l, n, 8, [
 			e.el,
-			s,
-			e,
+			c,
+			i,
 			t
-		]), rt());
+		]), ct());
 	}
 }
-function Qn(e, t) {
-	if (Da) {
-		let n = Da.provides, r = Da.parent && Da.parent.provides;
-		r === n && (n = Da.provides = Object.create(r)), n[e] = t;
+function or(e, t) {
+	if (Va) {
+		let n = Va.provides, r = Va.parent && Va.parent.provides;
+		r === n && (n = Va.provides = Object.create(r)), n[e] = t;
 	}
 }
-function $n(e, t, n = !1) {
-	let r = Oa();
-	if (r || li) {
-		let i = li ? li._context.provides : r ? r.parent == null || r.ce ? r.vnode.appContext && r.vnode.appContext.provides : r.parent.provides : void 0;
+function sr(e, t, n = !1) {
+	let r = Ha();
+	if (r || xi) {
+		let i = xi ? xi._context.provides : r ? r.parent == null || r.ce ? r.vnode.appContext && r.vnode.appContext.provides : r.parent.provides : void 0;
 		if (i && e in i) return i[e];
-		if (arguments.length > 1) return n && S(t) ? t.call(r && r.proxy) : t;
+		if (arguments.length > 1) return n && w(t) ? t.call(r && r.proxy) : t;
 	}
 }
-function er() {
-	return !!(Oa() || li);
+function cr() {
+	return !!(Ha() || xi);
 }
-var tr = /* @__PURE__ */ Symbol.for("v-scx"), nr = () => $n(tr);
-function rr(e, t) {
-	return ar(e, null, { flush: "sync" });
+var lr = /* @__PURE__ */ Symbol.for("v-scx"), ur = () => sr(lr);
+function dr(e, t) {
+	return pr(e, null, { flush: "sync" });
 }
-function ir(e, t, n) {
-	return ar(e, t, n);
+function fr(e, t, n) {
+	return pr(e, t, n);
 }
-function ar(e, t, n = l) {
-	let { immediate: r, deep: i, flush: a, once: o } = n, s = h({}, n), c = t && r || !t && a !== "post", u;
-	if (Pa) {
+function pr(e, t, n = h) {
+	let { immediate: r, deep: i, flush: a, once: o } = n, s = x({}, n), c = t && r || !t && a !== "post", l;
+	if (Ja) {
 		if (a === "sync") {
-			let e = nr();
-			u = e.__watcherHandles ||= [];
+			let e = ur();
+			l = e.__watcherHandles ||= [];
 		} else if (!c) {
 			let e = () => {};
-			return e.stop = d, e.resume = d, e.pause = d, e;
+			return e.stop = _, e.resume = _, e.pause = _, e;
 		}
 	}
-	let f = Da;
-	s.call = (e, t, n) => On(e, f, t, n);
-	let p = !1;
+	let u = Va;
+	s.call = (e, t, n) => Pn(e, u, t, n);
+	let d = !1;
 	a === "post" ? s.scheduler = (e) => {
-		Hi(e, f && f.suspense);
-	} : a !== "sync" && (p = !0, s.scheduler = (e, t) => {
-		t ? e() : Bn(e);
+		e.i = u, ea(e, u && u.suspense);
+	} : a !== "sync" && (d = !0, s.scheduler = (e, t) => {
+		t ? e() : Kn(e);
 	}), s.augmentJob = (e) => {
-		t && (e.flags |= 4), p && (e.flags |= 2, f && (e.id = f.uid, e.i = f));
+		t && (e.flags |= 4), d && (e.flags |= 2, u && (e.id = u.uid, e.i = u));
 	};
-	let m = Tn(e, t, s);
-	return Pa && (u ? u.push(m) : c && m()), m;
+	let f = jn(e, t, s);
+	return Ja && (l ? l.push(f) : c && f()), f;
 }
-function or(e, t, n) {
-	let r = this.proxy, i = C(e) ? e.includes(".") ? sr(r, e) : () => r[e] : e.bind(r, r), a;
-	S(t) ? a = t : (a = t.handler, n = t);
-	let o = ja(this), s = ar(i, a.bind(r), n);
+function mr(e, t, n) {
+	let r = this.proxy, i = T(e) ? e.includes(".") ? hr(r, e) : () => r[e] : e.bind(r, r), a;
+	w(t) ? a = t : (a = t.handler, n = t);
+	let o = Ga(this), s = pr(i, a.bind(r), n);
 	return o(), s;
 }
-function sr(e, t) {
+function hr(e, t) {
 	let n = t.split(".");
 	return () => {
 		let t = e;
@@ -1290,85 +1366,125 @@ function sr(e, t) {
 		return t;
 	};
 }
-var cr = /* @__PURE__ */ Symbol("_vte"), lr = (e) => e.__isTeleport, ur = /* @__PURE__ */ Symbol("_leaveCb");
-function dr(e, t) {
-	e.shapeFlag & 6 && e.component ? (e.transition = t, dr(e.component.subTree, t)) : e.shapeFlag & 128 ? (e.ssContent.transition = t.clone(e.ssContent), e.ssFallback.transition = t.clone(e.ssFallback)) : e.transition = t;
+var gr = /* @__PURE__ */ Symbol("_vte"), _r = (e) => e.__isTeleport, vr = /* @__PURE__ */ Symbol("_leaveCb");
+function yr(e) {
+	let t = e[0];
+	if (e.length > 1) {
+		for (let n of e) if (n.type !== ha) {
+			t = n;
+			break;
+		}
+	}
+	return t;
+}
+function br(e) {
+	if (!Ar(e)) return _r(e.type) && e.children ? yr(e.children) : e;
+	if (e.component) return e.component.subTree;
+	let { shapeFlag: t, children: n } = e;
+	if (n) {
+		if (t & 16) return n[0];
+		if (t & 32 && w(n.default)) return n.default();
+	}
+}
+function xr(e, t) {
+	if (e.shapeFlag & 6 && e.component) {
+		e.transition = t;
+		let n = e.component.subTree;
+		xr(_r(n.type) && br(n) || n, t);
+	} else if (e.shapeFlag & 128) {
+		let n = e.suspense;
+		if (n) {
+			let e = n.isHydrating ? n.pendingBranch : n.activeBranch;
+			e && xr(e, t.clone(e));
+		} else e.ssContent.transition = t.clone(e.ssContent), e.ssFallback.transition = t.clone(e.ssFallback);
+	} else if (e.transition = t, e.type === z && C(e.children)) {
+		let n = ki(e.children, !1);
+		n && xr(n, t);
+	}
+}
+function Sr(e) {
+	if (e.component) return Sr(e.component.subTree);
+	if (e.type === z) {
+		let t = C(e.children) && ki(e.children, !1);
+		return t ? Sr(t) : void 0;
+	}
+	if (e.type !== ha) return e;
 }
 // @__NO_SIDE_EFFECTS__
-function P(e, t) {
-	return S(e) ? /* @__PURE__ */ h({ name: e.name }, t, { setup: e }) : e;
+function L(e, t) {
+	return w(e) ? /* @__PURE__ */ x({ name: e.name }, t, { setup: e }) : e;
 }
-function fr() {
-	let e = Oa();
+function Cr() {
+	let e = Ha();
 	return e ? (e.appContext.config.idPrefix || "v") + "-" + e.ids[0] + e.ids[1]++ : "";
 }
-function pr(e) {
+function wr(e) {
 	e.ids = [
 		e.ids[0] + e.ids[2]++ + "-",
 		0,
 		0
 	];
 }
-function mr(e, t) {
+function Tr(e, t) {
 	let n;
 	return !!((n = Object.getOwnPropertyDescriptor(e, t)) && !n.configurable);
 }
-var hr = /* @__PURE__ */ new WeakMap();
-function gr(e, t, n, r, i = !1) {
-	if (y(e)) {
-		e.forEach((e, a) => gr(e, t && (y(t) ? t[a] : t), n, r, i));
+var Er = /* @__PURE__ */ new WeakMap();
+function Dr(e, t, n, r, i = !1) {
+	if (C(e)) {
+		e.forEach((e, a) => Dr(e, t && (C(t) ? t[a] : t), n, r, i));
 		return;
 	}
-	if (vr(r) && !i) {
-		r.shapeFlag & 512 && r.type.__asyncResolved && r.component.subTree.component && gr(e, t, n, r.component.subTree);
+	if (kr(r) && !i) {
+		r.shapeFlag & 512 && r.type.__asyncResolved && r.component.subTree.component && Dr(e, t, n, r.component.subTree);
 		return;
 	}
-	let a = r.shapeFlag & 4 ? Ua(r.component) : r.el, o = i ? null : a, { i: s, r: c } = e, u = t && t.r, d = s.refs === l ? s.refs = {} : s.refs, p = s.setupState, m = /* @__PURE__ */ k(p), h = p === l ? f : (e) => mr(d, e) ? !1 : v(m, e), _ = (e, t) => !(t && mr(d, t));
-	if (u != null && u !== c) {
-		if (_r(t), C(u)) d[u] = null, h(u) && (p[u] = null);
-		else if (/* @__PURE__ */ A(u)) {
+	let a = r.shapeFlag & 4 ? no(r.component) : r.el, o = i ? null : a, { i: s, r: c } = e, l = t && t.r, u = s.refs === h ? s.refs = {} : s.refs, d = s.setupState, f = /* @__PURE__ */ M(d), p = d === h ? v : (e) => !Tr(u, e) && S(f, e), m = (e, t) => !(t && Tr(u, t));
+	if (l != null && l !== c) {
+		if (Or(t), T(l)) u[l] = null, p(l) && (d[l] = null);
+		else if (/* @__PURE__ */ N(l)) {
 			let e = t;
-			_(u, e.k) && (u.value = null), e.k && (d[e.k] = null);
+			m(l, e.k) && (l.value = null), e.k && (u[e.k] = null);
 		}
 	}
-	if (S(c)) Dn(c, s, 12, [o, d]);
+	if (w(c)) Nn(c, s, 12, [o, u]);
 	else {
-		let t = C(c), r = /* @__PURE__ */ A(c);
+		let t = T(c), r = /* @__PURE__ */ N(c);
 		if (t || r) {
 			let s = () => {
 				if (e.f) {
-					let n = t ? h(c) ? p[c] : d[c] : _(c) || !e.k ? c.value : d[e.k];
-					if (i) y(n) && g(n, a);
-					else if (y(n)) n.includes(a) || n.push(a);
-					else if (t) d[c] = [a], h(c) && (p[c] = d[c]);
+					let n = t ? p(c) ? d[c] : u[c] : m(c) || !e.k ? c.value : u[e.k];
+					if (i) C(n) && ee(n, a);
+					else if (C(n)) n.includes(a) || n.push(a);
+					else if (t) u[c] = [a], p(c) && (d[c] = u[c]);
 					else {
 						let t = [a];
-						_(c, e.k) && (c.value = t), e.k && (d[e.k] = t);
+						m(c, e.k) && (c.value = t), e.k && (u[e.k] = t);
 					}
-				} else t ? (d[c] = o, h(c) && (p[c] = o)) : r && (_(c, e.k) && (c.value = o), e.k && (d[e.k] = o));
+				} else t ? (u[c] = o, p(c) && (d[c] = o)) : r && (m(c, e.k) && (c.value = o), e.k && (u[e.k] = o));
 			};
 			if (o) {
 				let t = () => {
-					s(), hr.delete(e);
+					s(), Er.delete(e);
 				};
-				t.id = -1, hr.set(e, t), Hi(t, n);
-			} else _r(e), s();
+				t.id = -1, Er.set(e, t), ea(t, n);
+			} else Or(e), s();
 		}
 	}
 }
-function _r(e) {
-	let t = hr.get(e);
-	t && (t.flags |= 8, hr.delete(e));
+function Or(e) {
+	let t = Er.get(e);
+	t && (t.flags |= 8, Er.delete(e));
 }
-be().requestIdleCallback, be().cancelIdleCallback;
-var vr = (e) => !!e.type.__asyncLoader, yr = (e) => e.type.__isKeepAlive;
-function br(e, t) {
-	Sr(e, "a", t);
+Ce().requestIdleCallback, Ce().cancelIdleCallback;
+var kr = (e) => !!e.type.__asyncLoader, Ar = (e) => e.type.__isKeepAlive;
+function jr(e, t) {
+	Nr(e, "a", t);
 }
-function xr(e, t) {
-	Sr(e, "da", t);
+function Mr(e, t) {
+	Nr(e, "da", t);
 }
-function Sr(e, t, n = Da) {
+function Nr(e, t, n = Va) {
 	let r = e.__wdc ||= () => {
 		let t = n;
 		for (; t;) {
@@ -1377,69 +1493,82 @@ function Sr(e, t, n = Da) {
 		}
 		return e();
 	};
-	if (wr(t, r, n), n) {
+	if (Fr(t, r, n), n) {
 		let e = n.parent;
-		for (; e && e.parent;) yr(e.parent.vnode) && Cr(r, t, n, e), e = e.parent;
+		for (; e && e.parent;) Ar(e.parent.vnode) && Pr(r, t, n, e), e = e.parent;
 	}
 }
-function Cr(e, t, n, r) {
-	let i = wr(t, e, r, !0);
-	jr(() => {
-		g(r[t], i);
-	}, n);
+function Pr(e, t, n, r) {
+	let i = Fr(t, e, r, !0), a = Fr("um", () => ee(r[t], i), n);
+	a.flags = 16;
 }
-function wr(e, t, n = Da, r = !1) {
+function Fr(e, t, n = Va, r = !1) {
 	if (n) {
 		let i = n[e] || (n[e] = []), a = t.__weh ||= (...r) => {
-			nt();
-			let i = ja(n), a = On(t, n, e, r);
-			return i(), rt(), a;
+			st();
+			let i = Ga(n), a = Pn(t, n, e, r);
+			return i(), ct(), a;
 		};
 		return r ? i.unshift(a) : i.push(a), a;
 	}
 }
-var Tr = (e) => (t, n = Da) => {
-	(!Pa || e === "sp") && wr(e, (...e) => t(...e), n);
-}, Er = Tr("bm"), Dr = Tr("m"), Or = Tr("bu"), kr = Tr("u"), Ar = Tr("bum"), jr = Tr("um"), Mr = Tr("sp"), Nr = Tr("rtg"), Pr = Tr("rtc");
-function Fr(e, t = Da) {
-	wr("ec", e, t);
+var Ir = (e) => (t, n = Va) => {
+	Ja && e !== "sp" || Fr(e, (...e) => t(...e), n);
+}, Lr = Ir("bm"), Rr = Ir("m"), zr = Ir("bu"), Br = Ir("u"), Vr = Ir("bum"), Hr = Ir("um"), Ur = Ir("sp"), Wr = Ir("rtg"), Gr = Ir("rtc");
+function Kr(e, t = Va) {
+	Fr("ec", e, t);
 }
-var Ir = /* @__PURE__ */ Symbol.for("v-ndc");
-function F(e, t, n, r) {
-	let i, a = n && n[r], o = y(e);
-	if (o || C(e)) {
-		let n = o && /* @__PURE__ */ $t(e), r = !1, s = !1;
-		n && (r = !/* @__PURE__ */ tn(e), s = /* @__PURE__ */ en(e), e = _t(e)), i = Array(e.length);
-		for (let n = 0, o = e.length; n < o; n++) i[n] = t(r ? s ? on(an(e[n])) : an(e[n]) : e[n], n, void 0, a && a[n]);
+var qr = /* @__PURE__ */ Symbol.for("v-ndc");
+function R(e, t, n, r) {
+	let i, a = n && n[r], o = C(e);
+	if (o || T(e)) {
+		let n = o && /* @__PURE__ */ on(e), r = !1, s = !1;
+		n && (r = !/* @__PURE__ */ cn(e), s = /* @__PURE__ */ sn(e), e = St(e)), i = Array(e.length);
+		for (let n = 0, o = e.length; n < o; n++) i[n] = t(r ? s ? fn(dn(e[n])) : dn(e[n]) : e[n], n, void 0, a && a[n]);
 	} else if (typeof e == "number") {
-		i = Array(e);
-		for (let n = 0; n < e; n++) i[n] = t(n + 1, n, void 0, a && a[n]);
-	} else if (w(e)) if (e[Symbol.iterator]) i = Array.from(e, (e, n) => t(e, n, void 0, a && a[n]));
-	else {
-		let n = Object.keys(e);
-		i = Array(n.length);
-		for (let r = 0, o = n.length; r < o; r++) {
-			let o = n[r];
-			i[r] = t(e[o], o, r, a && a[r]);
+		if (!Number.isInteger(e) || e < 0) i = [];
+		else {
+			i = Array(e);
+			for (let n = 0; n < e; n++) i[n] = t(n + 1, n, void 0, a && a[n]);
 		}
-	}
-	else i = [];
+	} else if (E(e)) {
+		if (e[Symbol.iterator]) i = Array.from(e, (e, n) => t(e, n, void 0, a && a[n]));
+		else {
+			let n = Object.keys(e);
+			i = Array(n.length);
+			for (let r = 0, o = n.length; r < o; r++) {
+				let o = n[r];
+				i[r] = t(e[o], o, r, a && a[r]);
+			}
+		}
+	} else i = [];
 	return n && (n[r] = i), i;
 }
-function Lr(e, t, n = {}, r, i) {
-	if (qn.ce || qn.parent && vr(qn.parent) && qn.parent.ce) {
-		let e = Object.keys(n).length > 0;
-		return t !== "default" && (n.name = t), L(), ua(I, null, [B("slot", n, r && r())], e ? -2 : 64);
+function Jr(e, t, n, r, i, a) {
+	if (n ??= {}, tr.ce || tr.parent && kr(tr.parent) && tr.parent.ce) {
+		let e = a != null && n.key == null ? x({}, n, { key: a }) : n, i = Object.keys(e).length > 0;
+		return t !== "default" && (e.name = t), B(), Ca(z, null, [U("slot", e, r && r())], i ? -2 : 64);
 	}
-	let a = e[t];
-	a && a._c && (a._d = !1), L();
-	let o = a && Rr(a(n)), s = n.key || o && o.key, c = ua(I, { key: (s && !te(s) ? s : `_${t}`) + (!o && r ? "_fb" : "") }, o || (r ? r() : []), o && e._ === 1 ? 64 : -2);
-	return !i && c.scopeId && (c.slotScopeIds = [c.scopeId + "-s"]), a && a._c && (a._d = !0), c;
+	let o = e[t];
+	o && o._c && (o._d = !1);
+	let s = _a.length;
+	B();
+	let c;
+	try {
+		let i = o && Yr(o(n)), s = n.key || a || i && i.key;
+		c = Ca(z, { key: (s && !ae(s) ? s : `_${t}`) + (!i && r ? "_fb" : "") }, i || (r ? r() : []), i && e._ === 1 ? 64 : -2);
+	} catch (e) {
+		for (let e = _a.length; e > s; e--) ya();
+		throw e;
+	} finally {
+		o && o._c && (o._d = !0);
+	}
+	return !i && c.scopeId && (c.slotScopeIds = [c.scopeId + "-s"]), c;
 }
-function Rr(e) {
-	return e.some((e) => da(e) ? !(e.type === na || e.type === I && !Rr(e.children)) : !0) ? e : null;
+function Yr(e) {
+	return e.some((e) => !wa(e) || !(e.type === ha || e.type === z && !Yr(e.children))) ? e : null;
 }
-var zr = (e) => e ? Na(e) ? Ua(e) : zr(e.parent) : null, Br = /* @__PURE__ */ h(/* @__PURE__ */ Object.create(null), {
+var Xr = (e) => e ? qa(e) ? no(e) : Xr(e.parent) : null, Zr = /* @__PURE__ */ x(/* @__PURE__ */ Object.create(null), {
 	$: (e) => e,
 	$el: (e) => e.vnode.el,
 	$data: (e) => e.data,
@@ -1447,17 +1576,17 @@ var zr = (e) => e ? Na(e) ? Ua(e) : zr(e.parent) : null, Br = /* @__PURE__ */ h(
 	$attrs: (e) => e.attrs,
 	$slots: (e) => e.slots,
 	$refs: (e) => e.refs,
-	$parent: (e) => zr(e.parent),
-	$root: (e) => zr(e.root),
+	$parent: (e) => Xr(e.parent),
+	$root: (e) => Xr(e.root),
 	$host: (e) => e.ce,
 	$emit: (e) => e.emit,
-	$options: (e) => Xr(e),
+	$options: (e) => si(e),
 	$forceUpdate: (e) => e.f ||= () => {
-		Bn(e.update);
+		Kn(e.update);
 	},
-	$nextTick: (e) => e.n ||= Rn.bind(e.proxy),
-	$watch: (e) => or.bind(e)
-}), Vr = (e, t) => e !== l && !e.__isScriptSetup && v(e, t), Hr = {
+	$nextTick: (e) => e.n ||= Wn.bind(e.proxy),
+	$watch: (e) => mr.bind(e)
+}), Qr = (e, t) => e !== h && !e.__isScriptSetup && S(e, t), $r = {
 	get({ _: e }, t) {
 		if (t === "__v_skip") return !0;
 		let { ctx: n, setupState: r, data: i, props: a, accessCache: o, type: s, appContext: c } = e;
@@ -1469,53 +1598,53 @@ var zr = (e) => e ? Na(e) ? Ua(e) : zr(e.parent) : null, Br = /* @__PURE__ */ h(
 				case 4: return n[t];
 				case 3: return a[t];
 			}
-			else if (Vr(r, t)) return o[t] = 1, r[t];
-			else if (i !== l && v(i, t)) return o[t] = 2, i[t];
-			else if (v(a, t)) return o[t] = 3, a[t];
-			else if (n !== l && v(n, t)) return o[t] = 4, n[t];
-			else Gr && (o[t] = 0);
+			else if (Qr(r, t)) return o[t] = 1, r[t];
+			else if (i !== h && S(i, t)) return o[t] = 2, i[t];
+			else if (S(a, t)) return o[t] = 3, a[t];
+			else if (n !== h && S(n, t)) return o[t] = 4, n[t];
+			else ni && (o[t] = 0);
 		}
-		let u = Br[t], d, f;
-		if (u) return t === "$attrs" && pt(e.attrs, "get", ""), u(e);
-		if ((d = s.__cssModules) && (d = d[t])) return d;
-		if (n !== l && v(n, t)) return o[t] = 4, n[t];
-		if (f = c.config.globalProperties, v(f, t)) return f[t];
+		let l = Zr[t], u, d;
+		if (l) return t === "$attrs" && vt(e.attrs, "get", ""), l(e);
+		if ((u = s.__cssModules) && (u = u[t])) return u;
+		if (n !== h && S(n, t)) return o[t] = 4, n[t];
+		if (d = c.config.globalProperties, S(d, t)) return d[t];
 	},
 	set({ _: e }, t, n) {
 		let { data: r, setupState: i, ctx: a } = e;
-		return Vr(i, t) ? (i[t] = n, !0) : r !== l && v(r, t) ? (r[t] = n, !0) : v(e.props, t) || t[0] === "$" && t.slice(1) in e ? !1 : (a[t] = n, !0);
+		return Qr(i, t) ? (i[t] = n, !0) : r !== h && S(r, t) ? (r[t] = n, !0) : S(e.props, t) || t[0] === "$" && t.slice(1) in e ? !1 : (a[t] = n, !0);
 	},
 	has({ _: { data: e, setupState: t, accessCache: n, ctx: r, appContext: i, props: a, type: o } }, s) {
 		let c;
-		return !!(n[s] || e !== l && s[0] !== "$" && v(e, s) || Vr(t, s) || v(a, s) || v(r, s) || v(Br, s) || v(i.config.globalProperties, s) || (c = o.__cssModules) && c[s]);
+		return !!(n[s] || e !== h && s[0] !== "$" && S(e, s) || Qr(t, s) || S(a, s) || S(r, s) || S(Zr, s) || S(i.config.globalProperties, s) || (c = o.__cssModules) && c[s]);
 	},
 	defineProperty(e, t, n) {
-		return n.get == null ? v(n, "value") && this.set(e, t, n.value, null) : e._.accessCache[t] = 0, Reflect.defineProperty(e, t, n);
+		return n.get == null ? S(n, "value") && this.set(e, t, n.value, null) : e._.accessCache[t] = 0, Reflect.defineProperty(e, t, n);
 	}
 };
-function Ur(e) {
-	return y(e) ? e.reduce((e, t) => (e[t] = null, e), {}) : e;
+function ei(e) {
+	return C(e) ? e.reduce((e, t) => (e[t] = null, e), {}) : e;
 }
-function Wr(e, t) {
-	return !e || !t ? e || t : y(e) && y(t) ? e.concat(t) : h({}, Ur(e), Ur(t));
+function ti(e, t) {
+	return !e || !t ? e || t : C(e) && C(t) ? e.concat(t) : x({}, ei(e), ei(t));
 }
-var Gr = !0;
-function Kr(e) {
-	let t = Xr(e), n = e.proxy, r = e.ctx;
-	Gr = !1, t.beforeCreate && Jr(t.beforeCreate, e, "bc");
-	let { data: i, computed: a, methods: o, watch: s, provide: c, inject: l, created: u, beforeMount: f, mounted: p, beforeUpdate: m, updated: h, activated: g, deactivated: _, beforeDestroy: v, beforeUnmount: b, destroyed: x, unmounted: ee, render: C, renderTracked: te, renderTriggered: ne, errorCaptured: re, serverPrefetch: ie, expose: ae, inheritAttrs: oe, components: se, directives: ce, filters: le } = t;
-	if (l && qr(l, r, null), o) for (let e in o) {
+var ni = !0;
+function ri(e) {
+	let t = si(e), n = e.proxy, r = e.ctx;
+	ni = !1, t.beforeCreate && ai(t.beforeCreate, e, "bc");
+	let { data: i, computed: a, methods: o, watch: s, provide: c, inject: l, created: u, beforeMount: d, mounted: f, beforeUpdate: p, updated: m, activated: h, deactivated: g, beforeDestroy: v, beforeUnmount: y, destroyed: b, unmounted: x, render: ee, renderTracked: te, renderTriggered: S, errorCaptured: ne, serverPrefetch: re, expose: ie, inheritAttrs: T, components: ae, directives: oe, filters: se } = t;
+	if (l && ii(l, r, null), o) for (let e in o) {
 		let t = o[e];
-		S(t) && (r[e] = t.bind(n));
+		w(t) && (r[e] = t.bind(n));
 	}
 	if (i) {
 		let t = i.call(n, n);
-		w(t) && (e.data = /* @__PURE__ */ Yt(t));
+		E(t) && (e.data = /* @__PURE__ */ tn(t));
 	}
-	if (Gr = !0, a) for (let e in a) {
-		let t = a[e], i = U({
-			get: S(t) ? t.bind(n, n) : S(t.get) ? t.get.bind(n, n) : d,
-			set: !S(t) && S(t.set) ? t.set.bind(n) : d
+	if (ni = !0, a) for (let e in a) {
+		let t = a[e], i = K({
+			get: w(t) ? t.bind(n, n) : w(t.get) ? t.get.bind(n, n) : _,
+			set: !w(t) && w(t.set) ? t.set.bind(n) : _
 		});
 		Object.defineProperty(r, e, {
 			enumerable: !0,
@@ -1524,34 +1653,36 @@ function Kr(e) {
 			set: (e) => i.value = e
 		});
 	}
-	if (s) for (let e in s) Yr(s[e], r, n, e);
+	if (s) for (let e in s) oi(s[e], r, n, e);
 	if (c) {
-		let e = S(c) ? c.call(n) : c;
+		let e = w(c) ? c.call(n) : c;
 		Reflect.ownKeys(e).forEach((t) => {
-			Qn(t, e[t]);
+			or(t, e[t]);
 		});
 	}
-	u && Jr(u, e, "c");
-	function ue(e, t) {
-		y(t) ? t.forEach((t) => e(t.bind(n))) : t && e(t.bind(n));
+	u && ai(u, e, "c");
+	function ce(e, t) {
+		C(t) ? t.forEach((t) => e(t.bind(n))) : t && e(t.bind(n));
 	}
-	if (ue(Er, f), ue(Dr, p), ue(Or, m), ue(kr, h), ue(br, g), ue(xr, _), ue(Fr, re), ue(Pr, te), ue(Nr, ne), ue(Ar, b), ue(jr, ee), ue(Mr, ie), y(ae)) if (ae.length) {
-		let t = e.exposed ||= {};
-		ae.forEach((e) => {
-			Object.defineProperty(t, e, {
-				get: () => n[e],
-				set: (t) => n[e] = t,
-				enumerable: !0
+	if (ce(Lr, d), ce(Rr, f), ce(zr, p), ce(Br, m), ce(jr, h), ce(Mr, g), ce(Kr, ne), ce(Gr, te), ce(Wr, S), ce(Vr, y), ce(Hr, x), ce(Ur, re), C(ie)) {
+		if (ie.length) {
+			let t = e.exposed ||= {};
+			ie.forEach((e) => {
+				Object.defineProperty(t, e, {
+					get: () => n[e],
+					set: (t) => n[e] = t,
+					enumerable: !0
+				});
 			});
-		});
-	} else e.exposed ||= {};
-	C && e.render === d && (e.render = C), oe != null && (e.inheritAttrs = oe), se && (e.components = se), ce && (e.directives = ce), ie && pr(e);
+		} else e.exposed ||= {};
+	}
+	ee && e.render === _ && (e.render = ee), T != null && (e.inheritAttrs = T), ae && (e.components = ae), oe && (e.directives = oe), re && wr(e);
 }
-function qr(e, t, n = d) {
-	y(e) && (e = ti(e));
+function ii(e, t, n = _) {
+	C(e) && (e = pi(e));
 	for (let n in e) {
 		let r = e[n], i;
-		i = w(r) ? "default" in r ? $n(r.from || n, r.default, !0) : $n(r.from || n) : $n(r), /* @__PURE__ */ A(i) ? Object.defineProperty(t, n, {
+		i = E(r) ? "default" in r ? sr(r.from || n, r.default, !0) : sr(r.from || n) : sr(r), /* @__PURE__ */ N(i) ? Object.defineProperty(t, n, {
 			enumerable: !0,
 			configurable: !0,
 			get: () => i.value,
@@ -1559,97 +1690,99 @@ function qr(e, t, n = d) {
 		}) : t[n] = i;
 	}
 }
-function Jr(e, t, n) {
-	On(y(e) ? e.map((e) => e.bind(t.proxy)) : e.bind(t.proxy), t, n);
+function ai(e, t, n) {
+	Pn(C(e) ? e.map((e) => e.bind(t.proxy)) : e.bind(t.proxy), t, n);
 }
-function Yr(e, t, n, r) {
-	let i = r.includes(".") ? sr(n, r) : () => n[r];
-	if (C(e)) {
+function oi(e, t, n, r) {
+	let i = r.includes(".") ? hr(n, r) : () => n[r];
+	if (T(e)) {
 		let n = t[e];
-		S(n) && ir(i, n);
-	} else if (S(e)) ir(i, e.bind(n));
-	else if (w(e)) if (y(e)) e.forEach((e) => Yr(e, t, n, r));
-	else {
-		let r = S(e.handler) ? e.handler.bind(n) : t[e.handler];
-		S(r) && ir(i, r, e);
+		w(n) && fr(i, n);
+	} else if (w(e)) fr(i, e.bind(n));
+	else if (E(e)) {
+		if (C(e)) e.forEach((e) => oi(e, t, n, r));
+		else {
+			let r = w(e.handler) ? e.handler.bind(n) : t[e.handler];
+			w(r) && fr(i, r, e);
+		}
 	}
 }
-function Xr(e) {
+function si(e) {
 	let t = e.type, { mixins: n, extends: r } = t, { mixins: i, optionsCache: a, config: { optionMergeStrategies: o } } = e.appContext, s = a.get(t), c;
-	return s ? c = s : !i.length && !n && !r ? c = t : (c = {}, i.length && i.forEach((e) => Zr(c, e, o, !0)), Zr(c, t, o)), w(t) && a.set(t, c), c;
+	return s ? c = s : !i.length && !n && !r ? c = t : (c = {}, i.length && i.forEach((e) => ci(c, e, o, !0)), ci(c, t, o)), E(t) && a.set(t, c), c;
 }
-function Zr(e, t, n, r = !1) {
+function ci(e, t, n, r = !1) {
 	let { mixins: i, extends: a } = t;
-	a && Zr(e, a, n, !0), i && i.forEach((t) => Zr(e, t, n, !0));
+	a && ci(e, a, n, !0), i && i.forEach((t) => ci(e, t, n, !0));
 	for (let i in t) if (!(r && i === "expose")) {
-		let r = Qr[i] || n && n[i];
+		let r = li[i] || n && n[i];
 		e[i] = r ? r(e[i], t[i]) : t[i];
 	}
 	return e;
 }
-var Qr = {
-	data: $r,
-	props: ii,
-	emits: ii,
-	methods: ri,
-	computed: ri,
-	beforeCreate: ni,
-	created: ni,
-	beforeMount: ni,
-	mounted: ni,
-	beforeUpdate: ni,
-	updated: ni,
-	beforeDestroy: ni,
-	beforeUnmount: ni,
-	destroyed: ni,
-	unmounted: ni,
-	activated: ni,
-	deactivated: ni,
-	errorCaptured: ni,
-	serverPrefetch: ni,
-	components: ri,
-	directives: ri,
-	watch: ai,
-	provide: $r,
-	inject: ei
+var li = {
+	data: di,
+	props: gi,
+	emits: gi,
+	methods: hi,
+	computed: hi,
+	beforeCreate: mi,
+	created: mi,
+	beforeMount: mi,
+	mounted: mi,
+	beforeUpdate: mi,
+	updated: mi,
+	beforeDestroy: mi,
+	beforeUnmount: mi,
+	destroyed: mi,
+	unmounted: mi,
+	activated: mi,
+	deactivated: mi,
+	errorCaptured: mi,
+	serverPrefetch: mi,
+	components: hi,
+	directives: hi,
+	watch: _i,
+	provide: di,
+	inject: fi
 };
-function $r(e, t) {
+function di(e, t) {
 	return t ? e ? function() {
-		return h(S(e) ? e.call(this, this) : e, S(t) ? t.call(this, this) : t);
+		return x(w(e) ? e.call(this, this) : e, w(t) ? t.call(this, this) : t);
 	} : t : e;
 }
-function ei(e, t) {
-	return ri(ti(e), ti(t));
+function fi(e, t) {
+	return hi(pi(e), pi(t));
 }
-function ti(e) {
-	if (y(e)) {
+function pi(e) {
+	if (C(e)) {
 		let t = {};
 		for (let n = 0; n < e.length; n++) t[e[n]] = e[n];
 		return t;
 	}
 	return e;
 }
-function ni(e, t) {
+function mi(e, t) {
 	return e ? [...new Set([].concat(e, t))] : t;
 }
-function ri(e, t) {
-	return e ? h(/* @__PURE__ */ Object.create(null), e, t) : t;
+function hi(e, t) {
+	return e ? x(/* @__PURE__ */ Object.create(null), e, t) : t;
 }
-function ii(e, t) {
-	return e ? y(e) && y(t) ? [.../* @__PURE__ */ new Set([...e, ...t])] : h(/* @__PURE__ */ Object.create(null), Ur(e), Ur(t ?? {})) : t;
+function gi(e, t) {
+	return e ? C(e) && C(t) ? [.../* @__PURE__ */ new Set([...e, ...t])] : x(/* @__PURE__ */ Object.create(null), ei(e), ei(t ?? {})) : t;
 }
-function ai(e, t) {
+function _i(e, t) {
 	if (!e) return t;
 	if (!t) return e;
-	let n = h(/* @__PURE__ */ Object.create(null), e);
-	for (let r in t) n[r] = ni(e[r], t[r]);
+	let n = x(/* @__PURE__ */ Object.create(null), e);
+	for (let r in t) n[r] = mi(e[r], t[r]);
 	return n;
 }
-function oi() {
+function vi() {
 	return {
 		app: null,
 		config: {
-			isNativeTag: f,
+			isNativeTag: v,
 			performance: !1,
 			globalProperties: {},
 			optionMergeStrategies: {},
@@ -1666,24 +1799,24 @@ function oi() {
 		emitsCache: /* @__PURE__ */ new WeakMap()
 	};
 }
-var si = 0;
-function ci(e, t) {
+var yi = 0;
+function bi(e, t) {
 	return function(n, r = null) {
-		S(n) || (n = h({}, n)), r != null && !w(r) && (r = null);
-		let i = oi(), a = /* @__PURE__ */ new WeakSet(), o = [], s = !1, c = i.app = {
-			_uid: si++,
+		w(n) || (n = x({}, n)), r != null && !E(r) && (r = null);
+		let i = vi(), a = /* @__PURE__ */ new WeakSet(), o = [], s = !1, c = i.app = {
+			_uid: yi++,
 			_component: n,
 			_props: r,
 			_container: null,
 			_context: i,
 			_instance: null,
-			version: Ga,
+			version: io,
 			get config() {
 				return i.config;
 			},
 			set config(e) {},
 			use(e, ...t) {
-				return a.has(e) || (e && S(e.install) ? (a.add(e), e.install(c, ...t)) : S(e) && (a.add(e), e(c, ...t))), c;
+				return a.has(e) || (e && w(e.install) ? (a.add(e), e.install(c, ...t)) : w(e) && (a.add(e), e(c, ...t))), c;
 			},
 			mixin(e) {
 				return i.mixins.includes(e) || i.mixins.push(e), c;
@@ -1696,48 +1829,48 @@ function ci(e, t) {
 			},
 			mount(a, o, l) {
 				if (!s) {
-					let u = c._ceVNode || B(n, r);
-					return u.appContext = i, l === !0 ? l = "svg" : l === !1 && (l = void 0), o && t ? t(u, a) : e(u, a, l), s = !0, c._container = a, a.__vue_app__ = c, Ua(u.component);
+					let u = c._ceVNode || U(n, r);
+					return u.appContext = i, l === !0 ? l = "svg" : l === !1 && (l = void 0), o && t ? t(u, a) : e(u, a, l), s = !0, c._container = a, a.__vue_app__ = c, no(u.component);
 				}
 			},
 			onUnmount(e) {
 				o.push(e);
 			},
 			unmount() {
-				s && (On(o, c._instance, 16), e(null, c._container), delete c._container.__vue_app__);
+				s && (Pn(o, c._instance, 16), e(null, c._container), delete c._container.__vue_app__);
 			},
 			provide(e, t) {
 				return i.provides[e] = t, c;
 			},
 			runWithContext(e) {
-				let t = li;
-				li = c;
+				let t = xi;
+				xi = c;
 				try {
 					return e();
 				} finally {
-					li = t;
+					xi = t;
 				}
 			}
 		};
 		return c;
 	};
 }
-var li = null;
-function di(e, t, n = l) {
-	let r = Oa(), i = de(t), a = pe(t), o = fi(e, i), s = pn((o, s) => {
-		let c, u = l, d;
-		return rr(() => {
+var xi = null;
+function Si(e, t, n = h) {
+	let r = Ha(), i = D(t), a = ge(t), o = Ci(e, i), s = yn((o, s) => {
+		let c, l = h, u;
+		return dr(() => {
 			let t = e[i];
-			T(c, t) && (c = t, s());
+			O(c, t) && (c = t, s());
 		}), {
 			get() {
 				return o(), n.get ? n.get(c) : c;
 			},
 			set(e) {
 				let o = n.set ? n.set(e) : e;
-				if (!T(o, c) && !(u !== l && T(e, u))) return;
-				let f = r.vnode.props, p = !!(f && (t in f || i in f || a in f) && (`onUpdate:${t}` in f || `onUpdate:${i}` in f || `onUpdate:${a}` in f));
-				p || (c = e, s()), r.emit(`update:${t}`, o), T(e, u) && (T(e, o) && !T(o, d) || p && u !== l && !T(o, c)) && s(), u = e, d = o;
+				if (!O(o, c) && !(l !== h && O(e, l))) return;
+				let d = r.vnode.props, f = !!(d && (t in d || i in d || a in d) && (`onUpdate:${t}` in d || `onUpdate:${i}` in d || `onUpdate:${a}` in d));
+				f || (c = e, s()), r.emit(`update:${t}`, o), O(e, l) && (O(e, o) && !O(o, u) || f && l !== h && !O(o, c)) && s(), l = e, u = o;
 			}
 		};
 	});
@@ -1745,106 +1878,119 @@ function di(e, t, n = l) {
 		let e = 0;
 		return { next() {
 			return e < 2 ? {
-				value: e++ ? o || l : s,
+				value: e++ ? o || h : s,
 				done: !1
 			} : { done: !0 };
 		} };
 	}, s;
 }
-var fi = (e, t) => t === "modelValue" || t === "model-value" ? e.modelModifiers : e[`${t}Modifiers`] || e[`${de(t)}Modifiers`] || e[`${pe(t)}Modifiers`];
-function pi(e, t, ...n) {
+var Ci = (e, t) => t === "modelValue" || t === "model-value" ? e.modelModifiers : e[`${t}Modifiers`] || e[`${D(t)}Modifiers`] || e[`${ge(t)}Modifiers`];
+function wi(e, t, ...n) {
 	if (e.isUnmounted) return;
-	let r = e.vnode.props || l, i = n, a = t.startsWith("update:"), o = a && fi(r, t.slice(7));
-	o && (o.trim && (i = n.map((e) => C(e) ? e.trim() : e)), o.number && (i = n.map(ve)));
-	let s, c = r[s = he(t)] || r[s = he(de(t))];
-	!c && a && (c = r[s = he(pe(t))]), c && On(c, e, 6, i);
-	let u = r[s + "Once"];
-	if (u) {
+	let r = e.vnode.props || h, i = n, a = t.startsWith("update:"), o = a && Ci(r, t.slice(7));
+	o && (o.trim && (i = n.map((e) => T(e) ? e.trim() : e)), o.number && (i = i.map(xe)));
+	let s, c = r[s = ve(t)] || r[s = ve(D(t))];
+	!c && a && (c = r[s = ve(ge(t))]), c && Pn(c, e, 6, i);
+	let l = r[s + "Once"];
+	if (l) {
 		if (!e.emitted) e.emitted = {};
 		else if (e.emitted[s]) return;
-		e.emitted[s] = !0, On(u, e, 6, i);
+		e.emitted[s] = !0, Pn(l, e, 6, i);
 	}
 }
-var mi = /* @__PURE__ */ new WeakMap();
-function hi(e, t, n = !1) {
-	let r = n ? mi : t.emitsCache, i = r.get(e);
+var Ti = /* @__PURE__ */ new WeakMap();
+function Ei(e, t, n = !1) {
+	let r = n ? Ti : t.emitsCache, i = r.get(e);
 	if (i !== void 0) return i;
 	let a = e.emits, o = {}, s = !1;
-	if (!S(e)) {
+	if (!w(e)) {
 		let r = (e) => {
-			let n = hi(e, t, !0);
-			n && (s = !0, h(o, n));
+			let n = Ei(e, t, !0);
+			n && (s = !0, x(o, n));
 		};
 		!n && t.mixins.length && t.mixins.forEach(r), e.extends && r(e.extends), e.mixins && e.mixins.forEach(r);
 	}
-	return !a && !s ? (w(e) && r.set(e, null), null) : (y(a) ? a.forEach((e) => o[e] = null) : h(o, a), w(e) && r.set(e, o), o);
+	return !a && !s ? (E(e) && r.set(e, null), null) : (C(a) ? a.forEach((e) => o[e] = null) : x(o, a), E(e) && r.set(e, o), o);
 }
-function gi(e, t) {
-	return !e || !p(t) ? !1 : (t = t.slice(2).replace(/Once$/, ""), v(e, t[0].toLowerCase() + t.slice(1)) || v(e, pe(t)) || v(e, t));
+function Di(e, t) {
+	return !e || !y(t) ? !1 : (t = t.slice(2), t = t === "Once" ? t : t.replace(/Once$/, ""), S(e, t[0].toLowerCase() + t.slice(1)) || S(e, ge(t)) || S(e, t));
 }
-function _i(e) {
-	let { type: t, vnode: n, proxy: r, withProxy: i, propsOptions: [a], slots: o, attrs: s, emit: c, render: l, renderCache: u, props: d, data: f, setupState: p, ctx: h, inheritAttrs: g } = e, _ = Yn(e), v, y;
+function Oi(e) {
+	let { type: t, vnode: n, proxy: r, withProxy: i, propsOptions: [a], slots: o, attrs: s, emit: c, render: l, renderCache: u, props: d, data: f, setupState: p, ctx: m, inheritAttrs: h } = e, g = rr(e), _, v;
 	try {
 		if (n.shapeFlag & 4) {
 			let e = i || r, t = e;
-			v = ya(l.call(t, e, u, d, p, f, h)), y = s;
+			_ = Ma(l.call(t, e, u, d, p, f, m)), v = s;
 		} else {
 			let e = t;
-			v = ya(e.length > 1 ? e(d, {
+			_ = Ma(e.length > 1 ? e(d, {
 				attrs: s,
 				slots: o,
 				emit: c
-			}) : e(d, null)), y = t.props ? s : vi(s);
+			}) : e(d, null)), v = t.props ? s : Ai(s);
 		}
 	} catch (t) {
-		ia.length = 0, kn(t, e, 1), v = B(na);
+		_a.length = 0, Fn(t, e, 1), _ = U(ha);
 	}
-	let b = v;
-	if (y && g !== !1) {
-		let e = Object.keys(y), { shapeFlag: t } = b;
-		e.length && t & 7 && (a && e.some(m) && (y = yi(y, a)), b = _a(b, y, !1, !0));
+	let y = _;
+	if (v && h !== !1) {
+		let e = Object.keys(v), { shapeFlag: t } = y;
+		e.length && t & 7 && (a && e.some(b) && (v = ji(v, a)), y = Aa(y, v, !1, !0));
 	}
-	return n.dirs && (b = _a(b, null, !1, !0), b.dirs = b.dirs ? b.dirs.concat(n.dirs) : n.dirs), n.transition && dr(b, n.transition), v = b, Yn(_), v;
+	return n.dirs && (y = Aa(y, null, !1, !0), y.dirs = y.dirs ? y.dirs.concat(n.dirs) : n.dirs), n.transition && xr(_r(y.type) && br(y) || y, n.transition), _ = y, rr(g), _;
 }
-var vi = (e) => {
+function ki(e, t = !0) {
+	let n;
+	for (let t = 0; t < e.length; t++) {
+		let r = e[t];
+		if (wa(r)) {
+			if (r.type !== ha || r.children === "v-if") {
+				if (n) return;
+				n = r;
+			}
+		} else return;
+	}
+	return n;
+}
+var Ai = (e) => {
 	let t;
-	for (let n in e) (n === "class" || n === "style" || p(n)) && ((t ||= {})[n] = e[n]);
+	for (let n in e) (n === "class" || n === "style" || y(n)) && ((t ||= {})[n] = e[n]);
 	return t;
-}, yi = (e, t) => {
+}, ji = (e, t) => {
 	let n = {};
-	for (let r in e) (!m(r) || !(r.slice(9) in t)) && (n[r] = e[r]);
+	for (let r in e) b(r) && r.slice(9) in t || (n[r] = e[r]);
 	return n;
 };
-function bi(e, t, n) {
+function Mi(e, t, n) {
 	let { props: r, children: i, component: a } = e, { props: o, children: s, patchFlag: c } = t, l = a.emitsOptions;
 	if (t.dirs || t.transition) return !0;
 	if (n && c >= 0) {
 		if (c & 1024) return !0;
-		if (c & 16) return r ? xi(r, o, l) : !!o;
+		if (c & 16) return r ? Ni(r, o, l) : !!o;
 		if (c & 8) {
 			let e = t.dynamicProps;
 			for (let t = 0; t < e.length; t++) {
 				let n = e[t];
-				if (Si(o, r, n) && !gi(l, n)) return !0;
+				if (Pi(o, r, n) && !Di(l, n)) return !0;
 			}
 		}
-	} else return (i || s) && (!s || !s.$stable) ? !0 : r === o ? !1 : r ? o ? xi(r, o, l) : !0 : !!o;
+	} else return (i || s) && (!s || !s.$stable) ? !0 : r === o ? !1 : r ? !o || Ni(r, o, l) : !!o;
 	return !1;
 }
-function xi(e, t, n) {
+function Ni(e, t, n) {
 	let r = Object.keys(t);
 	if (r.length !== Object.keys(e).length) return !0;
 	for (let i = 0; i < r.length; i++) {
 		let a = r[i];
-		if (Si(t, e, a) && !gi(n, a)) return !0;
+		if (!S(e, a) || Pi(t, e, a) && !Di(n, a)) return !0;
 	}
 	return !1;
 }
-function Si(e, t, n) {
+function Pi(e, t, n) {
 	let r = e[n], i = t[n];
-	return n === "style" && w(r) && w(i) ? !Ae(r, i) : r !== i;
+	return n === "style" && E(r) && E(i) ? !Ie(r, i) : r !== i;
 }
-function Ci({ vnode: e, parent: t, suspense: n }, r) {
+function Fi({ vnode: e, parent: t, suspense: n }, r) {
 	for (; t;) {
 		let n = t.subTree;
 		if (n.suspense && n.suspense.activeBranch === e && (n.suspense.vnode.el = n.el = r, e = n), n === e) (e = t.vnode).el = r, t = t.parent;
@@ -1852,520 +1998,516 @@ function Ci({ vnode: e, parent: t, suspense: n }, r) {
 	}
 	n && n.activeBranch === e && (n.vnode.el = r);
 }
-var wi = {}, Ti = () => Object.create(wi), Ei = (e) => Object.getPrototypeOf(e) === wi;
-function Di(e, t, n, r = !1) {
-	let i = {}, a = Ti();
-	e.propsDefaults = /* @__PURE__ */ Object.create(null), ki(e, t, i, a);
+var Ii = {}, Li = () => Object.create(Ii), Ri = (e) => Object.getPrototypeOf(e) === Ii;
+function zi(e, t, n, r = !1) {
+	let i = {}, a = Li();
+	e.propsDefaults = /* @__PURE__ */ Object.create(null), Vi(e, t, i, a);
 	for (let t in e.propsOptions[0]) t in i || (i[t] = void 0);
-	n ? e.props = r ? i : /* @__PURE__ */ Xt(i) : e.type.props ? e.props = i : e.props = a, e.attrs = a;
+	e.props = n ? r ? i : /* @__PURE__ */ nn(i) : e.type.props ? i : a, e.attrs = a;
 }
-function Oi(e, t, n, r) {
-	let { props: i, attrs: a, vnode: { patchFlag: o } } = e, s = /* @__PURE__ */ k(i), [c] = e.propsOptions, l = !1;
+function Bi(e, t, n, r) {
+	let { props: i, attrs: a, vnode: { patchFlag: o } } = e, s = /* @__PURE__ */ M(i), [c] = e.propsOptions, l = !1;
 	if ((r || o > 0) && !(o & 16)) {
 		if (o & 8) {
 			let n = e.vnode.dynamicProps;
 			for (let r = 0; r < n.length; r++) {
 				let o = n[r];
-				if (gi(e.emitsOptions, o)) continue;
+				if (Di(e.emitsOptions, o)) continue;
 				let u = t[o];
-				if (c) if (v(a, o)) u !== a[o] && (a[o] = u, l = !0);
-				else {
-					let t = de(o);
-					i[t] = Ai(c, s, t, u, e, !1);
-				}
-				else u !== a[o] && (a[o] = u, l = !0);
+				if (c) {
+					if (S(a, o)) u !== a[o] && (a[o] = u, l = !0);
+					else {
+						let t = D(o);
+						i[t] = Hi(c, s, t, u, e, !1);
+					}
+				} else u !== a[o] && (a[o] = u, l = !0);
 			}
 		}
 	} else {
-		ki(e, t, i, a) && (l = !0);
+		Vi(e, t, i, a) && (l = !0);
 		let r;
-		for (let a in s) (!t || !v(t, a) && ((r = pe(a)) === a || !v(t, r))) && (c ? n && (n[a] !== void 0 || n[r] !== void 0) && (i[a] = Ai(c, s, a, void 0, e, !0)) : delete i[a]);
-		if (a !== s) for (let e in a) (!t || !v(t, e)) && (delete a[e], l = !0);
+		for (let a in s) t && (S(t, a) || (r = ge(a)) !== a && S(t, r)) || (c ? n && (n[a] !== void 0 || n[r] !== void 0) && (i[a] = Hi(c, s, a, void 0, e, !0)) : delete i[a]);
+		if (a !== s) for (let e in a) t && S(t, e) || (delete a[e], l = !0);
 	}
-	l && mt(e.attrs, "set", "");
+	l && yt(e.attrs, "set", "");
 }
-function ki(e, t, n, r) {
+function Vi(e, t, n, r) {
 	let [i, a] = e.propsOptions, o = !1, s;
 	if (t) for (let c in t) {
-		if (ce(c)) continue;
+		if (fe(c)) continue;
 		let l = t[c], u;
-		i && v(i, u = de(c)) ? !a || !a.includes(u) ? n[u] = l : (s ||= {})[u] = l : gi(e.emitsOptions, c) || (!(c in r) || l !== r[c]) && (r[c] = l, o = !0);
+		i && S(i, u = D(c)) ? !a || !a.includes(u) ? n[u] = l : (s ||= {})[u] = l : Di(e.emitsOptions, c) || c in r && l === r[c] || (r[c] = l, o = !0);
 	}
 	if (a) {
-		let t = /* @__PURE__ */ k(n), r = s || l;
+		let t = /* @__PURE__ */ M(n), r = s || h;
 		for (let o = 0; o < a.length; o++) {
 			let s = a[o];
-			n[s] = Ai(i, t, s, r[s], e, !v(r, s));
+			n[s] = Hi(i, t, s, r[s], e, !S(r, s));
 		}
 	}
 	return o;
 }
-function Ai(e, t, n, r, i, a) {
+function Hi(e, t, n, r, i, a) {
 	let o = e[n];
 	if (o != null) {
-		let e = v(o, "default");
+		let e = S(o, "default");
 		if (e && r === void 0) {
 			let e = o.default;
-			if (o.type !== Function && !o.skipFactory && S(e)) {
+			if (o.type !== Function && !o.skipFactory && w(e)) {
 				let { propsDefaults: a } = i;
 				if (n in a) r = a[n];
 				else {
-					let o = ja(i);
+					let o = Ga(i);
 					r = a[n] = e.call(null, t), o();
 				}
 			} else r = e;
 			i.ce && i.ce._setProp(n, r);
 		}
-		o[0] && (a && !e ? r = !1 : o[1] && (r === "" || r === pe(n)) && (r = !0));
+		o[0] && (a && !e ? r = !1 : o[1] && (r === "" || r === ge(n)) && (r = !0));
 	}
 	return r;
 }
-var ji = /* @__PURE__ */ new WeakMap();
-function Mi(e, t, n = !1) {
-	let r = n ? ji : t.propsCache, i = r.get(e);
+var Ui = /* @__PURE__ */ new WeakMap();
+function Wi(e, t, n = !1) {
+	let r = n ? Ui : t.propsCache, i = r.get(e);
 	if (i) return i;
 	let a = e.props, o = {}, s = [], c = !1;
-	if (!S(e)) {
+	if (!w(e)) {
 		let r = (e) => {
 			c = !0;
-			let [n, r] = Mi(e, t, !0);
-			h(o, n), r && s.push(...r);
+			let [n, r] = Wi(e, t, !0);
+			x(o, n), r && s.push(...r);
 		};
 		!n && t.mixins.length && t.mixins.forEach(r), e.extends && r(e.extends), e.mixins && e.mixins.forEach(r);
 	}
-	if (!a && !c) return w(e) && r.set(e, u), u;
-	if (y(a)) for (let e = 0; e < a.length; e++) {
-		let t = de(a[e]);
-		Ni(t) && (o[t] = l);
+	if (!a && !c) return E(e) && r.set(e, g), g;
+	if (C(a)) for (let e = 0; e < a.length; e++) {
+		let t = D(a[e]);
+		Gi(t) && (o[t] = h);
 	}
 	else if (a) for (let e in a) {
-		let t = de(e);
-		if (Ni(t)) {
-			let n = a[e], r = o[t] = y(n) || S(n) ? { type: n } : h({}, n), i = r.type, c = !1, l = !0;
-			if (y(i)) for (let e = 0; e < i.length; ++e) {
-				let t = i[e], n = S(t) && t.name;
+		let t = D(e);
+		if (Gi(t)) {
+			let n = a[e], r = o[t] = C(n) || w(n) ? { type: n } : x({}, n), i = r.type, c = !1, l = !0;
+			if (C(i)) for (let e = 0; e < i.length; ++e) {
+				let t = i[e], n = w(t) && t.name;
 				if (n === "Boolean") {
 					c = !0;
 					break;
-				} else n === "String" && (l = !1);
+				}
+				n === "String" && (l = !1);
 			}
-			else c = S(i) && i.name === "Boolean";
-			r[0] = c, r[1] = l, (c || v(r, "default")) && s.push(t);
+			else c = w(i) && i.name === "Boolean";
+			r[0] = c, r[1] = l, (c || S(r, "default")) && s.push(t);
 		}
 	}
-	let d = [o, s];
-	return w(e) && r.set(e, d), d;
+	let l = [o, s];
+	return E(e) && r.set(e, l), l;
 }
-function Ni(e) {
-	return e[0] !== "$" && !ce(e);
+function Gi(e) {
+	return e[0] !== "$" && !fe(e);
 }
-var Pi = (e) => e === "_" || e === "_ctx" || e === "$stable", Fi = (e) => y(e) ? e.map(ya) : [ya(e)], Ii = (e, t, n) => {
+var Ki = (e) => e === "_" || e === "_ctx" || e === "$stable", qi = (e) => C(e) ? e.map(Ma) : [Ma(e)], Ji = (e, t, n) => {
 	if (t._n) return t;
-	let r = Xn((...e) => Fi(t(...e)), n);
+	let r = ir((...e) => qi(t(...e)), n);
 	return r._c = !1, r;
-}, Li = (e, t, n) => {
+}, Yi = (e, t, n) => {
 	let r = e._ctx;
 	for (let n in e) {
-		if (Pi(n)) continue;
+		if (Ki(n)) continue;
 		let i = e[n];
-		if (S(i)) t[n] = Ii(n, i, r);
+		if (w(i)) t[n] = Ji(n, i, r);
 		else if (i != null) {
-			let e = Fi(i);
+			let e = qi(i);
 			t[n] = () => e;
 		}
 	}
-}, Ri = (e, t) => {
-	let n = Fi(t);
+}, Xi = (e, t) => {
+	let n = qi(t);
 	e.slots.default = () => n;
-}, zi = (e, t, n) => {
-	for (let r in t) (n || !Pi(r)) && (e[r] = t[r]);
-}, Bi = (e, t, n) => {
-	let r = e.slots = Ti();
+}, Zi = (e, t, n) => {
+	for (let r in t) (n || !Ki(r)) && (e[r] = t[r]);
+}, Qi = (e, t, n) => {
+	let r = e.slots = Li();
 	if (e.vnode.shapeFlag & 32) {
 		let e = t._;
-		e ? (zi(r, t, n), n && _e(r, "_", e, !0)) : Li(t, r);
-	} else t && Ri(e, t);
-}, Vi = (e, t, n) => {
-	let { vnode: r, slots: i } = e, a = !0, o = l;
+		e ? (Zi(r, t, n), n && be(r, "_", e, !0)) : Yi(t, r);
+	} else t && Xi(e, t);
+}, $i = (e, t, n) => {
+	let { vnode: r, slots: i } = e, a = !0, o = h;
 	if (r.shapeFlag & 32) {
 		let e = t._;
-		e ? n && e === 1 ? a = !1 : zi(i, t, n) : (a = !t.$stable, Li(t, i)), o = t;
-	} else t && (Ri(e, t), o = { default: 1 });
-	if (a) for (let e in i) !Pi(e) && o[e] == null && delete i[e];
-}, Hi = ea;
-function Ui(e) {
-	return Wi(e);
+		e ? n && e === 1 ? a = !1 : Zi(i, t, n) : (a = !t.$stable, Yi(t, i)), o = t;
+	} else t && (Xi(e, t), o = { default: 1 });
+	if (a) for (let e in i) !Ki(e) && o[e] == null && delete i[e];
+}, ea = pa;
+function ta(e) {
+	return na(e);
 }
-function Wi(e, t) {
-	let n = be();
+function na(e, t) {
+	let n = Ce();
 	n.__VUE__ = !0;
-	let { insert: r, remove: i, patchProp: a, createElement: o, createText: s, createComment: c, setText: f, setElementText: p, parentNode: m, nextSibling: h, setScopeId: g = d, insertStaticContent: _ } = e, v = (e, t, n, r = null, i = null, a = null, o = void 0, s = null, c = !!t.dynamicChildren) => {
+	let { insert: r, remove: i, patchProp: a, createElement: o, createText: s, createComment: c, setText: l, setElementText: u, parentNode: d, nextSibling: f, setScopeId: p = _, insertStaticContent: m } = e, v = (e, t, n, r = null, i = null, a = null, o = void 0, s = null, c = !!t.dynamicChildren) => {
 		if (e === t) return;
-		e && !fa(e, t) && (r = Ce(e), _e(e, i, a, !0), e = null), t.patchFlag === -2 && (c = !1, t.dynamicChildren = null);
+		e && !Ta(e, t) && (r = O(e), D(e, i, a, !0), e = null), t.patchFlag === -2 && (c = !1, t.dynamicChildren = null), t.dynamicChildren && e && e.dynamicChildren && e.dynamicChildren.hasOnce && (t.dynamicChildren === g && (t.dynamicChildren = []), t.dynamicChildren.hasOnce = !0);
 		let { type: l, ref: u, shapeFlag: d } = t;
 		switch (l) {
-			case ta:
+			case ma:
 				y(e, t, n, r);
 				break;
-			case na:
+			case ha:
 				b(e, t, n, r);
 				break;
-			case ra:
+			case ga:
 				e ?? x(t, n, r, o);
 				break;
-			case I:
-				oe(e, t, n, r, i, a, o, s, c);
+			case z:
+				ae(e, t, n, r, i, a, o, s, c);
 				break;
-			default: d & 1 ? C(e, t, n, r, i, a, o, s, c) : d & 6 ? se(e, t, n, r, i, a, o, s, c) : (d & 64 || d & 128) && l.process(e, t, n, r, i, a, o, s, c, E);
+			default: d & 1 ? S(e, t, n, r, i, a, o, s, c) : d & 6 ? E(e, t, n, r, i, a, o, s, c) : (d & 64 || d & 128) && l.process(e, t, n, r, i, a, o, s, c, xe);
 		}
-		u != null && i ? gr(u, e && e.ref, a, t || e, !t) : u == null && e && e.ref != null && gr(e.ref, null, a, e, !0);
+		u != null && i ? Dr(u, e && e.ref, a, t || e, !t) : u == null && e && e.ref != null && Dr(e.ref, null, a, e, !0);
 	}, y = (e, t, n, i) => {
 		if (e == null) r(t.el = s(t.children), n, i);
 		else {
 			let n = t.el = e.el;
-			t.children !== e.children && f(n, t.children);
+			t.children !== e.children && l(n, t.children);
 		}
 	}, b = (e, t, n, i) => {
 		e == null ? r(t.el = c(t.children || ""), n, i) : t.el = e.el;
 	}, x = (e, t, n, r) => {
-		[e.el, e.anchor] = _(e.children, t, n, r, e.el, e.anchor);
+		[e.el, e.anchor] = m(e.children, t, n, r, e.el, e.anchor);
 	}, ee = ({ el: e, anchor: t }, n, i) => {
 		let a;
-		for (; e && e !== t;) a = h(e), r(e, n, i), e = a;
+		for (; e && e !== t;) a = f(e), r(e, n, i), e = a;
 		r(t, n, i);
-	}, S = ({ el: e, anchor: t }) => {
+	}, te = ({ el: e, anchor: t }) => {
 		let n;
-		for (; e && e !== t;) n = h(e), i(e), e = n;
+		for (; e && e !== t;) n = f(e), i(e), e = n;
 		i(t);
-	}, C = (e, t, n, r, i, a, o, s, c) => {
-		if (t.type === "svg" ? o = "svg" : t.type === "math" && (o = "mathml"), e == null) te(t, n, r, i, a, o, s, c);
+	}, S = (e, t, n, r, i, a, o, s, c) => {
+		if (t.type === "svg" ? o = "svg" : t.type === "math" && (o = "mathml"), e == null) C(t, n, r, i, a, o, s, c);
 		else {
 			let n = e.el && e.el._isVueCE ? e.el : null;
 			try {
-				n && n._beginPatch(), re(e, t, i, a, o, s, c);
+				n && n._beginPatch(), ie(e, t, i, a, o, s, c);
 			} finally {
 				n && n._endPatch();
 			}
 		}
-	}, te = (e, t, n, i, s, c, l, u) => {
-		let d, f, { props: m, shapeFlag: h, transition: g, dirs: _ } = e;
-		if (d = e.el = o(e.type, c, m && m.is, m), h & 8 ? p(d, e.children) : h & 16 && ne(e.children, d, null, i, s, Gi(e, c), l, u), _ && Zn(e, null, i, "created"), w(d, e, e.scopeId, l, i), m) {
-			for (let e in m) e !== "value" && !ce(e) && a(d, e, null, m[e], c, i);
-			"value" in m && a(d, "value", null, m.value, c), (f = m.onVnodeBeforeMount) && Ca(f, i, e);
+	}, C = (e, t, n, i, s, c, l, d) => {
+		let f, p, { props: m, shapeFlag: h, transition: g, dirs: _ } = e;
+		if (f = e.el = o(e.type, c, m && m.is, m), h & 8 ? u(f, e.children) : h & 16 && re(e.children, f, null, i, s, ra(e, c), l, d), _ && ar(e, null, i, "created"), ne(f, e, e.scopeId, l, i), m) {
+			for (let e in m) e !== "value" && !fe(e) && a(f, e, null, m[e], c, i);
+			"value" in m && a(f, "value", null, m.value, c), (p = m.onVnodeBeforeMount) && Ia(p, i, e);
 		}
-		_ && Zn(e, null, i, "beforeMount");
-		let v = qi(s, g);
-		v && g.beforeEnter(d), r(d, t, n), ((f = m && m.onVnodeMounted) || v || _) && Hi(() => {
+		_ && ar(e, null, i, "beforeMount");
+		let v = aa(s, g);
+		v ? g.beforeEnter(f) : g && !g.persisted && (f[fa] = !0), r(f, t, n), ((p = m && m.onVnodeMounted) || v || _) && ea(() => {
 			try {
-				f && Ca(f, i, e), v && g.enter(d), _ && Zn(e, null, i, "mounted");
+				p && Ia(p, i, e), v && g.enter(f), _ && ar(e, null, i, "mounted");
 			} finally {}
 		}, s);
-	}, w = (e, t, n, r, i) => {
-		if (n && g(e, n), r) for (let t = 0; t < r.length; t++) g(e, r[t]);
+	}, ne = (e, t, n, r, i) => {
+		if (n && p(e, n), r) for (let t = 0; t < r.length; t++) p(e, r[t]);
 		if (i) {
 			let n = i.subTree;
-			if (t === n || $i(n.type) && (n.ssContent === t || n.ssFallback === t)) {
+			if (t === n || da(n.type) && (n.ssContent === t || n.ssFallback === t)) {
 				let t = i.vnode;
-				w(e, t, t.scopeId, t.slotScopeIds, i.parent);
+				ne(e, t, t.scopeId, t.slotScopeIds, i.parent);
 			}
 		}
-	}, ne = (e, t, n, r, i, a, o, s, c = 0) => {
-		for (let l = c; l < e.length; l++) v(null, e[l] = s ? ba(e[l]) : ya(e[l]), t, n, r, i, a, o, s);
-	}, re = (e, t, n, r, i, o, s) => {
-		let c = t.el = e.el, { patchFlag: u, dynamicChildren: d, dirs: f } = t;
-		u |= e.patchFlag & 16;
-		let m = e.props || l, h = t.props || l, g;
-		if (n && Ki(n, !1), (g = h.onVnodeBeforeUpdate) && Ca(g, n, t, e), f && Zn(t, e, n, "beforeUpdate"), n && Ki(n, !0), (m.innerHTML && h.innerHTML == null || m.textContent && h.textContent == null) && p(c, ""), d ? ie(e.dynamicChildren, d, c, n, r, Gi(t, i), o) : s || pe(e, t, c, null, n, r, Gi(t, i), o, !1), u > 0) {
-			if (u & 16) ae(c, m, h, n, i);
-			else if (u & 2 && m.class !== h.class && a(c, "class", null, h.class, i), u & 4 && a(c, "style", m.style, h.style, i), u & 8) {
+	}, re = (e, t, n, r, i, a, o, s, c = 0) => {
+		for (let l = c; l < e.length; l++) {
+			let c = e[l] = s ? Na(e[l]) : Ma(e[l]);
+			v(null, c, t, n, r, i, a, o, s);
+		}
+	}, ie = (e, t, n, r, i, o, s) => {
+		let c = t.el = e.el, { patchFlag: l, dynamicChildren: d, dirs: f } = t;
+		l |= e.patchFlag & 16;
+		let p = e.props || h, m = t.props || h, g;
+		if (n && ia(n, !1), (g = m.onVnodeBeforeUpdate) && Ia(g, n, t, e), f && ar(t, e, n, "beforeUpdate"), n && ia(n, !0), d && (!e.dynamicChildren || e.dynamicChildren.length !== d.length) && (l = 0, s = !1, d = null), (p.innerHTML && m.innerHTML == null || p.textContent && m.textContent == null) && u(c, ""), d ? w(e.dynamicChildren, d, c, n, r, ra(t, i), o) : s || ue(e, t, c, null, n, r, ra(t, i), o, !1), l > 0) {
+			if (l & 16) T(c, p, m, n, i);
+			else if (l & 2 && p.class !== m.class && a(c, "class", null, m.class, i), l & 4 && a(c, "style", p.style, m.style, i), l & 8) {
 				let e = t.dynamicProps;
 				for (let t = 0; t < e.length; t++) {
-					let r = e[t], o = m[r], s = h[r];
+					let r = e[t], o = p[r], s = m[r];
 					(s !== o || r === "value") && a(c, r, o, s, i, n);
 				}
 			}
-			u & 1 && e.children !== t.children && p(c, t.children);
-		} else !s && d == null && ae(c, m, h, n, i);
-		((g = h.onVnodeUpdated) || f) && Hi(() => {
-			g && Ca(g, n, t, e), f && Zn(t, e, n, "updated");
+			l & 1 && e.children !== t.children && u(c, t.children);
+		} else !s && d == null && T(c, p, m, n, i);
+		((g = m.onVnodeUpdated) || f) && ea(() => {
+			g && Ia(g, n, t, e), f && ar(t, e, n, "updated");
 		}, r);
-	}, ie = (e, t, n, r, i, a, o) => {
+	}, w = (e, t, n, r, i, a, o) => {
 		for (let s = 0; s < t.length; s++) {
-			let c = e[s], l = t[s];
-			v(c, l, c.el && (c.type === I || !fa(c, l) || c.shapeFlag & 198) ? m(c.el) : n, null, r, i, a, o, !0);
+			let c = e[s], l = t[s], u = c.el || ua(c), f = u && (c.type === z || !Ta(c, l) || c.shapeFlag & 198) ? d(u) : n;
+			v(c, l, f, null, r, i, a, o, !0);
 		}
-	}, ae = (e, t, n, r, i) => {
+	}, T = (e, t, n, r, i) => {
 		if (t !== n) {
-			if (t !== l) for (let o in t) !ce(o) && !(o in n) && a(e, o, t[o], null, i, r);
+			if (t !== h) for (let o in t) !fe(o) && !(o in n) && a(e, o, t[o], null, i, r);
 			for (let o in n) {
-				if (ce(o)) continue;
+				if (fe(o)) continue;
 				let s = n[o], c = t[o];
 				s !== c && o !== "value" && a(e, o, c, s, i, r);
 			}
 			"value" in n && a(e, "value", t.value, n.value, i);
 		}
-	}, oe = (e, t, n, i, a, o, c, l, u) => {
+	}, ae = (e, t, n, i, a, o, c, l, u) => {
 		let d = t.el = e ? e.el : s(""), f = t.anchor = e ? e.anchor : s(""), { patchFlag: p, dynamicChildren: m, slotScopeIds: h } = t;
-		h && (l = l ? l.concat(h) : h), e == null ? (r(d, n, i), r(f, n, i), ne(t.children || [], n, f, a, o, c, l, u)) : p > 0 && p & 64 && m && e.dynamicChildren && e.dynamicChildren.length === m.length ? (ie(e.dynamicChildren, m, n, a, o, c, l), (t.key != null || a && t === a.subTree) && Ji(e, t, !0)) : pe(e, t, n, f, a, o, c, l, u);
-	}, se = (e, t, n, r, i, a, o, s, c) => {
-		t.slotScopeIds = s, e == null ? t.shapeFlag & 512 ? i.ctx.activate(t, n, r, o, c) : le(t, n, r, i, a, o, c) : ue(e, t, c);
-	}, le = (e, t, n, r, i, a, o) => {
-		let s = e.component = Ea(e, r, i);
-		if (yr(e) && (s.ctx.renderer = E), Fa(s, !1, o), s.asyncDep) {
-			if (i && i.registerDep(s, de, o), !e.el) {
-				let r = s.subTree = B(na);
+		h && (l = l ? l.concat(h) : h), e == null ? (r(d, n, i), r(f, n, i), re(t.children || [], n, f, a, o, c, l, u)) : p > 0 && p & 64 && m && e.dynamicChildren && e.dynamicChildren.length === m.length ? (w(e.dynamicChildren, m, n, a, o, c, l), (t.key != null || a && t === a.subTree) && oa(e, t, !0)) : ue(e, t, n, f, a, o, c, l, u);
+	}, E = (e, t, n, r, i, a, o, s, c) => {
+		t.slotScopeIds = s, e == null ? t.shapeFlag & 512 ? i.ctx.activate(t, n, r, o, c) : oe(t, n, r, i, a, o, c) : se(e, t, c);
+	}, oe = (e, t, n, r, i, a, o) => {
+		let s = e.component = Ba(e, r, i);
+		if (Ar(e) && (s.ctx.renderer = xe), Ya(s, !1, o), s.asyncDep) {
+			if (i && i.registerDep(s, ce, o, a), !e.el) {
+				let r = s.subTree = U(ha);
 				b(null, r, t, n), e.placeholder = r.el;
 			}
-		} else de(s, e, t, n, i, a, o);
-	}, ue = (e, t, n) => {
+		} else ce(s, e, t, n, i, a, o);
+	}, se = (e, t, n) => {
 		let r = t.component = e.component;
-		if (bi(e, t, n)) if (r.asyncDep && !r.asyncResolved) {
-			fe(r, t, n);
-			return;
-		} else r.next = t, r.update();
-		else t.el = e.el, r.vnode = t;
-	}, de = (e, t, n, r, i, a, o) => {
+		if (Mi(e, t, n)) {
+			if (r.asyncDep && !r.asyncResolved) {
+				t.el = e.el, t.placeholder = e.placeholder, le(r, t, n);
+				return;
+			}
+			r.next = t, r.update();
+		} else t.el = e.el, t.placeholder = e.placeholder, r.vnode = t;
+	}, ce = (e, t, n, r, i, a, o) => {
 		let s = () => {
 			if (e.isMounted) {
 				let { next: t, bu: n, u: r, parent: s, vnode: c } = e;
 				{
-					let n = Xi(e);
+					let n = ca(e);
 					if (n) {
-						t && (t.el = c.el, fe(e, t, o)), n.asyncDep.then(() => {
-							Hi(() => {
-								e.isUnmounted || l();
-							}, i);
+						t && (t.el = c.el, le(e, t, o)), n.asyncDep.then(() => {
+							let t = () => {
+								e.job.flags & 8 || (i && i.pendingBranch ? ea(t, i) : l());
+							};
+							t.flags = 48, ea(t, i);
 						});
 						return;
 					}
 				}
-				let u = t, d;
-				Ki(e, !1), t ? (t.el = c.el, fe(e, t, o)) : t = c, n && ge(n), (d = t.props && t.props.onVnodeBeforeUpdate) && Ca(d, s, t, c), Ki(e, !0);
-				let f = _i(e), p = e.subTree;
-				e.subTree = f, v(p, f, m(p.el), Ce(p), e, i, a), t.el = f.el, u === null && Ci(e, f.el), r && Hi(r, i), (d = t.props && t.props.onVnodeUpdated) && Hi(() => Ca(d, s, t, c), i);
+				let u = t, f;
+				ia(e, !1), t ? (t.el = c.el, le(e, t, o)) : t = c, n && ye(n), (f = t.props && t.props.onVnodeBeforeUpdate) && Ia(f, s, t, c), ia(e, !0);
+				let p = Oi(e), m = e.subTree;
+				e.subTree = p, v(m, p, d(m.el || ua(m)), O(m), e, i, a), t.el = p.el, u === null && Fi(e, p.el), r && ea(r, i), (f = t.props && t.props.onVnodeUpdated) && ea(() => Ia(f, s, t, c), i);
 			} else {
-				let o, { el: s, props: c } = t, { bm: l, m: u, parent: d, root: f, type: p } = e, m = vr(t);
-				if (Ki(e, !1), l && ge(l), !m && (o = c && c.onVnodeBeforeMount) && Ca(o, d, t), Ki(e, !0), s && De) {
+				let o, { el: s, props: c } = t, { bm: l, m: u, parent: d, root: f, type: p } = e, m = kr(t);
+				if (ia(e, !1), l && ye(l), !m && (o = c && c.onVnodeBeforeMount) && Ia(o, d, t), ia(e, !0), s && we) {
 					let t = () => {
-						e.subTree = _i(e), De(s, e.subTree, e, i, null);
+						e.subTree = Oi(e), we(s, e.subTree, e, i, null);
 					};
 					m && p.__asyncHydrate ? p.__asyncHydrate(s, e, t) : t();
 				} else {
 					f.ce && f.ce._hasShadowRoot() && f.ce._injectChildStyle(p, e.parent ? e.parent.type : void 0);
-					let o = e.subTree = _i(e);
+					let o = e.subTree = Oi(e);
 					v(null, o, n, r, e, i, a), t.el = o.el;
 				}
-				if (u && Hi(u, i), !m && (o = c && c.onVnodeMounted)) {
+				if (u && ea(u, i), !m && (o = c && c.onVnodeMounted)) {
 					let e = t;
-					Hi(() => Ca(o, d, e), i);
+					ea(() => Ia(o, d, e), i);
 				}
-				(t.shapeFlag & 256 || d && vr(d.vnode) && d.vnode.shapeFlag & 256) && e.a && Hi(e.a, i), e.isMounted = !0, t = n = r = null;
+				(t.shapeFlag & 256 || d && kr(d.vnode) && d.vnode.shapeFlag & 256) && e.a && ea(e.a, i), e.isMounted = !0, t = n = r = null;
 			}
 		};
 		e.scope.on();
-		let c = e.effect = new Ve(s);
+		let c = e.effect = new Ke(s);
 		e.scope.off();
 		let l = e.update = c.run.bind(c), u = e.job = c.runIfDirty.bind(c);
-		u.i = e, u.id = e.uid, c.scheduler = () => Bn(u), Ki(e, !0), l();
-	}, fe = (e, t, n) => {
+		u.i = e, u.id = e.uid, c.scheduler = () => Kn(u), ia(e, !0), l();
+	}, le = (e, t, n) => {
 		t.component = e;
 		let r = e.vnode.props;
-		e.vnode = t, e.next = null, Oi(e, t.props, r, n), Vi(e, t.children, n), nt(), Un(e), rt();
-	}, pe = (e, t, n, r, i, a, o, s, c = !1) => {
-		let l = e && e.children, u = e ? e.shapeFlag : 0, d = t.children, { patchFlag: f, shapeFlag: m } = t;
-		if (f > 0) {
-			if (f & 128) {
-				he(l, d, n, r, i, a, o, s, c);
+		e.vnode = t, e.next = null, Bi(e, t.props, r, n), $i(e, t.children, n), st(), Yn(e), ct();
+	}, ue = (e, t, n, r, i, a, o, s, c = !1) => {
+		let l = e && e.children, d = e ? e.shapeFlag : 0, f = t.children, { patchFlag: p, shapeFlag: m } = t;
+		if (p > 0) {
+			if (p & 128) {
+				pe(l, f, n, r, i, a, o, s, c);
 				return;
-			} else if (f & 256) {
-				me(l, d, n, r, i, a, o, s, c);
+			}
+			if (p & 256) {
+				de(l, f, n, r, i, a, o, s, c);
 				return;
 			}
 		}
-		m & 8 ? (u & 16 && Se(l, i, a), d !== l && p(n, d)) : u & 16 ? m & 16 ? he(l, d, n, r, i, a, o, s, c) : Se(l, i, a, !0) : (u & 8 && p(n, ""), m & 16 && ne(d, n, r, i, a, o, s, c));
-	}, me = (e, t, n, r, i, a, o, s, c) => {
-		e ||= u, t ||= u;
-		let l = e.length, d = t.length, f = Math.min(l, d), p;
-		for (p = 0; p < f; p++) {
-			let r = t[p] = c ? ba(t[p]) : ya(t[p]);
-			v(e[p], r, n, null, i, a, o, s, c);
+		m & 8 ? (d & 16 && ve(l, i, a), f !== l && u(n, f)) : d & 16 ? m & 16 ? pe(l, f, n, r, i, a, o, s, c) : ve(l, i, a, !0) : (d & 8 && u(n, ""), m & 16 && re(f, n, r, i, a, o, s, c));
+	}, de = (e, t, n, r, i, a, o, s, c) => {
+		e ||= g, t ||= g;
+		let l = e.length, u = t.length, d = Math.min(l, u), f = 0;
+		for (; f < d; f++) {
+			let r = t[f] = c ? Na(t[f]) : Ma(t[f]);
+			v(e[f], r, n, null, i, a, o, s, c);
 		}
-		l > d ? Se(e, i, a, !0, !1, f) : ne(t, n, r, i, a, o, s, c, f);
-	}, he = (e, t, n, r, i, a, o, s, c) => {
-		let l = 0, d = t.length, f = e.length - 1, p = d - 1;
-		for (; l <= f && l <= p;) {
-			let r = e[l], u = t[l] = c ? ba(t[l]) : ya(t[l]);
-			if (fa(r, u)) v(r, u, n, null, i, a, o, s, c);
+		l > u ? ve(e, i, a, !0, !1, d) : re(t, n, r, i, a, o, s, c, d);
+	}, pe = (e, t, n, r, i, a, o, s, c) => {
+		let l = 0, u = t.length, d = e.length - 1, f = u - 1;
+		for (; l <= d && l <= f;) {
+			let r = e[l], u = t[l] = c ? Na(t[l]) : Ma(t[l]);
+			if (Ta(r, u)) v(r, u, n, null, i, a, o, s, c);
 			else break;
 			l++;
 		}
-		for (; l <= f && l <= p;) {
-			let r = e[f], l = t[p] = c ? ba(t[p]) : ya(t[p]);
-			if (fa(r, l)) v(r, l, n, null, i, a, o, s, c);
+		for (; l <= d && l <= f;) {
+			let r = e[d], l = t[f] = c ? Na(t[f]) : Ma(t[f]);
+			if (Ta(r, l)) v(r, l, n, null, i, a, o, s, c);
 			else break;
-			f--, p--;
+			d--, f--;
 		}
-		if (l > f) {
-			if (l <= p) {
-				let e = p + 1, u = e < d ? t[e].el : r;
-				for (; l <= p;) v(null, t[l] = c ? ba(t[l]) : ya(t[l]), n, u, i, a, o, s, c), l++;
+		if (l > d) {
+			if (l <= f) {
+				let e = f + 1, d = e < u ? t[e].el : r;
+				for (; l <= f;) v(null, t[l] = c ? Na(t[l]) : Ma(t[l]), n, d, i, a, o, s, c), l++;
 			}
-		} else if (l > p) for (; l <= f;) _e(e[l], i, a, !0), l++;
+		} else if (l > f) for (; l <= d;) D(e[l], i, a, !0), l++;
 		else {
-			let m = l, h = l, g = /* @__PURE__ */ new Map();
-			for (l = h; l <= p; l++) {
-				let e = t[l] = c ? ba(t[l]) : ya(t[l]);
-				e.key != null && g.set(e.key, l);
-			}
-			let _, y = 0, b = p - h + 1, x = !1, ee = 0, S = Array(b);
-			for (l = 0; l < b; l++) S[l] = 0;
+			let p = l, m = l, h = /* @__PURE__ */ new Map();
 			for (l = m; l <= f; l++) {
+				let e = t[l] = c ? Na(t[l]) : Ma(t[l]);
+				e.key != null && h.set(e.key, l);
+			}
+			let _, y = 0, b = f - m + 1, x = !1, ee = 0, te = Array(b);
+			for (l = 0; l < b; l++) te[l] = 0;
+			for (l = p; l <= d; l++) {
 				let r = e[l];
 				if (y >= b) {
-					_e(r, i, a, !0);
+					D(r, i, a, !0);
 					continue;
 				}
 				let u;
-				if (r.key != null) u = g.get(r.key);
-				else for (_ = h; _ <= p; _++) if (S[_ - h] === 0 && fa(r, t[_])) {
+				if (r.key != null) u = h.get(r.key);
+				else for (_ = m; _ <= f; _++) if (te[_ - m] === 0 && Ta(r, t[_])) {
 					u = _;
 					break;
 				}
-				u === void 0 ? _e(r, i, a, !0) : (S[u - h] = l + 1, u >= ee ? ee = u : x = !0, v(r, t[u], n, null, i, a, o, s, c), y++);
+				u === void 0 ? D(r, i, a, !0) : (te[u - m] = l + 1, u >= ee ? ee = u : x = !0, v(r, t[u], n, null, i, a, o, s, c), y++);
 			}
-			let C = x ? Yi(S) : u;
-			for (_ = C.length - 1, l = b - 1; l >= 0; l--) {
-				let e = h + l, u = t[e], f = t[e + 1], p = e + 1 < d ? f.el || Qi(f) : r;
-				S[l] === 0 ? v(null, u, n, p, i, a, o, s, c) : x && (_ < 0 || l !== C[_] ? T(u, n, p, 2) : _--);
+			let S = x ? sa(te) : g;
+			for (_ = S.length - 1, l = b - 1; l >= 0; l--) {
+				let e = m + l, d = t[e], f = t[e + 1], p = e + 1 < u ? f.el || ua(f) : r;
+				te[l] === 0 ? v(null, d, n, p, i, a, o, s, c) : x && (_ < 0 || l !== S[_] ? me(d, n, p, 2) : _--);
 			}
 		}
-	}, T = (e, t, n, a, o = null) => {
+	}, me = (e, t, n, a, o = null) => {
 		let { el: s, type: c, transition: l, children: u, shapeFlag: d } = e;
-		if (d & 6) {
-			T(e.component.subTree, t, n, a);
-			return;
-		}
-		if (d & 128) {
-			e.suspense.move(t, n, a);
-			return;
-		}
-		if (d & 64) {
-			c.move(e, t, n, E);
-			return;
-		}
-		if (c === I) {
+		if (d & 6) me(e.component.subTree, t, n, a);
+		else if (d & 128) e.suspense.move(t, n, a);
+		else if (d & 64) c.move(e, t, n, xe);
+		else if (c === z) {
 			r(s, t, n);
-			for (let e = 0; e < u.length; e++) T(u[e], t, n, a);
+			for (let e = 0; e < u.length; e++) me(u[e], t, n, a);
 			r(e.anchor, t, n);
-			return;
-		}
-		if (c === ra) {
-			ee(e, t, n);
-			return;
-		}
-		if (a !== 2 && d & 1 && l) if (a === 0) l.persisted && !s[ur] ? r(s, t, n) : (l.beforeEnter(s), r(s, t, n), Hi(() => l.enter(s), o));
-		else {
-			let { leave: a, delayLeave: o, afterLeave: c } = l, u = () => {
-				e.ctx.isUnmounted ? i(s) : r(s, t, n);
-			}, d = () => {
-				let e = s._isLeaving || !!s[ur];
-				s._isLeaving && s[ur](!0), l.persisted && !e ? u() : a(s, () => {
-					u(), c && c();
-				});
-			};
-			o ? o(s, u, d) : d();
-		}
-		else r(s, t, n);
-	}, _e = (e, t, n, r = !1, i = !1) => {
+		} else if (c === ga) ee(e, t, n);
+		else if (a !== 2 && d & 1 && l) {
+			if (a === 0) l.persisted && !s[vr] ? r(s, t, n) : (l.beforeEnter(s), r(s, t, n), ea(() => l.enter(s), o));
+			else {
+				let { leave: a, delayLeave: o, afterLeave: c } = l, u = () => {
+					e.ctx.isUnmounted ? i(s) : r(s, t, n);
+				}, d = () => {
+					let e = s._isLeaving || !!s[vr];
+					s._isLeaving && s[vr](!0), l.persisted && !e ? u() : a(s, () => {
+						u(), c && c();
+					});
+				};
+				o ? o(s, u, d) : d();
+			}
+		} else r(s, t, n);
+	}, D = (e, t, n, r = !1, i = !1) => {
 		let { type: a, props: o, ref: s, children: c, dynamicChildren: l, shapeFlag: u, patchFlag: d, dirs: f, cacheIndex: p, memo: m } = e;
-		if (d === -2 && (i = !1), s != null && (nt(), gr(s, null, n, e, !0), rt()), p != null && (t.renderCache[p] = void 0), u & 256) {
-			t.ctx.deactivate(e);
-			return;
-		}
-		let h = u & 1 && f, g = !vr(e), _;
-		if (g && (_ = o && o.onVnodeBeforeUnmount) && Ca(_, t, e), u & 6) xe(e.component, n, r);
+		if ((d === -2 || l && l.hasOnce) && (i = !1), s != null && (st(), Dr(s, null, n, e, !0), ct()), p == null || e.ctx && e.ctx !== t || (t.renderCache[p] = void 0), u & 256 && t.ctx.deactivate(e)) return;
+		let h = u & 1 && f, g = !kr(e), _;
+		if (g && (_ = o && o.onVnodeBeforeUnmount) && Ia(_, t, e), u & 6) _e(e.component, n, r);
 		else {
 			if (u & 128) {
 				e.suspense.unmount(n, r);
 				return;
 			}
-			h && Zn(e, null, t, "beforeUnmount"), u & 64 ? e.type.remove(e, t, n, E, r) : l && !l.hasOnce && (a !== I || d > 0 && d & 64) ? Se(l, t, n, !1, !0) : (a === I && d & 384 || !i && u & 16) && Se(c, t, n), r && ve(e);
+			h && ar(e, null, t, "beforeUnmount"), u & 64 ? e.type.remove(e, t, n, xe, r) : l && !l.hasOnce && (a !== z || d > 0 && d & 64) ? ve(l, t, n, !1, !0) : (a === z && d & 384 || !i && u & 16) && ve(c, t, n), r && he(e);
 		}
 		let v = m != null && p == null;
-		(g && (_ = o && o.onVnodeUnmounted) || h || v) && Hi(() => {
-			_ && Ca(_, t, e), h && Zn(e, null, t, "unmounted"), v && (e.el = null);
+		(g && (_ = o && o.onVnodeUnmounted) || h || v) && ea(() => {
+			_ && Ia(_, t, e), h && ar(e, null, t, "unmounted"), v && (e.el = null);
 		}, n);
-	}, ve = (e) => {
-		let { type: t, el: n, anchor: r, transition: a } = e;
-		if (t === I) {
-			ye(n, r);
+	}, he = (e) => {
+		let { type: t, el: n, anchor: r, transition: a } = e, o = t === z;
+		if (o && !a) {
+			ge(n, r);
 			return;
 		}
-		if (t === ra) {
-			S(e);
+		if (t === ga) {
+			te(e), a && !a.persisted && a.afterLeave && a.afterLeave();
 			return;
 		}
-		let o = () => {
-			i(n), a && !a.persisted && a.afterLeave && a.afterLeave();
+		let s = o ? Sr(e) : e, c = () => {
+			o ? d(n) && ge(n, r) : i(n), a && !a.persisted && a.afterLeave && a.afterLeave();
 		};
-		if (e.shapeFlag & 1 && a && !a.persisted) {
-			let { leave: t, delayLeave: r } = a, i = () => t(n, o);
-			r ? r(e.el, o, i) : i();
-		} else o();
-	}, ye = (e, t) => {
+		if (s && s.shapeFlag & 1 && a && !a.persisted) {
+			let { leave: e, delayLeave: t } = a, n = s.el, r = () => e(n, c);
+			t ? t(n, c, r) : r();
+		} else c();
+	}, ge = (e, t) => {
 		let n;
-		for (; e !== t;) n = h(e), i(e), e = n;
+		for (; e !== t;) n = f(e), i(e), e = n;
 		i(t);
-	}, xe = (e, t, n) => {
+	}, _e = (e, t, n) => {
 		let { bum: r, scope: i, job: a, subTree: o, um: s, m: c, a: l } = e;
-		Zi(c), Zi(l), r && ge(r), i.stop(), a && (a.flags |= 8, _e(o, e, t, n)), s && Hi(s, t), Hi(() => {
+		la(c), la(l), r && ye(r), i.stop(), a ? (a.flags |= 8, D(o, e, t, n)) : o && (o.transition = e.vnode.transition, D(o, e, t, n)), s && ea(s, t);
+		let u = () => {
 			e.isUnmounted = !0;
-		}, t);
-	}, Se = (e, t, n, r = !1, i = !1, a = 0) => {
-		for (let o = a; o < e.length; o++) _e(e[o], t, n, r, i);
-	}, Ce = (e) => {
-		if (e.shapeFlag & 6) return Ce(e.component.subTree);
+		};
+		u.flags = 16, ea(u, t);
+	}, ve = (e, t, n, r = !1, i = !1, a = 0) => {
+		for (let o = a; o < e.length; o++) D(e[o], t, n, r, i);
+	}, O = (e) => {
+		if (e.shapeFlag & 6) return O(e.component.subTree);
 		if (e.shapeFlag & 128) return e.suspense.next();
-		let t = h(e.anchor || e.el), n = t && t[cr];
-		return n ? h(n) : t;
-	}, we = !1, Te = (e, t, n) => {
-		let r;
-		e == null ? t._vnode && (_e(t._vnode, null, null, !0), r = t._vnode.component) : v(t._vnode || null, e, t, null, null, null, n), t._vnode = e, we ||= (we = !0, Un(r), Wn(), !1);
-	}, E = {
+		let t = f(e.anchor || e.el), n = t && t[gr];
+		return n ? f(n) : t;
+	}, be = (e, t, n) => {
+		Qn(() => {
+			e == null ? t._vnode && D(t._vnode, null, null, !0) : v(t._vnode || null, e, t, null, null, null, n), t._vnode = e;
+		}, e && t._vnode ? void 0 : e && e.component ? e.component.uid : za());
+	}, xe = {
 		p: v,
-		um: _e,
-		m: T,
-		r: ve,
-		mt: le,
-		mc: ne,
-		pc: pe,
-		pbc: ie,
-		n: Ce,
+		um: D,
+		m: me,
+		r: he,
+		mt: oe,
+		mc: re,
+		pc: ue,
+		pbc: w,
+		n: O,
 		o: e
-	}, Ee, De;
-	return t && ([Ee, De] = t(E)), {
-		render: Te,
-		hydrate: Ee,
-		createApp: ci(Te, Ee)
+	}, Se, we;
+	return t && ([Se, we] = t(xe)), {
+		render: be,
+		hydrate: Se,
+		createApp: bi(be, Se)
 	};
 }
-function Gi({ type: e, props: t }, n) {
+function ra({ type: e, props: t }, n) {
 	return n === "svg" && e === "foreignObject" || n === "mathml" && e === "annotation-xml" && t && t.encoding && t.encoding.includes("html") ? void 0 : n;
 }
-function Ki({ effect: e, job: t }, n) {
+function ia({ effect: e, job: t }, n) {
 	n ? (e.flags |= 32, t.flags |= 4) : (e.flags &= -33, t.flags &= -5);
 }
-function qi(e, t) {
+function aa(e, t) {
 	return (!e || e && !e.pendingBranch) && t && !t.persisted;
 }
-function Ji(e, t, n = !1) {
+function oa(e, t, n = !1) {
 	let r = e.children, i = t.children;
-	if (y(r) && y(i)) for (let e = 0; e < r.length; e++) {
+	if (C(r) && C(i)) for (let e = 0; e < r.length; e++) {
 		let t = r[e], a = i[e];
-		a.shapeFlag & 1 && !a.dynamicChildren && ((a.patchFlag <= 0 || a.patchFlag === 32) && (a = i[e] = ba(i[e]), a.el = t.el), !n && a.patchFlag !== -2 && Ji(t, a)), a.type === ta && (a.patchFlag === -1 && (a = i[e] = ba(a)), a.el = t.el), a.type === na && !a.el && (a.el = t.el);
+		a.shapeFlag & 1 && !a.dynamicChildren && ((a.patchFlag <= 0 || a.patchFlag === 32) && (a = i[e] = Na(i[e]), a.el = t.el), !n && a.patchFlag !== -2 && oa(t, a)), a.type === ma && (a.patchFlag === -1 && (a = i[e] = Na(a)), a.el = t.el), a.type === ha && !a.el && (a.el = t.el);
 	}
 }
-function Yi(e) {
+function sa(e) {
 	let t = e.slice(), n = [0], r, i, a, o, s, c = e.length;
 	for (r = 0; r < c; r++) {
 		let c = e[r];
@@ -2381,63 +2523,65 @@ function Yi(e) {
 	for (a = n.length, o = n[a - 1]; a-- > 0;) n[a] = o, o = t[o];
 	return n;
 }
-function Xi(e) {
+function ca(e) {
 	let t = e.subTree.component;
-	if (t) return t.asyncDep && !t.asyncResolved ? t : Xi(t);
-}
-function Zi(e) {
-	if (e) for (let t = 0; t < e.length; t++) e[t].flags |= 8;
-}
-function Qi(e) {
-	if (e.placeholder) return e.placeholder;
-	let t = e.component;
-	return t ? Qi(t.subTree) : null;
-}
-var $i = (e) => e.__isSuspense;
-function ea(e, t) {
-	t && t.pendingBranch ? y(e) ? t.effects.push(...e) : t.effects.push(e) : Hn(e);
-}
-var I = /* @__PURE__ */ Symbol.for("v-fgt"), ta = /* @__PURE__ */ Symbol.for("v-txt"), na = /* @__PURE__ */ Symbol.for("v-cmt"), ra = /* @__PURE__ */ Symbol.for("v-stc"), ia = [], aa = null;
-function L(e = !1) {
-	ia.push(aa = e ? null : []);
-}
-function oa() {
-	ia.pop(), aa = ia[ia.length - 1] || null;
-}
-var sa = 1;
-function ca(e, t = !1) {
-	sa += e, e < 0 && aa && t && (aa.hasOnce = !0);
+	if (t) return t.asyncDep && !t.asyncResolved ? t : ca(t);
 }
 function la(e) {
-	return e.dynamicChildren = sa > 0 ? aa || u : null, oa(), sa > 0 && aa && aa.push(e), e;
+	if (e) for (let t = 0; t < e.length; t++) e[t].flags |= 8;
 }
-function R(e, t, n, r, i, a) {
-	return la(z(e, t, n, r, i, a, !0));
+function ua(e) {
+	if (e.placeholder) return e.placeholder;
+	let t = e.component;
+	if (t) return ua(t.subTree);
+	let n = e.suspense;
+	return n && n.activeBranch ? ua(n.activeBranch) : null;
 }
-function ua(e, t, n, r, i) {
-	return la(B(e, t, n, r, i, !0));
+var da = (e) => e.__isSuspense, fa = /* @__PURE__ */ Symbol("_deferredEnter");
+function pa(e, t) {
+	t && t.pendingBranch ? C(e) ? t.effects.push(...e) : t.effects.push(e) : Jn(e);
 }
-function da(e) {
+var z = /* @__PURE__ */ Symbol.for("v-fgt"), ma = /* @__PURE__ */ Symbol.for("v-txt"), ha = /* @__PURE__ */ Symbol.for("v-cmt"), ga = /* @__PURE__ */ Symbol.for("v-stc"), _a = [], va = null;
+function B(e = !1) {
+	_a.push(va = e ? null : []);
+}
+function ya() {
+	_a.pop(), va = _a[_a.length - 1] || null;
+}
+var ba = 1;
+function xa(e, t = !1) {
+	ba += e, e < 0 && va && t && (va.hasOnce = !0);
+}
+function Sa(e) {
+	return e.dynamicChildren = ba > 0 ? va || g : null, ya(), ba > 0 && va && va.push(e), e;
+}
+function V(e, t, n, r, i, a) {
+	return Sa(H(e, t, n, r, i, a, !0));
+}
+function Ca(e, t, n, r, i) {
+	return Sa(U(e, t, n, r, i, !0));
+}
+function wa(e) {
 	return e ? e.__v_isVNode === !0 : !1;
 }
-function fa(e, t) {
+function Ta(e, t) {
 	return e.type === t.type && e.key === t.key;
 }
-var pa = ({ key: e }) => e ?? null, ma = ({ ref: e, ref_key: t, ref_for: n }) => (typeof e == "number" && (e = "" + e), e == null ? null : C(e) || /* @__PURE__ */ A(e) || S(e) ? {
-	i: qn,
+var Ea = ({ key: e }) => e ?? null, Da = ({ ref: e, ref_key: t, ref_for: n }) => (typeof e == "number" && (e = "" + e), e == null ? null : T(e) || /* @__PURE__ */ N(e) || w(e) ? {
+	i: tr,
 	r: e,
 	k: t,
 	f: !!n
 } : e);
-function z(e, t = null, n = null, r = 0, i = null, a = e === I ? 0 : 1, o = !1, s = !1) {
+function H(e, t = null, n = null, r = 0, i = null, a = e === z ? 0 : 1, o = !1, s = !1) {
 	let c = {
 		__v_isVNode: !0,
 		__v_skip: !0,
 		type: e,
 		props: t,
-		key: t && pa(t),
-		ref: t && ma(t),
-		scopeId: Jn,
+		key: t && Ea(t),
+		ref: t && Da(t),
+		scopeId: nr,
 		slotScopeIds: null,
 		children: n,
 		component: null,
@@ -2457,35 +2601,35 @@ function z(e, t = null, n = null, r = 0, i = null, a = e === I ? 0 : 1, o = !1, 
 		dynamicProps: i,
 		dynamicChildren: null,
 		appContext: null,
-		ctx: qn
+		ctx: tr
 	};
-	return s ? (xa(c, n), a & 128 && e.normalize(c)) : n && (c.shapeFlag |= C(n) ? 8 : 16), sa > 0 && !o && aa && (c.patchFlag > 0 || a & 6) && c.patchFlag !== 32 && aa.push(c), c;
+	return s ? (Pa(c, n), a & 128 && e.normalize(c)) : n && (c.shapeFlag |= T(n) ? 8 : 16), ba > 0 && !o && va && (c.patchFlag > 0 || a & 6) && c.patchFlag !== 32 && va.push(c), c;
 }
-var B = ha;
-function ha(e, t = null, n = null, r = 0, i = null, a = !1) {
-	if ((!e || e === Ir) && (e = na), da(e)) {
-		let r = _a(e, t, !0);
-		return n && xa(r, n), sa > 0 && !a && aa && (r.shapeFlag & 6 ? aa[aa.indexOf(e)] = r : aa.push(r)), r.patchFlag = -2, r;
+var U = Oa;
+function Oa(e, t = null, n = null, r = 0, i = null, a = !1) {
+	if (e && e !== qr || (e = ha), wa(e)) {
+		let r = Aa(e, t, !0);
+		return n && Pa(r, n), ba > 0 && !a && va && (r.shapeFlag & 6 ? va[va.indexOf(e)] = r : va.push(r)), r.patchFlag = -2, r;
 	}
-	if (Wa(e) && (e = e.__vccOpts), t) {
-		t = ga(t);
+	if (ro(e) && (e = e.__vccOpts), t) {
+		t = ka(t);
 		let { class: e, style: n } = t;
-		e && !C(e) && (t.class = E(e)), w(n) && (/* @__PURE__ */ nn(n) && !y(n) && (n = h({}, n)), t.style = xe(n));
+		e && !T(e) && (t.class = ke(e)), E(n) && (/* @__PURE__ */ ln(n) && !C(n) && (n = x({}, n)), t.style = we(n));
 	}
-	let o = C(e) ? 1 : $i(e) ? 128 : lr(e) ? 64 : w(e) ? 4 : S(e) ? 2 : 0;
-	return z(e, t, n, r, i, o, a, !0);
+	let o = T(e) ? 1 : da(e) ? 128 : _r(e) ? 64 : E(e) ? 4 : w(e) ? 2 : 0;
+	return H(e, t, n, r, i, o, a, !0);
 }
-function ga(e) {
-	return e ? /* @__PURE__ */ nn(e) || Ei(e) ? h({}, e) : e : null;
+function ka(e) {
+	return e ? /* @__PURE__ */ ln(e) ? x({}, e) : Ri(e) ? x({}, e[$a] || e) : e : null;
 }
-function _a(e, t, n = !1, r = !1) {
-	let { props: i, ref: a, patchFlag: o, children: s, transition: c } = e, l = t ? Sa(i || {}, t) : i, u = {
+function Aa(e, t, n = !1, r = !1) {
+	let { props: i, ref: a, patchFlag: o, children: s, transition: c } = e, l = t ? Fa(i || {}, t) : i, u = {
 		__v_isVNode: !0,
 		__v_skip: !0,
 		type: e.type,
 		props: l,
-		key: l && pa(l),
-		ref: t && t.ref ? n && a ? y(a) ? a.concat(ma(t)) : [a, ma(t)] : ma(t) : a,
+		key: l && Ea(l),
+		ref: t && t.ref ? n && a ? C(a) ? a.concat(Da(t)) : [a, Da(t)] : Da(t) : a,
 		scopeId: e.scopeId,
 		slotScopeIds: e.slotScopeIds,
 		children: s,
@@ -2494,7 +2638,7 @@ function _a(e, t, n = !1, r = !1) {
 		targetAnchor: e.targetAnchor,
 		staticCount: e.staticCount,
 		shapeFlag: e.shapeFlag,
-		patchFlag: t && e.type !== I ? o === -1 ? 16 : o | 16 : o,
+		patchFlag: t && e.type !== z ? o === -1 ? 16 : o | 16 : o,
 		dynamicProps: e.dynamicProps,
 		dynamicChildren: e.dynamicChildren,
 		appContext: e.appContext,
@@ -2502,71 +2646,83 @@ function _a(e, t, n = !1, r = !1) {
 		transition: c,
 		component: e.component,
 		suspense: e.suspense,
-		ssContent: e.ssContent && _a(e.ssContent),
-		ssFallback: e.ssFallback && _a(e.ssFallback),
+		ssContent: e.ssContent && Aa(e.ssContent),
+		ssFallback: e.ssFallback && Aa(e.ssFallback),
 		placeholder: e.placeholder,
 		el: e.el,
 		anchor: e.anchor,
 		ctx: e.ctx,
-		ce: e.ce
+		ce: e.ce,
+		cacheIndex: e.cacheIndex
 	};
-	return c && r && dr(u, c.clone(u)), u;
+	return c && r && xr(u, c.clone(u)), u;
 }
-function V(e = " ", t = 0) {
-	return B(ta, null, e, t);
+function W(e = " ", t = 0) {
+	return U(ma, null, e, t);
 }
-function va(e, t) {
-	let n = B(ra, null, e);
+function ja(e, t) {
+	let n = U(ga, null, e);
 	return n.staticCount = t, n;
 }
-function H(e = "", t = !1) {
-	return t ? (L(), ua(na, null, e)) : B(na, null, e);
+function G(e = "", t = !1) {
+	return t ? (B(), Ca(ha, null, e)) : U(ha, null, e);
 }
-function ya(e) {
-	return e == null || typeof e == "boolean" ? B(na) : y(e) ? B(I, null, e.slice()) : da(e) ? ba(e) : B(ta, null, String(e));
+function Ma(e) {
+	return e == null || typeof e == "boolean" ? U(ha) : C(e) ? U(z, null, e.slice()) : wa(e) ? Na(e) : U(ma, null, String(e));
 }
-function ba(e) {
-	return e.el === null && e.patchFlag !== -1 || e.memo ? e : _a(e);
+function Na(e) {
+	return e.el === null && e.patchFlag !== -1 || e.memo ? e : Aa(e);
 }
-function xa(e, t) {
+function Pa(e, t) {
 	let n = 0, { shapeFlag: r } = e;
 	if (t == null) t = null;
-	else if (y(t)) n = 16;
-	else if (typeof t == "object") if (r & 65) {
-		let n = t.default;
-		n && (n._c && (n._d = !1), xa(e, n()), n._c && (n._d = !0));
-		return;
-	} else {
-		n = 32;
-		let r = t._;
-		!r && !Ei(t) ? t._ctx = qn : r === 3 && qn && (qn.slots._ === 1 ? t._ = 1 : (t._ = 2, e.patchFlag |= 1024));
-	}
-	else S(t) ? (t = {
-		default: t,
-		_ctx: qn
-	}, n = 32) : (t = String(t), r & 64 ? (n = 16, t = [V(t)]) : n = 8);
+	else if (C(t)) n = 16;
+	else if (typeof t == "object") {
+		if (r & 65) {
+			let n = t.default;
+			n && (n._c && (n._d = !1), Pa(e, n()), n._c && (n._d = !0));
+			return;
+		}
+		{
+			n = 32;
+			let r = t._;
+			!r && !Ri(t) ? t._ctx = tr : r === 3 && tr && (tr.slots._ === 1 ? t._ = 1 : (t._ = 2, e.patchFlag |= 1024));
+		}
+	} else if (w(t)) {
+		if (r & 65) {
+			Pa(e, { default: t });
+			return;
+		}
+		t = {
+			default: t,
+			_ctx: tr
+		}, n = 32;
+	} else t = String(t), r & 64 ? (n = 16, t = [W(t)]) : n = 8;
 	e.children = t, e.shapeFlag |= n;
 }
-function Sa(...e) {
+function Fa(...e) {
 	let t = {};
 	for (let n = 0; n < e.length; n++) {
 		let r = e[n];
-		for (let e in r) if (e === "class") t.class !== r.class && (t.class = E([t.class, r.class]));
-		else if (e === "style") t.style = xe([t.style, r.style]);
-		else if (p(e)) {
+		for (let e in r) if (e === "class") t.class !== r.class && (t.class = ke([t.class, r.class]));
+		else if (e === "style") t.style = we([t.style, r.style]);
+		else if (y(e)) {
 			let n = t[e], i = r[e];
-			i && n !== i && !(y(n) && n.includes(i)) ? t[e] = n ? [].concat(n, i) : i : i == null && n == null && !m(e) && (t[e] = i);
+			i && n !== i && !(C(n) && n.includes(i)) ? t[e] = n ? [].concat(n, i) : i : i == null && n == null && !b(e) && (t[e] = i);
 		} else e !== "" && (t[e] = r[e]);
 	}
 	return t;
 }
-function Ca(e, t, n, r = null) {
-	On(e, t, 7, [n, r]);
+function Ia(e, t, n, r = null) {
+	Pn(e, t, 7, [n, r]);
 }
-var wa = oi(), Ta = 0;
-function Ea(e, t, n) {
-	let r = e.type, i = (t ? t.appContext : e.appContext) || wa, a = {
-		uid: Ta++,
+var La = /* @__PURE__ */ vi(), Ra = 0;
+function za() {
+	return Ra;
+}
+function Ba(e, t, n) {
+	let r = e.type, i = (t ? t.appContext : e.appContext) || La, a = {
+		uid: Ra++,
 		vnode: e,
 		type: r,
 		parent: t,
@@ -2577,7 +2733,7 @@ function Ea(e, t, n) {
 		effect: null,
 		update: null,
 		job: null,
-		scope: new Ie(!0),
+		scope: new Ve(!0),
 		render: null,
 		proxy: null,
 		exposed: null,
@@ -2593,19 +2749,19 @@ function Ea(e, t, n) {
 		renderCache: [],
 		components: null,
 		directives: null,
-		propsOptions: Mi(r, i),
-		emitsOptions: hi(r, i),
+		propsOptions: Wi(r, i),
+		emitsOptions: Ei(r, i),
 		emit: null,
 		emitted: null,
-		propsDefaults: l,
+		propsDefaults: h,
 		inheritAttrs: r.inheritAttrs,
-		ctx: l,
-		data: l,
-		props: l,
-		attrs: l,
-		slots: l,
-		refs: l,
-		setupState: l,
+		ctx: h,
+		data: h,
+		props: h,
+		attrs: h,
+		slots: h,
+		refs: h,
+		setupState: h,
 		setupContext: null,
 		suspense: n,
 		suspenseId: n ? n.pendingId : 0,
@@ -2629,89 +2785,81 @@ function Ea(e, t, n) {
 		ec: null,
 		sp: null
 	};
-	return a.ctx = { _: a }, a.root = t ? t.root : a, a.emit = pi.bind(null, a), e.ce && e.ce(a), a;
+	return a.ctx = { _: a }, a.root = t ? t.root : a, a.emit = wi.bind(null, a), e.ce && e.ce(a), a;
 }
-var Da = null, Oa = () => Da || qn, ka, Aa;
+var Va = null, Ha = () => Va || tr, Ua, Wa;
 {
-	let e = be(), t = (t, n) => {
+	let e = Ce(), t = (t, n) => {
 		let r;
 		return (r = e[t]) || (r = e[t] = []), r.push(n), (e) => {
 			r.length > 1 ? r.forEach((t) => t(e)) : r[0](e);
 		};
 	};
-	ka = t("__VUE_INSTANCE_SETTERS__", (e) => Da = e), Aa = t("__VUE_SSR_SETTERS__", (e) => Pa = e);
+	Ua = t("__VUE_INSTANCE_SETTERS__", (e) => Va = e), Wa = t("__VUE_SSR_SETTERS__", (e) => Ja = e);
 }
-var ja = (e) => {
-	let t = Da;
-	return ka(e), e.scope.on(), () => {
-		e.scope.off(), ka(t);
+var Ga = (e) => {
+	let t = Va;
+	return Ua(e), e.scope.on(), () => {
+		e.scope.off(), Ua(t);
 	};
-}, Ma = () => {
-	Da && Da.scope.off(), ka(null);
+}, Ka = () => {
+	Va && Va.scope.off(), Ua(null);
 };
-function Na(e) {
+function qa(e) {
 	return e.vnode.shapeFlag & 4;
 }
-var Pa = !1;
-function Fa(e, t = !1, n = !1) {
-	t && Aa(t);
-	let { props: r, children: i } = e.vnode, a = Na(e);
-	Di(e, r, a, t), Bi(e, i, n || t);
-	let o = a ? Ia(e, t) : void 0;
-	return t && Aa(!1), o;
+var Ja = !1;
+function Ya(e, t = !1, n = !1) {
+	t && Wa(t);
+	let { props: r, children: i } = e.vnode, a = qa(e);
+	zi(e, r, a, t), Qi(e, i, n || t);
+	let o = a ? Xa(e, t) : void 0;
+	return t && Wa(!1), o;
 }
-function Ia(e, t) {
+function Xa(e, t) {
 	let n = e.type;
-	e.accessCache = /* @__PURE__ */ Object.create(null), e.proxy = new Proxy(e.ctx, Hr);
+	e.accessCache = /* @__PURE__ */ Object.create(null), e.proxy = new Proxy(e.ctx, $r);
 	let { setup: r } = n;
 	if (r) {
-		nt();
-		let n = e.setupContext = r.length > 1 ? Ha(e) : null, i = ja(e), a = Dn(r, e, 0, [e.props, n]), o = ne(a);
-		if (rt(), i(), (o || e.sp) && !vr(e) && pr(e), o) {
-			if (a.then(Ma, Ma), t) return a.then((n) => {
-				La(e, n, t);
+		st();
+		let n = e.setupContext = r.length > 1 ? to(e) : null, i = Ga(e), a = Nn(r, e, 0, [e.props, n]), o = oe(a);
+		if (ct(), i(), (o || e.sp) && !kr(e) && wr(e), o) {
+			if (a.then(Ka, Ka), t) return a.then((n) => {
+				Wa(!0);
+				try {
+					Za(e, n, t);
+				} finally {
+					Wa(!1);
+				}
 			}).catch((t) => {
-				kn(t, e, 0);
+				Fn(t, e, 0, void 0, !0), e.ssrRender = (e, t) => t("<!---->");
 			});
 			e.asyncDep = a;
-		} else La(e, a, t);
-	} else Ba(e, t);
+		} else Za(e, a, t);
+	} else Qa(e, t);
 }
-function La(e, t, n) {
-	S(t) ? e.type.__ssrInlineRender ? e.ssrRender = t : e.render = t : w(t) && (e.setupState = dn(t)), Ba(e, n);
+function Za(e, t, n) {
+	w(t) ? e.type.__ssrInlineRender ? e.ssrRender = t : e.render = t : E(t) && (e.setupState = _n(t)), Qa(e, n);
 }
-var Ra, za;
-function Ba(e, t, n) {
+function Qa(e, t, n) {
 	let r = e.type;
-	if (!e.render) {
-		if (!t && Ra && !r.render) {
-			let t = r.template || Xr(e).template;
-			if (t) {
-				let { isCustomElement: n, compilerOptions: i } = e.appContext.config, { delimiters: a, compilerOptions: o } = r;
-				r.render = Ra(t, h(h({
-					isCustomElement: n,
-					delimiters: a
-				}, i), o));
-			}
-		}
-		e.render = r.render || d, za && za(e);
-	}
+	e.render ||= r.render || _;
 	{
-		let t = ja(e);
-		nt();
+		let t = Ga(e);
+		st();
 		try {
-			Kr(e);
+			ri(e);
 		} finally {
-			rt(), t();
+			ct(), t();
 		}
 	}
 }
-var Va = { get(e, t) {
-	return pt(e, "get", ""), e[t];
+var $a = /* @__PURE__ */ Symbol(), eo = { get(e, t) {
+	return vt(e, "get", ""), t === $a ? e : e[t];
 } };
-function Ha(e) {
+function to(e) {
 	return {
-		attrs: new Proxy(e.attrs, Va),
+		attrs: new Proxy(e.attrs, eo),
 		slots: e.slots,
 		emit: e.emit,
 		expose: (t) => {
@@ -2719,25 +2867,25 @@ function Ha(e) {
 		}
 	};
 }
-function Ua(e) {
-	return e.exposed ? e.exposeProxy ||= new Proxy(dn(rn(e.exposed)), {
+function no(e) {
+	return e.exposed ? e.exposeProxy ||= new Proxy(_n(un(e.exposed)), {
 		get(t, n) {
 			if (n in t) return t[n];
-			if (n in Br) return Br[n](e);
+			if (n in Zr) return Zr[n](e);
 		},
 		has(e, t) {
-			return t in e || t in Br;
+			return t in e || t in Zr;
 		}
 	}) : e.proxy;
 }
-function Wa(e) {
-	return S(e) && "__vccOpts" in e;
+function ro(e) {
+	return w(e) && "__vccOpts" in e;
 }
-var U = (e, t) => /* @__PURE__ */ bn(e, t, Pa), Ga = "3.5.38", Ka = void 0, qa = typeof window < "u" && window.trustedTypes;
-if (qa) try {
-	Ka = /* @__PURE__ */ qa.createPolicy("vue", { createHTML: (e) => e });
+var K = (e, t) => /* @__PURE__ */ En(e, t, Ja), io = "3.5.45", ao = void 0, oo = typeof window < "u" && window.trustedTypes;
+if (oo) try {
+	ao = /* @__PURE__ */ oo.createPolicy("vue", { createHTML: (e) => e });
 } catch {}
-var Ja = Ka ? (e) => Ka.createHTML(e) : (e) => e, Ya = "http://www.w3.org/2000/svg", Xa = "http://www.w3.org/1998/Math/MathML", Za = typeof document < "u" ? document : null, Qa = Za && /* @__PURE__ */ Za.createElement("template"), $a = {
+var so = ao ? (e) => ao.createHTML(e) : (e) => e, co = "http://www.w3.org/2000/svg", lo = "http://www.w3.org/1998/Math/MathML", uo = typeof document < "u" ? document : null, fo = uo && /* @__PURE__ */ uo.createElement("template"), po = {
 	insert: (e, t, n) => {
 		t.insertBefore(e, n || null);
 	},
@@ -2746,11 +2894,11 @@ var Ja = Ka ? (e) => Ka.createHTML(e) : (e) => e, Ya = "http://www.w3.org/2000/s
 		t && t.removeChild(e);
 	},
 	createElement: (e, t, n, r) => {
-		let i = t === "svg" ? Za.createElementNS(Ya, e) : t === "mathml" ? Za.createElementNS(Xa, e) : n ? Za.createElement(e, { is: n }) : Za.createElement(e);
+		let i = t === "svg" ? uo.createElementNS(co, e) : t === "mathml" ? uo.createElementNS(lo, e) : n ? uo.createElement(e, { is: n }) : uo.createElement(e);
 		return e === "select" && r && r.multiple != null && i.setAttribute("multiple", r.multiple), i;
 	},
-	createText: (e) => Za.createTextNode(e),
-	createComment: (e) => Za.createComment(e),
+	createText: (e) => uo.createTextNode(e),
+	createComment: (e) => uo.createComment(e),
 	setText: (e, t) => {
 		e.nodeValue = t;
 	},
@@ -2759,16 +2907,16 @@ var Ja = Ka ? (e) => Ka.createHTML(e) : (e) => e, Ya = "http://www.w3.org/2000/s
 	},
 	parentNode: (e) => e.parentNode,
 	nextSibling: (e) => e.nextSibling,
-	querySelector: (e) => Za.querySelector(e),
+	querySelector: (e) => uo.querySelector(e),
 	setScopeId(e, t) {
 		e.setAttribute(t, "");
 	},
 	insertStaticContent(e, t, n, r, i, a) {
 		let o = n ? n.previousSibling : t.lastChild;
-		if (i && (i === a || i.nextSibling)) for (; t.insertBefore(i.cloneNode(!0), n), !(i === a || !(i = i.nextSibling)););
+		if (i && (i === a || i.nextSibling)) for (; t.insertBefore(i.cloneNode(!0), n), i !== a && (i = i.nextSibling););
 		else {
-			Qa.innerHTML = Ja(r === "svg" ? `<svg>${e}</svg>` : r === "mathml" ? `<math>${e}</math>` : e);
-			let i = Qa.content;
+			fo.innerHTML = so(r === "svg" ? `<svg>${e}</svg>` : r === "mathml" ? `<math>${e}</math>` : e);
+			let i = fo.content;
 			if (r === "svg" || r === "mathml") {
 				let e = i.firstChild;
 				for (; e.firstChild;) i.appendChild(e.firstChild);
@@ -2778,139 +2926,137 @@ var Ja = Ka ? (e) => Ka.createHTML(e) : (e) => e, Ya = "http://www.w3.org/2000/s
 		}
 		return [o ? o.nextSibling : t.firstChild, n ? n.previousSibling : t.lastChild];
 	}
-}, eo = /* @__PURE__ */ Symbol("_vtc");
-function to(e, t, n) {
-	let r = e[eo];
+}, mo = /* @__PURE__ */ Symbol("_vtc");
+function ho(e, t, n) {
+	let r = e[mo];
 	r && (t = (t ? [t, ...r] : [...r]).join(" ")), t == null ? e.removeAttribute("class") : n ? e.setAttribute("class", t) : e.className = t;
 }
-var no = /* @__PURE__ */ Symbol("_vod"), ro = /* @__PURE__ */ Symbol("_vsh"), io = {
+var go = /* @__PURE__ */ Symbol("_vod"), _o = /* @__PURE__ */ Symbol("_vsh"), vo = {
 	name: "show",
 	beforeMount(e, { value: t }, { transition: n }) {
-		e[no] = e.style.display === "none" ? "" : e.style.display, n && t ? n.beforeEnter(e) : ao(e, t);
+		e[go] = e.style.display === "none" ? "" : e.style.display, n && t ? n.beforeEnter(e) : yo(e, t);
 	},
 	mounted(e, { value: t }, { transition: n }) {
 		n && t && n.enter(e);
 	},
 	updated(e, { value: t, oldValue: n }, { transition: r }) {
-		!t != !n && (r ? t ? (r.beforeEnter(e), ao(e, !0), r.enter(e)) : r.leave(e, () => {
-			ao(e, !1);
-		}) : ao(e, t));
+		!t != !n && (r ? t ? (r.beforeEnter(e), yo(e, !0), r.enter(e)) : r.leave(e, () => {
+			yo(e, !1);
+		}) : yo(e, t));
 	},
 	beforeUnmount(e, { value: t }) {
-		ao(e, t);
+		yo(e, t);
 	}
 };
-function ao(e, t) {
-	e.style.display = t ? e[no] : "none", e[ro] = !t;
+function yo(e, t) {
+	e.style.display = t ? e[go] : "none", e[_o] = !t;
 }
-var oo = /* @__PURE__ */ Symbol(""), so = /(?:^|;)\s*display\s*:/;
-function co(e, t, n) {
-	let r = e.style, i = C(n), a = !1;
+var bo = /* @__PURE__ */ Symbol(""), xo = /(?:^|;)\s*display\s*:/;
+function So(e, t, n) {
+	let r = e.style, i = T(n), a = !1;
 	if (n && !i) {
-		if (t) if (C(t)) for (let e of t.split(";")) {
-			let t = e.slice(0, e.indexOf(":")).trim();
-			n[t] ?? uo(r, t, "");
+		if (t) {
+			if (T(t)) for (let e of t.split(";")) {
+				let t = e.slice(0, e.indexOf(":")).trim();
+				n[t] ?? wo(r, t, "");
+			}
+			else for (let e in t) n[e] ?? wo(r, e, "");
 		}
-		else for (let e in t) n[e] ?? uo(r, e, "");
 		for (let i in n) {
 			i === "display" && (a = !0);
 			let o = n[i];
-			o == null ? uo(r, i, "") : ho(e, i, !C(t) && t ? t[i] : void 0, o) || uo(r, i, o);
+			o == null ? wo(r, i, "") : Oo(e, i, !T(t) && t ? t[i] : void 0, o) || wo(r, i, o);
 		}
 	} else if (i) {
 		if (t !== n) {
-			let e = r[oo];
-			e && (n += ";" + e), r.cssText = n, a = so.test(n);
+			let e = r[bo];
+			e && (n += ";" + e), r.cssText = n, a = xo.test(n);
 		}
 	} else t && e.removeAttribute("style");
-	no in e && (e[no] = a ? r.display : "", e[ro] && (r.display = "none"));
+	go in e && (i && t === n || (e[go] = a ? r.display : ""), e[_o] && (r.display = "none"));
 }
-var lo = /\s*!important$/;
-function uo(e, t, n) {
-	if (y(n)) n.forEach((n) => uo(e, t, n));
-	else if (n ??= "", t.startsWith("--")) e.setProperty(t, n);
+var Co = /\s*!important$/;
+function wo(e, t, n) {
+	if (C(n)) n.forEach((n) => wo(e, t, n));
+	else if (n ??= "", t.startsWith("--")) Co.test(n) ? e.setProperty(t, n.replace(Co, ""), "important") : e.setProperty(t, n);
 	else {
-		let r = mo(e, t);
-		lo.test(n) ? e.setProperty(pe(r), n.replace(lo, ""), "important") : e[r] = n;
+		let r = Do(e, t);
+		Co.test(n) ? e.setProperty(ge(r), n.replace(Co, ""), "important") : e[r] = n;
 	}
 }
-var fo = [
+var To = [
 	"Webkit",
 	"Moz",
 	"ms"
-], po = {};
-function mo(e, t) {
-	let n = po[t];
+], Eo = {};
+function Do(e, t) {
+	let n = Eo[t];
 	if (n) return n;
-	let r = de(t);
-	if (r !== "filter" && r in e) return po[t] = r;
-	r = me(r);
-	for (let n = 0; n < fo.length; n++) {
-		let i = fo[n] + r;
-		if (i in e) return po[t] = i;
+	let r = D(t);
+	if (r !== "filter" && r in e) return Eo[t] = r;
+	r = _e(r);
+	for (let n = 0; n < To.length; n++) {
+		let i = To[n] + r;
+		if (i in e) return Eo[t] = i;
 	}
 	return t;
 }
-function ho(e, t, n, r) {
-	return e.tagName === "TEXTAREA" && (t === "width" || t === "height") && C(r) && n === r;
+function Oo(e, t, n, r) {
+	return e.tagName === "TEXTAREA" && (t === "width" || t === "height") && T(r) && n === r;
 }
-var go = "http://www.w3.org/1999/xlink";
-function _o(e, t, n, r, i, a = De(t)) {
-	r && t.startsWith("xlink:") ? n == null ? e.removeAttributeNS(go, t.slice(6, t.length)) : e.setAttributeNS(go, t, n) : n == null || a && !Oe(n) ? e.removeAttribute(t) : e.setAttribute(t, a ? "" : te(n) ? String(n) : n);
+var ko = "http://www.w3.org/1999/xlink";
+function Ao(e, t, n, r, i, a = Ae(t)) {
+	r && t.startsWith("xlink:") ? n == null ? e.removeAttributeNS(ko, t.slice(6, t.length)) : e.setAttributeNS(ko, t, n) : n == null || a && !je(n) ? e.removeAttribute(t) : e.setAttribute(t, a ? "" : ae(n) ? String(n) : n);
 }
-function vo(e, t, n, r, i) {
+function jo(e, t, n, r, i) {
 	if (t === "innerHTML" || t === "textContent") {
-		n != null && (e[t] = t === "innerHTML" ? Ja(n) : n);
+		n != null && (e[t] = t === "innerHTML" ? so(n) : n);
 		return;
 	}
 	let a = e.tagName;
 	if (t === "value" && a !== "PROGRESS" && !a.includes("-")) {
 		let r = a === "OPTION" ? e.getAttribute("value") || "" : e.value, i = n == null ? e.type === "checkbox" ? "on" : "" : String(n);
-		(r !== i || !("_value" in e)) && (e.value = i), n ?? e.removeAttribute(t), e._value = n;
+		r === i && "_value" in e || (e.value = i), n ?? e.removeAttribute(t), e._value = n;
 		return;
 	}
 	let o = !1;
 	if (n === "" || n == null) {
 		let r = typeof e[t];
-		r === "boolean" ? n = Oe(n) : n == null && r === "string" ? (n = "", o = !0) : r === "number" && (n = 0, o = !0);
+		r === "boolean" ? n = je(n) : n == null && r === "string" ? (n = "", o = !0) : r === "number" && (n = 0, o = !0);
 	}
 	try {
 		e[t] = n;
 	} catch {}
 	o && e.removeAttribute(i || t);
 }
-function yo(e, t, n, r) {
+function Mo(e, t, n, r) {
 	e.addEventListener(t, n, r);
 }
-function bo(e, t, n, r) {
+function No(e, t, n, r) {
 	e.removeEventListener(t, n, r);
 }
-var xo = /* @__PURE__ */ Symbol("_vei");
-function So(e, t, n, r, i = null) {
-	let a = e[xo] || (e[xo] = {}), o = a[t];
+var Po = /* @__PURE__ */ Symbol("_vei");
+function Fo(e, t, n, r, i = null) {
+	let a = e[Po] || (e[Po] = {}), o = a[t];
 	if (r && o) o.value = r;
 	else {
-		let [n, s] = wo(t);
-		r ? yo(e, n, a[t] = Oo(r, i), s) : o && (bo(e, n, o, s), a[t] = void 0);
+		let [n, s] = Ro(t);
+		r ? Mo(e, n, a[t] = Ho(r, i), s) : o && (No(e, n, o, s), a[t] = void 0);
 	}
 }
-var Co = /(?:Once|Passive|Capture)$/;
-function wo(e) {
-	let t;
-	if (Co.test(e)) {
-		t = {};
-		let n;
-		for (; n = e.match(Co);) e = e.slice(0, e.length - n[0].length), t[n[0].toLowerCase()] = !0;
-	}
-	return [e[2] === ":" ? e.slice(3) : pe(e.slice(2)), t];
+var Io = /(Once|Passive|Capture)$/, Lo = /^on:?(?:Once|Passive|Capture)$/;
+function Ro(e) {
+	let t, n;
+	for (; (n = e.match(Io)) && !Lo.test(e);) t ||= {}, e = e.slice(0, e.length - n[1].length), t[n[1].toLowerCase()] = !0;
+	return [e[2] === ":" ? e.slice(3) : ge(e.slice(2)), t];
 }
-var To = 0, Eo = /* @__PURE__ */ Promise.resolve(), Do = () => To ||= (Eo.then(() => To = 0), Date.now());
-function Oo(e, t) {
+var zo = 0, Bo = /* @__PURE__ */ Promise.resolve(), Vo = () => zo ||= (Bo.then(() => zo = 0), Date.now());
+function Ho(e, t) {
 	let n = (e) => {
 		if (!e._vts) e._vts = Date.now();
 		else if (e._vts <= n.attached) return;
 		let r = n.value;
-		if (y(r)) {
+		if (C(r)) {
 			let n = e.stopImmediatePropagation;
 			e.stopImmediatePropagation = () => {
 				n.call(e), e._stopped = !0;
@@ -2918,151 +3064,166 @@ function Oo(e, t) {
 			let i = r.slice(), a = [e];
 			for (let n = 0; n < i.length && !e._stopped; n++) {
 				let e = i[n];
-				e && On(e, t, 5, a);
+				e && Pn(e, t, 5, a);
 			}
-		} else On(r, t, 5, [e]);
+		} else Pn(r, t, 5, [e]);
 	};
-	return n.value = e, n.attached = Do(), n;
+	return n.value = e, n.attached = Vo(), n;
 }
-var ko = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && e.charCodeAt(2) > 96 && e.charCodeAt(2) < 123, Ao = (e, t, n, r, i, a) => {
+var Uo = (e) => e.charCodeAt(0) === 111 && e.charCodeAt(1) === 110 && e.charCodeAt(2) > 96 && e.charCodeAt(2) < 123, Wo = (e, t, n, r, i, a) => {
 	let o = i === "svg";
-	t === "class" ? to(e, r, o) : t === "style" ? co(e, n, r) : p(t) ? m(t) || So(e, t, n, r, a) : (t[0] === "." ? (t = t.slice(1), !0) : t[0] === "^" ? (t = t.slice(1), !1) : jo(e, t, r, o)) ? (vo(e, t, r), !e.tagName.includes("-") && (t === "value" || t === "checked" || t === "selected") && _o(e, t, r, o, a, t !== "value")) : e._isVueCE && (Mo(e, t) || e._def.__asyncLoader && (/[A-Z]/.test(t) || !C(r))) ? vo(e, de(t), r, a, t) : (t === "true-value" ? e._trueValue = r : t === "false-value" && (e._falseValue = r), _o(e, t, r, o));
+	t === "class" ? ho(e, r, o) : t === "style" ? So(e, n, r) : y(t) ? b(t) || Fo(e, t, n, r, a) : (t[0] === "." ? (t = t.slice(1), 1) : t[0] === "^" ? (t = t.slice(1), 0) : Go(e, t, r, o)) ? (jo(e, t, r), e.tagName.includes("-") || t !== "value" && t !== "checked" && t !== "selected" || Ao(e, t, r, o, a, t !== "value")) : e._isVueCE && (Ko(e, t) || e._def.__asyncLoader && (/[A-Z]/.test(t) || !T(r))) ? jo(e, D(t), r, a, t) : (t === "true-value" ? e._trueValue = r : t === "false-value" && (e._falseValue = r), Ao(e, t, r, o));
 };
-function jo(e, t, n, r) {
-	if (r) return !!(t === "innerHTML" || t === "textContent" || t in e && ko(t) && S(n));
+function Go(e, t, n, r) {
+	if (r) return !!(t === "innerHTML" || t === "textContent" || t in e && Uo(t) && w(n));
 	if (t === "spellcheck" || t === "draggable" || t === "translate" || t === "autocorrect" || t === "sandbox" && e.tagName === "IFRAME" || t === "form" || t === "list" && e.tagName === "INPUT" || t === "type" && e.tagName === "TEXTAREA") return !1;
 	if (t === "width" || t === "height") {
 		let t = e.tagName;
 		if (t === "IMG" || t === "VIDEO" || t === "CANVAS" || t === "SOURCE") return !1;
 	}
-	return ko(t) && C(n) ? !1 : t in e;
+	return Uo(t) && T(n) ? !1 : t in e;
 }
-function Mo(e, t) {
+function Ko(e, t) {
 	let n = e._def.props;
 	if (!n) return !1;
-	let r = de(t);
-	return Array.isArray(n) ? n.some((e) => de(e) === r) : Object.keys(n).some((e) => de(e) === r);
+	let r = D(t);
+	return Array.isArray(n) ? n.some((e) => D(e) === r) : Object.keys(n).some((e) => D(e) === r);
 }
-var No = (e) => {
+var qo = (e) => {
 	let t = e.props["onUpdate:modelValue"] || !1;
-	return y(t) ? (e) => ge(t, e) : t;
+	return C(t) ? (e) => ye(t, e) : t;
 };
-function Po(e) {
+function Jo(e) {
 	e.target.composing = !0;
 }
-function Fo(e) {
+function Yo(e) {
 	let t = e.target;
 	t.composing && (t.composing = !1, t.dispatchEvent(new Event("input")));
 }
-var Io = /* @__PURE__ */ Symbol("_assign");
-function Lo(e, t, n) {
-	return t && (e = e.trim()), n && (e = ve(e)), e;
+var Xo = /* @__PURE__ */ Symbol("_assign"), Zo = /* @__PURE__ */ Symbol("_initialValue");
+function Qo(e, t, n) {
+	return t && (e = e.trim()), n && (e = xe(e)), e;
 }
-var W = {
+var q = {
 	created(e, { modifiers: { lazy: t, trim: n, number: r } }, i) {
-		e[Io] = No(i);
+		e.parentNode && (e.type === "text" ? e[Zo] = e.defaultValue.replace(/[\r\n]/g, "") : e.type === "textarea" && (e[Zo] = e.defaultValue.replace(/\r\n?/g, "\n"))), e[Xo] = qo(i);
 		let a = r || i.props && i.props.type === "number";
-		yo(e, t ? "change" : "input", (t) => {
-			t.target.composing || e[Io](Lo(e.value, n, a));
-		}), (n || a) && yo(e, "change", () => {
-			e.value = Lo(e.value, n, a);
-		}), t || (yo(e, "compositionstart", Po), yo(e, "compositionend", Fo), yo(e, "change", Fo));
+		Mo(e, t ? "change" : "input", (t) => {
+			t.target.composing || e[Xo](Qo(e.value, n, a));
+		}), (n || a) && Mo(e, "change", () => {
+			e.value = Qo(e.value, n, a);
+		}), t || (Mo(e, "compositionstart", Jo), Mo(e, "compositionend", Yo), Mo(e, "change", Yo));
 	},
-	mounted(e, { value: t }) {
-		e.value = t ?? "";
+	mounted(e, { value: t, modifiers: { trim: n, number: r } }) {
+		let i = t ?? "", a = e[Zo];
+		delete e[Zo], a !== void 0 && (e.type === "text" || e.type === "textarea") && e.value !== a ? e[Xo](Qo(e.value, n, r)) : e.value = i;
 	},
 	beforeUpdate(e, { value: t, oldValue: n, modifiers: { lazy: r, trim: i, number: a } }, o) {
-		if (e[Io] = No(o), e.composing) return;
-		let s = (a || e.type === "number") && !/^0\d/.test(e.value) ? ve(e.value) : e.value, c = t ?? "";
+		if (e[Xo] = qo(o), e.composing) return;
+		let s = (a || e.type === "number") && !/^0\d/.test(e.value) ? xe(e.value) : e.value, c = t ?? "";
 		if (s === c) return;
 		let l = e.getRootNode();
 		(l instanceof Document || l instanceof ShadowRoot) && l.activeElement === e && e.type !== "range" && (r && t === n || i && e.value.trim() === c) || (e.value = c);
 	}
-}, G = {
+}, J = {
 	deep: !0,
 	created(e, t, n) {
-		e[Io] = No(n), yo(e, "change", () => {
-			let t = e._modelValue, n = Vo(e), r = e.checked, i = e[Io];
-			if (y(t)) {
-				let e = je(t, n), a = e !== -1;
+		e[Xo] = qo(n), Mo(e, "change", () => {
+			let t = e._modelValue, n = rs(e), r = e.checked, i = e[Xo];
+			if (C(t)) {
+				let e = Le(t, n), a = e !== -1;
 				if (r && !a) i(t.concat(n));
 				else if (!r && a) {
 					let n = [...t];
 					n.splice(e, 1), i(n);
 				}
-			} else if (x(t)) {
+			} else if (re(t)) {
 				let e = new Set(t);
 				r ? e.add(n) : e.delete(n), i(e);
-			} else i(Ho(e, r));
+			} else i(is(e, r));
 		});
 	},
-	mounted: Ro,
+	mounted: $o,
 	beforeUpdate(e, t, n) {
-		e[Io] = No(n), Ro(e, t, n);
+		e[Xo] = qo(n), $o(e, t, n);
 	}
 };
-function Ro(e, { value: t, oldValue: n }, r) {
+function $o(e, { value: t, oldValue: n }, r) {
 	e._modelValue = t;
 	let i;
-	if (y(t)) i = je(t, r.props.value) > -1;
-	else if (x(t)) i = t.has(r.props.value);
+	if (C(t)) i = Le(t, r.props.value) > -1;
+	else if (re(t)) i = t.has(r.props.value);
 	else {
 		if (t === n) return;
-		i = Ae(t, Ho(e, !0));
+		i = Ie(t, is(e, !0));
 	}
 	e.checked !== i && (e.checked = i);
 }
-var zo = {
+var es = {
 	deep: !0,
 	created(e, { value: t, modifiers: { number: n } }, r) {
-		let i = x(t);
-		yo(e, "change", () => {
-			let t = Array.prototype.filter.call(e.options, (e) => e.selected).map((e) => n ? ve(Vo(e)) : Vo(e));
-			e[Io](e.multiple ? i ? new Set(t) : t : t[0]), e._assigning = !0, Rn(() => {
-				e._assigning = !1;
-			});
-		}), e[Io] = No(r);
+		e._modelValue = t, Mo(e, "change", () => {
+			let t = Array.prototype.filter.call(e.options, (e) => e.selected).map((e) => n ? xe(rs(e)) : rs(e)), r = e.multiple, i = r ? re(e._modelValue) ? new Set(t) : t : t[0], a = e._pendingValue = [r, r ? C(i) ? t.slice() : t : i];
+			try {
+				e[Xo](i);
+			} finally {
+				Wn(() => {
+					e._pendingValue === a && (e._pendingValue = void 0);
+				});
+			}
+		}), e[Xo] = qo(r);
 	},
-	mounted(e, { value: t }) {
-		Bo(e, t);
+	mounted(e, { value: t, modifiers: { number: n } }) {
+		ns(e, t, n);
 	},
-	beforeUpdate(e, t, n) {
-		e[Io] = No(n);
+	beforeUpdate(e, { value: t }, n) {
+		e._modelValue = t, e[Xo] = qo(n);
 	},
-	updated(e, { value: t }) {
-		e._assigning || Bo(e, t);
+	updated(e, { value: t, modifiers: { number: n } }) {
+		let r = e._pendingValue;
+		e._pendingValue = void 0, r && r[0] === e.multiple && ts(t, r[1], r[0]) || ns(e, t, n);
 	}
 };
-function Bo(e, t) {
-	let n = e.multiple, r = y(t);
-	if (!(n && !r && !x(t))) {
-		for (let i = 0, a = e.options.length; i < a; i++) {
-			let a = e.options[i], o = Vo(a);
-			if (n) if (r) {
-				let e = typeof o;
-				e === "string" || e === "number" ? a.selected = t.some((e) => String(e) === String(o)) : a.selected = je(t, o) > -1;
-			} else a.selected = t.has(o);
-			else if (Ae(Vo(a), t)) {
-				e.selectedIndex !== i && (e.selectedIndex = i);
+function ts(e, t, n) {
+	if (!n || C(e)) return Ie(e, t);
+	if (re(e)) {
+		if (e.size !== t.length) return !1;
+		for (let n of t) if (!e.has(n)) return !1;
+		return !0;
+	}
+	return !1;
+}
+function ns(e, t, n = !1) {
+	let r = e.multiple, i = C(t);
+	if (!r || i || re(t)) {
+		for (let a = 0, o = e.options.length; a < o; a++) {
+			let o = e.options[a], s = rs(o);
+			if (r) {
+				if (i) {
+					let e = typeof s;
+					o.selected = e === "string" || e === "number" ? t.some((e) => String(e) === String(s)) : Le(t, s) > -1;
+				} else o.selected = t.has(s) || n && typeof s == "string" && t.has(xe(s));
+			} else if (Ie(rs(o), t)) {
+				e.selectedIndex !== a && (e.selectedIndex = a);
 				return;
 			}
 		}
-		!n && e.selectedIndex !== -1 && (e.selectedIndex = -1);
+		!r && e.selectedIndex !== -1 && (e.selectedIndex = -1);
 	}
 }
-function Vo(e) {
+function rs(e) {
 	return "_value" in e ? e._value : e.value;
 }
-function Ho(e, t) {
+function is(e, t) {
 	let n = t ? "_trueValue" : "_falseValue";
 	return n in e ? e[n] : t;
 }
-var Uo = [
+var as = [
 	"ctrl",
 	"shift",
 	"alt",
 	"meta"
-], Wo = {
+], os = {
 	stop: (e) => e.stopPropagation(),
 	prevent: (e) => e.preventDefault(),
 	self: (e) => e.target !== e.currentTarget,
@@ -3073,62 +3234,61 @@ var Uo = [
 	left: (e) => "button" in e && e.button !== 0,
 	middle: (e) => "button" in e && e.button !== 1,
 	right: (e) => "button" in e && e.button !== 2,
-	exact: (e, t) => Uo.some((n) => e[`${n}Key`] && !t.includes(n))
-}, Go = (e, t) => {
+	exact: (e, t) => as.some((n) => e[`${n}Key`] && !t.includes(n))
+}, ss = (e, t) => {
 	if (!e) return e;
 	let n = e._withMods ||= {}, r = t.join(".");
 	return n[r] || (n[r] = ((n, ...r) => {
 		for (let e = 0; e < t.length; e++) {
-			let r = Wo[t[e]];
+			let r = os[t[e]];
 			if (r && r(n, t)) return;
 		}
 		return e(n, ...r);
 	}));
-}, Ko = /* @__PURE__ */ h({ patchProp: Ao }, $a), qo;
-function Jo() {
-	return qo ||= Ui(Ko);
+}, cs = /* @__PURE__ */ x({ patchProp: Wo }, po), ls;
+function us() {
+	return ls ||= ta(cs);
 }
-var Yo = ((...e) => {
-	let t = Jo().createApp(...e), { mount: n } = t;
+var ds = ((...e) => {
+	let t = us().createApp(...e), { mount: n } = t;
 	return t.mount = (e) => {
-		let r = Zo(e);
+		let r = ps(e);
 		if (!r) return;
 		let i = t._component;
-		!S(i) && !i.render && !i.template && (i.template = r.innerHTML), r.nodeType === 1 && (r.textContent = "");
-		let a = n(r, !1, Xo(r));
+		w(i) || i.render || i.template || (i.template = r.innerHTML), r.nodeType === 1 && (r.textContent = "");
+		let a = n(r, !1, fs(r));
 		return r instanceof Element && (r.removeAttribute("v-cloak"), r.setAttribute("data-v-app", "")), a;
 	}, t;
 });
-function Xo(e) {
+function fs(e) {
 	if (e instanceof SVGElement) return "svg";
 	if (typeof MathMLElement == "function" && e instanceof MathMLElement) return "mathml";
 }
-function Zo(e) {
-	return C(e) ? document.querySelector(e) : e;
+function ps(e) {
+	return T(e) ? document.querySelector(e) : e;
 }
-//#endregion
-//#region node_modules/pinia/dist/pinia.mjs
-var Qo = typeof window < "u", $o, es = (e) => $o = e, ts = Symbol();
-function ns(e) {
+// node_modules/pinia/dist/pinia.mjs
+var ms = typeof window < "u", hs, gs = (e) => hs = e, _s = Symbol();
+function vs(e) {
 	return e && typeof e == "object" && Object.prototype.toString.call(e) === "[object Object]" && typeof e.toJSON != "function";
 }
-var rs;
+var ys;
 (function(e) {
 	e.direct = "direct", e.patchObject = "patch object", e.patchFunction = "patch function";
-})(rs ||= {});
-var is = typeof window == "object" && window.window === window ? window : typeof self == "object" && self.self === self ? self : typeof global == "object" && global.global === global ? global : typeof globalThis == "object" ? globalThis : { HTMLElement: null };
-function as(e, { autoBom: t = !1 } = {}) {
+})(ys ||= {});
+var bs = typeof window == "object" && window.window === window ? window : typeof self == "object" && self.self === self ? self : typeof global == "object" && global.global === global ? global : typeof globalThis == "object" ? globalThis : { HTMLElement: null };
+function xs(e, { autoBom: t = !1 } = {}) {
 	return t && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type) ? new Blob(["﻿", e], { type: e.type }) : e;
 }
-function os(e, t, n) {
+function Ss(e, t, n) {
 	let r = new XMLHttpRequest();
 	r.open("GET", e), r.responseType = "blob", r.onload = function() {
-		ds(r.response, t, n);
+		Ds(r.response, t, n);
 	}, r.onerror = function() {
 		console.error("could not download file");
 	}, r.send();
 }
-function ss(e) {
+function Cs(e) {
 	let t = new XMLHttpRequest();
 	t.open("HEAD", e, !1);
 	try {
@@ -3136,7 +3296,7 @@ function ss(e) {
 	} catch {}
 	return t.status >= 200 && t.status <= 299;
 }
-function cs(e) {
+function ws(e) {
 	try {
 		e.dispatchEvent(new MouseEvent("click"));
 	} catch {
@@ -3159,29 +3319,30 @@ function cs(e) {
 		e.dispatchEvent(t);
 	}
 }
-var ls = typeof navigator == "object" ? navigator : { userAgent: "" }, us = /Macintosh/.test(ls.userAgent) && /AppleWebKit/.test(ls.userAgent) && !/Safari/.test(ls.userAgent), ds = Qo ? typeof HTMLAnchorElement < "u" && "download" in HTMLAnchorElement.prototype && !us ? fs : "msSaveOrOpenBlob" in ls ? ps : ms : () => {};
-function fs(e, t = "download", n) {
+var Ts = typeof navigator == "object" ? navigator : { userAgent: "" }, Es = /Macintosh/.test(Ts.userAgent) && /AppleWebKit/.test(Ts.userAgent) && !/Safari/.test(Ts.userAgent), Ds = ms ? typeof HTMLAnchorElement < "u" && "download" in HTMLAnchorElement.prototype && !Es ? Os : "msSaveOrOpenBlob" in Ts ? ks : As : () => {};
+function Os(e, t = "download", n) {
 	let r = document.createElement("a");
-	r.download = t, r.rel = "noopener", typeof e == "string" ? (r.href = e, r.origin === location.origin ? cs(r) : ss(r.href) ? os(e, t, n) : (r.target = "_blank", cs(r))) : (r.href = URL.createObjectURL(e), setTimeout(function() {
+	r.download = t, r.rel = "noopener", typeof e == "string" ? (r.href = e, r.origin === location.origin ? ws(r) : Cs(r.href) ? Ss(e, t, n) : (r.target = "_blank", ws(r))) : (r.href = URL.createObjectURL(e), setTimeout(function() {
 		URL.revokeObjectURL(r.href);
 	}, 4e4), setTimeout(function() {
-		cs(r);
+		ws(r);
 	}, 0));
 }
-function ps(e, t = "download", n) {
-	if (typeof e == "string") if (ss(e)) os(e, t, n);
-	else {
-		let t = document.createElement("a");
-		t.href = e, t.target = "_blank", setTimeout(function() {
-			cs(t);
-		});
-	}
-	else navigator.msSaveOrOpenBlob(as(e, n), t);
+function ks(e, t = "download", n) {
+	if (typeof e == "string") {
+		if (Cs(e)) Ss(e, t, n);
+		else {
+			let t = document.createElement("a");
+			t.href = e, t.target = "_blank", setTimeout(function() {
+				ws(t);
+			});
+		}
+	} else navigator.msSaveOrOpenBlob(xs(e, n), t);
 }
-function ms(e, t, n, r) {
-	if (r ||= open("", "_blank"), r && (r.document.title = r.document.body.innerText = "downloading..."), typeof e == "string") return os(e, t, n);
-	let i = e.type === "application/octet-stream", a = /constructor/i.test(String(is.HTMLElement)) || "safari" in is, o = /CriOS\/[\d]+/.test(navigator.userAgent);
-	if ((o || i && a || us) && typeof FileReader < "u") {
+function As(e, t, n, r) {
+	if (r ||= open("", "_blank"), r && (r.document.title = r.document.body.innerText = "downloading..."), typeof e == "string") return Ss(e, t, n);
+	let i = e.type === "application/octet-stream", a = /constructor/i.test(String(bs.HTMLElement)) || "safari" in bs, o = /CriOS\/[\d]+/.test(navigator.userAgent);
+	if ((o || i && a || Es) && typeof FileReader < "u") {
 		let t = new FileReader();
 		t.onloadend = function() {
 			let e = t.result;
@@ -3195,11 +3356,11 @@ function ms(e, t, n, r) {
 		}, 4e4);
 	}
 }
-var { assign: hs } = Object;
-function gs() {
-	let e = Le(!0), t = e.run(() => /* @__PURE__ */ j({})), n = [], r = [], i = rn({
+var { assign: js } = Object;
+function Ms() {
+	let e = He(!0), t = e.run(() => /* @__PURE__ */ P({})), n = [], r = [], i = un({
 		install(e) {
-			es(i), i._a = e, e.provide(ts, i), e.config.globalProperties.$pinia = i, r.forEach((e) => n.push(e)), r = [];
+			gs(i), i._a = e, e.provide(_s, i), e.config.globalProperties.$pinia = i, r.forEach((e) => n.push(e)), r = [];
 		},
 		use(e) {
 			return this._a ? n.push(e) : r.push(e), this;
@@ -3212,82 +3373,86 @@ function gs() {
 	});
 	return i;
 }
-var _s = () => {};
-function vs(e, t, n, r = _s) {
+var Ns = () => {};
+function Ps(e, t, n, r = Ns) {
 	e.add(t);
 	let i = () => {
 		e.delete(t) && r();
 	};
-	return !n && Re() && ze(i), i;
+	return !n && Ue() && We(i), i;
 }
-function ys(e, ...t) {
+function Fs(e, ...t) {
 	e.forEach((e) => {
 		e(...t);
 	});
 }
-var bs = (e) => e(), xs = Symbol(), Ss = Symbol();
-function Cs(e, t) {
+var Is = (e) => e(), Ls = Symbol(), Rs = Symbol();
+function zs(e, t) {
 	e instanceof Map && t instanceof Map ? t.forEach((t, n) => e.set(n, t)) : e instanceof Set && t instanceof Set && t.forEach(e.add, e);
 	for (let n in t) {
 		if (!t.hasOwnProperty(n)) continue;
 		let r = t[n], i = e[n];
-		ns(i) && ns(r) && e.hasOwnProperty(n) && !/* @__PURE__ */ A(r) && !/* @__PURE__ */ $t(r) ? e[n] = Cs(i, r) : e[n] = r;
+		e[n] = vs(i) && vs(r) && e.hasOwnProperty(n) && !/* @__PURE__ */ N(r) && !/* @__PURE__ */ on(r) ? zs(i, r) : r;
 	}
 	return e;
 }
-var ws = Symbol();
-function Ts(e) {
-	return !ns(e) || !Object.prototype.hasOwnProperty.call(e, ws);
+var Bs = Symbol();
+function Vs(e) {
+	return !vs(e) || !Object.prototype.hasOwnProperty.call(e, Bs);
 }
-var { assign: Es } = Object;
-function Ds(e) {
-	return !!(/* @__PURE__ */ A(e) && e.effect);
+var { assign: Hs } = Object;
+function Us(e) {
+	return !!(/* @__PURE__ */ N(e) && e.effect);
 }
-function Os(e, t, n, r) {
+function Ws(e, t, n, r) {
 	let { state: i, actions: a, getters: o } = t, s = n.state.value[e], c;
 	function l() {
-		return s || (n.state.value[e] = i ? i() : {}), Es(/* @__PURE__ */ mn(n.state.value[e]), a, Object.keys(o || {}).reduce((t, r) => (t[r] = rn(U(() => {
-			es(n);
+		return s || 
+		/* istanbul ignore if */
+		(n.state.value[e] = i ? i() : {}), Hs(/* @__PURE__ */ bn(n.state.value[e]), a, Object.keys(o || {}).reduce((t, r) => (t[r] = un(K(() => {
+			gs(n);
 			let t = n._s.get(e);
 			return o[r].call(t, t);
 		})), t), {}));
 	}
-	return c = ks(e, l, t, n, r, !0), c;
+	return c = Gs(e, l, t, n, r, !0), c;
 }
-function ks(e, t, n = {}, r, i, a) {
-	let o, s = Es({ actions: {} }, n), c = { deep: !0 }, l, u, d = /* @__PURE__ */ new Set(), f = /* @__PURE__ */ new Set(), p = r.state.value[e];
-	!a && !p && (r.state.value[e] = {});
-	let m;
-	function h(t) {
+function Gs(e, t, n = {}, r, i, a) {
+	let o, s = Hs({ actions: {} }, n), c = { deep: !0 }, l, u, d = /* @__PURE__ */ new Set(), f = /* @__PURE__ */ new Set(), p, m = r.state.value[e];
+	!a && !m && 
+	/* istanbul ignore if */
+	(r.state.value[e] = {});
+	let h;
+	function g(t) {
 		let n;
 		l = u = !1, typeof t == "function" ? (t(r.state.value[e]), n = {
-			type: rs.patchFunction,
+			type: ys.patchFunction,
 			storeId: e,
-			events: void 0
-		}) : (Cs(r.state.value[e], t), n = {
-			type: rs.patchObject,
+			events: p
+		}) : (zs(r.state.value[e], t), n = {
+			type: ys.patchObject,
 			payload: t,
 			storeId: e,
-			events: void 0
+			events: p
 		});
-		let i = m = Symbol();
-		Rn().then(() => {
-			m === i && (l = !0);
-		}), u = !0, ys(d, n, r.state.value[e]);
+		let i = h = Symbol();
+		Wn().then(() => {
+			h === i && (l = !0);
+		}), u = !0, Fs(d, n, r.state.value[e]);
 	}
-	let g = a ? function() {
+	let _ = a ? function() {
 		let { state: e } = n, t = e ? e() : {};
 		this.$patch((e) => {
-			Es(e, t);
+			Hs(e, t);
 		});
-	} : _s;
-	function _() {
+	} : Ns;
+	function v() {
 		o.stop(), d.clear(), f.clear(), r._s.delete(e);
 	}
-	let v = (t, n = "") => {
-		if (xs in t) return t[Ss] = n, t;
+	let y = (t, n = "") => {
+		if (Ls in t) return t[Rs] = n, t;
 		let i = function() {
-			es(r);
+			gs(r);
 			let n = Array.from(arguments), a = /* @__PURE__ */ new Set(), o = /* @__PURE__ */ new Set();
 			function s(e) {
 				a.add(e);
@@ -3295,90 +3460,89 @@ function ks(e, t, n = {}, r, i, a) {
 			function c(e) {
 				o.add(e);
 			}
-			ys(f, {
+			Fs(f, {
 				args: n,
-				name: i[Ss],
-				store: y,
+				name: i[Rs],
+				store: b,
 				after: s,
 				onError: c
 			});
 			let l;
 			try {
-				l = t.apply(this && this.$id === e ? this : y, n);
+				l = t.apply(this && this.$id === e ? this : b, n);
 			} catch (e) {
-				throw ys(o, e), e;
+				throw Fs(o, e), e;
 			}
-			return l instanceof Promise ? l.then((e) => (ys(a, e), e)).catch((e) => (ys(o, e), Promise.reject(e))) : (ys(a, l), l);
+			return l instanceof Promise ? l.then((e) => (Fs(a, e), e)).catch((e) => (Fs(o, e), Promise.reject(e))) : (Fs(a, l), l);
 		};
-		return i[xs] = !0, i[Ss] = n, i;
-	}, y = /* @__PURE__ */ Yt({
+		return i[Ls] = !0, i[Rs] = n, i;
+	}, b = /* @__PURE__ */ tn({
 		_p: r,
 		$id: e,
-		$onAction: vs.bind(null, f),
-		$patch: h,
-		$reset: g,
+		$onAction: Ps.bind(null, f),
+		$patch: g,
+		$reset: _,
 		$subscribe(t, n = {}) {
-			let i = vs(d, t, n.detached, () => a()), a = o.run(() => ir(() => r.state.value[e], (r) => {
+			let i = Ps(d, t, n.detached, () => a()), a = o.run(() => fr(() => r.state.value[e], (r) => {
 				(n.flush === "sync" ? u : l) && t({
 					storeId: e,
-					type: rs.direct,
-					events: void 0
+					type: ys.direct,
+					events: p
 				}, r);
-			}, Es({}, c, n)));
+			}, Hs({}, c, n)));
 			return i;
 		},
-		$dispose: _
+		$dispose: v
 	});
-	r._s.set(e, y);
-	let b = (r._a && r._a.runWithContext || bs)(() => r._e.run(() => (o = Le()).run(() => t({ action: v }))));
-	for (let t in b) {
-		let n = b[t];
-		/* @__PURE__ */ A(n) && !Ds(n) || /* @__PURE__ */ $t(n) ? a || (p && Ts(n) && (/* @__PURE__ */ A(n) ? n.value = p[t] : Cs(n, p[t])), r.state.value[e][t] = n) : typeof n == "function" && (b[t] = v(n, t), s.actions[t] = n);
+	r._s.set(e, b);
+	let x = (r._a && r._a.runWithContext || Is)(() => r._e.run(() => (o = He()).run(() => t({ action: y }))));
+	for (let t in x) {
+		let n = x[t];
+		/* @__PURE__ */ N(n) && !Us(n) || /* @__PURE__ */ on(n) ? a || (m && Vs(n) && (/* @__PURE__ */ N(n) ? n.value = m[t] : zs(n, m[t])), r.state.value[e][t] = n) : typeof n == "function" && (x[t] = y(n, t), s.actions[t] = n);
 	}
-	return Es(y, b), Es(/* @__PURE__ */ k(y), b), Object.defineProperty(y, "$state", {
+	return Hs(b, x), Hs(/* @__PURE__ */ M(b), x), Object.defineProperty(b, "$state", {
 		get: () => r.state.value[e],
 		set: (e) => {
-			h((t) => {
-				Es(t, e);
+			g((t) => {
+				Hs(t, e);
 			});
 		}
 	}), r._p.forEach((e) => {
-		Es(y, o.run(() => e({
-			store: y,
+		Hs(b, o.run(() => e({
+			store: b,
 			app: r._a,
 			pinia: r,
 			options: s
 		})));
-	}), p && a && n.hydrate && n.hydrate(y.$state, p), l = !0, u = !0, y;
+	}), m && a && n.hydrate && n.hydrate(b.$state, m), l = !0, u = !0, b;
 }
-function As(e, t, n) {
+function Ks(e, t, n) {
 	let r, i = typeof t == "function";
 	r = i ? n : t;
 	function a(n, a) {
-		let o = er();
-		return n ||= o ? $n(ts, null) : null, n && es(n), n = $o, n._s.has(e) || (i ? ks(e, t, r, n) : Os(e, r, n)), n._s.get(e);
+		let o = cr();
+		return n ||= o ? sr(_s, null) : null, n && gs(n), n = hs, n._s.has(e) || (i ? Gs(e, t, r, n) : Ws(e, r, n)), n._s.get(e);
 	}
 	return a.$id = e, a;
 }
-function js(e) {
-	let t = /* @__PURE__ */ k(e), n = {};
+function qs(e) {
+	let t = /* @__PURE__ */ M(e), n = {};
 	for (let r in t) {
 		let i = t[r];
-		i.effect ? n[r] = U({
+		i.effect ? n[r] = K({
 			get: () => e[r],
 			set(t) {
 				e[r] = t;
 			}
-		}) : (/* @__PURE__ */ A(i) || /* @__PURE__ */ $t(i)) && (n[r] = /* @__PURE__ */ _n(e, r));
+		}) : (/* @__PURE__ */ N(i) || /* @__PURE__ */ on(i)) && (n[r] = /* @__PURE__ */ Cn(e, r));
 	}
 	return n;
 }
-//#endregion
-//#region src/functions/imperial-calendar/fields.ts
-function Ms(e) {
+// src/module/functions/imperial-calendar/fields.ts
+function Js(e) {
 	let t = e.time.trim() || "00:00:00";
 	if (!/^\d{2}:\d{2}(?::\d{2})?$/.test(t)) throw RangeError("Use a 24-hour time: HH:MM or HH:MM:SS.");
-	let [n = 0, r = 0, i = 0] = t.split(":").map(Number), o = {
+	let [n = 0, r = 0, i = 0] = t.split(":").map(Number), a = {
 		year: e.year === "" ? NaN : Number(e.year),
 		period: e.period,
 		day: e.day === "" ? NaN : Number(e.day),
@@ -3386,22 +3550,21 @@ function Ms(e) {
 		minute: r,
 		second: i
 	};
-	return a(o), o;
+	return d(a), a;
 }
-function Ns(e, t = !1) {
+function Ys(e, t = !1) {
 	let n = t ? [[e.years, "year"], [e.days, "day"]] : [[e.wholeDays, "day"]];
 	return n.push([e.hours, "hour"], [e.minutes, "minute"], [e.seconds, "second"]), n.filter(([e]) => e > 0).map(([e, t]) => `${e.toLocaleString()} ${t}${e === 1 ? "" : "s"}`).join(", ") || "0 seconds";
 }
-//#endregion
-//#region src/state/apps/imperial-calendar/store.ts
-var Ps = As("imperial-calendar", () => {
-	let e = /* @__PURE__ */ j(Fs()), t = /* @__PURE__ */ j(Fs()), n = U(() => {
+// src/module/apps/imperial-calendar/state/store.ts
+var Xs = Ks("imperial-calendar", () => {
+	let e = /* @__PURE__ */ P(Zs()), t = /* @__PURE__ */ P(Zs()), n = K(() => {
 		let n = "Start";
 		try {
-			let r = Ms(e.value);
+			let r = Js(e.value);
 			return n = "End", {
 				error: void 0,
-				result: i(r, Ms(t.value))
+				result: u(r, Js(t.value))
 			};
 		} catch (e) {
 			if (!(e instanceof RangeError)) throw e;
@@ -3411,22 +3574,22 @@ var Ps = As("imperial-calendar", () => {
 			};
 		}
 	});
-	function a(n, i) {
-		let a = n === "start" ? e.value : t.value;
-		a.period = i, r(i).intercalary && (a.day = 1);
+	function r(n, r) {
+		let i = n === "start" ? e.value : t.value;
+		i.period = r, l(r).intercalary && (i.day = 1);
 	}
-	function o() {
+	function i() {
 		[e.value, t.value] = [t.value, e.value];
 	}
 	return {
 		start: e,
 		end: t,
 		calculation: n,
-		changePeriod: a,
-		swapDates: o
+		changePeriod: r,
+		swapDates: i
 	};
 });
-function Fs() {
+function Zs() {
 	return {
 		year: 2522,
 		period: "Hexenstag",
@@ -3434,12 +3597,11 @@ function Fs() {
 		time: "00:00:00"
 	};
 }
-//#endregion
-//#region src/view/apps/shared/ApplicationHeader.vue?vue&type=script&setup=true&lang.ts
-var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:items-start tw:gap-3 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-4 tw:py-3 tw:text-base-content! tw:shadow-md" }, Ls = { class: "dui-navbar-start tw:min-w-0 tw:flex-1 tw:items-start tw:gap-3" }, Rs = {
+// src/module/apps/shared/view/ApplicationHeader.vue?vue&type=script&setup=true&lang.ts
+var Qs = { class: "tw:dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:items-start tw:gap-3 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-4 tw:py-3 tw:text-base-content! tw:shadow-md" }, $s = { class: "tw:dui-navbar-start tw:min-w-0 tw:flex-1 tw:items-start tw:gap-3" }, ec = {
 	class: "tw:inline-grid tw:size-11 tw:shrink-0 tw:place-items-center tw:rounded-full tw:border-2 tw:border-base-100/50! tw:bg-primary! tw:text-lg tw:text-primary-content! tw:shadow-md",
 	"aria-hidden": "true"
-}, zs = { class: "tw:min-w-0" }, Bs = { class: "tw:m-0 tw:font-serif tw:text-2xl tw:font-bold tw:leading-tight tw:tracking-wide tw:text-base-content!" }, Vs = { class: "tw:mt-1 tw:max-w-2xl tw:text-sm tw:leading-relaxed tw:text-base-content/70!" }, Hs = { class: "dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, Us = ["data-tip"], Ws = ["aria-label", "title"], Gs = /* @__PURE__ */ P({
+}, tc = { class: "tw:min-w-0" }, nc = { class: "tw:m-0 tw:font-serif tw:text-2xl tw:font-bold tw:leading-tight tw:tracking-wide tw:text-base-content!" }, rc = { class: "tw:mt-1 tw:max-w-2xl tw:text-sm tw:leading-relaxed tw:text-base-content/70!" }, ic = { class: "tw:dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, ac = ["data-tip"], oc = ["aria-label", "title"], sc = /* @__PURE__ */ L({
 	__name: "ApplicationHeader",
 	props: {
 		configureLabel: {},
@@ -3450,34 +3612,34 @@ var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 	emits: ["configure"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (L(), R("header", Is, [z("div", Ls, [z("span", Rs, [z("i", { class: E(e.icon) }, null, 2)]), z("div", zs, [
-			r[1] ||= z("div", { class: "dui-breadcrumbs tw:mb-0.5 tw:max-w-full tw:text-xs tw:text-secondary!" }, [z("ul", null, [z("li", null, "Drowsy’s WFRP4e Toolkit")])], -1),
-			z("h1", Bs, D(e.title), 1),
-			z("p", Vs, D(e.description), 1)
-		])]), z("div", Hs, [Lr(t.$slots, "end"), e.configureLabel ? (L(), R("span", {
+		return (t, r) => (B(), V("header", Qs, [H("div", $s, [H("span", ec, [H("i", { class: ke(e.icon) }, null, 2)]), H("div", tc, [
+			r[1] ||= H("div", { class: "tw:dui-breadcrumbs tw:mb-0.5 tw:max-w-full tw:text-xs tw:text-secondary!" }, [H("ul", null, [H("li", null, "Drowsy’s WFRP4e Toolkit")])], -1),
+			H("h1", nc, k(e.title), 1),
+			H("p", rc, k(e.description), 1)
+		])]), H("div", ic, [Jr(t.$slots, "end"), e.configureLabel ? (B(), V("span", {
 			key: 0,
-			class: "dui-tooltip dui-tooltip-left",
+			class: "tw:dui-tooltip tw:dui-tooltip-left",
 			"data-tip": e.configureLabel
-		}, [z("button", {
-			class: "dui-btn dui-btn-ghost dui-btn-sm dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
+		}, [H("button", {
+			class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm tw:dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
 			type: "button",
 			"aria-label": e.configureLabel,
 			title: e.configureLabel,
 			onClick: r[0] ||= (e) => n("configure")
-		}, [...r[2] ||= [z("i", {
+		}, [...r[2] ||= [H("i", {
 			class: "fa-solid fa-gear",
 			"aria-hidden": "true"
-		}, null, -1)]], 8, Ws)], 8, Us)) : H("", !0)])]));
+		}, null, -1)]], 8, oc)], 8, ac)) : G("", !0)])]));
 	}
-}), Ks = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, qs = {
+}), cc = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, lc = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-4 tw:mb-0",
+	class: "tw:dui-alert tw:dui-alert-error tw:m-4 tw:mb-0",
 	role: "alert"
-}, Js = { class: "tw:min-w-0 tw:break-words" }, Ys = {
+}, uc = { class: "tw:min-w-0 tw:break-words" }, dc = {
 	key: 1,
-	class: "dui-alert dui-alert-success tw:m-4 tw:mb-0",
+	class: "tw:dui-alert tw:dui-alert-success tw:m-4 tw:mb-0",
 	role: "status"
-}, Xs = { class: "tw:min-w-0 tw:break-words" }, Zs = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Qs = /* @__PURE__ */ P({
+}, fc = { class: "tw:min-w-0 tw:break-words" }, pc = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, mc = /* @__PURE__ */ L({
 	__name: "ConsoleFrame",
 	props: {
 		description: {},
@@ -3487,135 +3649,163 @@ var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 		title: {}
 	},
 	setup(e) {
-		return (t, n) => (L(), R("main", Ks, [
-			B(Gs, {
+		return (t, n) => (B(), V("main", cc, [
+			U(sc, {
 				description: e.description,
 				icon: e.icon,
 				title: e.title
 			}, {
-				end: Xn(() => [Lr(t.$slots, "header-end")]),
+				end: ir(() => [Jr(t.$slots, "header-end")]),
 				_: 3
 			}, 8, [
 				"description",
 				"icon",
 				"title"
 			]),
-			e.errorMessage ? (L(), R("div", qs, [n[0] ||= z("i", {
+			e.errorMessage ? (B(), V("div", lc, [n[0] ||= H("i", {
 				class: "fa-solid fa-triangle-exclamation",
 				"aria-hidden": "true"
-			}, null, -1), z("span", Js, D(e.errorMessage), 1)])) : H("", !0),
-			e.statusMessage ? (L(), R("div", Ys, [n[1] ||= z("i", {
+			}, null, -1), H("span", uc, k(e.errorMessage), 1)])) : G("", !0),
+			e.statusMessage ? (B(), V("div", dc, [n[1] ||= H("i", {
 				class: "fa-solid fa-circle-check",
 				"aria-hidden": "true"
-			}, null, -1), z("span", Xs, D(e.statusMessage), 1)])) : H("", !0),
-			z("div", Zs, [Lr(t.$slots, "default")]),
-			Lr(t.$slots, "footer")
+			}, null, -1), H("span", fc, k(e.statusMessage), 1)])) : G("", !0),
+			H("div", pc, [Jr(t.$slots, "default")]),
+			Jr(t.$slots, "footer")
 		]));
 	}
-}), $s = { class: "dui-fieldset tw:min-w-0 tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4" }, ec = { class: "dui-fieldset-legend tw:font-serif tw:text-lg" }, tc = { class: "tw:grid tw:gap-1" }, nc = ["value"], rc = ["value"], ic = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, ac = { class: "tw:grid tw:min-w-0 tw:gap-1" }, oc = ["max", "disabled"], sc = { class: "tw:grid tw:min-w-0 tw:gap-1" }, cc = ["max"], lc = { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, uc = { class: "tw:grid tw:gap-1" }, dc = ["aria-describedby"], fc = ["id"], pc = /* @__PURE__ */ P({
+}), hc = { class: "tw:dui-fieldset tw:min-w-0 tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4" }, gc = { class: "tw:dui-fieldset-legend tw:font-serif tw:text-lg" }, _c = { class: "tw:grid tw:gap-1" }, vc = ["value"], yc = ["value"], bc = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, xc = { class: "tw:grid tw:min-w-0 tw:gap-1" }, Sc = ["max", "disabled"], Cc = { class: "tw:grid tw:min-w-0 tw:gap-1" }, wc = ["max"], Tc = { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, Ec = { class: "tw:grid tw:gap-1" }, Dc = ["aria-describedby"], Oc = ["id"], kc = /* @__PURE__ */ L({
 	__name: "ImperialDateInput",
-	props: /*@__PURE__*/ Wr({ label: {} }, {
+	props: /*@__PURE__*/ ti({ label: {} }, {
 		modelValue: { required: !0 },
 		modelModifiers: {}
 	}),
-	emits: /*@__PURE__*/ Wr(["changePeriod"], ["update:modelValue"]),
-	setup(e, { emit: i }) {
-		let a = di(e, "modelValue"), o = i, s = fr(), c = U(() => r(a.value.period));
-		return (r, i) => (L(), R("fieldset", $s, [
-			z("legend", ec, D(e.label), 1),
-			z("label", tc, [i[4] ||= z("span", { class: "dui-label" }, "Month or festival", -1), z("select", {
-				value: a.value.period,
-				class: "dui-select dui-select-sm tw:w-full",
-				onChange: i[0] ||= (e) => o("changePeriod", e.target.value)
-			}, [(L(!0), R(I, null, F(M(n), (e) => (L(), R("option", {
+	emits: /*@__PURE__*/ ti(["changePeriod"], ["update:modelValue"]),
+	setup(e, { emit: t }) {
+		let n = Si(e, "modelValue"), r = t, i = Cr(), a = K(() => l(n.value.period));
+		return (t, o) => (B(), V("fieldset", hc, [
+			H("legend", gc, k(e.label), 1),
+			H("label", _c, [o[4] ||= H("span", { class: "tw:dui-label" }, "Month or festival", -1), H("select", {
+				value: n.value.period,
+				class: "tw:dui-select tw:dui-select-sm tw:w-full",
+				onChange: o[0] ||= (e) => r("changePeriod", e.target.value)
+			}, [(B(!0), V(z, null, R(F(c), (e) => (B(), V("option", {
 				key: e.name,
 				value: e.name
-			}, D(e.name) + D(e.intercalary ? " · festival" : ""), 9, rc))), 128))], 40, nc)]),
-			z("div", ic, [z("label", ac, [i[5] ||= z("span", { class: "dui-label" }, "Day", -1), N(z("input", {
-				"onUpdate:modelValue": i[1] ||= (e) => a.value.day = e,
-				class: "dui-input dui-input-sm tw:w-full",
+			}, k(e.name) + k(e.intercalary ? " · festival" : ""), 9, yc))), 128))], 40, vc)]),
+			H("div", bc, [H("label", xc, [o[5] ||= H("span", { class: "tw:dui-label" }, "Day", -1), I(H("input", {
+				"onUpdate:modelValue": o[1] ||= (e) => n.value.day = e,
+				class: "tw:dui-input tw:dui-input-sm tw:w-full",
 				type: "number",
 				min: "1",
-				max: c.value.days,
+				max: a.value.days,
 				step: "1",
-				disabled: c.value.intercalary,
+				disabled: a.value.intercalary,
 				required: ""
-			}, null, 8, oc), [[W, a.value.day]])]), z("label", sc, [i[6] ||= z("span", { class: "dui-label" }, "Year (I.C.)", -1), N(z("input", {
-				"onUpdate:modelValue": i[2] ||= (e) => a.value.year = e,
-				class: "dui-input dui-input-sm tw:w-full",
+			}, null, 8, Sc), [[q, n.value.day]])]), H("label", Cc, [o[6] ||= H("span", { class: "tw:dui-label" }, "Year (I.C.)", -1), I(H("input", {
+				"onUpdate:modelValue": o[2] ||= (e) => n.value.year = e,
+				class: "tw:dui-input tw:dui-input-sm tw:w-full",
 				type: "number",
 				min: "1",
-				max: M(t),
+				max: F(s),
 				step: "1",
 				required: ""
-			}, null, 8, cc), [[W, a.value.year]])])]),
-			z("p", lc, D(c.value.intercalary ? "A single festival day between months." : `${c.value.days} days in this month.`), 1),
-			z("label", uc, [i[7] ||= z("span", { class: "dui-label" }, "Time (24-hour, optional)", -1), N(z("input", {
-				"onUpdate:modelValue": i[3] ||= (e) => a.value.time = e,
-				class: "dui-input dui-input-sm tw:w-full tw:font-mono",
+			}, null, 8, wc), [[q, n.value.year]])])]),
+			H("p", Tc, k(a.value.intercalary ? "A single festival day between months." : `${a.value.days} days in this month.`), 1),
+			H("label", Ec, [o[7] ||= H("span", { class: "tw:dui-label" }, "Time (24-hour, optional)", -1), I(H("input", {
+				"onUpdate:modelValue": o[3] ||= (e) => n.value.time = e,
+				class: "tw:dui-input tw:dui-input-sm tw:w-full tw:font-mono",
 				type: "text",
 				placeholder: "00:00:00",
-				"aria-describedby": `${M(s)}-time-hint`
-			}, null, 8, dc), [[W, a.value.time]])]),
-			z("p", {
-				id: `${M(s)}-time-hint`,
+				"aria-describedby": `${F(i)}-time-hint`
+			}, null, 8, Dc), [[q, n.value.time]])]),
+			H("p", {
+				id: `${F(i)}-time-hint`,
 				class: "tw:m-0 tw:text-xs tw:text-base-content/70!"
-			}, " HH:MM or HH:MM:SS. Blank means midnight. ", 8, fc)
+			}, " HH:MM or HH:MM:SS. Blank means midnight. ", 8, Oc)
 		]));
 	}
-}), mc = { class: "tw:grid tw:min-w-0 tw:gap-3" }, hc = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]" }, gc = {
+}), Ac = { class: "tw:grid tw:min-w-0 tw:gap-3" }, jc = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]" }, Mc = {
 	class: "tw:min-w-0 tw:rounded-box tw:border-2 tw:border-primary/30! tw:bg-base-100! tw:p-4",
 	"aria-label": "Calculation result",
 	"aria-live": "polite",
 	"aria-atomic": "true"
-}, _c = {
+}, Nc = {
 	key: 0,
 	class: "tw:m-0 tw:text-error!"
-}, vc = { class: "tw:m-0 tw:font-serif tw:text-lg" }, yc = { class: "tw:my-2 tw:text-2xl tw:font-semibold tw:tabular-nums tw:break-words" }, bc = {
+}, Pc = { class: "tw:m-0 tw:font-serif tw:text-lg" }, Fc = { class: "tw:my-2 tw:text-2xl tw:font-semibold tw:tabular-nums tw:break-words" }, Ic = {
 	key: 0,
 	class: "tw:my-2 tw:text-sm"
-}, xc = { class: "tw:my-2 tw:text-sm tw:tabular-nums" }, Sc = { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, Cc = /* @__PURE__ */ P({
+}, Lc = { class: "tw:my-2 tw:text-sm tw:tabular-nums" }, Rc = { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, zc = /* @__PURE__ */ L({
 	__name: "ImperialCalendarApp",
 	setup(e) {
-		let t = Ps(), { start: n, end: r, calculation: i } = js(t);
-		return (e, a) => (L(), ua(Qs, {
+		let t = Xs(), { start: n, end: r, calculation: i } = qs(t);
+		return (e, a) => (B(), Ca(mc, {
 			title: "Imperial Calendar Calculator",
 			icon: "fa-solid fa-calendar-days",
 			description: "Find the time between two Imperial dates, including festival days."
 		}, {
-			default: Xn(() => [z("div", mc, [
-				z("div", hc, [B(pc, {
-					modelValue: M(n),
-					"onUpdate:modelValue": a[0] ||= (e) => /* @__PURE__ */ A(n) ? n.value = e : null,
+			default: ir(() => [H("div", Ac, [
+				H("div", jc, [U(kc, {
+					modelValue: F(n),
+					"onUpdate:modelValue": a[0] ||= (e) => /* @__PURE__ */ N(n) ? n.value = e : null,
 					label: "Start date",
-					onChangePeriod: a[1] ||= (e) => M(t).changePeriod("start", e)
-				}, null, 8, ["modelValue"]), B(pc, {
-					modelValue: M(r),
-					"onUpdate:modelValue": a[2] ||= (e) => /* @__PURE__ */ A(r) ? r.value = e : null,
+					onChangePeriod: a[1] ||= (e) => F(t).changePeriod("start", e)
+				}, null, 8, ["modelValue"]), U(kc, {
+					modelValue: F(r),
+					"onUpdate:modelValue": a[2] ||= (e) => /* @__PURE__ */ N(r) ? r.value = e : null,
 					label: "End date",
-					onChangePeriod: a[3] ||= (e) => M(t).changePeriod("end", e)
+					onChangePeriod: a[3] ||= (e) => F(t).changePeriod("end", e)
 				}, null, 8, ["modelValue"])]),
-				z("button", {
-					class: "dui-btn dui-btn-sm tw:justify-self-end",
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-sm tw:justify-self-end",
 					type: "button",
-					onClick: a[4] ||= (...e) => M(t).swapDates && M(t).swapDates(...e)
-				}, [...a[5] ||= [z("i", {
+					onClick: a[4] ||= (...e) => F(t).swapDates && F(t).swapDates(...e)
+				}, [...a[5] ||= [H("i", {
 					class: "fa-solid fa-right-left",
 					"aria-hidden": "true"
-				}, null, -1), V(" Swap dates ", -1)]]),
-				z("section", gc, [M(i).error ? (L(), R("p", _c, D(M(i).error), 1)) : M(i).result ? (L(), R(I, { key: 1 }, [
-					z("h2", vc, D(M(i).result.totalSeconds < 0 ? "End is before start" : "Elapsed time"), 1),
-					z("p", yc, D(M(Ns)(M(i).result)), 1),
-					M(i).result.years ? (L(), R("p", bc, D(M(Ns)(M(i).result, !0)) + " (400-day years) ", 1)) : H("", !0),
-					z("p", xc, " End − start: " + D(M(i).result.totalSeconds.toLocaleString()) + " seconds ", 1),
-					z("p", Sc, D(M(i).result.totalSeconds < 0 ? "The duration above runs backward. Swap dates to measure forward." : "Same date and time = zero elapsed. Midnight to the next midnight = one day."), 1)
-				], 64)) : H("", !0)]),
-				a[6] ||= z("p", { class: "tw:m-0 tw:text-xs tw:leading-relaxed tw:text-base-content/70!" }, " Standard Imperial calendar: 400 days per year, including six festival days. No leap years; 24 hours per day. Enter dates manually; calculating does not advance the world clock. ", -1)
+				}, null, -1), W(" Swap dates ", -1)]]),
+				H("section", Mc, [F(i).error ? (B(), V("p", Nc, k(F(i).error), 1)) : F(i).result ? (B(), V(z, { key: 1 }, [
+					H("h2", Pc, k(F(i).result.totalSeconds < 0 ? "End is before start" : "Elapsed time"), 1),
+					H("p", Fc, k(F(Ys)(F(i).result)), 1),
+					F(i).result.years ? (B(), V("p", Ic, k(F(Ys)(F(i).result, !0)) + " (400-day years) ", 1)) : G("", !0),
+					H("p", Lc, " End − start: " + k(F(i).result.totalSeconds.toLocaleString()) + " seconds ", 1),
+					H("p", Rc, k(F(i).result.totalSeconds < 0 ? "The duration above runs backward. Swap dates to measure forward." : "Same date and time = zero elapsed. Midnight to the next midnight = one day."), 1)
+				], 64)) : G("", !0)]),
+				a[6] ||= H("p", { class: "tw:m-0 tw:text-xs tw:leading-relaxed tw:text-base-content/70!" }, " Standard Imperial calendar: 400 days per year, including six festival days. No leap years; 24 hours per day. Enter dates manually; calculating does not advance the world clock. ", -1)
 			])]),
 			_: 1
 		}));
 	}
-}), K = "WFRP4E_DROWSYS_TOOLKIT", q = "wfrp4e-enhanced-fear-terror", wc = "Drowsy’s WFRP4e Toolkit", Tc = "wfrp4e-gm-toolkit", Ec = "wfrp4e", J = {
+}), Bc = class {
+	#e;
+	createRoot() {
+		let e = document.createElement("div");
+		return e.classList.add("wfrp4e-enhanced-fear-terror-root"), e.dataset.theme = "wfrp4e-enhanced-fear-terror", e;
+	}
+	mount(e, t, n, r) {
+		this.unmount(), t.classList.add("wfrp4e-enhanced-fear-terror-app"), t.replaceChildren(e), this.#e = ds(n, r), this.#e.use(Ms()), this.#e.mount(e);
+	}
+	unmount() {
+		this.#e?.unmount(), this.#e = void 0;
+	}
+}, Vc = class extends foundry.applications.api.ApplicationV2 {
+	#e = new Bc();
+	getVueProps() {}
+	async _renderHTML(e, t) {
+		return this.#e.createRoot();
+	}
+	_replaceHTML(e, t, n) {
+		this.#e.mount(e, t, this.getVueComponent(), this.getVueProps() ?? {});
+	}
+	async _preClose(e) {
+		this.#e.unmount(), await super._preClose(e);
+	}
+}, Y = {
+	configureParty: {
+		gmOnly: !0,
+		name: "Configure Party"
+	},
 	administrationConsole: {
 		gmOnly: !0,
 		name: "Administration Console"
@@ -3635,10 +3825,6 @@ var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 	fearConsole: {
 		gmOnly: !0,
 		name: "Fear Console"
-	},
-	gmToolkitMigration: {
-		gmOnly: !0,
-		name: "GM Toolkit importer"
 	},
 	groupTestConsole: {
 		gmOnly: !0,
@@ -3664,57 +3850,40 @@ var Is = { class: "dui-navbar tw:relative tw:min-h-0 tw:min-w-0 tw:flex-wrap tw:
 		gmOnly: !0,
 		name: "Token Vision & Light Console"
 	},
-	xpAwardConsole: {
+	xpAwards: {
 		gmOnly: !0,
-		name: "XP Award Console"
+		name: "XP award tools"
 	},
 	xpCurveConsole: {
 		gmOnly: !0,
-		name: "XP Curve Console"
+		name: "Curve XP"
 	}
 };
-function Dc(e) {
+function Hc(e) {
 	let t = game.user;
 	return t !== null && (!e.gmOnly || t.isGM);
 }
-function Y(e) {
-	if (!Dc(e)) throw Error(`Only a GM can use the ${e.name}.`);
+function X(e) {
+	if (!Hc(e)) throw Error(`Only a GM can use the ${e.name}.`);
 }
-//#endregion
-//#region src/module/apps/FoundryVueApplication.ts
-var Oc = class extends foundry.applications.api.ApplicationV2 {
+// src/module/foundry/apps/ToolkitVueApplication.ts
+var Uc = class extends Vc {
 	static ACCESS_POLICY = {
 		gmOnly: !0,
 		name: "Drowsy’s WFRP4e Toolkit application"
 	};
-	#e;
 	static canCurrentUserAccess() {
-		return Dc(this.ACCESS_POLICY);
+		return Hc(this.ACCESS_POLICY);
 	}
 	async render(e) {
-		let t = this.constructor;
-		return Y(t.ACCESS_POLICY), super.render(e);
+		return X(this.constructor.ACCESS_POLICY), super.render(e);
 	}
-	getVueProps() {}
-	async _renderHTML(e, t) {
-		let n = document.createElement("div");
-		return n.classList.add("wfrp4e-enhanced-fear-terror-root", "tw:[&_*]:box-border", "tw:box-border", "tw:block", "tw:h-full", "tw:max-h-full", "tw:max-w-full", "tw:min-h-0", "tw:overflow-auto", "tw:text-base-content", "tw:w-full"), n.dataset.theme = "wfrp4e-enhanced-fear-terror", n;
-	}
-	_replaceHTML(e, t, n) {
-		this.unmountVue(), t.classList.add("wfrp4e-enhanced-fear-terror-app", "tw:box-border", "tw:min-h-0", "tw:overflow-hidden", "tw:p-0", "tw:relative"), t.replaceChildren(e), this.#e = Yo(this.getVueComponent(), this.getVueProps() ?? {}), this.#e.use(gs()), this.#e.mount(e);
-	}
-	async _preClose(e) {
-		this.unmountVue(), await super._preClose(e);
-	}
-	unmountVue() {
-		this.#e?.unmount(), this.#e = void 0;
-	}
-}, kc = class extends Oc {
-	static ACCESS_POLICY = J.imperialCalendar;
+}, Wc = class extends Uc {
+	static ACCESS_POLICY = Y.imperialCalendar;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-imperial-calendar`],
-		id: `${q}-imperial-calendar`,
+		classes: [r, `${r}-imperial-calendar`],
+		id: `${r}-imperial-calendar`,
 		position: {
 			height: 660,
 			width: 700
@@ -3722,22 +3891,24 @@ var Oc = class extends foundry.applications.api.ApplicationV2 {
 		window: {
 			icon: "fa-solid fa-calendar-days",
 			resizable: !0,
-			title: `${wc} — Imperial Calendar Calculator`
+			title: `${i} — Imperial Calendar Calculator`
 		}
 	};
 	getVueComponent() {
-		return Cc;
+		return zc;
 	}
 };
-//#endregion
-//#region src/module/apps/imperial-calendar/open.ts
-async function Ac() {
-	let e = new kc();
+// src/module/apps/imperial-calendar/view/open.ts
+async function Gc() {
+	let e = new Wc();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/functions/fear-terror/payload.ts
-function jc(e) {
+// src/module/foundry/apps/notifications.ts
+function Kc(e) {
+	ui.notifications.error(e);
+}
+// src/module/functions/fear-terror/payload.ts
+function qc(e) {
 	let t = e.type === "fear" ? 0 : 1, n = Number(e.rating), r = Number.isFinite(n) ? Math.max(0, Math.trunc(n)) : t, i = e.source?.trim();
 	return i ? {
 		rating: r,
@@ -3748,24 +3919,23 @@ function jc(e) {
 		type: e.type
 	};
 }
-function Mc(e) {
+function Jc(e) {
 	return e === "fear" ? "Fear" : "Terror";
 }
-function Nc(e, t) {
+function Yc(e, t) {
 	let n = t.source ? ` - ${t.source}` : "";
 	return `${e} ${t.rating}${n}`;
 }
-function Pc(e, t) {
-	return `<h2>${e}</h2>${Fc(t)}`;
+function Xc(e, t) {
+	return `<h2>${e}</h2>${Zc(t)}`;
 }
-function Fc(e) {
-	let t = Mc(e.type), n = e.source ? `, ${e.source}` : "";
+function Zc(e) {
+	let t = Jc(e.type), n = e.source ? `, ${e.source}` : "";
 	return `@${t}[${e.rating}${n}]`;
 }
-//#endregion
-//#region src/state/apps/fear-console/store.ts
-var Ic = As("fear-console", () => {
-	let e = /* @__PURE__ */ j("fear"), t = /* @__PURE__ */ j(1), n = /* @__PURE__ */ j(""), r = /* @__PURE__ */ j([]), i = /* @__PURE__ */ j(), a = /* @__PURE__ */ j(), o, s = U(() => i.value !== void 0), c = U(() => Mc(e.value)), l = U(() => {
+// src/module/apps/fear-console/state/store.ts
+var Qc = Ks("fear-console", () => {
+	let e = /* @__PURE__ */ P("fear"), t = /* @__PURE__ */ P(1), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P([]), i = /* @__PURE__ */ P(), a = /* @__PURE__ */ P(), o, s = K(() => i.value !== void 0), c = K(() => Jc(e.value)), l = K(() => {
 		let r = {
 			rating: t.value,
 			type: e.value
@@ -3808,10 +3978,10 @@ var Ic = As("fear-console", () => {
 		selectedTypeLabel: c,
 		source: n
 	};
-}), Lc = { class: "dui-navbar tw:min-h-0 tw:min-w-0 tw:gap-2 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-3 tw:py-2 tw:text-base-content! tw:shadow-sm" }, Rc = { class: "dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, zc = { class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:border-base-content/25! tw:py-1" }, Bc = {
-	class: "dui-tooltip dui-tooltip-left",
+}), $c = { class: "tw:dui-navbar tw:min-h-0 tw:min-w-0 tw:gap-2 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-3 tw:py-2 tw:text-base-content! tw:shadow-sm" }, el = { class: "tw:dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, tl = { class: "tw:dui-badge tw:dui-badge-outline tw:dui-badge-sm tw:h-auto tw:border-base-content/25! tw:py-1" }, nl = {
+	class: "tw:dui-tooltip tw:dui-tooltip-left",
 	"data-tip": "Configure Fear Console"
-}, Vc = /* @__PURE__ */ P({
+}, rl = /* @__PURE__ */ L({
 	__name: "FearConsoleHeader",
 	props: {
 		rating: {},
@@ -3820,217 +3990,218 @@ var Ic = As("fear-console", () => {
 	emits: ["configure"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (L(), R("header", Lc, [r[2] ||= z("div", { class: "dui-navbar-start tw:min-w-0 tw:flex-1" }, [z("span", {
+		return (t, r) => (B(), V("header", $c, [r[2] ||= H("div", { class: "tw:dui-navbar-start tw:min-w-0 tw:flex-1" }, [H("span", {
 			class: "tw:inline-grid tw:size-8 tw:shrink-0 tw:place-items-center tw:rounded-full tw:border-2 tw:border-base-100/50! tw:bg-primary! tw:text-sm tw:text-primary-content! tw:shadow-sm",
 			"aria-hidden": "true"
-		}, [z("i", { class: "fa-solid fa-skull" })])], -1), z("div", Rc, [z("span", zc, D(e.selectedTypeLabel) + " " + D(e.rating), 1), z("span", Bc, [z("button", {
-			class: "dui-btn dui-btn-ghost dui-btn-sm dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
+		}, [H("i", { class: "fa-solid fa-skull" })])], -1), H("div", el, [H("span", tl, k(e.selectedTypeLabel) + " " + k(e.rating), 1), H("span", nl, [H("button", {
+			class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm tw:dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
 			"aria-label": "Configure Fear Console",
 			title: "Configure Fear Console",
 			type: "button",
 			onClick: r[0] ||= (e) => n("configure")
-		}, [...r[1] ||= [z("i", {
+		}, [...r[1] ||= [H("i", {
 			class: "fa-solid fa-gear",
 			"aria-hidden": "true"
 		}, null, -1)]])])])]));
 	}
-}), Hc = { class: "tw:flex tw:min-h-full tw:flex-col tw:gap-4 tw:bg-base-200! tw:text-base-content tw:text-base-content!" }, Uc = {
+}), il = { class: "tw:flex tw:min-h-full tw:flex-col tw:gap-4 tw:bg-base-200! tw:text-base-content tw:text-base-content!" }, al = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:mx-4",
+	class: "tw:dui-alert tw:dui-alert-error tw:mx-4",
 	role: "alert"
-}, Wc = {
+}, ol = {
 	class: "tw:grid tw:min-w-0 tw:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] tw:gap-3 tw:px-4",
 	"aria-label": "Fear and Terror setup"
-}, Gc = { class: "dui-fieldset tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, Kc = {
+}, sl = { class: "tw:dui-fieldset tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, cl = {
 	class: "tw:grid tw:w-full tw:grid-cols-2 tw:gap-2",
 	role: "group",
 	"aria-label": "Effect type"
-}, qc = ["aria-pressed"], Jc = ["aria-pressed"], Yc = { class: "dui-fieldset tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, Xc = { class: "dui-fieldset tw:col-span-full tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, Zc = {
-	class: "dui-card dui-card-border tw:mx-4 tw:min-h-40 tw:flex-1 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
+}, ll = ["aria-pressed"], ul = ["aria-pressed"], dl = { class: "tw:dui-fieldset tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, fl = { class: "tw:dui-fieldset tw:col-span-full tw:min-w-0 tw:w-full tw:rounded-box tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-4 tw:text-base-content! tw:shadow-sm" }, pl = {
+	class: "tw:dui-card tw:dui-card-border tw:mx-4 tw:min-h-40 tw:flex-1 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "fear-terror-affected-actors"
-}, Qc = { class: "dui-card-body tw:gap-3 tw:p-4" }, $c = { class: "tw:flex tw:items-center tw:justify-between tw:gap-3" }, el = { class: "tw:flex tw:items-center tw:gap-2" }, tl = { class: "dui-badge dui-badge-sm" }, nl = ["disabled"], rl = {
+}, ml = { class: "tw:dui-card-body tw:gap-3 tw:p-4" }, hl = { class: "tw:flex tw:items-center tw:justify-between tw:gap-3" }, gl = { class: "tw:flex tw:items-center tw:gap-2" }, _l = { class: "tw:dui-badge tw:dui-badge-sm" }, vl = ["disabled"], yl = {
 	key: 0,
-	class: "dui-list tw:gap-1",
+	class: "tw:dui-list tw:gap-1",
 	"aria-live": "polite"
-}, il = { class: "tw:min-w-0 tw:font-semibold" }, al = { class: "dui-badge dui-badge-ghost tw:capitalize" }, ol = {
+}, bl = { class: "tw:min-w-0 tw:font-semibold" }, xl = { class: "tw:dui-badge tw:dui-badge-ghost tw:capitalize" }, Sl = {
 	key: 1,
-	class: "dui-alert",
+	class: "tw:dui-alert",
 	role: "status"
-}, sl = {
+}, Cl = {
 	class: "tw:sticky tw:bottom-0 tw:z-10 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4",
 	"aria-label": "Fear Console actions"
-}, cl = { class: "dui-join tw:flex tw:w-full" }, ll = ["disabled"], ul = {
+}, wl = { class: "tw:dui-join tw:flex tw:w-full" }, Tl = ["disabled"], El = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	class: "tw:dui-loading tw:dui-loading-spinner tw:dui-loading-sm",
 	"aria-hidden": "true"
-}, dl = {
+}, Dl = {
 	key: 1,
 	class: "fa-solid fa-message",
 	"aria-hidden": "true"
-}, fl = ["disabled"], pl = {
+}, Ol = ["disabled"], kl = {
 	id: "fear-console-secondary-actions",
-	class: "dui-dropdown dui-dropdown-top dui-dropdown-end dui-menu tw:z-20 tw:mb-2 tw:w-52 tw:rounded-box tw:border tw:border-base-content/20! tw:bg-base-100! tw:p-2 tw:text-base-content! tw:shadow-lg",
+	class: "tw:dui-dropdown tw:dui-dropdown-top tw:dui-dropdown-end tw:dui-menu tw:z-20 tw:mb-2 tw:w-52 tw:rounded-box tw:border tw:border-base-content/20! tw:bg-base-100! tw:p-2 tw:text-base-content! tw:shadow-lg",
 	popover: "",
 	style: { "position-anchor": "--fear-console-secondary-actions" }
-}, ml = ["disabled"], hl = {
+}, Al = ["disabled"], jl = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	class: "tw:dui-loading tw:dui-loading-spinner tw:dui-loading-sm",
 	"aria-hidden": "true"
-}, gl = {
+}, Ml = {
 	key: 1,
 	class: "fa-regular fa-copy",
 	"aria-hidden": "true"
-}, _l = ["disabled"], vl = {
+}, Nl = ["disabled"], Pl = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	class: "tw:dui-loading tw:dui-loading-spinner tw:dui-loading-sm",
 	"aria-hidden": "true"
-}, yl = {
+}, Fl = {
 	key: 1,
 	class: "fa-solid fa-bolt",
 	"aria-hidden": "true"
-}, bl = /* @__PURE__ */ P({
+}, Il = /* @__PURE__ */ L({
 	__name: "FearConsoleApp",
 	props: {
 		initialPayload: {},
 		actions: {}
 	},
 	setup(e) {
-		let t = e, n = Ic();
+		let t = e, n = Qc();
 		t.initialPayload ? n.initialize({
 			actions: t.actions,
 			initialPayload: t.initialPayload
 		}) : n.initialize({ actions: t.actions });
-		let { activeAction: r, actors: i, errorMessage: a, isWorking: o, rating: s, selectedType: c, selectedTypeLabel: l, source: u } = js(n);
-		return (e, d) => (L(), R("main", Hc, [
-			B(Vc, {
-				rating: M(s),
-				"selected-type-label": M(l),
+		let { activeAction: r, actors: i, errorMessage: a, isWorking: o, rating: s, selectedType: c, selectedTypeLabel: l, source: u } = qs(n);
+		return (e, d) => (B(), V("main", il, [
+			U(rl, {
+				rating: F(s),
+				"selected-type-label": F(l),
 				onConfigure: t.actions.openConfigurator
 			}, null, 8, [
 				"rating",
 				"selected-type-label",
 				"onConfigure"
 			]),
-			M(a) ? (L(), R("div", Uc, [d[8] ||= z("i", {
+			F(a) ? (B(), V("div", al, [d[8] ||= H("i", {
 				class: "fa-solid fa-triangle-exclamation",
 				"aria-hidden": "true"
-			}, null, -1), z("span", null, D(M(a)), 1)])) : H("", !0),
-			z("section", Wc, [
-				z("fieldset", Gc, [
-					d[9] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Effect", -1),
-					z("div", Kc, [z("button", {
-						class: E(["dui-btn tw:min-w-0 tw:rounded-full", { "dui-btn-primary": M(c) === "fear" }]),
+			}, null, -1), H("span", null, k(F(a)), 1)])) : G("", !0),
+			H("section", ol, [
+				H("fieldset", sl, [
+					d[9] ||= H("legend", { class: "tw:dui-fieldset-legend tw:text-base-content!" }, "Effect", -1),
+					H("div", cl, [H("button", {
+						class: ke(["tw:dui-btn tw:min-w-0 tw:rounded-full", { "tw:dui-btn-primary": F(c) === "fear" }]),
 						type: "button",
-						"aria-pressed": M(c) === "fear",
+						"aria-pressed": F(c) === "fear",
 						onClick: d[0] ||= (e) => c.value = "fear"
-					}, " Fear ", 10, qc), z("button", {
-						class: E(["dui-btn tw:min-w-0 tw:rounded-full", { "dui-btn-primary": M(c) === "terror" }]),
+					}, " Fear ", 10, ll), H("button", {
+						class: ke(["tw:dui-btn tw:min-w-0 tw:rounded-full", { "tw:dui-btn-primary": F(c) === "terror" }]),
 						type: "button",
-						"aria-pressed": M(c) === "terror",
+						"aria-pressed": F(c) === "terror",
 						onClick: d[1] ||= (e) => c.value = "terror"
-					}, " Terror ", 10, Jc)]),
-					d[10] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Choose the WFRP4e psychology test to prompt or apply. ", -1)
+					}, " Terror ", 10, ul)]),
+					d[10] ||= H("p", { class: "tw:dui-label tw:whitespace-normal" }, " Choose the WFRP4e psychology test to prompt or apply. ", -1)
 				]),
-				z("fieldset", Yc, [
-					d[11] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Difficulty", -1),
-					d[12] ||= z("label", {
-						class: "dui-label",
+				H("fieldset", dl, [
+					d[11] ||= H("legend", { class: "tw:dui-fieldset-legend tw:text-base-content!" }, "Difficulty", -1),
+					d[12] ||= H("label", {
+						class: "tw:dui-label",
 						for: "fear-terror-rating"
 					}, "Rating", -1),
-					N(z("input", {
+					I(H("input", {
 						id: "fear-terror-rating",
-						"onUpdate:modelValue": d[2] ||= (e) => /* @__PURE__ */ A(s) ? s.value = e : null,
-						class: "dui-input dui-validator tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
+						"onUpdate:modelValue": d[2] ||= (e) => /* @__PURE__ */ N(s) ? s.value = e : null,
+						class: "tw:dui-input tw:dui-validator tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
 						min: "0",
 						required: "",
 						step: "1",
 						type: "number"
 					}, null, 512), [[
-						W,
-						M(s),
+						q,
+						F(s),
 						void 0,
 						{ number: !0 }
 					]]),
-					d[13] ||= z("p", { class: "dui-validator-hint" }, "Enter a whole number of zero or greater.", -1)
+					d[13] ||= H("p", { class: "tw:dui-validator-hint" }, "Enter a whole number of zero or greater.", -1)
 				]),
-				z("fieldset", Xc, [
-					d[14] ||= va("<legend class=\"dui-fieldset-legend tw:text-base-content!\">Source</legend><div class=\"tw:flex tw:min-w-0 tw:max-w-full tw:items-center tw:gap-2\"><label class=\"dui-label\" for=\"fear-terror-source\">Source name</label><span class=\"dui-tooltip\" data-tip=\"WFRP4e matches Fear sources by name.\"><span aria-label=\"Fear source naming help\" class=\"tw:inline-flex tw:text-secondary!\" tabindex=\"0\"><i class=\"fa-solid fa-circle-question\" aria-hidden=\"true\"></i></span></span></div>", 2),
-					N(z("input", {
+				H("fieldset", fl, [
+					d[14] ||= ja("<legend class=\"tw:dui-fieldset-legend tw:text-base-content!\">Source</legend><div class=\"tw:flex tw:min-w-0 tw:max-w-full tw:items-center tw:gap-2\"><label class=\"tw:dui-label\" for=\"fear-terror-source\">Source name</label><span class=\"tw:dui-tooltip\" data-tip=\"WFRP4e matches Fear sources by name.\"><span aria-label=\"Fear source naming help\" class=\"tw:inline-flex tw:text-secondary!\" tabindex=\"0\"><i class=\"fa-solid fa-circle-question\" aria-hidden=\"true\"></i></span></span></div>", 2),
+					I(H("input", {
 						id: "fear-terror-source",
-						"onUpdate:modelValue": d[3] ||= (e) => /* @__PURE__ */ A(u) ? u.value = e : null,
+						"onUpdate:modelValue": d[3] ||= (e) => /* @__PURE__ */ N(u) ? u.value = e : null,
 						autocomplete: "off",
-						class: "dui-input tw:min-w-0 tw:max-w-full tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
+						class: "tw:dui-input tw:min-w-0 tw:max-w-full tw:w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
 						placeholder: "Actor, creature group, ability, or scene hazard",
 						type: "text"
-					}, null, 512), [[W, M(u)]]),
-					d[15] ||= z("p", { class: "dui-label tw:min-w-0 tw:max-w-full tw:whitespace-normal" }, " Use a shared name such as “Ghouls” for one pack, or a unique name for one threat. ", -1)
+					}, null, 512), [[q, F(u)]]),
+					d[15] ||= H("p", { class: "tw:dui-label tw:min-w-0 tw:max-w-full tw:whitespace-normal" }, " Use a shared name such as “Ghouls” for one pack, or a unique name for one threat. ", -1)
 				])
 			]),
-			z("section", Zc, [z("div", Qc, [z("div", $c, [z("div", el, [d[16] ||= z("h2", {
+			H("section", pl, [H("div", ml, [H("div", hl, [H("div", gl, [d[16] ||= H("h2", {
 				id: "fear-terror-affected-actors",
-				class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-			}, " Affected actors ", -1), z("span", tl, D(M(i).length), 1)]), z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-sm",
-				disabled: M(o),
+				class: "tw:dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
+			}, " Affected actors ", -1), H("span", _l, k(F(i).length), 1)]), H("button", {
+				class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm",
+				disabled: F(o),
 				type: "button",
-				onClick: d[4] ||= (...e) => M(n).refreshActors && M(n).refreshActors(...e)
-			}, [...d[17] ||= [z("i", {
+				onClick: d[4] ||= (...e) => F(n).refreshActors && F(n).refreshActors(...e)
+			}, [...d[17] ||= [H("i", {
 				class: "fa-solid fa-rotate-right",
 				"aria-hidden": "true"
-			}, null, -1), V(" Refresh ", -1)]], 8, nl)]), M(i).length ? (L(), R("ul", rl, [(L(!0), R(I, null, F(M(i), (e) => (L(), R("li", {
+			}, null, -1), W(" Refresh ", -1)]], 8, vl)]), F(i).length ? (B(), V("ul", yl, [(B(!0), V(z, null, R(F(i), (e) => (B(), V("li", {
 				key: e.id,
-				class: "dui-list-row tw:items-center tw:bg-base-200!"
+				class: "tw:dui-list-row tw:items-center tw:bg-base-200!"
 			}, [
-				d[18] ||= z("span", {
-					class: "dui-status dui-status-secondary",
+				d[18] ||= H("span", {
+					class: "tw:dui-status tw:dui-status-secondary",
 					"aria-hidden": "true"
 				}, null, -1),
-				z("span", il, D(e.name), 1),
-				z("span", al, D(e.source), 1)
-			]))), 128))])) : (L(), R("div", ol, [d[19] ||= z("i", {
+				H("span", bl, k(e.name), 1),
+				H("span", xl, k(e.source), 1)
+			]))), 128))])) : (B(), V("div", Sl, [d[19] ||= H("i", {
 				class: "fa-solid fa-users",
 				"aria-hidden": "true"
-			}, null, -1), z("span", null, " Target one or more tokens to apply " + D(M(l)) + " directly. You can post a chat card without affected actors. ", 1)]))])]),
-			z("footer", sl, [z("div", cl, [
-				z("button", {
-					class: "dui-btn dui-btn-primary dui-join-item tw:min-w-0 tw:flex-1 tw:rounded-l-full tw:shadow-md",
-					disabled: M(o),
+			}, null, -1), H("span", null, " Target one or more tokens to apply " + k(F(l)) + " directly. You can post a chat card without affected actors. ", 1)]))])]),
+			H("footer", Cl, [H("div", wl, [
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-primary tw:dui-join-item tw:min-w-0 tw:flex-1 tw:rounded-l-full tw:shadow-md",
+					disabled: F(o),
 					type: "button",
-					onClick: d[5] ||= (e) => M(n).runAction("post-card")
-				}, [M(r) === "post-card" ? (L(), R("span", ul)) : (L(), R("i", dl)), d[20] ||= V(" Post Card ", -1)], 8, ll),
-				z("button", {
-					class: "dui-btn dui-btn-primary dui-btn-square dui-join-item tw:rounded-r-full tw:border-l-primary-content/25! tw:shadow-md",
+					onClick: d[5] ||= (e) => F(n).runAction("post-card")
+				}, [F(r) === "post-card" ? (B(), V("span", El)) : (B(), V("i", Dl)), d[20] ||= W(" Post Card ", -1)], 8, Tl),
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-square tw:dui-join-item tw:rounded-r-full tw:border-l-primary-content/25! tw:shadow-md",
 					"aria-label": "More Fear Console actions",
-					disabled: M(o),
+					disabled: F(o),
 					popovertarget: "fear-console-secondary-actions",
 					style: { "anchor-name": "--fear-console-secondary-actions" },
 					title: "More actions",
 					type: "button"
-				}, [...d[21] ||= [z("i", {
+				}, [...d[21] ||= [H("i", {
 					class: "fa-solid fa-chevron-up",
 					"aria-hidden": "true"
-				}, null, -1)]], 8, fl),
-				z("ul", pl, [z("li", { class: E({ "dui-menu-disabled": M(o) }) }, [z("button", {
-					disabled: M(o),
+				}, null, -1)]], 8, Ol),
+				H("ul", kl, [H("li", { class: ke({ "tw:dui-menu-disabled": F(o) }) }, [H("button", {
+					disabled: F(o),
 					popovertarget: "fear-console-secondary-actions",
 					popovertargetaction: "hide",
 					type: "button",
-					onClick: d[6] ||= (e) => M(n).runAction("copy-link")
-				}, [M(r) === "copy-link" ? (L(), R("span", hl)) : (L(), R("i", gl)), d[22] ||= V(" Copy Link ", -1)], 8, ml)], 2), z("li", { class: E({ "dui-menu-disabled": M(o) }) }, [z("button", {
-					disabled: M(o),
+					onClick: d[6] ||= (e) => F(n).runAction("copy-link")
+				}, [F(r) === "copy-link" ? (B(), V("span", jl)) : (B(), V("i", Ml)), d[22] ||= W(" Copy Link ", -1)], 8, Al)], 2), H("li", { class: ke({ "tw:dui-menu-disabled": F(o) }) }, [H("button", {
+					disabled: F(o),
 					popovertarget: "fear-console-secondary-actions",
 					popovertargetaction: "hide",
 					type: "button",
-					onClick: d[7] ||= (e) => M(n).runAction("apply")
-				}, [M(r) === "apply" ? (L(), R("span", vl)) : (L(), R("i", yl)), V(" Apply " + D(M(l)), 1)], 8, _l)], 2)])
+					onClick: d[7] ||= (e) => F(n).runAction("apply")
+				}, [F(r) === "apply" ? (B(), V("span", Pl)) : (B(), V("i", Fl)), W(" Apply " + k(F(l)), 1)], 8, Nl)], 2)])
 			])])
 		]));
 	}
-}), xl = As("fear-console-configurator", () => {
-	let e = /* @__PURE__ */ j({ launchers: {
-		actorSheet: !0,
-		tokenControls: !0
-	} }), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j(), r = /* @__PURE__ */ j(!1), i;
+}), Ll = Ks("fear-console-configurator", () => {
+	let e = /* @__PURE__ */ P({ launchers: {
+		actorSheet: !1,
+		tokenControls: !1,
+		xpCurveTokenControls: !1
+	} }), t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P(), r = /* @__PURE__ */ P(!1), i;
 	function a(r, a) {
 		i = a, e.value = { launchers: { ...r.launchers } }, t.value = void 0, n.value = void 0;
 	}
@@ -4058,115 +4229,175 @@ var Ic = As("fear-console", () => {
 		saveConfiguration: o,
 		statusMessage: n
 	};
-}), Sl = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, Cl = { class: "tw:min-h-0 tw:flex-1 tw:overflow-auto tw:p-4" }, wl = {
+}), Rl = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, zl = { class: "tw:min-h-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Bl = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:mb-3",
+	class: "tw:dui-alert tw:dui-alert-error tw:mb-3",
 	role: "alert"
-}, Tl = {
+}, Vl = {
 	key: 1,
-	class: "dui-alert dui-alert-success tw:mb-3",
+	class: "tw:dui-alert tw:dui-alert-success tw:mb-3",
 	role: "status",
 	"aria-live": "polite"
-}, El = {
-	class: "dui-card dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
+}, Hl = {
+	class: "tw:dui-card tw:dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
 	"aria-labelledby": "fear-launcher-settings"
-}, Dl = { class: "dui-card-body tw:gap-4 tw:p-4" }, Ol = { class: "dui-fieldset tw:gap-2" }, kl = { class: "dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, Al = { class: "dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, jl = { class: "tw:flex tw:shrink-0 tw:flex-col tw:items-stretch tw:gap-2 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4 tw:min-[32rem]:flex-row tw:min-[32rem]:items-center tw:min-[32rem]:justify-between" }, Ml = ["disabled"], Nl = {
+}, Ul = { class: "tw:dui-card-body tw:gap-4 tw:p-4" }, Wl = { class: "tw:dui-fieldset tw:gap-2" }, Gl = { class: "tw:dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, Kl = { class: "tw:dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, ql = { class: "tw:dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, Jl = { class: "tw:flex tw:shrink-0 tw:flex-col tw:items-stretch tw:gap-2 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4 tw:min-[32rem]:flex-row tw:min-[32rem]:items-center tw:min-[32rem]:justify-between" }, Yl = ["disabled"], Xl = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	class: "tw:dui-loading tw:dui-loading-spinner tw:dui-loading-sm",
 	"aria-hidden": "true"
-}, Pl = {
+}, Zl = {
 	key: 1,
 	class: "fa-solid fa-stamp",
 	"aria-hidden": "true"
-}, Fl = /* @__PURE__ */ P({
+}, Ql = /* @__PURE__ */ L({
 	__name: "FearConsoleConfiguratorApp",
 	props: {
 		actions: {},
 		configuration: {}
 	},
 	setup(e) {
-		let t = e, n = xl();
+		let t = e, n = Ll();
 		n.initialize(t.configuration, t.actions);
-		let { configuration: r, errorMessage: i, isSaving: a, statusMessage: o } = js(n);
-		return (e, t) => (L(), R("main", Sl, [
-			B(Gs, {
-				description: "Choose where the Fear Console appears for this browser and account.",
+		let { configuration: r, errorMessage: i, isSaving: a, statusMessage: o } = qs(n);
+		return (e, t) => (B(), V("main", Rl, [
+			U(sc, {
+				description: "Choose the toolkit buttons shown in Foundry for this browser.",
 				icon: "fa-solid fa-gears",
 				title: "Fear Console Configurator"
 			}),
-			z("div", Cl, [
-				M(i) ? (L(), R("div", wl, [t[3] ||= z("i", {
+			H("div", zl, [
+				F(i) ? (B(), V("div", Bl, [t[4] ||= H("i", {
 					class: "fa-solid fa-triangle-exclamation",
 					"aria-hidden": "true"
-				}, null, -1), z("span", null, D(M(i)), 1)])) : H("", !0),
-				M(o) ? (L(), R("div", Tl, [t[4] ||= z("i", {
+				}, null, -1), H("span", null, k(F(i)), 1)])) : G("", !0),
+				F(o) ? (B(), V("div", Vl, [t[5] ||= H("i", {
 					class: "fa-solid fa-circle-check",
 					"aria-hidden": "true"
-				}, null, -1), z("span", null, D(M(o)), 1)])) : H("", !0),
-				z("section", El, [z("div", Dl, [
-					t[8] ||= z("div", null, [z("h2", {
+				}, null, -1), H("span", null, k(F(o)), 1)])) : G("", !0),
+				H("section", Hl, [H("div", Ul, [
+					t[10] ||= H("div", null, [H("h2", {
 						id: "fear-launcher-settings",
-						class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-					}, " Console launchers "), z("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " These client preferences control only where shortcuts appear. Macros and the module API remain available. ")], -1),
-					z("fieldset", Ol, [
-						t[7] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Available locations", -1),
-						z("label", kl, [N(z("input", {
-							"onUpdate:modelValue": t[0] ||= (e) => M(r).launchers.tokenControls = e,
-							class: "dui-toggle dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
+						class: "tw:dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
+					}, " Toolkit launcher buttons "), H("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " All buttons are off by default. Compendium macros and the module API remain available. ")], -1),
+					H("fieldset", Wl, [
+						t[9] ||= H("legend", { class: "tw:dui-fieldset-legend tw:text-base-content!" }, " Available locations ", -1),
+						H("label", Gl, [I(H("input", {
+							"onUpdate:modelValue": t[0] ||= (e) => F(r).launchers.tokenControls = e,
+							"aria-label": "Fear Console sidebar button",
+							class: "tw:dui-toggle tw:dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
 							type: "checkbox"
-						}, null, 512), [[G, M(r).launchers.tokenControls]]), t[5] ||= z("span", { class: "tw:min-w-0" }, [z("strong", { class: "tw:block" }, "Token Controls"), z("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show the skull launcher in Foundry’s Token Controls palette. ")], -1)]),
-						z("label", Al, [N(z("input", {
-							"onUpdate:modelValue": t[1] ||= (e) => M(r).launchers.actorSheet = e,
-							class: "dui-toggle dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
+						}, null, 512), [[J, F(r).launchers.tokenControls]]), t[6] ||= H("span", { class: "tw:min-w-0" }, [H("strong", { class: "tw:block" }, "Fear Console sidebar button"), H("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show the skull launcher in Foundry’s Token Controls palette. ")], -1)]),
+						H("label", Kl, [I(H("input", {
+							"onUpdate:modelValue": t[1] ||= (e) => F(r).launchers.xpCurveTokenControls = e,
+							"aria-label": "XP Curve sidebar button",
+							class: "tw:dui-toggle tw:dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
 							type: "checkbox"
-						}, null, 512), [[G, M(r).launchers.actorSheet]]), t[6] ||= z("span", { class: "tw:min-w-0" }, [z("strong", { class: "tw:block" }, "Actor-sheet headers"), z("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show a Fear Console action on supported WFRP4e actor sheets. ")], -1)])
+						}, null, 512), [[J, F(r).launchers.xpCurveTokenControls]]), t[7] ||= H("span", { class: "tw:min-w-0" }, [H("strong", { class: "tw:block" }, "XP Curve sidebar button"), H("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show the chart launcher in Foundry’s Token Controls palette. ")], -1)]),
+						H("label", ql, [I(H("input", {
+							"onUpdate:modelValue": t[2] ||= (e) => F(r).launchers.actorSheet = e,
+							"aria-label": "Fear Console actor-sheet button",
+							class: "tw:dui-toggle tw:dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
+							type: "checkbox"
+						}, null, 512), [[J, F(r).launchers.actorSheet]]), t[8] ||= H("span", { class: "tw:min-w-0" }, [H("strong", { class: "tw:block" }, "Fear Console actor-sheet button"), H("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show a Fear Console action on supported WFRP4e actor sheets. ")], -1)])
 					]),
-					t[9] ||= z("div", {
-						class: "dui-alert tw:text-sm",
+					t[11] ||= H("div", {
+						class: "tw:dui-alert tw:text-sm",
 						role: "note"
-					}, [z("i", {
+					}, [H("i", {
 						class: "fa-solid fa-rotate",
 						"aria-hidden": "true"
-					}), z("span", null, "Launcher changes take effect after Foundry is reloaded.")], -1)
+					}), H("span", null, "Launcher changes take effect after Foundry is reloaded.")], -1)
 				])])
 			]),
-			z("footer", jl, [t[11] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, "Scope: this client and user.", -1), z("button", {
-				class: "dui-btn dui-btn-primary tw:min-w-40 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md",
-				disabled: M(a),
+			H("footer", Jl, [t[13] ||= H("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, "Scope: this browser.", -1), H("button", {
+				class: "tw:dui-btn tw:dui-btn-primary tw:min-w-40 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md",
+				disabled: F(a),
 				type: "button",
-				onClick: t[2] ||= (...e) => M(n).saveConfiguration && M(n).saveConfiguration(...e)
-			}, [M(a) ? (L(), R("span", Nl)) : (L(), R("i", Pl)), t[10] ||= V(" Save configuration ", -1)], 8, Ml)])
+				onClick: t[3] ||= (...e) => F(n).saveConfiguration && F(n).saveConfiguration(...e)
+			}, [F(a) ? (B(), V("span", Xl)) : (B(), V("i", Zl)), t[12] ||= W(" Save configuration ", -1)], 8, Yl)])
 		]));
 	}
-}), Il = {
+}), Z = {
+	curveExponent: "xpCurveExponent",
+	defaultReason: "xpCurveDefaultReason",
+	catchUpRate: "xpCurveCatchUpRate",
+	gapForMaximumAward: "xpCurveGapForMaximumAward",
+	maximumAward: "xpCurveMaximumAward",
+	scaleExponent: "xpCurveScaleExponent",
+	scalePivot: "xpCurveScalePivot",
+	showTokenControlsLauncher: "showXpCurveTokenControlsLauncher"
+};
+// src/module/foundry/xp-curve/settings/load.ts
+function $l() {
+	let e = ru(Z.curveExponent), t = ru(Z.maximumAward), n = ru(Z.catchUpRate), r = n >= 0 ? n : t * (1e3 / Math.max(1, ru(Z.gapForMaximumAward))) ** e / 10;
+	return {
+		defaultReason: iu(Z.defaultReason),
+		parameters: {
+			curveExponent: e,
+			catchUpRate: r,
+			maximumAward: t,
+			scaleExponent: ru(Z.scaleExponent),
+			scalePivot: ru(Z.scalePivot)
+		}
+	};
+}
+async function eu(e) {
+	let t = [
+		[Z.curveExponent, e.parameters.curveExponent],
+		[Z.defaultReason, e.defaultReason],
+		[Z.catchUpRate, e.parameters.catchUpRate],
+		[Z.maximumAward, e.parameters.maximumAward],
+		[Z.scaleExponent, e.parameters.scaleExponent],
+		[Z.scalePivot, e.parameters.scalePivot]
+	];
+	for (let [e, n] of t) await game.settings.set(r, e, n);
+}
+function tu(e) {
+	return nu(e);
+}
+function nu(e) {
+	return game.settings.get(r, e) === !0;
+}
+function ru(e) {
+	return Number(game.settings.get(r, e));
+}
+function iu(e) {
+	let t = game.settings.get(r, e);
+	return typeof t == "string" ? t : "";
+}
+// src/module/foundry/fear-terror/settings/launchers.ts
+var au = {
 	actorSheet: "showActorSheetLauncher",
 	tokenControls: "showTokenControlsLauncher"
 };
-function Ll(e) {
-	return game.settings.get(q, e) === !0;
+function ou(e) {
+	return game.settings.get(r, e) === !0;
 }
-//#endregion
-//#region src/module/fear-terror/configuration.ts
-function Rl() {
+// src/module/foundry/fear-terror/configuration.ts
+function su() {
 	return { launchers: {
-		actorSheet: Ll(Il.actorSheet),
-		tokenControls: Ll(Il.tokenControls)
+		actorSheet: ou(au.actorSheet),
+		tokenControls: ou(au.tokenControls),
+		xpCurveTokenControls: tu(Z.showTokenControlsLauncher)
 	} };
 }
-async function zl(e) {
-	Y(J.fearConsole);
-	let t = [[Il.actorSheet, e.launchers.actorSheet], [Il.tokenControls, e.launchers.tokenControls]];
-	for (let [e, n] of t) await game.settings.set(q, e, n);
-	ui.notifications.info("Fear Console configuration saved. Reload to update its launchers.");
+async function cu(e) {
+	X(Y.fearConsole);
+	let t = [
+		[au.actorSheet, e.launchers.actorSheet],
+		[au.tokenControls, e.launchers.tokenControls],
+		[Z.showTokenControlsLauncher, e.launchers.xpCurveTokenControls]
+	];
+	for (let [e, n] of t) await game.settings.set(r, e, n);
+	ui.notifications.info("Toolkit launcher preferences saved. Reload to update the buttons.");
 }
-//#endregion
-//#region src/module/apps/fear-console-configurator/FearConsoleConfiguratorApplication.ts
-var Bl = class extends Oc {
-	static ACCESS_POLICY = J.fearConsole;
+// src/module/apps/fear-console-configurator/view/FearConsoleConfiguratorApplication.ts
+var lu = class extends Uc {
+	static ACCESS_POLICY = Y.fearConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-fear-console-configurator`],
-		id: `${q}-fear-console-configurator`,
+		classes: [r, `${r}-fear-console-configurator`],
+		id: `${r}-fear-console-configurator`,
 		position: {
 			height: 500,
 			width: 560
@@ -4174,33 +4405,31 @@ var Bl = class extends Oc {
 		window: {
 			icon: "fa-solid fa-skull",
 			resizable: !0,
-			title: `${wc} — Fear Console Configurator`
+			title: `${i} — Fear Console Configurator`
 		}
 	};
 	getVueComponent() {
-		return Fl;
+		return Ql;
 	}
 	getVueProps() {
 		return {
-			actions: { saveConfiguration: zl },
-			configuration: Rl()
+			actions: { saveConfiguration: cu },
+			configuration: su()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/fear-console-configurator/open.ts
-async function Vl() {
-	let e = new Bl();
+// src/module/apps/fear-console-configurator/view/open.ts
+async function uu() {
+	let e = new lu();
 	return await e.render(!0), e;
 }
-function Hl() {
-	Vl().catch((e) => {
-		console.error(`${q} | Failed to open the Fear Console Configurator.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the Fear Console Configurator. See the browser console for details.");
+function du() {
+	uu().catch((e) => {
+		console.error(`${r} | Failed to open the Fear Console Configurator.`, e), Kc("Drowsy’s WFRP4e Toolkit could not open the Fear Console Configurator. See the browser console for details.");
 	});
 }
-//#endregion
-//#region src/functions/fear-terror/suggestion.ts
-function Ul({ fearRating: e, source: t, terrorRating: n }) {
+// src/module/functions/fear-terror/suggestion.ts
+function fu({ fearRating: e, source: t, terrorRating: n }) {
 	return n === void 0 ? e === void 0 ? {
 		rating: 1,
 		source: t,
@@ -4215,22 +4444,21 @@ function Ul({ fearRating: e, source: t, terrorRating: n }) {
 		type: "terror"
 	};
 }
-//#endregion
-//#region src/module/fear-terror/infer.ts
-function Wl() {
-	if (!(typeof canvas > "u" || !canvas)) {
-		for (let e of canvas.tokens?.controlled ?? []) if (e.actor) return Gl(e.actor);
+// src/module/foundry/fear-terror/infer.ts
+function pu() {
+	if (typeof canvas < "u" && canvas) {
+		for (let e of canvas.tokens?.controlled ?? []) if (e.actor) return mu(e.actor);
 	}
 }
-function Gl(e) {
-	let t = Kl(e, "CHAT.Terror");
-	return Ul({
-		fearRating: t === void 0 ? Kl(e, "CHAT.Fear") : void 0,
+function mu(e) {
+	let t = hu(e, "CHAT.Terror");
+	return fu({
+		fearRating: t === void 0 ? hu(e, "CHAT.Fear") : void 0,
 		source: e.name,
 		terrorRating: t
 	});
 }
-function Kl(e, t) {
+function hu(e, t) {
 	if (typeof e.has != "function") throw Error(`WFRP4e actor "${e.name}" does not expose the required trait lookup method.`);
 	let n = e.has(game.i18n.localize(t))?.specification?.value;
 	if (typeof n == "number") return n;
@@ -4239,21 +4467,20 @@ function Kl(e, t) {
 		if (Number.isFinite(e)) return e;
 	}
 }
-//#endregion
-//#region src/module/fear-terror/selection.ts
-function ql() {
-	return Yl().map(({ choice: e }) => e);
+// src/module/foundry/fear-terror/selection.ts
+function gu() {
+	return vu().map(({ choice: e }) => e);
 }
-function Jl() {
-	return Yl().map(({ actor: e }) => e);
+function _u() {
+	return vu().map(({ actor: e }) => e);
 }
-function Yl() {
+function vu() {
 	let e = /* @__PURE__ */ new Map();
-	for (let t of game.user?.targets ?? []) Xl(e, t.actor);
+	for (let t of game.user?.targets ?? []) yu(e, t.actor);
 	return Array.from(e.values());
 }
-function Xl(e, t) {
-	!t || e.has(t.id) || e.set(t.id, {
+function yu(e, t) {
+	t && !e.has(t.id) && e.set(t.id, {
 		actor: t,
 		choice: {
 			id: t.id,
@@ -4262,21 +4489,20 @@ function Xl(e, t) {
 		}
 	});
 }
-//#endregion
-//#region src/module/fear-terror/service.ts
-async function Zl(e) {
-	Y(J.fearConsole);
-	let t = Jl();
+// src/module/foundry/fear-terror/service.ts
+async function bu(e) {
+	X(Y.fearConsole);
+	let t = _u();
 	if (t.length === 0) {
 		ui.notifications.warn("Target one or more tokens before applying Fear or Terror.");
 		return;
 	}
-	let n = jc(e);
-	await Promise.all(t.map((e) => tu(e, n)));
+	let n = qc(e);
+	await Promise.all(t.map((e) => wu(e, n)));
 }
-async function Ql(e) {
-	Y(J.fearConsole);
-	let t = jc(e), n = Jl(), r = nu(t), i = Nc(r, t), a = ru(await foundry.applications.handlebars.renderTemplate("systems/wfrp4e/templates/chat/fear.hbs", { title: i }), n);
+async function xu(e) {
+	X(Y.fearConsole);
+	let t = qc(e), n = _u(), r = Tu(t), i = Yc(r, t), a = Eu(await foundry.applications.handlebars.renderTemplate("systems/wfrp4e/templates/chat/fear.hbs", { title: i }), n);
 	await ChatMessage.create({
 		content: a,
 		speaker: { alias: r },
@@ -4288,28 +4514,24 @@ async function Ql(e) {
 		type: "psych"
 	});
 }
-async function $l(e) {
-	Y(J.fearConsole);
-	let t = jc(e), n = Fc(t);
-	await game.clipboard.copyPlainText(n), ui.notifications.info(`${nu(t)} link copied.`);
+async function Su(e) {
+	X(Y.fearConsole);
+	let t = qc(e), n = Zc(t);
+	await game.clipboard.copyPlainText(n), ui.notifications.info(`${Tu(t)} link copied.`);
 }
-async function eu(e) {
-	Y(J.fearConsole);
-	let t = jc(e), n = Pc(nu(t), t), r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
+async function Cu(e) {
+	X(Y.fearConsole);
+	let t = qc(e), n = Xc(Tu(t), t), r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
-async function tu(e, t) {
-	if (t.type === "fear") {
-		await e.applyFear(t.rating, t.source);
-		return;
-	}
-	await e.applyTerror(t.rating, t.source);
+async function wu(e, t) {
+	t.type === "fear" ? await e.applyFear(t.rating, t.source) : await e.applyTerror(t.rating, t.source);
 }
-function nu(e) {
+function Tu(e) {
 	let t = e.type === "fear" ? "CHAT.Fear" : "CHAT.Terror";
 	return game.i18n.localize(t);
 }
-function ru(e, t) {
+function Eu(e, t) {
 	if (t.length === 0) return e;
 	let n = document.createElement("template");
 	n.innerHTML = e.trim();
@@ -4323,14 +4545,13 @@ function ru(e, t) {
 	let o = n.content.querySelector("[data-action=\"apply\"]");
 	return o ? o.before(r) : n.content.append(r), n.innerHTML;
 }
-//#endregion
-//#region src/module/apps/fear-console/FearConsoleApplication.ts
-var iu = class extends Oc {
-	static ACCESS_POLICY = J.fearConsole;
+// src/module/apps/fear-console/view/FearConsoleApplication.ts
+var Du = class extends Uc {
+	static ACCESS_POLICY = Y.fearConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-fear-console`],
-		id: `${q}-fear-console`,
+		classes: [r, `${r}-fear-console`],
+		id: `${r}-fear-console`,
 		position: {
 			height: 560,
 			width: 620
@@ -4338,7 +4559,7 @@ var iu = class extends Oc {
 		window: {
 			icon: "fa-solid fa-skull",
 			resizable: !0,
-			title: `${wc} — Fear Console`
+			title: `${i} — Fear Console`
 		}
 	};
 	#e;
@@ -4346,41 +4567,39 @@ var iu = class extends Oc {
 		super(), this.#e = e;
 	}
 	getVueComponent() {
-		return bl;
+		return Il;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				applyToSelectedActors: Zl,
-				copyLink: $l,
-				getActorChoices: ql,
+				applyToSelectedActors: bu,
+				copyLink: Su,
+				getActorChoices: gu,
 				onActionComplete: () => {
 					this.close().catch((e) => {
-						console.error(`${q} | Failed to close the Fear Console.`, e), ui.notifications.error("The Fear Console completed the action but could not close its window.");
+						console.error(`${r} | Failed to close the Fear Console.`, e), ui.notifications.error("The Fear Console completed the action but could not close its window.");
 					});
 				},
-				openConfigurator: Hl,
-				postPrompt: Ql
+				openConfigurator: du,
+				postPrompt: xu
 			},
-			initialPayload: this.#e.initialPayload ?? Wl()
+			initialPayload: this.#e.initialPayload ?? pu()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/fear-console/open.ts
-async function au(e = {}) {
-	let t = new iu(e);
+// src/module/apps/fear-console/view/open.ts
+async function Ou(e = {}) {
+	let t = new Du(e);
 	return await t.render(!0), t;
 }
-function ou(e = {}) {
-	au(e).catch((e) => {
-		console.error(`${q} | Failed to open the Fear Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the Fear Console. See the browser console for details.");
+function ku(e = {}) {
+	Ou(e).catch((e) => {
+		console.error(`${r} | Failed to open the Fear Console.`, e), Kc("Drowsy’s WFRP4e Toolkit could not open the Fear Console. See the browser console for details.");
 	});
 }
-//#endregion
-//#region src/state/apps/administration-console/store.ts
-var su = As("administration-console", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j([]), r = /* @__PURE__ */ j(!0), i = /* @__PURE__ */ j("observer"), a = /* @__PURE__ */ j(), o = /* @__PURE__ */ j(), s = /* @__PURE__ */ j(!1), c, l = U(() => e.value.filter(({ selected: e }) => e).map(({ id: e }) => e));
+// src/module/apps/administration-console/state/store.ts
+var Au = Ks("administration-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P([]), r = /* @__PURE__ */ P(!0), i = /* @__PURE__ */ P("observer"), a = /* @__PURE__ */ P(), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(!1), c, l = K(() => e.value.filter(({ selected: e }) => e).map(({ id: e }) => e));
 	function u(i, a) {
 		c = a, e.value = i.packs.map((e) => ({ ...e })), t.value = i.scene ? { ...i.scene } : void 0, n.value = [...i.spectators], r.value = i.showUnassignedPlayerWarning;
 	}
@@ -4442,108 +4661,107 @@ var su = As("administration-console", () => {
 		statusMessage: o,
 		visibility: i
 	};
-}), cu = { class: "tw:grid tw:min-w-0 tw:gap-3" }, lu = { class: "dui-card dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, uu = { class: "dui-card-body tw:gap-3 tw:p-4" }, du = { class: "tw:m-0 tw:text-sm" }, fu = { class: "tw:flex tw:flex-wrap tw:gap-2" }, pu = { class: "dui-badge" }, mu = { class: "dui-badge" }, hu = { class: "tw:flex tw:flex-wrap tw:justify-end tw:gap-2" }, gu = ["disabled"], _u = ["disabled"], vu = {
+}), ju = { class: "tw:grid tw:min-w-0 tw:gap-3" }, Mu = { class: "tw:dui-card tw:dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, Nu = { class: "tw:dui-card-body tw:gap-3 tw:p-4" }, Pu = { class: "tw:m-0 tw:text-sm" }, Fu = { class: "tw:flex tw:flex-wrap tw:gap-2" }, Iu = { class: "tw:dui-badge" }, Lu = { class: "tw:dui-badge" }, Ru = { class: "tw:flex tw:flex-wrap tw:justify-end tw:gap-2" }, zu = ["disabled"], Bu = ["disabled"], Vu = {
 	key: 1,
-	class: "dui-alert",
+	class: "tw:dui-alert",
 	role: "status"
-}, yu = { class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, bu = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, xu = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Su = { class: "tw:flex tw:gap-2" }, Cu = { class: "tw:max-h-56 tw:overflow-auto tw:rounded-box tw:border tw:border-base-content/15!" }, wu = ["onUpdate:modelValue"], Tu = { class: "tw:min-w-0 tw:flex-1" }, Eu = { class: "tw:block tw:text-sm tw:font-semibold" }, Du = { class: "tw:block tw:text-xs tw:text-base-content/60!" }, Ou = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-end tw:gap-2" }, ku = ["disabled"], Au = { class: "tw:grid tw:gap-3 tw:min-[38rem]:grid-cols-2" }, ju = { class: "dui-card dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, Mu = { class: "dui-card-body tw:gap-2 tw:p-4" }, Nu = {
+}, Hu = { class: "tw:dui-card tw:dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, Uu = { class: "tw:dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Wu = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2" }, Gu = { class: "tw:flex tw:gap-2" }, Ku = { class: "tw:max-h-56 tw:overflow-auto tw:rounded-box tw:border tw:border-base-content/15!" }, qu = ["onUpdate:modelValue"], Ju = { class: "tw:min-w-0 tw:flex-1" }, Yu = { class: "tw:block tw:text-sm tw:font-semibold" }, Xu = { class: "tw:block tw:text-xs tw:text-base-content/60!" }, Zu = { class: "tw:flex tw:flex-wrap tw:items-center tw:justify-end tw:gap-2" }, Qu = ["disabled"], $u = { class: "tw:grid tw:gap-3 tw:min-[38rem]:grid-cols-2" }, ed = { class: "tw:dui-card tw:dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, td = { class: "tw:dui-card-body tw:gap-2 tw:p-4" }, nd = {
 	key: 0,
-	class: "dui-alert dui-alert-warning",
+	class: "tw:dui-alert tw:dui-alert-warning",
 	role: "status"
-}, Pu = {
+}, rd = {
 	key: 1,
 	class: "tw:m-0 tw:text-sm"
-}, Fu = { class: "tw:flex tw:items-center tw:gap-2" }, Iu = { class: "dui-card dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, Lu = { class: "dui-card-body tw:gap-2 tw:p-4" }, Ru = ["disabled"], zu = /* @__PURE__ */ P({
+}, id = { class: "tw:flex tw:items-center tw:gap-2" }, ad = { class: "tw:dui-card tw:dui-card-border tw:border-2 tw:border-base-content/20! tw:bg-base-100!" }, od = { class: "tw:dui-card-body tw:gap-2 tw:p-4" }, sd = ["disabled"], cd = /* @__PURE__ */ L({
 	__name: "AdministrationConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = su();
+		let t = e, n = Au();
 		n.initialize(t.initialization, t.actions);
-		let { errorMessage: r, isWorking: i, packs: a, scene: o, selectedPackIds: s, showUnassignedPlayerWarning: c, spectators: l, statusMessage: u, visibility: d } = js(n);
-		return (e, t) => (L(), ua(Qs, {
+		let { errorMessage: r, isWorking: i, packs: a, scene: o, selectedPackIds: s, showUnassignedPlayerWarning: c, spectators: l, statusMessage: u, visibility: d } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
 			description: "Manage Scene lighting, compendium visibility, player assignments, and utility rolls.",
-			"error-message": M(r),
+			"error-message": F(r),
 			icon: "fa-solid fa-screwdriver-wrench",
-			"status-message": M(u),
+			"status-message": F(u),
 			title: "Administration Console"
 		}, {
-			default: Xn(() => [z("div", cu, [
-				z("section", lu, [z("div", uu, [t[9] ||= z("h2", { class: "dui-card-title tw:font-serif tw:text-lg" }, "Viewed Scene", -1), M(o) ? (L(), R(I, { key: 0 }, [
-					z("p", du, D(M(o).name), 1),
-					z("div", fu, [z("span", pu, "Token Vision: " + D(M(o).tokenVision ? "on" : "off"), 1), z("span", mu, "Global light: " + D(M(o).globalLight ? "on" : "off"), 1)]),
-					z("div", hu, [z("button", {
-						class: "dui-btn dui-btn-sm",
-						disabled: M(i),
+			default: ir(() => [H("div", ju, [
+				H("section", Mu, [H("div", Nu, [t[9] ||= H("h2", { class: "tw:dui-card-title tw:font-serif tw:text-lg" }, "Viewed Scene", -1), F(o) ? (B(), V(z, { key: 0 }, [
+					H("p", Pu, k(F(o).name), 1),
+					H("div", Fu, [H("span", Iu, "Token Vision: " + k(F(o).tokenVision ? "on" : "off"), 1), H("span", Lu, "Global light: " + k(F(o).globalLight ? "on" : "off"), 1)]),
+					H("div", Ru, [H("button", {
+						class: "tw:dui-btn tw:dui-btn-sm",
+						disabled: F(i),
 						type: "button",
-						onClick: t[0] ||= (e) => M(n).applySceneMode("token-vision")
-					}, " Use Token Vision ", 8, gu), z("button", {
-						class: "dui-btn dui-btn-sm",
-						disabled: M(i),
+						onClick: t[0] ||= (e) => F(n).applySceneMode("token-vision")
+					}, " Use Token Vision ", 8, zu), H("button", {
+						class: "tw:dui-btn tw:dui-btn-sm",
+						disabled: F(i),
 						type: "button",
-						onClick: t[1] ||= (e) => M(n).applySceneMode("global-light")
-					}, " Use global light ", 8, _u)])
-				], 64)) : (L(), R("div", vu, "View a Scene to manage its lighting."))])]),
-				z("section", yu, [z("div", bu, [
-					z("div", xu, [t[10] ||= z("h2", { class: "dui-card-title tw:font-serif tw:text-lg" }, "Compendium visibility", -1), z("div", Su, [z("button", {
-						class: "dui-btn dui-btn-xs",
+						onClick: t[1] ||= (e) => F(n).applySceneMode("global-light")
+					}, " Use global light ", 8, Bu)])
+				], 64)) : (B(), V("div", Vu, "View a Scene to manage its lighting."))])]),
+				H("section", Hu, [H("div", Uu, [
+					H("div", Wu, [t[10] ||= H("h2", { class: "tw:dui-card-title tw:font-serif tw:text-lg" }, "Compendium visibility", -1), H("div", Gu, [H("button", {
+						class: "tw:dui-btn tw:dui-btn-xs",
 						type: "button",
-						onClick: t[2] ||= (e) => M(n).setAllPacks(!0)
-					}, " Select all "), z("button", {
-						class: "dui-btn dui-btn-xs",
+						onClick: t[2] ||= (e) => F(n).setAllPacks(!0)
+					}, " Select all "), H("button", {
+						class: "tw:dui-btn tw:dui-btn-xs",
 						type: "button",
-						onClick: t[3] ||= (e) => M(n).setAllPacks(!1)
+						onClick: t[3] ||= (e) => F(n).setAllPacks(!1)
 					}, " Clear ")])]),
-					z("div", Cu, [(L(!0), R(I, null, F(M(a), (e) => (L(), R("label", {
+					H("div", Ku, [(B(!0), V(z, null, R(F(a), (e) => (B(), V("label", {
 						key: e.id,
 						class: "tw:flex tw:items-start tw:gap-2 tw:border-b tw:border-base-content/10! tw:p-2 last:tw:border-0"
-					}, [N(z("input", {
+					}, [I(H("input", {
 						"onUpdate:modelValue": (t) => e.selected = t,
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 8, wu), [[G, e.selected]]), z("span", Tu, [z("span", Eu, D(e.label), 1), z("span", Du, D(e.packageName) + " · " + D(e.type) + " · " + D(e.visibility), 1)])]))), 128))]),
-					z("div", Ou, [N(z("select", {
-						"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ A(d) ? d.value = e : null,
-						class: "dui-select dui-select-sm tw:border-base-content/25! tw:bg-base-100!"
-					}, [...t[11] ||= [z("option", { value: "observer" }, "Visible to players", -1), z("option", { value: "limited" }, "Hidden from players", -1)]], 512), [[zo, M(d)]]), z("button", {
-						class: "dui-btn dui-btn-primary dui-btn-sm",
-						disabled: M(i) || !M(s).length,
+					}, null, 8, qu), [[J, e.selected]]), H("span", Ju, [H("span", Yu, k(e.label), 1), H("span", Xu, k(e.packageName) + " · " + k(e.type) + " · " + k(e.visibility), 1)])]))), 128))]),
+					H("div", Zu, [I(H("select", {
+						"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ N(d) ? d.value = e : null,
+						class: "tw:dui-select tw:dui-select-sm tw:border-base-content/25! tw:bg-base-100!"
+					}, [...t[11] ||= [H("option", { value: "observer" }, "Visible to players", -1), H("option", { value: "limited" }, "Hidden from players", -1)]], 512), [[es, F(d)]]), H("button", {
+						class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-sm",
+						disabled: F(i) || !F(s).length,
 						type: "button",
-						onClick: t[5] ||= (...e) => M(n).applyVisibility && M(n).applyVisibility(...e)
-					}, " Apply to " + D(M(s).length) + " pack" + D(M(s).length === 1 ? "" : "s"), 9, ku)])
+						onClick: t[5] ||= (...e) => F(n).applyVisibility && F(n).applyVisibility(...e)
+					}, " Apply to " + k(F(s).length) + " pack" + k(F(s).length === 1 ? "" : "s"), 9, Qu)])
 				])]),
-				z("section", Au, [z("div", ju, [z("div", Mu, [
-					t[13] ||= z("h2", { class: "dui-card-title tw:font-serif tw:text-lg" }, "Player assignments", -1),
-					M(l).length ? (L(), R("div", Nu, [z("span", null, D(M(l).join(", ")) + " " + D(M(l).length === 1 ? "has" : "have") + " no assigned character.", 1)])) : (L(), R("p", Pu, "Every player has an assigned character.")),
-					z("label", Fu, [N(z("input", {
-						"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ A(c) ? c.value = e : null,
-						class: "dui-toggle dui-toggle-sm",
+				H("section", $u, [H("div", ed, [H("div", td, [
+					t[13] ||= H("h2", { class: "tw:dui-card-title tw:font-serif tw:text-lg" }, "Player assignments", -1),
+					F(l).length ? (B(), V("div", nd, [H("span", null, k(F(l).join(", ")) + " " + k(F(l).length === 1 ? "has" : "have") + " no assigned character.", 1)])) : (B(), V("p", rd, "Every player has an assigned character.")),
+					H("label", id, [I(H("input", {
+						"onUpdate:modelValue": t[6] ||= (e) => /* @__PURE__ */ N(c) ? c.value = e : null,
+						class: "tw:dui-toggle tw:dui-toggle-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(c)]]), t[12] ||= V(" Warn the GM at startup ", -1)]),
-					z("button", {
-						class: "dui-btn dui-btn-secondary dui-btn-sm tw:w-fit",
+					}, null, 512), [[J, F(c)]]), t[12] ||= W(" Warn the GM at startup ", -1)]),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-secondary tw:dui-btn-sm tw:w-fit",
 						type: "button",
-						onClick: t[7] ||= (...e) => M(n).savePlayerWarning && M(n).savePlayerWarning(...e)
+						onClick: t[7] ||= (...e) => F(n).savePlayerWarning && F(n).savePlayerWarning(...e)
 					}, " Save preference ")
-				])]), z("div", Iu, [z("div", Lu, [t[15] ||= z("h2", { class: "dui-card-title tw:font-serif tw:text-lg" }, "Utility roll", -1), z("button", {
-					class: "dui-btn dui-btn-primary",
-					disabled: M(i),
+				])]), H("div", ad, [H("div", od, [t[15] ||= H("h2", { class: "tw:dui-card-title tw:font-serif tw:text-lg" }, "Utility roll", -1), H("button", {
+					class: "tw:dui-btn tw:dui-btn-primary",
+					disabled: F(i),
 					type: "button",
-					onClick: t[8] ||= (...e) => M(n).rollD100 && M(n).rollD100(...e)
-				}, [...t[14] ||= [z("i", {
+					onClick: t[8] ||= (...e) => F(n).rollD100 && F(n).rollD100(...e)
+				}, [...t[14] ||= [H("i", {
 					class: "fa-solid fa-dice-d20",
 					"aria-hidden": "true"
-				}, null, -1), V(" Roll d100 ", -1)]], 8, Ru)])])])
+				}, null, -1), W(" Roll d100 ", -1)]], 8, sd)])])])
 			])]),
 			_: 1
 		}, 8, ["error-message", "status-message"]));
 	}
-}), Bu = { showUnassignedPlayerWarning: "showUnassignedPlayerWarning" };
-//#endregion
-//#region src/module/administration/initialization.ts
-function Vu() {
+}), ld = { showUnassignedPlayerWarning: "showUnassignedPlayerWarning" };
+// src/module/foundry/administration/initialization.ts
+function ud() {
 	let e = game, t = e.scenes.viewed;
 	return {
 		packs: Array.from(e.packs).filter(({ metadata: e }) => e.system === "wfrp4e").map((e) => ({
@@ -4561,13 +4779,12 @@ function Vu() {
 			tokenVision: t.tokenVision
 		} } : {},
 		spectators: Array.from(e.users).filter((e) => !e.isGM && e.active !== !1 && !e.character).map(({ name: e }) => e).sort(),
-		showUnassignedPlayerWarning: game.settings.get(q, Bu.showUnassignedPlayerWarning) === !0
+		showUnassignedPlayerWarning: game.settings.get(r, ld.showUnassignedPlayerWarning) === !0
 	};
 }
-//#endregion
-//#region src/module/administration/service.ts
-async function Hu(e) {
-	Y(J.administrationConsole);
+// src/module/foundry/administration/service.ts
+async function dd(e) {
+	X(Y.administrationConsole);
 	let t = game.scenes.viewed;
 	if (!t) throw Error("View a Scene before changing its lighting mode.");
 	await t.update({
@@ -4575,8 +4792,8 @@ async function Hu(e) {
 		tokenVision: e === "token-vision"
 	}), ui.notifications.info(`${t.name} now uses ${e === "global-light" ? "global illumination" : "Token Vision"}.`);
 }
-async function Uu(e, t) {
-	Y(J.administrationConsole);
+async function fd(e, t) {
+	X(Y.administrationConsole);
 	let n = game, r = new Set(e);
 	if (r.size === 0) throw Error("Select at least one compendium pack.");
 	let i = {
@@ -4589,22 +4806,21 @@ async function Uu(e, t) {
 	if (a !== r.size) throw Error("One or more selected compendium packs are unavailable.");
 	ui.notifications.info(`${a} compendium pack${a === 1 ? "" : "s"} updated.`);
 }
-async function Wu() {
-	Y(J.administrationConsole);
+async function pd() {
+	X(Y.administrationConsole);
 	let e = new Roll("1d100");
 	await e.evaluate(), await e.toMessage({ flavor: "d100" });
 }
-async function Gu(e) {
-	Y(J.administrationConsole), await game.settings.set(q, Bu.showUnassignedPlayerWarning, e), ui.notifications.info(`Unassigned-player warning ${e ? "enabled" : "disabled"}.`);
+async function md(e) {
+	X(Y.administrationConsole), await game.settings.set(r, ld.showUnassignedPlayerWarning, e), ui.notifications.info(`Unassigned-player warning ${e ? "enabled" : "disabled"}.`);
 }
-//#endregion
-//#region src/module/apps/administration-console/AdministrationConsoleApplication.ts
-var Ku = class extends Oc {
-	static ACCESS_POLICY = J.administrationConsole;
+// src/module/apps/administration-console/view/AdministrationConsoleApplication.ts
+var hd = class extends Uc {
+	static ACCESS_POLICY = Y.administrationConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-administration-console`],
-		id: `${q}-administration-console`,
+		classes: [r, `${r}-administration-console`],
+		id: `${r}-administration-console`,
 		position: {
 			height: 760,
 			width: 760
@@ -4612,34 +4828,32 @@ var Ku = class extends Oc {
 		window: {
 			icon: "fa-solid fa-screwdriver-wrench",
 			resizable: !0,
-			title: `${wc} — Administration Console`
+			title: `${i} — Administration Console`
 		}
 	};
 	getVueComponent() {
-		return zu;
+		return cd;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				rollD100: Wu,
-				setCompendiumVisibility: Uu,
-				setSceneLighting: Hu,
-				setUnassignedPlayerWarning: Gu
+				rollD100: pd,
+				setCompendiumVisibility: fd,
+				setSceneLighting: dd,
+				setUnassignedPlayerWarning: md
 			},
-			initialization: Vu()
+			initialization: ud()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/administration-console/open.ts
-async function qu() {
-	let e = new Ku();
+// src/module/apps/administration-console/view/open.ts
+async function gd() {
+	let e = new hd();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/combat-console/store.ts
-var Ju = As("combat-console", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j(1), r = /* @__PURE__ */ j(!0), i = /* @__PURE__ */ j(!0), a = /* @__PURE__ */ j(!1), o = /* @__PURE__ */ j(""), s, c = U(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
+// src/module/apps/combat-console/state/store.ts
+var _d = Ks("combat-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P(1), r = /* @__PURE__ */ P(!0), i = /* @__PURE__ */ P(!0), a = /* @__PURE__ */ P(!1), o = /* @__PURE__ */ P(""), s, c = K(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
 	function l(n, r) {
 		e.value = structuredClone(n.actors), t.value = structuredClone(n.settings), s = r;
 	}
@@ -4691,164 +4905,159 @@ var Ju = As("combat-console", () => {
 		settings: t,
 		skipPlayerCharacters: i
 	};
-}), Yu = { class: "tw:grid tw:gap-4" }, Xu = {
+}), vd = { class: "tw:grid tw:gap-4" }, yd = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-0"
-}, Zu = { class: "dui-card dui-card-border tw:bg-base-100!" }, Qu = { class: "dui-card-body tw:gap-3 tw:p-4" }, $u = { class: "tw:grid tw:max-h-48 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, ed = ["onUpdate:modelValue"], td = { class: "dui-card dui-card-border tw:bg-base-100!" }, nd = { class: "dui-card-body tw:gap-3 tw:p-4" }, rd = { class: "tw:flex tw:items-center tw:gap-3" }, id = { class: "tw:flex tw:flex-wrap tw:gap-2" }, ad = ["disabled"], od = ["disabled"], sd = ["disabled"], cd = { class: "dui-card dui-card-border tw:bg-base-100!" }, ld = { class: "dui-card-body tw:gap-3 tw:p-4" }, ud = { class: "tw:flex tw:items-center tw:gap-2" }, dd = { class: "tw:flex tw:items-center tw:gap-2" }, fd = ["disabled"], pd = {
+	class: "tw:dui-alert tw:dui-alert-error tw:m-0"
+}, bd = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, xd = { class: "tw:dui-card-body tw:gap-3 tw:p-4" }, Sd = { class: "tw:grid tw:max-h-48 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, Cd = ["onUpdate:modelValue"], wd = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, Td = { class: "tw:dui-card-body tw:gap-3 tw:p-4" }, Ed = { class: "tw:flex tw:items-center tw:gap-3" }, Dd = { class: "tw:flex tw:flex-wrap tw:gap-2" }, Od = ["disabled"], kd = ["disabled"], Ad = ["disabled"], jd = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, Md = { class: "tw:dui-card-body tw:gap-3 tw:p-4" }, Nd = { class: "tw:flex tw:items-center tw:gap-2" }, Pd = { class: "tw:flex tw:items-center tw:gap-2" }, Fd = ["disabled"], Id = {
 	key: 1,
-	class: "dui-collapse dui-collapse-arrow dui-card dui-card-border tw:bg-base-100!"
-}, md = { class: "dui-collapse-content tw:grid tw:gap-2" }, hd = { class: "tw:flex tw:items-center tw:gap-2" }, gd = { class: "tw:flex tw:items-center tw:gap-2" }, _d = { class: "tw:flex tw:items-center tw:gap-2" }, vd = { class: "tw:flex tw:items-center tw:gap-2" }, yd = { class: "tw:flex tw:items-center tw:gap-2" }, bd = { class: "tw:flex tw:items-center tw:gap-2" }, xd = { class: "tw:flex tw:items-center tw:gap-2" }, Sd = ["disabled"], Cd = /* @__PURE__ */ P({
+	class: "tw:dui-collapse tw:dui-collapse-arrow tw:dui-card tw:dui-card-border tw:bg-base-100!"
+}, Ld = { class: "tw:dui-collapse-content tw:grid tw:gap-2" }, Rd = { class: "tw:flex tw:items-center tw:gap-2" }, zd = { class: "tw:flex tw:items-center tw:gap-2" }, Bd = { class: "tw:flex tw:items-center tw:gap-2" }, Vd = { class: "tw:flex tw:items-center tw:gap-2" }, Hd = { class: "tw:flex tw:items-center tw:gap-2" }, Ud = { class: "tw:flex tw:items-center tw:gap-2" }, Wd = { class: "tw:flex tw:items-center tw:gap-2" }, Gd = ["disabled"], Kd = /* @__PURE__ */ L({
 	__name: "CombatConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Ju();
+		let t = e, n = _d();
 		n.initialize(t.initialization, t.actions);
-		let { actors: r, amount: i, busy: a, endOfRoundOnly: o, errorMessage: s, settings: c, skipPlayerCharacters: l } = js(n);
-		return (e, t) => (L(), ua(Qs, {
+		let { actors: r, amount: i, busy: a, endOfRoundOnly: o, errorMessage: s, settings: c, skipPlayerCharacters: l } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
 			description: "Manage Advantage and resolve supported end-of-round conditions.",
 			icon: "fa-solid fa-swords",
 			title: "Combat Console"
 		}, {
-			default: Xn(() => [z("div", Yu, [
-				M(s) ? (L(), R("p", Xu, D(M(s)), 1)) : H("", !0),
-				z("section", Zu, [z("div", Qu, [t[15] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Actors", -1), z("div", $u, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("label", {
+			default: ir(() => [H("div", vd, [
+				F(s) ? (B(), V("p", yd, k(F(s)), 1)) : G("", !0),
+				H("section", bd, [H("div", xd, [t[15] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Actors", -1), H("div", Sd, [(B(!0), V(z, null, R(F(r), (e) => (B(), V("label", {
 					key: e.uuid,
 					class: "tw:flex tw:items-center tw:gap-2"
-				}, [N(z("input", {
+				}, [I(H("input", {
 					"onUpdate:modelValue": (t) => e.selected = t,
-					class: "dui-checkbox dui-checkbox-sm",
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
 					type: "checkbox"
-				}, null, 8, ed), [[G, e.selected]]), z("span", null, D(e.label), 1)]))), 128))])])]),
-				z("section", td, [z("div", nd, [
-					t[17] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Advantage", -1),
-					z("label", rd, [t[16] ||= z("span", null, "Amount", -1), N(z("input", {
-						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ A(i) ? i.value = e : null,
-						class: "dui-input dui-input-sm tw:w-24",
+				}, null, 8, Cd), [[J, e.selected]]), H("span", null, k(e.label), 1)]))), 128))])])]),
+				H("section", wd, [H("div", Td, [
+					t[17] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Advantage", -1),
+					H("label", Ed, [t[16] ||= H("span", null, "Amount", -1), I(H("input", {
+						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ N(i) ? i.value = e : null,
+						class: "tw:dui-input tw:dui-input-sm tw:w-24",
 						min: "1",
 						type: "number"
 					}, null, 512), [[
-						W,
-						M(i),
+						q,
+						F(i),
 						void 0,
 						{ number: !0 }
 					]])]),
-					z("div", id, [
-						z("button", {
-							class: "dui-btn dui-btn-primary dui-btn-sm",
-							disabled: M(a),
+					H("div", Dd, [
+						H("button", {
+							class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-sm",
+							disabled: F(a),
 							type: "button",
-							onClick: t[1] ||= (e) => M(n).adjust("add")
-						}, " Add ", 8, ad),
-						z("button", {
-							class: "dui-btn dui-btn-secondary dui-btn-sm",
-							disabled: M(a),
+							onClick: t[1] ||= (e) => F(n).adjust("add")
+						}, " Add ", 8, Od),
+						H("button", {
+							class: "tw:dui-btn tw:dui-btn-secondary tw:dui-btn-sm",
+							disabled: F(a),
 							type: "button",
-							onClick: t[2] ||= (e) => M(n).adjust("reduce")
-						}, " Reduce ", 8, od),
-						z("button", {
-							class: "dui-btn dui-btn-outline dui-btn-sm",
-							disabled: M(a),
+							onClick: t[2] ||= (e) => F(n).adjust("reduce")
+						}, " Reduce ", 8, kd),
+						H("button", {
+							class: "tw:dui-btn tw:dui-btn-outline tw:dui-btn-sm",
+							disabled: F(a),
 							type: "button",
-							onClick: t[3] ||= (e) => M(n).adjust("clear")
-						}, " Clear ", 8, sd)
+							onClick: t[3] ||= (e) => F(n).adjust("clear")
+						}, " Clear ", 8, Ad)
 					])
 				])]),
-				z("section", cd, [z("div", ld, [
-					t[20] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Condition checks", -1),
-					t[21] ||= z("p", { class: "tw:m-0 tw:text-sm" }, " Handles Surprised, Ablaze, Poisoned, and Broken using WFRP4e operations. ", -1),
-					z("label", ud, [N(z("input", {
-						"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-						class: "dui-checkbox dui-checkbox-sm",
+				H("section", jd, [H("div", Md, [
+					t[20] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Condition checks", -1),
+					t[21] ||= H("p", { class: "tw:m-0 tw:text-sm" }, " Handles Surprised, Ablaze, Poisoned, and Broken using WFRP4e operations. ", -1),
+					H("label", Nd, [I(H("input", {
+						"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ N(o) ? o.value = e : null,
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(o)]]), t[18] ||= V(" Require end of round", -1)]),
-					z("label", dd, [N(z("input", {
-						"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ A(l) ? l.value = e : null,
-						class: "dui-checkbox dui-checkbox-sm",
+					}, null, 512), [[J, F(o)]]), t[18] ||= W(" Require end of round", -1)]),
+					H("label", Pd, [I(H("input", {
+						"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(l)]]), t[19] ||= V(" Skip assigned player characters", -1)]),
-					z("button", {
-						class: "dui-btn dui-btn-primary dui-btn-sm tw:w-fit",
-						disabled: M(a),
+					}, null, 512), [[J, F(l)]]), t[19] ||= W(" Skip assigned player characters", -1)]),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-sm tw:w-fit",
+						disabled: F(a),
 						type: "button",
-						onClick: t[6] ||= (...e) => M(n).check && M(n).check(...e)
-					}, " Run checks ", 8, fd)
+						onClick: t[6] ||= (...e) => F(n).check && F(n).check(...e)
+					}, " Run checks ", 8, Fd)
 				])]),
-				M(c) ? (L(), R("section", pd, [
-					t[29] ||= z("input", { type: "checkbox" }, null, -1),
-					t[30] ||= z("div", { class: "dui-collapse-title tw:font-semibold" }, "Advantage automation", -1),
-					z("div", md, [
-						z("label", hd, [N(z("input", {
-							"onUpdate:modelValue": t[7] ||= (e) => M(c).automateOpposed = e,
-							class: "dui-toggle dui-toggle-sm",
+				F(c) ? (B(), V("section", Id, [
+					t[29] ||= H("input", { type: "checkbox" }, null, -1),
+					t[30] ||= H("div", { class: "tw:dui-collapse-title tw:font-semibold" }, "Advantage automation", -1),
+					H("div", Ld, [
+						H("label", Rd, [I(H("input", {
+							"onUpdate:modelValue": t[7] ||= (e) => F(c).automateOpposed = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).automateOpposed]]), t[22] ||= V(" Opposed-test winners and losers", -1)]),
-						z("label", gd, [N(z("input", {
-							"onUpdate:modelValue": t[8] ||= (e) => M(c).automateDamage = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).automateOpposed]]), t[22] ||= W(" Opposed-test winners and losers", -1)]),
+						H("label", zd, [I(H("input", {
+							"onUpdate:modelValue": t[8] ||= (e) => F(c).automateDamage = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).automateDamage]]), t[23] ||= V(" Outmanoeuvring damage", -1)]),
-						z("label", _d, [N(z("input", {
-							"onUpdate:modelValue": t[9] ||= (e) => M(c).automateCondition = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).automateDamage]]), t[23] ||= W(" Outmanoeuvring damage", -1)]),
+						H("label", Bd, [I(H("input", {
+							"onUpdate:modelValue": t[9] ||= (e) => F(c).automateCondition = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).automateCondition]]), t[24] ||= V(" Clear on combat conditions", -1)]),
-						z("label", vd, [N(z("input", {
-							"onUpdate:modelValue": t[10] ||= (e) => M(c).clearOnJoin = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).automateCondition]]), t[24] ||= W(" Clear on combat conditions", -1)]),
+						H("label", Vd, [I(H("input", {
+							"onUpdate:modelValue": t[10] ||= (e) => F(c).clearOnJoin = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).clearOnJoin]]), t[25] ||= V(" Clear when joining combat", -1)]),
-						z("label", yd, [N(z("input", {
-							"onUpdate:modelValue": t[11] ||= (e) => M(c).clearOnLeave = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).clearOnJoin]]), t[25] ||= W(" Clear when joining combat", -1)]),
+						H("label", Hd, [I(H("input", {
+							"onUpdate:modelValue": t[11] ||= (e) => F(c).clearOnLeave = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).clearOnLeave]]), t[26] ||= V(" Clear when leaving combat", -1)]),
-						z("label", bd, [N(z("input", {
-							"onUpdate:modelValue": t[12] ||= (e) => M(c).promptMomentumLoss = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).clearOnLeave]]), t[26] ||= W(" Clear when leaving combat", -1)]),
+						H("label", Ud, [I(H("input", {
+							"onUpdate:modelValue": t[12] ||= (e) => F(c).promptMomentumLoss = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).promptMomentumLoss]]), t[27] ||= V(" Prompt for momentum loss each round", -1)]),
-						z("label", xd, [N(z("input", {
-							"onUpdate:modelValue": t[13] ||= (e) => M(c).persistentNotifications = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(c).promptMomentumLoss]]), t[27] ||= W(" Prompt for momentum loss each round", -1)]),
+						H("label", Wd, [I(H("input", {
+							"onUpdate:modelValue": t[13] ||= (e) => F(c).persistentNotifications = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(c).persistentNotifications]]), t[28] ||= V(" Keep automation notifications visible", -1)]),
-						z("button", {
-							class: "dui-btn dui-btn-secondary dui-btn-sm tw:w-fit",
-							disabled: M(a),
+						}, null, 512), [[J, F(c).persistentNotifications]]), t[28] ||= W(" Keep automation notifications visible", -1)]),
+						H("button", {
+							class: "tw:dui-btn tw:dui-btn-secondary tw:dui-btn-sm tw:w-fit",
+							disabled: F(a),
 							type: "button",
-							onClick: t[14] ||= (...e) => M(n).save && M(n).save(...e)
-						}, " Save automation ", 8, Sd)
+							onClick: t[14] ||= (...e) => F(n).save && F(n).save(...e)
+						}, " Save automation ", 8, Gd)
 					])
-				])) : H("", !0)
+				])) : G("", !0)
 			])]),
 			_: 1
 		}));
 	}
 });
-//#endregion
-//#region src/functions/actors/selection.ts
-function wd(e) {
-	let t = new Set(e.targeted.map(({ actor: e }) => e.id)), n = new Set(e.controlled.map(({ actor: e }) => e.id)), r = e.actors.filter((t) => Ed(t, e.includeVehicles)).map((r) => ({
+// src/module/functions/actors/selection.ts
+function qd(e) {
+	let t = new Set(e.targeted.map(({ actor: e }) => e.id)), n = new Set(e.controlled.map(({ actor: e }) => e.id)), r = e.actors.filter((t) => Yd(t, e.includeVehicles)).map((r) => ({
 		actorType: r.actorType,
 		label: r.label,
-		selected: Dd(r.id, r.hasPlayerOwner, e.initial, e.assignedActorIds, n, t),
+		selected: Xd(r.id, r.hasPlayerOwner, e.initial, e.assignedActorIds, n, t),
 		source: e.assignedActorIds.has(r.id) ? "assigned" : r.hasPlayerOwner ? "owned" : "world",
 		uuid: r.uuid
 	}));
-	return Td(r, e.targeted, "targeted", e), Td(r, e.controlled, "controlled", e), r.sort((e, t) => e.label.localeCompare(t.label));
+	return Jd(r, e.targeted, "targeted", e), Jd(r, e.controlled, "controlled", e), r.sort((e, t) => e.label.localeCompare(t.label));
 }
-function Td(e, t, n, r) {
+function Jd(e, t, n, r) {
 	for (let i of t) {
-		if (!Ed(i.actor, r.includeVehicles)) continue;
+		if (!Yd(i.actor, r.includeVehicles)) continue;
 		let t = e.find((e) => e.uuid === i.actor.uuid || e.uuid === i.tokenUuid);
-		if (t) {
-			n === r.initial && (t.selected = !0);
-			continue;
-		}
-		e.push({
+		t ? n === r.initial && (t.selected = !0) : e.push({
 			actorType: i.actor.actorType,
 			label: i.actor.label,
 			selected: n === r.initial,
@@ -4857,26 +5066,25 @@ function Td(e, t, n, r) {
 		});
 	}
 }
-function Ed(e, t) {
+function Yd(e, t) {
 	return e.actorType === "character" || e.actorType === "creature" || t && e.actorType === "vehicle";
 }
-function Dd(e, t, n, r, i, a) {
+function Xd(e, t, n, r, i, a) {
 	return n === "party" ? r.has(e) : n === "company" ? r.has(e) || t : n === "controlled" ? i.has(e) : a.has(e);
 }
-//#endregion
-//#region src/module/actors/selection.ts
-function Od(e = {}) {
-	let t = e.initial ?? "targeted", n = Array.from(game.actors), r = new Set(Array.from(game.users).map((e) => e.character?.id).filter((e) => !!e)), i = Ad("targeted"), a = Ad("controlled");
-	return wd({
-		actors: n.map(jd),
+// src/module/foundry/actors/selection.ts
+function Zd(e = {}) {
+	let t = e.initial ?? "targeted", n = Array.from(game.actors), r = new Set(Array.from(game.users).map((e) => e.character?.id).filter((e) => !!e)), i = $d("targeted"), a = $d("controlled");
+	return qd({
+		actors: n.map(ef),
 		assignedActorIds: r,
-		controlled: a.flatMap(Md),
+		controlled: a.flatMap(tf),
 		includeVehicles: e.includeVehicles === !0,
 		initial: t,
-		targeted: i.flatMap(Md)
+		targeted: i.flatMap(tf)
 	});
 }
-async function kd(e) {
+async function Qd(e) {
 	let t = [];
 	for (let n of [...new Set(e)]) {
 		let e = await fromUuid(n), r = e && "actor" in e ? e.actor : e;
@@ -4884,11 +5092,11 @@ async function kd(e) {
 	}
 	return t;
 }
-function Ad(e) {
+function $d(e) {
 	let t = canvas;
 	return e === "controlled" ? t?.tokens?.controlled ?? [] : Array.from(game.user?.targets ?? /* @__PURE__ */ new Set());
 }
-function jd(e) {
+function ef(e) {
 	return {
 		actorType: e.type,
 		hasPlayerOwner: e.hasPlayerOwner,
@@ -4897,45 +5105,43 @@ function jd(e) {
 		uuid: e.uuid
 	};
 }
-function Md(e) {
+function tf(e) {
 	return e.actor ? [{
-		actor: jd(e.actor),
+		actor: ef(e.actor),
 		tokenUuid: e.document.uuid
 	}] : [];
 }
-//#endregion
-//#region src/module/combat/advantage.ts
-async function Nd(e) {
-	if (Y(J.combatConsole), e.uuids.length === 0) throw Error("Select at least one actor.");
+// src/module/foundry/combat/advantage.ts
+async function nf(e) {
+	if (X(Y.combatConsole), e.uuids.length === 0) throw Error("Select at least one actor.");
 	if (!Number.isFinite(e.amount)) throw Error("Enter a valid Advantage amount.");
-	let t = Math.max(1, Math.round(Math.abs(e.amount))), n = await kd(e.uuids), r = n.filter((e) => e.inCombat !== !0);
+	let t = Math.max(1, Math.round(Math.abs(e.amount))), n = await Qd(e.uuids), r = n.filter((e) => e.inCombat !== !0);
 	if (e.mode !== "clear" && r.length > 0) throw Error(`Advantage can only be added or reduced in combat: ${r.map(({ name: e }) => e).join(", ")}.`);
-	for (let r of n) e.mode === "clear" ? await Fd(r, 0) : e.mode === "add" ? await Pd(r, t) : await Pd(r, -t);
+	for (let r of n) e.mode === "clear" ? await af(r, 0) : e.mode === "add" ? await rf(r, t) : await rf(r, -t);
 	ui.notifications.info(`Updated Advantage for ${n.length} actor${n.length === 1 ? "" : "s"}.`);
 }
-async function Pd(e, t) {
+async function rf(e, t) {
 	if (typeof e.addAdvantage != "function") throw Error(`${e.name} does not expose WFRP4e Advantage controls.`);
 	await e.addAdvantage(t);
 }
-async function Fd(e, t) {
+async function af(e, t) {
 	let n = Math.max(0, Math.round(t));
 	if (typeof e.setAdvantage != "function") throw Error(`${e.name} does not expose WFRP4e Advantage controls.`);
 	await e.setAdvantage(n);
 }
-function Id(e) {
+function of(e) {
 	if (!e || typeof e != "object") return;
 	let t = e;
 	return t.documentName === "Actor" ? t : void 0;
 }
-//#endregion
-//#region src/module/combat/conditions.ts
-async function Ld(e) {
-	if (Y(J.combatConsole), e.endOfRoundOnly && !Bd()) throw Error("Condition checks can only run at the end of the active combat round.");
-	let t = await kd(e.uuids), n = new Set(Array.from(game.users).map((e) => e.character?.id)), r = 0;
-	for (let i of t) if (!(e.skipPlayerCharacters && n.has(i.id))) for (let e of Array.from(i.statuses ?? [])) await Rd(i, e) && (r += 1);
+// src/module/foundry/combat/conditions.ts
+async function sf(e) {
+	if (X(Y.combatConsole), e.endOfRoundOnly && !uf()) throw Error("Condition checks can only run at the end of the active combat round.");
+	let t = await Qd(e.uuids), n = new Set(Array.from(game.users).map((e) => e.character?.id)), r = 0;
+	for (let i of t) if (!(e.skipPlayerCharacters && n.has(i.id))) for (let e of Array.from(i.statuses ?? [])) await cf(i, e) && (r += 1);
 	ui.notifications.info(`Processed ${r} supported condition check${r === 1 ? "" : "s"}.`);
 }
-async function Rd(e, t) {
+async function cf(e, t) {
 	let n = Math.max(1, Number(e.hasCondition(t)?.conditionValue ?? 1));
 	if (t === "surprised") return await e.removeCondition(t), !0;
 	if (t === "ablaze") {
@@ -4943,14 +5149,14 @@ async function Rd(e, t) {
 		return await e.applyBasicDamage(Number(t.total ?? n), {}), !0;
 	}
 	if (e.type === "vehicle" || !["broken", "poisoned"].includes(t)) return !1;
-	let r = await (await zd(e, t === "broken" ? game.i18n.localize("NAME.Cool") : game.i18n.localize("NAME.Endurance"), t === "broken" ? "wp" : "t")).roll();
+	let r = await (await lf(e, t === "broken" ? game.i18n.localize("NAME.Cool") : game.i18n.localize("NAME.Endurance"), t === "broken" ? "wp" : "t")).roll();
 	if (r.succeeded) {
 		let i = Math.min(n, Math.max(1, Number(r.result?.SL ?? 0) + 1));
 		await e.removeCondition(t, i);
 	}
 	return !0;
 }
-async function zd(e, t, n) {
+async function lf(e, t, n) {
 	let r = {
 		appendTitle: ` — ${e.name}`,
 		fields: {
@@ -4962,13 +5168,12 @@ async function zd(e, t, n) {
 	}, i = e.has(t, "skill");
 	return i ? e.setupSkill(i, r) : e.setupCharacteristic(n, r);
 }
-function Bd() {
+function uf() {
 	let e = game.combat;
 	return !!(e?.active && Number(e.round) > 0 && Number(e.current?.turn) === (e.turns?.length ?? 0) - 1);
 }
-//#endregion
-//#region src/module/combat/settings/keys.ts
-var Vd = {
+// src/module/foundry/combat/settings/keys.ts
+var df = {
 	automateCondition: "advantageAutomateCondition",
 	automateDamage: "advantageAutomateDamage",
 	automateOpposed: "advantageAutomateOpposed",
@@ -4977,40 +5182,37 @@ var Vd = {
 	promptMomentumLoss: "advantagePromptMomentumLoss",
 	persistentNotifications: "advantagePersistentNotifications"
 };
-//#endregion
-//#region src/module/combat/settings/load.ts
-function Hd() {
+// src/module/foundry/combat/settings/load.ts
+function ff() {
 	return {
-		automateCondition: Wd(Vd.automateCondition),
-		automateDamage: Wd(Vd.automateDamage),
-		automateOpposed: Wd(Vd.automateOpposed),
-		clearOnJoin: Wd(Vd.clearOnJoin),
-		clearOnLeave: Wd(Vd.clearOnLeave),
-		promptMomentumLoss: Wd(Vd.promptMomentumLoss),
-		persistentNotifications: Wd(Vd.persistentNotifications)
+		automateCondition: mf(df.automateCondition),
+		automateDamage: mf(df.automateDamage),
+		automateOpposed: mf(df.automateOpposed),
+		clearOnJoin: mf(df.clearOnJoin),
+		clearOnLeave: mf(df.clearOnLeave),
+		promptMomentumLoss: mf(df.promptMomentumLoss),
+		persistentNotifications: mf(df.persistentNotifications)
 	};
 }
-async function Ud(e) {
-	for (let [t, n] of Object.entries(e)) await game.settings.set(q, Vd[t], n);
+async function pf(e) {
+	for (let [t, n] of Object.entries(e)) await game.settings.set(r, df[t], n);
 }
-function Wd(e) {
-	return game.settings.get(q, e) === !0;
+function mf(e) {
+	return game.settings.get(r, e) === !0;
 }
-//#endregion
-//#region src/module/combat/initialization.ts
-function Gd() {
+// src/module/foundry/combat/initialization.ts
+function hf() {
 	return {
-		actors: Od({
+		actors: Zd({
 			includeVehicles: !0,
 			initial: "controlled"
 		}),
-		settings: Hd()
+		settings: ff()
 	};
 }
-//#endregion
-//#region src/module/apps/combat-console/CombatConsoleApplication.ts
-var Kd = class extends Oc {
-	static ACCESS_POLICY = J.combatConsole;
+// src/module/apps/combat-console/view/CombatConsoleApplication.ts
+var gf = class extends Uc {
+	static ACCESS_POLICY = Y.combatConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		id: "wfrp4e-drowsys-toolkit-combat-console",
@@ -5021,33 +5223,31 @@ var Kd = class extends Oc {
 		window: {
 			icon: "fa-solid fa-swords",
 			resizable: !0,
-			title: `${wc} — Combat Console`
+			title: `${i} — Combat Console`
 		}
 	};
 	getVueComponent() {
-		return Cd;
+		return Kd;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				adjustAdvantage: Nd,
-				checkConditions: Ld,
-				saveSettings: Ud
+				adjustAdvantage: nf,
+				checkConditions: sf,
+				saveSettings: pf
 			},
-			initialization: Gd()
+			initialization: hf()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/combat-console/open.ts
-async function qd() {
-	let e = new Kd();
+// src/module/apps/combat-console/view/open.ts
+async function _f() {
+	let e = new gf();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/damage-console/store.ts
-var Jd = As("damage-console", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j([]), n = /* @__PURE__ */ j("1d10"), r = /* @__PURE__ */ j("body"), i = /* @__PURE__ */ j(!0), a = /* @__PURE__ */ j("normal"), o = /* @__PURE__ */ j(!0), s = /* @__PURE__ */ j(!1), c = /* @__PURE__ */ j(!1), l = /* @__PURE__ */ j(""), u, d = U(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
+// src/module/apps/damage-console/state/store.ts
+var vf = Ks("damage-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P([]), n = /* @__PURE__ */ P("1d10"), r = /* @__PURE__ */ P("body"), i = /* @__PURE__ */ P(!0), a = /* @__PURE__ */ P("normal"), o = /* @__PURE__ */ P(!0), s = /* @__PURE__ */ P(!1), c = /* @__PURE__ */ P(!1), l = /* @__PURE__ */ P(""), u, d = K(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
 	function f(n, r) {
 		e.value = structuredClone(n.actors), t.value = n.hitLocations, u = r;
 	}
@@ -5087,85 +5287,84 @@ var Jd = As("damage-console", () => {
 		randomizeDamage: o,
 		randomizeHitLocation: s
 	};
-}), Yd = { class: "tw:grid tw:gap-4" }, Xd = { class: "dui-card dui-card-border tw:bg-base-100!" }, Zd = { class: "dui-card-body tw:p-4" }, Qd = { class: "tw:grid tw:max-h-52 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, $d = ["onUpdate:modelValue"], ef = { class: "dui-card dui-card-border tw:bg-base-100!" }, tf = { class: "dui-card-body tw:grid tw:gap-3 tw:p-4" }, nf = { class: "tw:grid tw:gap-1" }, rf = { class: "tw:flex tw:items-center tw:gap-2" }, af = { class: "tw:grid tw:gap-1" }, of = ["value"], sf = { class: "tw:flex tw:items-center tw:gap-2" }, cf = { class: "tw:grid tw:gap-1" }, lf = { class: "tw:flex tw:items-center tw:gap-2" }, uf = {
+}), yf = { class: "tw:grid tw:gap-4" }, bf = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, xf = { class: "tw:dui-card-body tw:p-4" }, Sf = { class: "tw:grid tw:max-h-52 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, Cf = ["onUpdate:modelValue"], wf = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, Tf = { class: "tw:dui-card-body tw:grid tw:gap-3 tw:p-4" }, Ef = { class: "tw:grid tw:gap-1" }, Df = { class: "tw:flex tw:items-center tw:gap-2" }, Of = { class: "tw:grid tw:gap-1" }, kf = ["value"], Af = { class: "tw:flex tw:items-center tw:gap-2" }, jf = { class: "tw:grid tw:gap-1" }, Mf = { class: "tw:flex tw:items-center tw:gap-2" }, Nf = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-0"
-}, df = ["disabled"], ff = /* @__PURE__ */ P({
+	class: "tw:dui-alert tw:dui-alert-error tw:m-0"
+}, Pf = ["disabled"], Ff = /* @__PURE__ */ L({
 	__name: "DamageConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Jd();
+		let t = e, n = vf();
 		n.initialize(t.initialization, t.actions);
-		let { actors: r, busy: i, errorMessage: a, formula: o, hitLocation: s, hitLocations: c, minimumOne: l, protection: u, randomizeDamage: d, randomizeHitLocation: f } = js(n);
-		return (e, t) => (L(), ua(Qs, {
+		let { actors: r, busy: i, errorMessage: a, formula: o, hitLocation: s, hitLocations: c, minimumOne: l, protection: u, randomizeDamage: d, randomizeHitLocation: f } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
 			description: "Apply WFRP4e damage to several actors at once.",
 			icon: "fa-solid fa-bolt",
 			title: "Damage Console"
 		}, {
-			default: Xn(() => [z("div", Yd, [z("section", Xd, [z("div", Zd, [t[7] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Recipients", -1), z("div", Qd, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("label", {
+			default: ir(() => [H("div", yf, [H("section", bf, [H("div", xf, [t[7] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Recipients", -1), H("div", Sf, [(B(!0), V(z, null, R(F(r), (e) => (B(), V("label", {
 				key: e.uuid,
 				class: "tw:flex tw:items-center tw:gap-2"
-			}, [N(z("input", {
+			}, [I(H("input", {
 				"onUpdate:modelValue": (t) => e.selected = t,
-				class: "dui-checkbox dui-checkbox-sm",
+				class: "tw:dui-checkbox tw:dui-checkbox-sm",
 				type: "checkbox"
-			}, null, 8, $d), [[G, e.selected]]), V(D(e.label), 1)]))), 128))])])]), z("section", ef, [z("div", tf, [
-				z("label", nf, [t[8] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Damage amount or formula", -1), N(z("input", {
-					"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-					class: "dui-input"
-				}, null, 512), [[W, M(o)]])]),
-				z("label", rf, [N(z("input", {
-					"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ A(d) ? d.value = e : null,
-					class: "dui-checkbox dui-checkbox-sm",
+			}, null, 8, Cf), [[J, e.selected]]), W(k(e.label), 1)]))), 128))])])]), H("section", wf, [H("div", Tf, [
+				H("label", Ef, [t[8] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Damage amount or formula", -1), I(H("input", {
+					"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ N(o) ? o.value = e : null,
+					class: "tw:dui-input"
+				}, null, 512), [[q, F(o)]])]),
+				H("label", Df, [I(H("input", {
+					"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ N(d) ? d.value = e : null,
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(d)]]), t[9] ||= V(" Roll separately for each actor", -1)]),
-				z("label", af, [t[11] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Hit location", -1), N(z("select", {
-					"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ A(s) ? s.value = e : null,
-					class: "dui-select"
-				}, [t[10] ||= z("option", { value: "roll" }, "Roll", -1), (L(!0), R(I, null, F(M(c), (e) => (L(), R("option", {
+				}, null, 512), [[J, F(d)]]), t[9] ||= W(" Roll separately for each actor", -1)]),
+				H("label", Of, [t[11] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Hit location", -1), I(H("select", {
+					"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ N(s) ? s.value = e : null,
+					class: "tw:dui-select"
+				}, [t[10] ||= H("option", { value: "roll" }, "Roll", -1), (B(!0), V(z, null, R(F(c), (e) => (B(), V("option", {
 					key: e.value,
 					value: e.value
-				}, D(e.label), 9, of))), 128))], 512), [[zo, M(s)]])]),
-				z("label", sf, [N(z("input", {
-					"onUpdate:modelValue": t[3] ||= (e) => /* @__PURE__ */ A(f) ? f.value = e : null,
-					class: "dui-checkbox dui-checkbox-sm",
+				}, k(e.label), 9, kf))), 128))], 512), [[es, F(s)]])]),
+				H("label", Af, [I(H("input", {
+					"onUpdate:modelValue": t[3] ||= (e) => /* @__PURE__ */ N(f) ? f.value = e : null,
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(f)]]), t[12] ||= V(" Roll separately for each actor", -1)]),
-				z("label", cf, [t[14] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Protection", -1), N(z("select", {
-					"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ A(u) ? u.value = e : null,
-					class: "dui-select"
+				}, null, 512), [[J, F(f)]]), t[12] ||= W(" Roll separately for each actor", -1)]),
+				H("label", jf, [t[14] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Protection", -1), I(H("select", {
+					"onUpdate:modelValue": t[4] ||= (e) => /* @__PURE__ */ N(u) ? u.value = e : null,
+					class: "tw:dui-select"
 				}, [...t[13] ||= [
-					z("option", { value: "normal" }, "Armour and Toughness", -1),
-					z("option", { value: "ignore-armour" }, "Ignore armour", -1),
-					z("option", { value: "ignore-toughness" }, "Ignore Toughness", -1),
-					z("option", { value: "ignore-all" }, "Ignore both", -1)
-				]], 512), [[zo, M(u)]])]),
-				z("label", lf, [N(z("input", {
-					"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ A(l) ? l.value = e : null,
-					class: "dui-checkbox dui-checkbox-sm",
+					H("option", { value: "normal" }, "Armour and Toughness", -1),
+					H("option", { value: "ignore-armour" }, "Ignore armour", -1),
+					H("option", { value: "ignore-toughness" }, "Ignore Toughness", -1),
+					H("option", { value: "ignore-all" }, "Ignore both", -1)
+				]], 512), [[es, F(u)]])]),
+				H("label", Mf, [I(H("input", {
+					"onUpdate:modelValue": t[5] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(l)]]), t[15] ||= V(" Inflict at least 1 Wound", -1)]),
-				M(a) ? (L(), R("p", uf, D(M(a)), 1)) : H("", !0),
-				z("button", {
-					class: "dui-btn dui-btn-primary",
-					disabled: M(i),
+				}, null, 512), [[J, F(l)]]), t[15] ||= W(" Inflict at least 1 Wound", -1)]),
+				F(a) ? (B(), V("p", Nf, k(F(a)), 1)) : G("", !0),
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-primary",
+					disabled: F(i),
 					type: "button",
-					onClick: t[6] ||= (...e) => M(n).apply && M(n).apply(...e)
-				}, " Apply damage ", 8, df)
+					onClick: t[6] ||= (...e) => F(n).apply && F(n).apply(...e)
+				}, " Apply damage ", 8, Pf)
 			])])])]),
 			_: 1
 		}));
 	}
 });
-//#endregion
-//#region src/module/damage/initialization.ts
-function pf() {
+// src/module/foundry/damage/initialization.ts
+function If() {
 	let e = game.wfrp4e.config.locations ?? {};
 	return {
-		actors: Od({
+		actors: Zd({
 			includeVehicles: !0,
 			initial: "targeted"
 		}),
@@ -5178,9 +5377,8 @@ function pf() {
 		}))].filter((e, t, n) => n.findIndex((t) => t.value === e.value) === t)
 	};
 }
-//#endregion
-//#region src/functions/damage/plan.ts
-function mf(e) {
+// src/module/functions/damage/plan.ts
+function Lf(e) {
 	let t = e.formula.trim();
 	if (e.uuids.length === 0) throw Error("Select at least one actor.");
 	if (!t) throw Error("Enter a damage amount or roll formula.");
@@ -5192,17 +5390,17 @@ function mf(e) {
 		uuids: [...new Set(e.uuids)]
 	};
 }
-function hf(e, t) {
+function Rf(e, t) {
 	let n = Number(e);
 	if (!Number.isFinite(n)) throw Error(`Could not evaluate damage formula “${t}”.`);
 	let r = Math.round(n);
 	if (r < 0) throw Error("Damage cannot be negative.");
 	return r;
 }
-function gf(e, t) {
+function zf(e, t) {
 	return e === "roll" ? t || "body" : e || "body";
 }
-function _f(e) {
+function Bf(e) {
 	return {
 		"ignore-all": "IGNORE_ALL",
 		"ignore-armour": "IGNORE_AP",
@@ -5210,38 +5408,37 @@ function _f(e) {
 		normal: "NORMAL"
 	}[e];
 }
-function vf(e) {
+function Vf(e) {
 	if (e.message) return e.message;
-	let t = bf(e.actorName);
-	return e.error ? `<p><strong>${t}</strong>: failed — ${bf(e.error)}</p>` : `<p><strong>${t}</strong>: ${e.damage ?? 0} damage applied.</p>`;
+	let t = Uf(e.actorName);
+	return e.error ? `<p><strong>${t}</strong>: failed — ${Uf(e.error)}</p>` : `<p><strong>${t}</strong>: ${e.damage ?? 0} damage applied.</p>`;
 }
-function yf(e, t) {
+function Hf(e, t) {
 	return `Damage was applied to ${e} actor${e === 1 ? "" : "s"}; ${t} failed. See the private chat summary.`;
 }
-function bf(e) {
+function Uf(e) {
 	return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&#039;");
 }
-//#endregion
-//#region src/module/damage/service.ts
-async function xf(e) {
-	Y(J.damageConsole);
-	let t = mf(e), n = await kd(t.uuids);
+// src/module/foundry/damage/service.ts
+async function Wf(e) {
+	X(Y.damageConsole);
+	let t = Lf(e), n = await Qd(t.uuids);
 	if (n.length === 0) throw Error("None of the selected actors are available.");
-	let r = t.rollDamagePerActor ? void 0 : await Sf(t.formula), i = t.rollLocationPerActor ? void 0 : gf(t.location, await Cf(t.location)), a = [], o = [];
+	let r = t.rollDamagePerActor ? void 0 : await Gf(t.formula), i = t.rollLocationPerActor ? void 0 : zf(t.location, await Kf(t.location)), a = [], o = [];
 	for (let s of n) try {
-		let n = r ?? await Sf(t.formula), o = i ?? await wf(s), c = await s.applyBasicDamage(n, {
-			damageType: Ef(e.protection),
+		let n = r ?? await Gf(t.formula), o = i ?? await qf(s), c = await s.applyBasicDamage(n, {
+			damageType: Yf(e.protection),
 			loc: o,
 			minimumOne: e.minimumOne,
 			suppressMsg: !0
 		});
-		a.push(typeof c == "string" ? c : vf({
+		a.push(typeof c == "string" ? c : Vf({
 			actorName: s.name,
 			damage: n
 		}));
 	} catch (e) {
 		let t = e instanceof Error ? e.message : "unknown error";
-		o.push(vf({
+		o.push(Vf({
 			actorName: s.name,
 			error: t
 		}));
@@ -5250,28 +5447,27 @@ async function xf(e) {
 	if (await ChatMessage.create({
 		content: [...a, ...o].join("<hr>"),
 		whisper: s
-	}), o.length > 0) throw Error(yf(a.length, o.length));
+	}), o.length > 0) throw Error(Hf(a.length, o.length));
 }
-async function Sf(e) {
-	return hf((await new Roll(e).evaluate()).total, e);
+async function Gf(e) {
+	return Rf((await new Roll(e).evaluate()).total, e);
 }
-async function Cf(e) {
-	return e === "roll" ? Tf("hitloc") : void 0;
+async function Kf(e) {
+	return e === "roll" ? Jf("hitloc") : void 0;
 }
-async function wf(e) {
-	return Tf(e.system.details?.hitLocationTable?.value ?? "hitloc");
+async function qf(e) {
+	return Jf(e.system.details?.hitLocationTable?.value ?? "hitloc");
 }
-async function Tf(e) {
+async function Jf(e) {
 	let t = await game.wfrp4e.tables.rollTable(e, { hideDSN: !0 });
 	return String(t.result ?? "body");
 }
-function Ef(e) {
-	return game.wfrp4e.config.DAMAGE_TYPE[_f(e)];
+function Yf(e) {
+	return game.wfrp4e.config.DAMAGE_TYPE[Bf(e)];
 }
-//#endregion
-//#region src/module/apps/damage-console/DamageConsoleApplication.ts
-var Df = class extends Oc {
-	static ACCESS_POLICY = J.damageConsole;
+// src/module/apps/damage-console/view/DamageConsoleApplication.ts
+var Xf = class extends Uc {
+	static ACCESS_POLICY = Y.damageConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		id: "wfrp4e-drowsys-toolkit-damage-console",
@@ -5282,29 +5478,27 @@ var Df = class extends Oc {
 		window: {
 			icon: "fa-solid fa-bolt",
 			resizable: !0,
-			title: `${wc} — Damage Console`
+			title: `${i} — Damage Console`
 		}
 	};
 	getVueComponent() {
-		return ff;
+		return Ff;
 	}
 	getVueProps() {
 		return {
-			actions: { applyDamage: xf },
-			initialization: pf()
+			actions: { applyDamage: Wf },
+			initialization: If()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/damage-console/open.ts
-async function Of() {
-	let e = new Df();
+// src/module/apps/damage-console/view/open.ts
+async function Zf() {
+	let e = new Xf();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/dark-whispers-console/store.ts
-var kf = As("dark-whispers-console", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j([]), n = /* @__PURE__ */ j(), r = /* @__PURE__ */ j(""), i = /* @__PURE__ */ j(!1), a = /* @__PURE__ */ j(!1), o = /* @__PURE__ */ j(""), s, c = U(() => t.value.filter((e) => e.corruption > 0));
+// src/module/apps/dark-whispers-console/state/store.ts
+var Qf = Ks("dark-whispers-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P([]), n = /* @__PURE__ */ P(), r = /* @__PURE__ */ P(""), i = /* @__PURE__ */ P(!1), a = /* @__PURE__ */ P(!1), o = /* @__PURE__ */ P(""), s, c = K(() => t.value.filter((e) => e.corruption > 0));
 	function l(r, i) {
 		e.value = structuredClone(r.prompts), t.value = structuredClone(r.recipients), n.value = structuredClone(r.settings), s = i, u();
 	}
@@ -5364,108 +5558,107 @@ var kf = As("dark-whispers-console", () => {
 		sendToOwners: i,
 		settings: n
 	};
-}), Af = {
+}), $f = {
 	key: 0,
 	class: "tw:grid tw:gap-4"
-}, jf = { class: "dui-card dui-card-border tw:bg-base-100!" }, Mf = { class: "dui-card-body tw:p-4" }, Nf = { class: "tw:grid tw:gap-2" }, Pf = ["onUpdate:modelValue"], Ff = { class: "tw:flex-1" }, If = { class: "tw:block" }, Lf = { class: "tw:flex tw:items-center tw:gap-2" }, Rf = { class: "tw:grid tw:gap-1" }, zf = { class: "dui-card dui-card-border tw:bg-base-100!" }, Bf = { class: "dui-card-body tw:grid tw:gap-3 tw:p-4" }, Vf = { class: "tw:grid tw:gap-1" }, Hf = { class: "tw:grid tw:gap-1" }, Uf = {
+}, ep = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, tp = { class: "tw:dui-card-body tw:p-4" }, np = { class: "tw:grid tw:gap-2" }, rp = ["onUpdate:modelValue"], ip = { class: "tw:flex-1" }, ap = { class: "tw:block" }, op = { class: "tw:flex tw:items-center tw:gap-2" }, sp = { class: "tw:grid tw:gap-1" }, cp = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, lp = { class: "tw:dui-card-body tw:grid tw:gap-3 tw:p-4" }, up = { class: "tw:grid tw:gap-1" }, dp = { class: "tw:grid tw:gap-1" }, fp = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-0"
-}, Wf = ["disabled"], Gf = { class: "dui-collapse dui-collapse-arrow dui-card dui-card-border tw:bg-base-100!" }, Kf = { class: "dui-collapse-content tw:grid tw:gap-2" }, qf = ["onUpdate:modelValue"], Jf = ["onClick"], Yf = { class: "tw:flex tw:gap-2" }, Xf = ["disabled"], Zf = /* @__PURE__ */ P({
+	class: "tw:dui-alert tw:dui-alert-error tw:m-0"
+}, pp = ["disabled"], mp = { class: "tw:dui-collapse tw:dui-collapse-arrow tw:dui-card tw:dui-card-border tw:bg-base-100!" }, hp = { class: "tw:dui-collapse-content tw:grid tw:gap-2" }, gp = ["onUpdate:modelValue"], _p = ["onClick"], vp = { class: "tw:flex tw:gap-2" }, yp = ["disabled"], bp = /* @__PURE__ */ L({
 	__name: "DarkWhispersConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = kf();
+		let t = e, n = Qf();
 		n.initialize(t.initialization, t.actions);
-		let { busy: r, eligibleRecipients: i, errorMessage: a, message: o, prompts: s, sendToOwners: c, settings: l } = js(n);
-		return (e, t) => (L(), ua(Qs, {
+		let { busy: r, eligibleRecipients: i, errorMessage: a, message: o, prompts: s, sendToOwners: c, settings: l } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
 			description: "Send a private temptation to characters with Corruption.",
 			icon: "fa-solid fa-comment-dots",
 			title: "Dark Whispers"
 		}, {
-			default: Xn(() => [M(l) ? (L(), R("div", Af, [
-				z("section", jf, [z("div", Mf, [
-					t[11] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Recipients", -1),
-					z("div", Nf, [(L(!0), R(I, null, F(M(i), (e) => (L(), R("label", {
+			default: ir(() => [F(l) ? (B(), V("div", $f, [
+				H("section", ep, [H("div", tp, [
+					t[11] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Recipients", -1),
+					H("div", np, [(B(!0), V(z, null, R(F(i), (e) => (B(), V("label", {
 						key: e.uuid,
 						class: "tw:flex tw:items-center tw:gap-2"
-					}, [N(z("input", {
+					}, [I(H("input", {
 						"onUpdate:modelValue": (t) => e.selected = t,
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 8, Pf), [[G, e.selected]]), z("span", Ff, [z("strong", null, D(e.label), 1), z("small", If, D(e.assignedUser || "Not assigned") + " · " + D(e.ownerCount) + " owner" + D(e.ownerCount === 1 ? "" : "s") + " · Corruption " + D(e.corruption) + " / " + D(e.corruptionMax), 1)])]))), 128))]),
-					z("label", Lf, [N(z("input", {
-						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ A(c) ? c.value = e : null,
-						class: "dui-toggle dui-toggle-sm",
+					}, null, 8, rp), [[J, e.selected]]), H("span", ip, [H("strong", null, k(e.label), 1), H("small", ap, k(e.assignedUser || "Not assigned") + " · " + k(e.ownerCount) + " owner" + k(e.ownerCount === 1 ? "" : "s") + " · Corruption " + k(e.corruption) + " / " + k(e.corruptionMax), 1)])]))), 128))]),
+					H("label", op, [I(H("input", {
+						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ N(c) ? c.value = e : null,
+						class: "tw:dui-toggle tw:dui-toggle-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(c)]]), t[8] ||= V(" Send to all owners instead of only the assigned player", -1)]),
-					z("label", Rf, [t[10] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Initial recipient group", -1), N(z("select", {
-						"onUpdate:modelValue": t[1] ||= (e) => M(l).defaultGroup = e,
-						class: "dui-select dui-select-sm"
-					}, [...t[9] ||= [z("option", { value: "party" }, "Assigned party", -1), z("option", { value: "company" }, "All player-owned characters", -1)]], 512), [[zo, M(l).defaultGroup]])])
+					}, null, 512), [[J, F(c)]]), t[8] ||= W(" Send to all owners instead of only the assigned player", -1)]),
+					H("label", sp, [t[10] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Initial recipient group", -1), I(H("select", {
+						"onUpdate:modelValue": t[1] ||= (e) => F(l).defaultGroup = e,
+						class: "tw:dui-select tw:dui-select-sm"
+					}, [...t[9] ||= [H("option", { value: "party" }, "Assigned party", -1), H("option", { value: "company" }, "All player-owned characters", -1)]], 512), [[es, F(l).defaultGroup]])])
 				])]),
-				z("section", zf, [z("div", Bf, [
-					z("label", Vf, [t[12] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Whisper", -1), N(z("textarea", {
-						"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-						class: "dui-textarea",
+				H("section", cp, [H("div", lp, [
+					H("label", up, [t[12] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Whisper", -1), I(H("textarea", {
+						"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ N(o) ? o.value = e : null,
+						class: "tw:dui-textarea",
 						rows: "5"
-					}, null, 512), [[W, M(o)]])]),
-					z("button", {
-						class: "dui-btn dui-btn-outline dui-btn-sm tw:w-fit",
+					}, null, 512), [[q, F(o)]])]),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-outline tw:dui-btn-sm tw:w-fit",
 						type: "button",
-						onClick: t[3] ||= (...e) => M(n).chooseRandom && M(n).chooseRandom(...e)
+						onClick: t[3] ||= (...e) => F(n).chooseRandom && F(n).chooseRandom(...e)
 					}, " Choose another prompt"),
-					z("label", Hf, [t[14] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Presentation", -1), N(z("select", {
-						"onUpdate:modelValue": t[4] ||= (e) => M(l).messageStyle = e,
-						class: "dui-select dui-select-sm"
+					H("label", dp, [t[14] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Presentation", -1), I(H("select", {
+						"onUpdate:modelValue": t[4] ||= (e) => F(l).messageStyle = e,
+						class: "tw:dui-select tw:dui-select-sm"
 					}, [...t[13] ||= [
-						z("option", { value: "taunt" }, "Taunting whisper", -1),
-						z("option", { value: "offer" }, "Tempting offer", -1),
-						z("option", { value: "plain" }, "Plain message", -1)
-					]], 512), [[zo, M(l).messageStyle]])]),
-					M(a) ? (L(), R("p", Uf, D(M(a)), 1)) : H("", !0),
-					z("button", {
-						class: "dui-btn dui-btn-primary",
-						disabled: M(r),
+						H("option", { value: "taunt" }, "Taunting whisper", -1),
+						H("option", { value: "offer" }, "Tempting offer", -1),
+						H("option", { value: "plain" }, "Plain message", -1)
+					]], 512), [[es, F(l).messageStyle]])]),
+					F(a) ? (B(), V("p", fp, k(F(a)), 1)) : G("", !0),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-primary",
+						disabled: F(r),
 						type: "button",
-						onClick: t[5] ||= (...e) => M(n).send && M(n).send(...e)
-					}, " Send Dark Whisper ", 8, Wf)
+						onClick: t[5] ||= (...e) => F(n).send && F(n).send(...e)
+					}, " Send Dark Whisper ", 8, pp)
 				])]),
-				z("section", Gf, [
-					t[16] ||= z("input", { type: "checkbox" }, null, -1),
-					t[17] ||= z("div", { class: "dui-collapse-title tw:font-semibold" }, "Prompt library", -1),
-					z("div", Kf, [(L(!0), R(I, null, F(M(s), (e) => (L(), R("div", {
+				H("section", mp, [
+					t[16] ||= H("input", { type: "checkbox" }, null, -1),
+					t[17] ||= H("div", { class: "tw:dui-collapse-title tw:font-semibold" }, "Prompt library", -1),
+					H("div", hp, [(B(!0), V(z, null, R(F(s), (e) => (B(), V("div", {
 						key: e.id,
 						class: "tw:flex tw:gap-2"
-					}, [N(z("textarea", {
+					}, [I(H("textarea", {
 						"onUpdate:modelValue": (t) => e.text = t,
-						class: "dui-textarea tw:flex-1",
+						class: "tw:dui-textarea tw:flex-1",
 						rows: "2"
-					}, null, 8, qf), [[W, e.text]]), z("button", {
-						class: "dui-btn dui-btn-ghost dui-btn-sm",
+					}, null, 8, gp), [[q, e.text]]), H("button", {
+						class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm",
 						type: "button",
-						onClick: (t) => M(n).removePrompt(e.id)
-					}, [...t[15] ||= [z("i", { class: "fa-solid fa-trash" }, null, -1)]], 8, Jf)]))), 128)), z("div", Yf, [z("button", {
-						class: "dui-btn dui-btn-outline dui-btn-sm",
+						onClick: (t) => F(n).removePrompt(e.id)
+					}, [...t[15] ||= [H("i", { class: "fa-solid fa-trash" }, null, -1)]], 8, _p)]))), 128)), H("div", vp, [H("button", {
+						class: "tw:dui-btn tw:dui-btn-outline tw:dui-btn-sm",
 						type: "button",
-						onClick: t[6] ||= (...e) => M(n).addPrompt && M(n).addPrompt(...e)
-					}, " Add prompt"), z("button", {
-						class: "dui-btn dui-btn-secondary dui-btn-sm",
-						disabled: M(r),
+						onClick: t[6] ||= (...e) => F(n).addPrompt && F(n).addPrompt(...e)
+					}, " Add prompt"), H("button", {
+						class: "tw:dui-btn tw:dui-btn-secondary tw:dui-btn-sm",
+						disabled: F(r),
 						type: "button",
-						onClick: t[7] ||= (...e) => M(n).save && M(n).save(...e)
-					}, " Save library ", 8, Xf)])])
+						onClick: t[7] ||= (...e) => F(n).save && F(n).save(...e)
+					}, " Save library ", 8, yp)])])
 				])
-			])) : H("", !0)]),
+			])) : G("", !0)]),
 			_: 1
 		}));
 	}
 });
-//#endregion
-//#region src/functions/dark-whispers/recipients.ts
-function Qf(e) {
+// src/module/functions/dark-whispers/recipients.ts
+function xp(e) {
 	let t = new Set(e.users.map((e) => e.characterId));
 	return e.actors.filter((n) => n.type === "character" && (e.defaultGroup === "company" ? n.hasPlayerOwner : t.has(n.id))).map((t) => {
 		let n = e.users.find((e) => !e.isGm && e.characterId === t.id), r = e.users.filter((e) => !e.isGm && Number(t.ownership[e.id] ?? 0) >= 3).length;
@@ -5480,126 +5673,96 @@ function Qf(e) {
 		};
 	});
 }
-//#endregion
-//#region src/functions/records/parse.ts
-function $f(e) {
+// src/module/functions/records/parse.ts
+function Sp(e) {
 	if (typeof e != "string") return "";
 	let t = new Date(e);
 	return Number.isNaN(t.getTime()) ? "" : t.toISOString();
 }
-function X(e) {
+function Q(e) {
 	return typeof e == "string" ? e : "";
 }
-function Z(e) {
+function $(e) {
 	return typeof e == "object" && !!e;
 }
-//#endregion
-//#region src/types/dark-whispers/PromptLibrary.ts
-var ep = {
+// src/types/dark-whispers/PromptLibrary.ts
+var Cp = {
 	prompts: [],
 	version: 1
 };
-//#endregion
-//#region src/functions/dark-whispers/library.ts
-function tp(e) {
+// src/module/functions/dark-whispers/library.ts
+function wp(e) {
 	return typeof e == "string" ? e.replace(/\r\n?/g, "\n").replace(/[\t ]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim() : "";
 }
-function np(e) {
-	if (typeof e != "string") return rp("The Dark Whispers prompt library setting was not serialized text.");
+function Tp(e) {
+	if (typeof e != "string") return Ep("The Dark Whispers prompt library setting was not serialized text.");
 	let t;
 	try {
 		t = JSON.parse(e);
 	} catch {
-		return rp("The Dark Whispers prompt library contains invalid JSON.");
+		return Ep("The Dark Whispers prompt library contains invalid JSON.");
 	}
-	if (!Z(t) || t.version !== 1 || !Array.isArray(t.prompts)) return rp("The Dark Whispers prompt library has an unsupported schema.");
-	let n = [], r = t.prompts.flatMap((e, t) => {
-		let r = ip(e);
-		return r ? [r] : (n.push(`Dark Whispers prompt ${t + 1} was invalid and was skipped.`), []);
-	}), i = op(t.lastImport);
-	return t.lastImport !== void 0 && !i && n.push("The Dark Whispers import record was invalid and was skipped."), {
+	if (!$(t) || t.version !== 1 || !Array.isArray(t.prompts)) return Ep("The Dark Whispers prompt library has an unsupported schema.");
+	let n = [];
+	return {
 		library: {
-			...i ? { lastImport: i } : {},
-			prompts: r,
+			prompts: t.prompts.flatMap((e, t) => {
+				let r = Dp(e);
+				return r ? [r] : (n.push(`Dark Whispers prompt ${t + 1} was invalid and was skipped.`), []);
+			}),
 			version: 1
 		},
 		warnings: n
 	};
 }
-function rp(e) {
+function Ep(e) {
 	return {
 		library: {
-			...ep,
+			...Cp,
 			prompts: []
 		},
 		warnings: [e]
 	};
 }
-function ip(e) {
-	if (!Z(e)) return;
-	let t = X(e.id), n = tp(e.text), r = ap(e.source);
-	if (!(!t || !n)) return {
+function Dp(e) {
+	if (!$(e)) return;
+	let t = Q(e.id), n = wp(e.text);
+	if (t && n) return {
 		id: t,
-		...r ? { source: r } : {},
 		text: n
 	};
 }
-function ap(e) {
-	if (!Z(e) || e.type !== "gm-toolkit") return;
-	let t = X(e.moduleVersion), n = X(e.resultId), r = X(e.tableId);
-	return n && r ? {
-		...t ? { moduleVersion: t } : {},
-		resultId: n,
-		tableId: r,
-		type: "gm-toolkit"
-	} : void 0;
-}
-function op(e) {
-	if (!Z(e)) return;
-	let t = e.conflictPolicy, n = $f(e.importedAt), r = Array.isArray(e.resultIds) ? e.resultIds.filter((e) => typeof e == "string") : [], i = X(e.sourceModuleVersion), a = X(e.sourceTableId), o = X(e.sourceTableName);
-	if (!(t !== "preserve" && t !== "replace" || !n || !a || !o)) return {
-		conflictPolicy: t,
-		importedAt: n,
-		resultIds: r,
-		...i ? { sourceModuleVersion: i } : {},
-		sourceTableId: a,
-		sourceTableName: o
-	};
-}
-//#endregion
-//#region src/module/dark-whispers/settings/keys.ts
-var sp = {
+// src/module/foundry/dark-whispers/settings/keys.ts
+var Op = {
 	defaultGroup: "darkWhispersDefaultGroup",
 	messageStyle: "darkWhispersMessageStyle",
 	promptLibrary: "darkWhispersPromptLibrary"
 };
-//#endregion
-//#region src/module/dark-whispers/settings/load.ts
-function cp() {
-	return np(game.settings.get(q, sp.promptLibrary));
+// src/module/foundry/dark-whispers/settings/load.ts
+function kp() {
+	return Tp(game.settings.get(r, Op.promptLibrary));
 }
-function lp() {
-	let e = cp();
-	for (let t of e.warnings) console.warn(`${q} | ${t}`);
+function Ap() {
+	let e = kp();
+	for (let t of e.warnings) console.warn(`${r} | ${t}`);
 	return e.library;
 }
-async function up(e) {
-	await game.settings.set(q, sp.promptLibrary, JSON.stringify(e));
+async function jp(e) {
+	await game.settings.set(r, Op.promptLibrary, JSON.stringify(e));
 }
-function dp() {
-	let e = game.settings.get(q, sp.defaultGroup), t = game.settings.get(q, sp.messageStyle);
+function Mp() {
+	let e = game.settings.get(r, Op.defaultGroup), t = game.settings.get(r, Op.messageStyle);
 	return {
 		defaultGroup: e === "company" ? "company" : "party",
 		messageStyle: t === "offer" || t === "plain" ? t : "taunt"
 	};
 }
-async function fp(e) {
-	await game.settings.set(q, sp.defaultGroup, e.defaultGroup), await game.settings.set(q, sp.messageStyle, e.messageStyle);
+async function Np(e) {
+	await game.settings.set(r, Op.defaultGroup, e.defaultGroup), await game.settings.set(r, Op.messageStyle, e.messageStyle);
 }
-//#endregion
-//#region src/module/dark-whispers/initialization.ts
-function pp() {
-	let e = dp(), t = Qf({
+// src/module/foundry/dark-whispers/initialization.ts
+function Pp() {
+	let e = Mp(), t = xp({
 		actors: Array.from(game.actors).map((e) => ({
 			corruption: Number(e.system.status?.corruption?.value ?? 0),
 			corruptionMax: Number(e.system.status?.corruption?.max ?? 0),
@@ -5620,20 +5783,19 @@ function pp() {
 		}))
 	});
 	return {
-		prompts: structuredClone(lp().prompts),
+		prompts: structuredClone(Ap().prompts),
 		recipients: t,
 		settings: e
 	};
 }
-//#endregion
-//#region src/module/dark-whispers/service.ts
-var mp = {
-	save: hp,
-	send: gp
+// src/module/foundry/dark-whispers/service.ts
+var Fp = {
+	save: Ip,
+	send: Lp
 };
-async function hp(e, t) {
-	Y(J.darkWhispersConsole);
-	let n = lp(), r = e.flatMap((e) => {
+async function Ip(e, t) {
+	X(Y.darkWhispersConsole);
+	let n = Ap(), r = e.flatMap((e) => {
 		let t = e.text.trim();
 		return t ? [{
 			...e,
@@ -5641,43 +5803,43 @@ async function hp(e, t) {
 			text: t
 		}] : [];
 	});
-	await up({
+	await jp({
 		...n,
 		prompts: r
-	}), await fp(t), ui.notifications.info("Dark Whispers settings saved.");
+	}), await Np(t), ui.notifications.info("Dark Whispers settings saved.");
 }
-async function gp(e) {
-	Y(J.darkWhispersConsole);
+async function Lp(e) {
+	X(Y.darkWhispersConsole);
 	let t = e.message.trim();
 	if (!t) throw Error("Enter a Dark Whisper message.");
-	let n = await kd(e.recipientUuids), r = /* @__PURE__ */ new Set();
+	let n = await Qd(e.recipientUuids), i = /* @__PURE__ */ new Set();
 	for (let t of n) {
 		let n = Array.from(game.users).filter((e) => !e.isGM);
-		if (e.sendToOwners) n.filter((e) => Number(t.ownership?.[e.id] ?? 0) >= 3).forEach((e) => r.add(e.id));
+		if (e.sendToOwners) n.filter((e) => Number(t.ownership?.[e.id] ?? 0) >= 3).forEach((e) => i.add(e.id));
 		else {
 			let e = n.find((e) => e.character?.id === t.id);
-			e && r.add(e.id);
+			e && i.add(e.id);
 		}
 	}
-	if (r.size === 0) throw Error("The selected characters have no eligible player recipients.");
-	let i = bp(foundry.utils.escapeHTML(t), dp().messageStyle) + `<div class="drowsy-dark-whisper-actions" data-prompt="${encodeURIComponent(t)}"><button type="button" data-action="accept">Accept</button><button type="button" data-action="reject">Reject</button></div>`;
+	if (i.size === 0) throw Error("The selected characters have no eligible player recipients.");
+	let a = Vp(foundry.utils.escapeHTML(t), Mp().messageStyle) + `<div class="drowsy-dark-whisper-actions" data-prompt="${encodeURIComponent(t)}"><button type="button" data-action="accept">Accept</button><button type="button" data-action="reject">Reject</button></div>`;
 	await ChatMessage.create({
-		content: i,
-		flags: { [q]: { darkWhisper: !0 } },
+		content: a,
+		flags: { [r]: { darkWhisper: !0 } },
 		flavor: n.map((e) => e.name).join(", "),
-		whisper: [...r]
+		whisper: [...i]
 	});
 }
-function _p() {
-	Hooks.on("renderChatMessageHTML", (e, t) => vp(t));
+function Rp() {
+	Hooks.on("renderChatMessageHTML", (e, t) => zp(t));
 }
-function vp(e) {
+function zp(e) {
 	let t = e instanceof HTMLElement ? e : e?.[0];
 	if (t instanceof HTMLElement) for (let e of t.querySelectorAll(".drowsy-dark-whisper-actions button")) e.addEventListener("click", (t) => {
-		t.preventDefault(), yp(e);
+		t.preventDefault(), Bp(e);
 	});
 }
-async function yp(e) {
+async function Bp(e) {
 	if (game.user?.isGM) return ui.notifications.warn("A player must respond to a Dark Whisper.");
 	let t = game.user?.character;
 	if (!t) return ui.notifications.warn("Assign a character before responding.");
@@ -5691,13 +5853,12 @@ async function yp(e) {
 		e.disabled = !0;
 	});
 }
-function bp(e, t) {
+function Vp(e, t) {
 	return t === "plain" ? `<blockquote>${e}</blockquote>` : t === "offer" ? `<p>A dark power offers you this bargain:</p><blockquote>${e}</blockquote>` : `<p>A dark whisper claws at the edge of your thoughts:</p><blockquote>${e}</blockquote>`;
 }
-//#endregion
-//#region src/module/apps/dark-whispers-console/DarkWhispersConsoleApplication.ts
-var xp = class extends Oc {
-	static ACCESS_POLICY = J.darkWhispersConsole;
+// src/module/apps/dark-whispers-console/view/DarkWhispersConsoleApplication.ts
+var Hp = class extends Uc {
+	static ACCESS_POLICY = Y.darkWhispersConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		id: "wfrp4e-drowsys-toolkit-dark-whispers-console",
@@ -5708,29 +5869,27 @@ var xp = class extends Oc {
 		window: {
 			icon: "fa-solid fa-comment-dots",
 			resizable: !0,
-			title: `${wc} — Dark Whispers`
+			title: `${i} — Dark Whispers`
 		}
 	};
 	getVueComponent() {
-		return Zf;
+		return bp;
 	}
 	getVueProps() {
 		return {
-			actions: mp,
-			initialization: pp()
+			actions: Fp,
+			initialization: Pp()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/dark-whispers-console/open.ts
-async function Sp() {
-	let e = new xp();
+// src/module/apps/dark-whispers-console/view/open.ts
+async function Up() {
+	let e = new Hp();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/group-test-console/store.ts
-var Cp = As("group-test-console", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j([]), r = /* @__PURE__ */ j(""), i = /* @__PURE__ */ j(!1), a = /* @__PURE__ */ j(""), o, s = U(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
+// src/module/apps/group-test-console/state/store.ts
+var Wp = Ks("group-test-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P([]), r = /* @__PURE__ */ P(""), i = /* @__PURE__ */ P(!1), a = /* @__PURE__ */ P(""), o, s = K(() => e.value.filter((e) => e.selected).map((e) => e.uuid));
 	function c(i, a) {
 		e.value = structuredClone(i.actors), t.value = structuredClone(i.settings), n.value = [...i.skills], r.value = i.settings.defaultSkill, o = a;
 	}
@@ -5784,56 +5943,56 @@ var Cp = As("group-test-console", () => {
 		skill: r,
 		skills: n
 	};
-}), wp = {
+}), Gp = {
 	key: 0,
 	class: "tw:grid tw:gap-4"
-}, Tp = { class: "dui-card dui-card-border tw:bg-base-100!" }, Ep = { class: "dui-card-body tw:p-4" }, Dp = { class: "tw:grid tw:max-h-52 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, Op = ["onUpdate:modelValue"], kp = { class: "dui-card dui-card-border tw:bg-base-100!" }, Ap = { class: "dui-card-body tw:grid tw:gap-3 tw:p-4" }, jp = { class: "tw:grid tw:gap-1" }, Mp = { id: "drowsy-group-skills" }, Np = ["value"], Pp = { class: "tw:flex tw:flex-wrap tw:gap-2" }, Fp = ["disabled", "onClick"], Ip = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, Lp = { class: "tw:grid tw:gap-1" }, Rp = ["value"], zp = { class: "tw:grid tw:gap-1" }, Bp = { class: "tw:grid tw:gap-1" }, Vp = { class: "tw:flex tw:items-center tw:gap-2" }, Hp = { class: "tw:flex tw:items-center tw:gap-2" }, Up = { class: "tw:grid tw:gap-1" }, Wp = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, Gp = { class: "tw:grid tw:gap-1" }, Kp = { class: "tw:grid tw:gap-1" }, qp = { class: "tw:grid tw:grid-cols-2 tw:gap-2" }, Jp = { class: "tw:text-sm tw:font-medium" }, Yp = ["onUpdate:modelValue"], Xp = {
+}, Kp = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, qp = { class: "tw:dui-card-body tw:p-4" }, Jp = { class: "tw:grid tw:max-h-52 tw:grid-cols-2 tw:gap-2 tw:overflow-auto" }, Yp = ["onUpdate:modelValue"], Xp = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, Zp = { class: "tw:dui-card-body tw:grid tw:gap-3 tw:p-4" }, Qp = { class: "tw:grid tw:gap-1" }, $p = { id: "drowsy-group-skills" }, em = ["value"], tm = { class: "tw:flex tw:flex-wrap tw:gap-2" }, nm = ["disabled", "onClick"], rm = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, im = { class: "tw:grid tw:gap-1" }, am = ["value"], om = { class: "tw:grid tw:gap-1" }, sm = { class: "tw:grid tw:gap-1" }, cm = { class: "tw:flex tw:items-center tw:gap-2" }, lm = { class: "tw:flex tw:items-center tw:gap-2" }, um = { class: "tw:grid tw:gap-1" }, dm = { class: "tw:grid tw:grid-cols-2 tw:gap-3" }, fm = { class: "tw:grid tw:gap-1" }, pm = { class: "tw:grid tw:gap-1" }, mm = { class: "tw:grid tw:grid-cols-2 tw:gap-2" }, hm = { class: "tw:text-sm tw:font-medium" }, gm = ["onUpdate:modelValue"], _m = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-0"
-}, Zp = { class: "tw:flex tw:gap-2" }, Qp = ["disabled"], $p = ["disabled"], em = /* @__PURE__ */ P({
+	class: "tw:dui-alert tw:dui-alert-error tw:m-0"
+}, vm = { class: "tw:flex tw:gap-2" }, ym = ["disabled"], bm = ["disabled"], xm = /* @__PURE__ */ L({
 	__name: "GroupTestConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Cp();
+		let t = e, n = Wp();
 		n.initialize(t.initialization, t.actions);
-		let { actors: r, busy: i, errorMessage: a, settings: o, skill: s, skills: c } = js(n);
-		return (e, t) => (L(), ua(Qs, {
+		let { actors: r, busy: i, errorMessage: a, settings: o, skill: s, skills: c } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
 			description: "Run private WFRP4e tests for a group of actors.",
 			icon: "fa-solid fa-dice-d100",
 			title: "Secret Group Tests"
 		}, {
-			default: Xn(() => [M(o) ? (L(), R("div", wp, [z("section", Tp, [z("div", Ep, [t[11] ||= z("h2", { class: "dui-card-title tw:text-base" }, "Actors", -1), z("div", Dp, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("label", {
+			default: ir(() => [F(o) ? (B(), V("div", Gp, [H("section", Kp, [H("div", qp, [t[11] ||= H("h2", { class: "tw:dui-card-title tw:text-base" }, "Actors", -1), H("div", Jp, [(B(!0), V(z, null, R(F(r), (e) => (B(), V("label", {
 				key: e.uuid,
 				class: "tw:flex tw:items-center tw:gap-2"
-			}, [N(z("input", {
+			}, [I(H("input", {
 				"onUpdate:modelValue": (t) => e.selected = t,
-				class: "dui-checkbox dui-checkbox-sm",
+				class: "tw:dui-checkbox tw:dui-checkbox-sm",
 				type: "checkbox"
-			}, null, 8, Op), [[G, e.selected]]), V(D(e.label), 1)]))), 128))])])]), z("section", kp, [z("div", Ap, [
-				z("label", jp, [t[12] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Skill", -1), N(z("input", {
-					"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ A(s) ? s.value = e : null,
-					class: "dui-input",
+			}, null, 8, Yp), [[J, e.selected]]), W(k(e.label), 1)]))), 128))])])]), H("section", Xp, [H("div", Zp, [
+				H("label", Qp, [t[12] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Skill", -1), I(H("input", {
+					"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ N(s) ? s.value = e : null,
+					class: "tw:dui-input",
 					list: "drowsy-group-skills"
-				}, null, 512), [[W, M(s)]])]),
-				z("datalist", Mp, [(L(!0), R(I, null, F(M(c), (e) => (L(), R("option", {
+				}, null, 512), [[q, F(s)]])]),
+				H("datalist", $p, [(B(!0), V(z, null, R(F(c), (e) => (B(), V("option", {
 					key: e,
 					value: e
-				}, null, 8, Np))), 128))]),
-				z("div", Pp, [(L(!0), R(I, null, F(M(o).quickTests, (e) => (L(), R("button", {
+				}, null, 8, em))), 128))]),
+				H("div", tm, [(B(!0), V(z, null, R(F(o).quickTests, (e) => (B(), V("button", {
 					key: e,
-					class: "dui-btn dui-btn-outline dui-btn-sm",
-					disabled: M(i),
+					class: "tw:dui-btn tw:dui-btn-outline tw:dui-btn-sm",
+					disabled: F(i),
 					type: "button",
-					onClick: (t) => M(n).run(e)
-				}, D(e), 9, Fp))), 128))]),
-				z("div", Ip, [
-					z("label", Lp, [t[13] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Difficulty", -1), N(z("select", {
-						"onUpdate:modelValue": t[1] ||= (e) => M(o).defaultDifficulty = e,
-						class: "dui-select dui-select-sm"
-					}, [(L(), R(I, null, F([
+					onClick: (t) => F(n).run(e)
+				}, k(e), 9, nm))), 128))]),
+				H("div", rm, [
+					H("label", im, [t[13] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Difficulty", -1), I(H("select", {
+						"onUpdate:modelValue": t[1] ||= (e) => F(o).defaultDifficulty = e,
+						class: "tw:dui-select tw:dui-select-sm"
+					}, [(B(), V(z, null, R([
 						"veasy",
 						"easy",
 						"average",
@@ -5843,93 +6002,93 @@ var Cp = As("group-test-console", () => {
 						"vhard",
 						"futile",
 						"impossible"
-					], (e) => z("option", {
+					], (e) => H("option", {
 						key: e,
 						value: e
-					}, D(e), 9, Rp)), 64))], 512), [[zo, M(o).defaultDifficulty]])]),
-					z("label", zp, [t[14] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Modifier", -1), N(z("input", {
-						"onUpdate:modelValue": t[2] ||= (e) => M(o).defaultModifier = e,
-						class: "dui-input dui-input-sm",
+					}, k(e), 9, am)), 64))], 512), [[es, F(o).defaultDifficulty]])]),
+					H("label", om, [t[14] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Modifier", -1), I(H("input", {
+						"onUpdate:modelValue": t[2] ||= (e) => F(o).defaultModifier = e,
+						class: "tw:dui-input tw:dui-input-sm",
 						type: "number"
 					}, null, 512), [[
-						W,
-						M(o).defaultModifier,
+						q,
+						F(o).defaultModifier,
 						void 0,
 						{ number: !0 }
 					]])]),
-					z("label", Bp, [t[16] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Roll mode", -1), N(z("select", {
-						"onUpdate:modelValue": t[3] ||= (e) => M(o).defaultRollMode = e,
-						class: "dui-select dui-select-sm"
+					H("label", sm, [t[16] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Roll mode", -1), I(H("select", {
+						"onUpdate:modelValue": t[3] ||= (e) => F(o).defaultRollMode = e,
+						class: "tw:dui-select tw:dui-select-sm"
 					}, [...t[15] ||= [
-						z("option", { value: "blindroll" }, "Blind", -1),
-						z("option", { value: "gmroll" }, "Private GM", -1),
-						z("option", { value: "selfroll" }, "Self", -1),
-						z("option", { value: "publicroll" }, "Public", -1)
-					]], 512), [[zo, M(o).defaultRollMode]])])
+						H("option", { value: "blindroll" }, "Blind", -1),
+						H("option", { value: "gmroll" }, "Private GM", -1),
+						H("option", { value: "selfroll" }, "Self", -1),
+						H("option", { value: "publicroll" }, "Public", -1)
+					]], 512), [[es, F(o).defaultRollMode]])])
 				]),
-				z("label", Vp, [N(z("input", {
-					"onUpdate:modelValue": t[4] ||= (e) => M(o).bypassDialog = e,
-					class: "dui-toggle dui-toggle-sm",
+				H("label", cm, [I(H("input", {
+					"onUpdate:modelValue": t[4] ||= (e) => F(o).bypassDialog = e,
+					class: "tw:dui-toggle tw:dui-toggle-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(o).bypassDialog]]), t[17] ||= V(" Bypass each roll dialog", -1)]),
-				z("label", Hp, [N(z("input", {
-					"onUpdate:modelValue": t[5] ||= (e) => M(o).fallbackAdvanced = e,
-					class: "dui-toggle dui-toggle-sm",
+				}, null, 512), [[J, F(o).bypassDialog]]), t[17] ||= W(" Bypass each roll dialog", -1)]),
+				H("label", lm, [I(H("input", {
+					"onUpdate:modelValue": t[5] ||= (e) => F(o).fallbackAdvanced = e,
+					class: "tw:dui-toggle tw:dui-toggle-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(o).fallbackAdvanced]]), t[18] ||= V(" Fall back to the characteristic for missing advanced skills", -1)]),
-				z("label", Up, [t[19] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Fallback difficulty steps", -1), N(z("input", {
-					"onUpdate:modelValue": t[6] ||= (e) => M(o).fallbackDifficultySteps = e,
-					class: "dui-input dui-input-sm tw:w-24",
+				}, null, 512), [[J, F(o).fallbackAdvanced]]), t[18] ||= W(" Fall back to the characteristic for missing advanced skills", -1)]),
+				H("label", um, [t[19] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Fallback difficulty steps", -1), I(H("input", {
+					"onUpdate:modelValue": t[6] ||= (e) => F(o).fallbackDifficultySteps = e,
+					class: "tw:dui-input tw:dui-input-sm tw:w-24",
 					type: "number"
 				}, null, 512), [[
-					W,
-					M(o).fallbackDifficultySteps,
+					q,
+					F(o).fallbackDifficultySteps,
 					void 0,
 					{ number: !0 }
 				]])]),
-				t[24] ||= z("div", { class: "dui-divider tw:my-0" }, "Saved defaults", -1),
-				z("div", Wp, [z("label", Gp, [t[21] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Initial actor group", -1), N(z("select", {
-					"onUpdate:modelValue": t[7] ||= (e) => M(o).defaultGroup = e,
-					class: "dui-select dui-select-sm"
-				}, [...t[20] ||= [z("option", { value: "party" }, "Assigned party", -1), z("option", { value: "company" }, "All player-owned characters", -1)]], 512), [[zo, M(o).defaultGroup]])]), z("label", Kp, [
-					t[22] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Summary at", -1),
-					N(z("input", {
-						"onUpdate:modelValue": t[8] ||= (e) => M(o).summaryThreshold = e,
-						class: "dui-input dui-input-sm",
+				t[24] ||= H("div", { class: "tw:dui-divider tw:my-0" }, "Saved defaults", -1),
+				H("div", dm, [H("label", fm, [t[21] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Initial actor group", -1), I(H("select", {
+					"onUpdate:modelValue": t[7] ||= (e) => F(o).defaultGroup = e,
+					class: "tw:dui-select tw:dui-select-sm"
+				}, [...t[20] ||= [H("option", { value: "party" }, "Assigned party", -1), H("option", { value: "company" }, "All player-owned characters", -1)]], 512), [[es, F(o).defaultGroup]])]), H("label", pm, [
+					t[22] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Summary at", -1),
+					I(H("input", {
+						"onUpdate:modelValue": t[8] ||= (e) => F(o).summaryThreshold = e,
+						class: "tw:dui-input tw:dui-input-sm",
 						min: "0",
 						type: "number"
 					}, null, 512), [[
-						W,
-						M(o).summaryThreshold,
+						q,
+						F(o).summaryThreshold,
 						void 0,
 						{ number: !0 }
 					]]),
-					t[23] ||= z("span", { class: "tw:text-xs tw:text-base-content/60!" }, "0 disables the summary", -1)
+					t[23] ||= H("span", { class: "tw:text-xs tw:text-base-content/60!" }, "0 disables the summary", -1)
 				])]),
-				z("div", qp, [(L(!0), R(I, null, F(M(o).quickTests, (e, t) => (L(), R("label", {
+				H("div", mm, [(B(!0), V(z, null, R(F(o).quickTests, (e, t) => (B(), V("label", {
 					key: t,
 					class: "tw:grid tw:gap-1"
-				}, [z("span", Jp, "Quick test " + D(t + 1), 1), N(z("input", {
-					"onUpdate:modelValue": (e) => M(o).quickTests[t] = e,
-					class: "dui-input dui-input-sm"
-				}, null, 8, Yp), [[W, M(o).quickTests[t]]])]))), 128))]),
-				M(a) ? (L(), R("p", Xp, D(M(a)), 1)) : H("", !0),
-				z("div", Zp, [z("button", {
-					class: "dui-btn dui-btn-primary",
-					disabled: M(i),
+				}, [H("span", hm, "Quick test " + k(t + 1), 1), I(H("input", {
+					"onUpdate:modelValue": (e) => F(o).quickTests[t] = e,
+					class: "tw:dui-input tw:dui-input-sm"
+				}, null, 8, gm), [[q, F(o).quickTests[t]]])]))), 128))]),
+				F(a) ? (B(), V("p", _m, k(F(a)), 1)) : G("", !0),
+				H("div", vm, [H("button", {
+					class: "tw:dui-btn tw:dui-btn-primary",
+					disabled: F(i),
 					type: "button",
-					onClick: t[9] ||= (e) => M(n).run()
-				}, " Run group test", 8, Qp), z("button", {
-					class: "dui-btn dui-btn-secondary",
-					disabled: M(i),
+					onClick: t[9] ||= (e) => F(n).run()
+				}, " Run group test", 8, ym), H("button", {
+					class: "tw:dui-btn tw:dui-btn-secondary",
+					disabled: F(i),
 					type: "button",
-					onClick: t[10] ||= (...e) => M(n).save && M(n).save(...e)
-				}, " Save defaults ", 8, $p)])
-			])])])) : H("", !0)]),
+					onClick: t[10] ||= (...e) => F(n).save && F(n).save(...e)
+				}, " Save defaults ", 8, bm)])
+			])])])) : G("", !0)]),
 			_: 1
 		}));
 	}
-}), tm = {
+}), Sm = {
 	bypassDialog: "groupTestBypassDialog",
 	defaultDifficulty: "groupTestDefaultDifficulty",
 	defaultGroup: "groupTestDefaultGroup",
@@ -5944,28 +6103,27 @@ var Cp = As("group-test-console", () => {
 	quickTest4: "groupTestQuickTest4",
 	summaryThreshold: "groupTestSummaryThreshold"
 };
-//#endregion
-//#region src/module/group-test/settings/load.ts
-function nm() {
+// src/module/foundry/group-test/settings/load.ts
+function Cm() {
 	return {
-		bypassDialog: im("bypassDialog"),
-		defaultDifficulty: om("defaultDifficulty"),
-		defaultGroup: om("defaultGroup") === "company" ? "company" : "party",
-		defaultModifier: am("defaultModifier"),
-		defaultRollMode: om("defaultRollMode"),
-		defaultSkill: om("defaultSkill"),
-		fallbackAdvanced: im("fallbackAdvanced"),
-		fallbackDifficultySteps: am("fallbackDifficultySteps"),
+		bypassDialog: Tm("bypassDialog"),
+		defaultDifficulty: Dm("defaultDifficulty"),
+		defaultGroup: Dm("defaultGroup") === "company" ? "company" : "party",
+		defaultModifier: Em("defaultModifier"),
+		defaultRollMode: Dm("defaultRollMode"),
+		defaultSkill: Dm("defaultSkill"),
+		fallbackAdvanced: Tm("fallbackAdvanced"),
+		fallbackDifficultySteps: Em("fallbackDifficultySteps"),
 		quickTests: [
-			om("quickTest1"),
-			om("quickTest2"),
-			om("quickTest3"),
-			om("quickTest4")
+			Dm("quickTest1"),
+			Dm("quickTest2"),
+			Dm("quickTest3"),
+			Dm("quickTest4")
 		],
-		summaryThreshold: am("summaryThreshold")
+		summaryThreshold: Em("summaryThreshold")
 	};
 }
-async function rm(e) {
+async function wm(e) {
 	let t = {
 		bypassDialog: e.bypassDialog,
 		defaultDifficulty: e.defaultDifficulty,
@@ -5981,50 +6139,47 @@ async function rm(e) {
 		quickTest4: e.quickTests[3],
 		summaryThreshold: e.summaryThreshold
 	};
-	for (let [e, n] of Object.entries(tm)) await game.settings.set(q, n, t[e]);
+	for (let [e, n] of Object.entries(Sm)) await game.settings.set(r, n, t[e]);
 }
-function im(e) {
-	return game.settings.get(q, tm[e]) === !0;
+function Tm(e) {
+	return game.settings.get(r, Sm[e]) === !0;
 }
-function am(e) {
-	return Number(game.settings.get("wfrp4e-enhanced-fear-terror", tm[e])) || 0;
+function Em(e) {
+	return Number(game.settings.get("wfrp4e-enhanced-fear-terror", Sm[e])) || 0;
 }
-function om(e) {
-	return String(game.settings.get("wfrp4e-enhanced-fear-terror", tm[e]) ?? "");
+function Dm(e) {
+	return String(game.settings.get("wfrp4e-enhanced-fear-terror", Sm[e]) ?? "");
 }
-//#endregion
-//#region src/module/group-test/skill-catalog.ts
-var sm = [];
-function cm() {
-	return [...sm];
+// src/module/foundry/group-test/skill-catalog.ts
+var Om = [];
+function km() {
+	return [...Om];
 }
-async function lm() {
+async function Am() {
 	let e = /* @__PURE__ */ new Set(), t = game;
-	for (let n of t.actors) um(n.items, e);
-	um(t.items, e);
-	for (let n of t.packs) if (!(!n.getIndex || n.metadata?.system !== "wfrp4e" || n.metadata?.type !== "Item")) try {
-		um(await n.getIndex({ fields: ["type"] }), e);
+	for (let n of t.actors) jm(n.items, e);
+	jm(t.items, e);
+	for (let n of t.packs) if (n.getIndex && n.metadata?.system === "wfrp4e" && n.metadata?.type === "Item") try {
+		jm(await n.getIndex({ fields: ["type"] }), e);
 	} catch (e) {
-		console.warn(`${q} | Could not index WFRP4e skills from a compendium.`, e);
+		console.warn(`${r} | Could not index WFRP4e skills from a compendium.`, e);
 	}
-	sm = [...e].sort((e, t) => e.localeCompare(t));
+	Om = [...e].sort((e, t) => e.localeCompare(t));
 }
-function um(e, t) {
+function jm(e, t) {
 	for (let n of e ?? []) n.type === "skill" && n.name && t.add(n.name);
 }
-//#endregion
-//#region src/module/group-test/initialization.ts
-function dm() {
-	let e = nm();
+// src/module/foundry/group-test/initialization.ts
+function Mm() {
+	let e = Cm();
 	return {
-		actors: Od({ initial: e.defaultGroup }),
+		actors: Zd({ initial: e.defaultGroup }),
 		settings: e,
-		skills: cm()
+		skills: km()
 	};
 }
-//#endregion
-//#region src/functions/group-test/fallback.ts
-var fm = [
+// src/module/functions/group-test/fallback.ts
+var Nm = [
 	"impossible",
 	"futile",
 	"vhard",
@@ -6035,21 +6190,21 @@ var fm = [
 	"easy",
 	"veasy"
 ];
-function pm(e, t) {
-	let n = fm.indexOf(e);
-	return n < 0 ? e : fm[Math.max(0, Math.min(fm.length - 1, n + Math.round(t)))];
+function Pm(e, t) {
+	let n = Nm.indexOf(e);
+	return n < 0 ? e : Nm[Math.max(0, Math.min(Nm.length - 1, n + Math.round(t)))];
 }
-function mm(e, t) {
-	let n = gm(e, "system", "advanced", "value") === "adv";
-	if (!(n && !t.fallbackAdvanced)) return {
-		characteristic: String(gm(e, "system", "characteristic", "value") ?? "int"),
-		difficulty: n ? pm(t.difficulty, t.fallbackDifficultySteps) : t.difficulty
+function Fm(e, t) {
+	let n = Lm(e, "system", "advanced", "value") === "adv";
+	if (!n || t.fallbackAdvanced) return {
+		characteristic: String(Lm(e, "system", "characteristic", "value") ?? "int"),
+		difficulty: n ? Pm(t.difficulty, t.fallbackDifficultySteps) : t.difficulty
 	};
 }
-function hm(e, t, n) {
+function Im(e, t, n) {
 	return e.has(n) && !t.has(n);
 }
-function gm(e, ...t) {
+function Lm(e, ...t) {
 	let n = e;
 	for (let e of t) {
 		if (!n || typeof n != "object") return;
@@ -6057,14 +6212,13 @@ function gm(e, ...t) {
 	}
 	return n;
 }
-//#endregion
-//#region src/module/group-test/service.ts
-var _m = /* @__PURE__ */ new Map();
-async function vm(e) {
-	if (Y(J.groupTestConsole), !e.skill.trim()) throw Error("Choose or enter a skill.");
+// src/module/foundry/group-test/service.ts
+var Rm = /* @__PURE__ */ new Map();
+async function zm(e) {
+	if (X(Y.groupTestConsole), !e.skill.trim()) throw Error("Choose or enter a skill.");
 	if (e.uuids.length === 0) throw Error("Select at least one actor.");
-	let t = await kd(e.uuids), n = crypto.randomUUID(), r = t.filter((t) => !e.bypassDialog && ym(t));
-	r.length > 0 && Mm();
+	let t = await Qd(e.uuids), n = crypto.randomUUID(), r = t.filter((t) => !e.bypassDialog && Bm(t));
+	r.length > 0 && $m();
 	let i = t.filter((e) => !r.includes(e)), a = {
 		expected: t.length,
 		expectedUuids: new Set(t.map(({ uuid: e }) => e)),
@@ -6072,15 +6226,15 @@ async function vm(e) {
 		skill: e.skill,
 		summaries: []
 	};
-	_m.set(n, a), Om(), r.forEach((t) => bm(n, t.uuid, e));
-	for (let t of i) Em(n, await Sm(t, e));
-	await Dm(n), r.length > 0 && ui.notifications.info(`Requested ${r.length} private player roll${r.length === 1 ? "" : "s"}.`);
+	Rm.set(n, a), Ym(), r.forEach((t) => Vm(n, t.uuid, e));
+	for (let t of i) qm(n, await Um(t, e));
+	await Jm(n), r.length > 0 && ui.notifications.info(`Requested ${r.length} private player roll${r.length === 1 ? "" : "s"}.`);
 }
-function ym(e) {
+function Bm(e) {
 	return Array.from(game.users).some((t) => t.isGM === !1 && t.active !== !1 && t.character?.id === e.id);
 }
-function bm(e, t, n) {
-	Mm().emit(`module.${q}`, {
+function Vm(e, t, n) {
+	$m().emit(`module.${r}`, {
 		actorUuid: t,
 		batchId: e,
 		request: n,
@@ -6088,12 +6242,12 @@ function bm(e, t, n) {
 		type: "group-test-request"
 	});
 }
-function xm() {
+function Hm() {
 	Hooks.once("ready", async () => {
-		await lm(), Mm().on(`module.${q}`, (e) => void Tm(e));
+		await Am(), $m().on(`module.${r}`, (e) => void Km(e));
 	});
 }
-async function Sm(e, t) {
+async function Um(e, t) {
 	let n = {
 		fields: {
 			difficulty: t.difficulty,
@@ -6107,9 +6261,9 @@ async function Sm(e, t) {
 	}, r = e.has(t.skill, "skill"), i;
 	if (r) i = await e.setupSkill(r, n);
 	else {
-		let r = await Cm(t.skill);
+		let r = await Wm(t.skill);
 		if (!r) throw Error(`Skill “${t.skill}” was not found in WFRP4e content.`);
-		let a = mm(r, t);
+		let a = Fm(r, t);
 		if (!a) return {
 			actor: e.name,
 			actorUuid: e.uuid,
@@ -6133,30 +6287,28 @@ async function Sm(e, t) {
 		target: a.target
 	};
 }
-async function Cm(e) {
+async function Wm(e) {
 	let t = game.wfrp4e.utility;
 	return t.findSkill ? t.findSkill(e) : void 0;
 }
-async function wm(e, t) {
+async function Gm(e, t) {
 	let n = t.map((e) => `<li><strong>${foundry.utils.escapeHTML(e.actor)}</strong>: ${e.succeeded ? "Success" : "Failure"}${e.sl === void 0 ? "" : ` (${e.sl} SL)`}${e.roll === void 0 ? "" : ` — ${e.roll} vs ${e.target ?? "?"}`}</li>`).join(""), r = Array.from(game.users).filter((e) => e.isGM).map((e) => e.id);
 	await ChatMessage.create({
 		content: `<h3>Secret Group Test: ${foundry.utils.escapeHTML(e)}</h3><ul>${n}</ul>`,
 		whisper: r
 	});
 }
-async function Tm(e) {
+async function Km(e) {
 	if (!e || typeof e != "object") return;
 	let t = e;
 	if (t.type === "group-test-result") {
-		if (!Nm() || !t.batchId || !t.summary || !km(t.summary, t.responderUserId)) return;
-		Em(t.batchId, t.summary), await Dm(t.batchId);
-		return;
-	}
-	if (!(t.type !== "group-test-request" || !t.actorUuid || !t.batchId || !t.request || !Am(t.requesterUserId)) && game.user?.character?.uuid === t.actorUuid) {
-		let [e] = await kd([t.actorUuid]);
+		if (!eh() || !t.batchId || !t.summary || !Xm(t.summary, t.responderUserId)) return;
+		qm(t.batchId, t.summary), await Jm(t.batchId);
+	} else if (t.type === "group-test-request" && t.actorUuid && t.batchId && t.request && Zm(t.requesterUserId) && game.user?.character?.uuid === t.actorUuid) {
+		let [e] = await Qd([t.actorUuid]);
 		if (e) {
-			let n = await Sm(e, t.request);
-			jm({
+			let n = await Um(e, t.request);
+			Qm({
 				batchId: t.batchId,
 				responderUserId: game.user?.id,
 				summary: n,
@@ -6165,49 +6317,48 @@ async function Tm(e) {
 		}
 	}
 }
-function Em(e, t) {
-	let n = _m.get(e);
-	!n || !hm(n.expectedUuids, n.received, t.actorUuid) || (n.received.add(t.actorUuid), n.summaries.push(t));
+function qm(e, t) {
+	let n = Rm.get(e);
+	n && Im(n.expectedUuids, n.received, t.actorUuid) && (n.received.add(t.actorUuid), n.summaries.push(t));
 }
-async function Dm(e) {
-	let t = _m.get(e);
+async function Jm(e) {
+	let t = Rm.get(e);
 	if (!t || t.received.size < t.expected) return;
-	_m.delete(e);
-	let n = nm().summaryThreshold;
-	n > 0 && t.summaries.length >= n && await wm(t.skill, t.summaries);
+	Rm.delete(e);
+	let n = Cm().summaryThreshold;
+	n > 0 && t.summaries.length >= n && await Gm(t.skill, t.summaries);
 }
-function Om() {
-	for (; _m.size > 20;) {
-		let e = _m.keys().next().value;
-		if (typeof e == "string") _m.delete(e);
+function Ym() {
+	for (; Rm.size > 20;) {
+		let e = Rm.keys().next().value;
+		if (typeof e == "string") Rm.delete(e);
 		else return;
 	}
 }
-function km(e, t) {
+function Xm(e, t) {
 	if (!t || typeof e.actorUuid != "string") return !1;
 	let n = Array.from(game.users).find((e) => e.id === t), r = n?.character?.uuid;
 	return n?.isGM === !1 && r === e.actorUuid;
 }
-function Am(e) {
+function Zm(e) {
 	if (!e) return !1;
 	let t = Array.from(game.users).find((t) => t.id === e);
 	return t?.isGM === !0 && t.active !== !1;
 }
-function jm(e) {
-	Mm().emit(`module.${q}`, e);
+function Qm(e) {
+	$m().emit(`module.${r}`, e);
 }
-function Mm() {
+function $m() {
 	let e = game.socket;
 	if (!e) throw Error("Foundry socket services are unavailable for delegated group tests.");
 	return e;
 }
-function Nm() {
+function eh() {
 	return game.user?.isGM === !0 && game.user.isUniqueGM !== !1;
 }
-//#endregion
-//#region src/module/apps/group-test-console/GroupTestConsoleApplication.ts
-var Pm = class extends Oc {
-	static ACCESS_POLICY = J.groupTestConsole;
+// src/module/apps/group-test-console/view/GroupTestConsoleApplication.ts
+var th = class extends Uc {
+	static ACCESS_POLICY = Y.groupTestConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		id: "wfrp4e-drowsys-toolkit-group-test-console",
@@ -6218,32 +6369,30 @@ var Pm = class extends Oc {
 		window: {
 			icon: "fa-solid fa-dice-d100",
 			resizable: !0,
-			title: `${wc} — Secret Group Tests`
+			title: `${i} — Secret Group Tests`
 		}
 	};
 	getVueComponent() {
-		return em;
+		return xm;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				runGroupTest: vm,
-				saveSettings: rm
+				runGroupTest: zm,
+				saveSettings: wm
 			},
-			initialization: dm()
+			initialization: Mm()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/group-test-console/open.ts
-async function Fm() {
-	let e = new Pm();
+// src/module/apps/group-test-console/view/open.ts
+async function nh() {
+	let e = new th();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/token-tools-console/store.ts
-var Im = As("token-tools-console", () => {
-	let e = /* @__PURE__ */ j(0), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j("normal"), r = /* @__PURE__ */ j("none"), i = /* @__PURE__ */ j(!1), a = /* @__PURE__ */ j(""), o;
+// src/module/apps/token-tools-console/state/store.ts
+var rh = Ks("token-tools-console", () => {
+	let e = /* @__PURE__ */ P(0), t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P("normal"), r = /* @__PURE__ */ P("none"), i = /* @__PURE__ */ P(!1), a = /* @__PURE__ */ P(""), o;
 	function s(n, r) {
 		e.value = n.controlledCount, t.value = structuredClone(n.settings), o = r;
 	}
@@ -6285,22 +6434,22 @@ var Im = As("token-tools-console", () => {
 		settings: t,
 		vision: n
 	};
-}), Lm = { class: "tw:grid tw:gap-4" }, Rm = { class: "dui-alert dui-alert-info tw:m-0" }, zm = { class: "dui-card dui-card-border tw:bg-base-100!" }, Bm = { class: "dui-card-body tw:grid tw:gap-3 tw:p-4" }, Vm = { class: "tw:grid tw:gap-1" }, Hm = { class: "tw:grid tw:gap-1" }, Um = ["value"], Wm = {
+}), ih = { class: "tw:grid tw:gap-4" }, ah = { class: "tw:dui-alert tw:dui-alert-info tw:m-0" }, oh = { class: "tw:dui-card tw:dui-card-border tw:bg-base-100!" }, sh = { class: "tw:dui-card-body tw:grid tw:gap-3 tw:p-4" }, ch = { class: "tw:grid tw:gap-1" }, lh = { class: "tw:grid tw:gap-1" }, uh = ["value"], dh = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:m-0"
-}, Gm = ["disabled"], Km = {
+	class: "tw:dui-alert tw:dui-alert-error tw:m-0"
+}, fh = ["disabled"], ph = {
 	key: 0,
-	class: "dui-collapse dui-collapse-arrow dui-card dui-card-border tw:bg-base-100!"
-}, qm = { class: "dui-collapse-content tw:grid tw:grid-cols-2 tw:gap-3" }, Jm = { class: "tw:grid tw:gap-1" }, Ym = { class: "tw:grid tw:gap-1" }, Xm = { class: "tw:flex tw:items-center tw:gap-2" }, Zm = { class: "tw:flex tw:items-center tw:gap-2" }, Qm = ["disabled"], $m = /* @__PURE__ */ P({
+	class: "tw:dui-collapse tw:dui-collapse-arrow tw:dui-card tw:dui-card-border tw:bg-base-100!"
+}, mh = { class: "tw:dui-collapse-content tw:grid tw:grid-cols-2 tw:gap-3" }, hh = { class: "tw:grid tw:gap-1" }, gh = { class: "tw:grid tw:gap-1" }, _h = { class: "tw:flex tw:items-center tw:gap-2" }, vh = { class: "tw:flex tw:items-center tw:gap-2" }, yh = ["disabled"], bh = /* @__PURE__ */ L({
 	__name: "TokenToolsConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Im();
+		let t = e, n = rh();
 		n.initialize(t.initialization, t.actions);
-		let { busy: r, controlledCount: i, errorMessage: a, light: o, settings: s, vision: c } = js(n), l = [
+		let { busy: r, controlledCount: i, errorMessage: a, light: o, settings: s, vision: c } = qs(n), l = [
 			{
 				v: "none",
 				l: "No light"
@@ -6358,88 +6507,88 @@ var Im = As("token-tools-console", () => {
 				l: "Pha’s Protection"
 			}
 		];
-		return (e, t) => (L(), ua(Qs, {
+		return (e, t) => (B(), Ca(mc, {
 			description: "Set vision and light for the controlled tokens.",
 			icon: "fa-solid fa-eye",
 			title: "Token Vision & Light"
 		}, {
-			default: Xn(() => [z("div", Lm, [
-				z("p", Rm, D(M(i)) + " controlled token" + D(M(i) === 1 ? "" : "s"), 1),
-				z("section", zm, [z("div", Bm, [
-					z("label", Vm, [t[9] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Vision", -1), N(z("select", {
-						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ A(c) ? c.value = e : null,
-						class: "dui-select"
+			default: ir(() => [H("div", ih, [
+				H("p", ah, k(F(i)) + " controlled token" + k(F(i) === 1 ? "" : "s"), 1),
+				H("section", oh, [H("div", sh, [
+					H("label", ch, [t[9] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Vision", -1), I(H("select", {
+						"onUpdate:modelValue": t[0] ||= (e) => /* @__PURE__ */ N(c) ? c.value = e : null,
+						class: "tw:dui-select"
 					}, [...t[8] ||= [
-						z("option", { value: "normal" }, "Normal", -1),
-						z("option", { value: "blinded" }, "Blinded", -1),
-						z("option", { value: "night" }, "Night Vision", -1),
-						z("option", { value: "dark" }, "Dark Vision", -1),
-						z("option", { value: "none" }, "No vision", -1)
-					]], 512), [[zo, M(c)]])]),
-					z("label", Hm, [t[10] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Light source", -1), N(z("select", {
-						"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-						class: "dui-select"
-					}, [(L(), R(I, null, F(l, (e) => z("option", {
+						H("option", { value: "normal" }, "Normal", -1),
+						H("option", { value: "blinded" }, "Blinded", -1),
+						H("option", { value: "night" }, "Night Vision", -1),
+						H("option", { value: "dark" }, "Dark Vision", -1),
+						H("option", { value: "none" }, "No vision", -1)
+					]], 512), [[es, F(c)]])]),
+					H("label", lh, [t[10] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Light source", -1), I(H("select", {
+						"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ N(o) ? o.value = e : null,
+						class: "tw:dui-select"
+					}, [(B(), V(z, null, R(l, (e) => H("option", {
 						key: e.v,
 						value: e.v
-					}, D(e.l), 9, Um)), 64))], 512), [[zo, M(o)]])]),
-					M(a) ? (L(), R("p", Wm, D(M(a)), 1)) : H("", !0),
-					z("button", {
-						class: "dui-btn dui-btn-primary",
-						disabled: M(r),
+					}, k(e.l), 9, uh)), 64))], 512), [[es, F(o)]])]),
+					F(a) ? (B(), V("p", dh, k(F(a)), 1)) : G("", !0),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-primary",
+						disabled: F(r),
 						type: "button",
-						onClick: t[2] ||= (...e) => M(n).apply && M(n).apply(...e)
-					}, " Apply to controlled tokens ", 8, Gm)
+						onClick: t[2] ||= (...e) => F(n).apply && F(n).apply(...e)
+					}, " Apply to controlled tokens ", 8, fh)
 				])]),
-				M(s) ? (L(), R("section", Km, [
-					t[15] ||= z("input", { type: "checkbox" }, null, -1),
-					t[16] ||= z("div", { class: "dui-collapse-title tw:font-semibold" }, "Vision defaults", -1),
-					z("div", qm, [
-						z("label", Jm, [t[11] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Normal range", -1), N(z("input", {
-							"onUpdate:modelValue": t[3] ||= (e) => M(s).normalRange = e,
-							class: "dui-input dui-input-sm",
+				F(s) ? (B(), V("section", ph, [
+					t[15] ||= H("input", { type: "checkbox" }, null, -1),
+					t[16] ||= H("div", { class: "tw:dui-collapse-title tw:font-semibold" }, "Vision defaults", -1),
+					H("div", mh, [
+						H("label", hh, [t[11] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Normal range", -1), I(H("input", {
+							"onUpdate:modelValue": t[3] ||= (e) => F(s).normalRange = e,
+							class: "tw:dui-input tw:dui-input-sm",
 							min: "0",
 							type: "number"
 						}, null, 512), [[
-							W,
-							M(s).normalRange,
+							q,
+							F(s).normalRange,
 							void 0,
 							{ number: !0 }
 						]])]),
-						z("label", Ym, [t[12] ||= z("span", { class: "tw:text-sm tw:font-medium" }, "Dark Vision range", -1), N(z("input", {
-							"onUpdate:modelValue": t[4] ||= (e) => M(s).darkRange = e,
-							class: "dui-input dui-input-sm",
+						H("label", gh, [t[12] ||= H("span", { class: "tw:text-sm tw:font-medium" }, "Dark Vision range", -1), I(H("input", {
+							"onUpdate:modelValue": t[4] ||= (e) => F(s).darkRange = e,
+							class: "tw:dui-input tw:dui-input-sm",
 							min: "0",
 							type: "number"
 						}, null, 512), [[
-							W,
-							M(s).darkRange,
+							q,
+							F(s).darkRange,
 							void 0,
 							{ number: !0 }
 						]])]),
-						z("label", Xm, [N(z("input", {
-							"onUpdate:modelValue": t[5] ||= (e) => M(s).overrideNightVision = e,
-							class: "dui-toggle dui-toggle-sm",
+						H("label", _h, [I(H("input", {
+							"onUpdate:modelValue": t[5] ||= (e) => F(s).overrideNightVision = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(s).overrideNightVision]]), t[13] ||= V("Allow Night Vision override", -1)]),
-						z("label", Zm, [N(z("input", {
-							"onUpdate:modelValue": t[6] ||= (e) => M(s).overrideDarkVision = e,
-							class: "dui-toggle dui-toggle-sm",
+						}, null, 512), [[J, F(s).overrideNightVision]]), t[13] ||= W("Allow Night Vision override", -1)]),
+						H("label", vh, [I(H("input", {
+							"onUpdate:modelValue": t[6] ||= (e) => F(s).overrideDarkVision = e,
+							class: "tw:dui-toggle tw:dui-toggle-sm",
 							type: "checkbox"
-						}, null, 512), [[G, M(s).overrideDarkVision]]), t[14] ||= V("Allow Dark Vision override", -1)]),
-						z("button", {
-							class: "dui-btn dui-btn-secondary dui-btn-sm tw:w-fit",
-							disabled: M(r),
+						}, null, 512), [[J, F(s).overrideDarkVision]]), t[14] ||= W("Allow Dark Vision override", -1)]),
+						H("button", {
+							class: "tw:dui-btn tw:dui-btn-secondary tw:dui-btn-sm tw:w-fit",
+							disabled: F(r),
 							type: "button",
-							onClick: t[7] ||= (...e) => M(n).save && M(n).save(...e)
-						}, " Save defaults ", 8, Qm)
+							onClick: t[7] ||= (...e) => F(n).save && F(n).save(...e)
+						}, " Save defaults ", 8, yh)
 					])
-				])) : H("", !0)
+				])) : G("", !0)
 			])]),
 			_: 1
 		}));
 	}
-}), eh = {
+}), xh = {
 	alpha: .5,
 	angle: 360,
 	animation: {
@@ -6461,7 +6610,7 @@ var Im = As("token-tools-console", () => {
 	luminosity: 0,
 	saturation: 0,
 	shadows: 0
-}, th = {
+}, Sh = {
 	ablaze: {
 		alpha: .5,
 		bright: 7.5,
@@ -6597,8 +6746,8 @@ var Im = As("token-tools-console", () => {
 		}
 	}
 };
-function nh(e, t = 0) {
-	return e === "none" ? structuredClone(eh) : rh(e === "pha" ? {
+function Ch(e, t = 0) {
+	return e === "none" ? structuredClone(xh) : wh(e === "pha" ? {
 		alpha: .6,
 		bright: t,
 		color: "#ffddbb",
@@ -6608,25 +6757,24 @@ function nh(e, t = 0) {
 			speed: 2,
 			type: "sunburst"
 		}
-	} : th[e]);
+	} : Sh[e]);
 }
-function rh(e) {
+function wh(e) {
 	return {
-		...structuredClone(eh),
+		...structuredClone(xh),
 		...e,
 		animation: {
-			...eh.animation,
+			...xh.animation,
 			...e.animation
 		},
 		darkness: {
-			...eh.darkness,
+			...xh.darkness,
 			...e.darkness
 		}
 	};
 }
-//#endregion
-//#region src/functions/token-tools/vision.ts
-function ih(e, t, n) {
+// src/module/functions/token-tools/vision.ts
+function Th(e, t, n) {
 	let r = Math.max(0, t.normalRange), i = Math.max(0, t.darkRange), a = {
 		angle: 360,
 		attenuation: .1,
@@ -6666,57 +6814,54 @@ function ih(e, t, n) {
 		saturation: o > 0 && s ? -1 : 0
 	};
 }
-//#endregion
-//#region src/module/token-tools/settings/keys.ts
-var ah = {
+// src/module/foundry/token-tools/settings/keys.ts
+var Eh = {
 	darkRange: "visionDarkRange",
 	normalRange: "visionNormalRange",
 	overrideDarkVision: "visionOverrideDark",
 	overrideNightVision: "visionOverrideNight"
 };
-//#endregion
-//#region src/module/token-tools/settings/load.ts
-function oh() {
+// src/module/foundry/token-tools/settings/load.ts
+function Dh() {
 	return {
-		darkRange: ch("darkRange"),
-		normalRange: ch("normalRange"),
-		overrideDarkVision: lh("overrideDarkVision"),
-		overrideNightVision: lh("overrideNightVision")
+		darkRange: kh("darkRange"),
+		normalRange: kh("normalRange"),
+		overrideDarkVision: Ah("overrideDarkVision"),
+		overrideNightVision: Ah("overrideNightVision")
 	};
 }
-async function sh(e) {
+async function Oh(e) {
 	let t = {
 		...e,
 		darkRange: Math.max(0, Math.round(e.darkRange)),
 		normalRange: Math.max(0, Math.round(e.normalRange))
 	};
-	for (let [e, n] of Object.entries(ah)) await game.settings.set(q, n, t[e]);
+	for (let [e, n] of Object.entries(Eh)) await game.settings.set(r, n, t[e]);
 }
-function ch(e) {
-	let t = Number(game.settings.get(q, ah[e]));
-	if (!Number.isFinite(t)) throw Error(`The saved Token Tools setting “${ah[e]}” is not a number.`);
+function kh(e) {
+	let t = Number(game.settings.get(r, Eh[e]));
+	if (!Number.isFinite(t)) throw Error(`The saved Token Tools setting “${Eh[e]}” is not a number.`);
 	return t;
 }
-function lh(e) {
-	return game.settings.get(q, ah[e]) === !0;
+function Ah(e) {
+	return game.settings.get(r, Eh[e]) === !0;
 }
-//#endregion
-//#region src/module/token-tools/service.ts
-async function uh(e) {
-	Y(J.tokenToolsConsole);
+// src/module/foundry/token-tools/service.ts
+async function jh(e) {
+	X(Y.tokenToolsConsole);
 	let t = canvas?.tokens?.controlled ?? [];
 	if (t.length === 0) throw Error("Select at least one token.");
 	let n = 0, r = [];
 	for (let i of t) try {
-		let t = Number(i.actor?.system.characteristics?.wp?.bonus ?? 0), r = nh(e.light, t);
+		let t = Number(i.actor?.system.characteristics?.wp?.bonus ?? 0), r = Ch(e.light, t);
 		await i.document.update({
 			light: r,
-			sight: ih(e.vision, oh(), {
-				hasDarkVision: dh(i.actor, "NAME.DarkVision", "trait"),
+			sight: Th(e.vision, Dh(), {
+				hasDarkVision: Mh(i.actor, "NAME.DarkVision", "trait"),
 				lightRange: r.dim,
-				nightVisionAdvances: fh(i.actor),
-				sceneDarkness: Number(canvas.scene?.darkness ?? 0),
-				sceneHasGlobalLight: canvas.scene?.globalLight === !0
+				nightVisionAdvances: Nh(i.actor),
+				sceneDarkness: Number(canvas?.scene?.darkness ?? 0),
+				sceneHasGlobalLight: canvas?.scene?.globalLight === !0
 			})
 		}), n += 1;
 	} catch (e) {
@@ -6732,17 +6877,16 @@ async function uh(e) {
 	}
 	ui.notifications.info(`Updated ${n} token${n === 1 ? "" : "s"}.`);
 }
-function dh(e, t, n) {
+function Mh(e, t, n) {
 	return !!e?.has(game.i18n.localize(t), n);
 }
-function fh(e) {
+function Nh(e) {
 	let t = game.i18n.localize("NAME.NightVision"), n = e?.has(t, "trait") || e?.has(t, "talent");
 	return n ? Math.max(1, Number(n.system?.advances?.value ?? 1)) : 0;
 }
-//#endregion
-//#region src/module/apps/token-tools-console/TokenToolsConsoleApplication.ts
-var ph = class extends Oc {
-	static ACCESS_POLICY = J.tokenToolsConsole;
+// src/module/apps/token-tools-console/view/TokenToolsConsoleApplication.ts
+var Ph = class extends Uc {
+	static ACCESS_POLICY = Y.tokenToolsConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
 		id: "wfrp4e-drowsys-toolkit-token-tools",
@@ -6753,1488 +6897,1040 @@ var ph = class extends Oc {
 		window: {
 			icon: "fa-solid fa-eye",
 			resizable: !0,
-			title: `${wc} — Token Vision & Light`
+			title: `${i} — Token Vision & Light`
 		}
 	};
 	getVueComponent() {
-		return $m;
+		return bh;
 	}
 	getVueProps() {
 		let e = (canvas?.tokens?.controlled ?? []).length;
 		return {
 			actions: {
-				apply: uh,
-				saveSettings: sh
+				apply: jh,
+				saveSettings: Oh
 			},
 			initialization: {
 				controlledCount: e,
-				settings: oh()
+				settings: Dh()
 			}
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/token-tools-console/open.ts
-async function mh() {
-	let e = new ph();
+// src/module/apps/token-tools-console/view/open.ts
+async function Fh() {
+	let e = new Ph();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/functions/gm-toolkit/content-selection.ts
-function hh(e, t) {
-	return e.candidates.find((e) => e.tableId === t);
-}
-function gh(e, t) {
-	let n = hh(e, t);
-	return Object.fromEntries((n?.prompts ?? []).map((e) => [e.resultId, e.comparison === "new"]));
-}
-function _h(e) {
-	return Object.entries(e).flatMap(([e, t]) => t ? [e] : []);
-}
-//#endregion
-//#region src/functions/gm-toolkit/launcher-catalog.ts
-var vh = {
-	AjUYYy7qAN55BERN: bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	rzKeTLKp0bOp5SK9: bh("Use Drowsy’s XP Award Console.", "aW4rD8xP2cN7sL5q", "Award XP"),
-	GfXvMqsynxpHTYPt: bh("Use Drowsy’s toolkit home.", "tK8hM3pQ6vR2nW5x", "Open Drowsy’s WFRP4e Toolkit"),
-	PsZADfqRKnbnAT5Q: bh("Use Drowsy’s grid-scale utility.", "DrowsyGridScale1", "Change Grid Scale (Preserve Lighting)"),
-	vUzIl1uDkykO5DmG: bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	"6EKiEQZTbmQN97Vr": bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	xU8TFHu98zX5isb0: bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	iopoLXTz9kfDTfiX: bh("Use Drowsy’s toolkit home.", "tK8hM3pQ6vR2nW5x", "Open Drowsy’s WFRP4e Toolkit"),
-	hLEsIrMsOYQROnl5: bh("Use Drowsy’s toolkit home and feature consoles.", "tK8hM3pQ6vR2nW5x", "Open Drowsy’s WFRP4e Toolkit"),
-	"74OvSfTs3slii0RR": bh("Use Drowsy’s Damage Console.", "DrowsyDamage001X", "Open Damage Console"),
-	wN47JNwM2POBSUUm: bh("Use Drowsy’s Secret Group Tests.", "DrowsyGroupT001X", "Open Secret Group Tests"),
-	tiKEfs1nB7zAMgYg: bh("Use Drowsy’s Pull Everyone action.", "DrowsyPull00001X", "Pull Everyone to Scene"),
-	"2sefSFqqAbySw2nz": bh("Use Drowsy’s Combat Console.", "DrowsyCombat001X", "Open Combat Console"),
-	pZmPtsEZHOpyJfnq: bh("Use Drowsy’s Reset Fortune action.", "DrowsyFortune01X", "Reset Fortune"),
-	roGO31Lo4pyL5kvg: bh("Use Drowsy’s Dark Whispers Console.", "DrowsyWhisper01X", "Open Dark Whispers"),
-	WcBTP5xRO9jcJMVa: bh("Use Drowsy’s Session Turnover Console.", "sE5sN8mG2cT7rV4q", "End Session"),
-	g9Wohpie7ODdbRKX: bh("Use Drowsy’s resumable Session Turnover workflow.", "sE5sN8mG2cT7rV4q", "End Session"),
-	DGYdRmtbMZ81NmQ3: bh("Use Drowsy’s Token Vision & Light Console.", "DrowsyVision001X", "Open Token Vision & Light"),
-	nvqeTARBoSP89WT5: bh("Use Drowsy’s Administration Console.", "DrowsyAdmin0001X", "Open Administration Console"),
-	OiQ0cS3QsmQadxqR: bh("Use Drowsy’s Administration Console.", "DrowsyAdmin0001X", "Open Administration Console")
-}, yh = [
-	xh("AjUYYy7qAN55BERN", "Add Advantage", 317, "f46c0d0e"),
-	xh("rzKeTLKp0bOp5SK9", "Add XP", 7054, "3e94af4e"),
-	xh("GfXvMqsynxpHTYPt", "Canvas Toolbox", 3515, "1b42131d"),
-	xh("PsZADfqRKnbnAT5Q", "Change Scene to Yards", 628, "bc14705a"),
-	xh("vUzIl1uDkykO5DmG", "Check Conditions", 5830, "56693f0a"),
-	xh("6EKiEQZTbmQN97Vr", "Clear Advantage", 279, "e3cda086"),
-	xh("xU8TFHu98zX5isb0", "Combat Toolbox", 3509, "cd02aee7"),
-	xh("iopoLXTz9kfDTfiX", "GM Toolbox", 3465, "ebccaef2"),
-	xh("hLEsIrMsOYQROnl5", "GM Toolkit Settings", 3252, "bda29fbb"),
-	xh("74OvSfTs3slii0RR", "Launch Damage Console", 278, "70bf6804"),
-	xh("wN47JNwM2POBSUUm", "Make Secret Group Test", 3093, "a0d1c8f8"),
-	xh("tiKEfs1nB7zAMgYg", "Pull Everyone to Scene", 2525, "b21938a7"),
-	xh("2sefSFqqAbySw2nz", "Reduce Advantage", 285, "12053b38"),
-	xh("pZmPtsEZHOpyJfnq", "Reset Fortune", 1854, "b87bc4f5"),
-	xh("roGO31Lo4pyL5kvg", "Send Dark Whispers", 7400, "f05c3d43"),
-	xh("WcBTP5xRO9jcJMVa", "Session Toolbox", 3501, "17ab0783"),
-	xh("g9Wohpie7ODdbRKX", "Session Turnover", 3100, "bd85a21d"),
-	xh("DGYdRmtbMZ81NmQ3", "Set Token Vision and Light", 13595, "c6c8d6c8"),
-	{
-		commandFingerprint: "1df039d8",
-		commandLength: 8,
-		id: "ihMGjHFP3SdvYH2k",
-		name: "Simply d100",
-		replacement: {
-			disposition: "independent",
-			label: "Use /r 1d100 or Drowsy’s Administration Console."
-		}
-	},
-	xh("nvqeTARBoSP89WT5", "Toggle Compendium Pack Visibility", 2752, "f921858d"),
-	xh("OiQ0cS3QsmQadxqR", "Toggle Scene Visibility and Light", 845, "1562d17a")
-];
-function bh(e, t, n) {
-	return {
-		label: e,
-		macroId: t,
-		macroName: n
-	};
-}
-function xh(e, t, n, r) {
-	return {
-		commandFingerprint: r,
-		commandLength: n,
-		id: e,
-		name: t,
-		replacement: {
-			disposition: "ready",
-			...vh[e]
-		}
-	};
-}
-//#endregion
-//#region src/functions/gm-toolkit/launchers.ts
-var Sh = "wfrp4e-gm-toolkit.gm-toolkit-macros", Ch = "wfrp4e-enhanced-fear-terror.macros", wh = {
-	DrowsyGridScale1: {
-		fingerprint: "9476a7a4",
-		length: 756
-	},
-	aW4rD8xP2cN7sL5q: {
-		fingerprint: "795a9a75",
-		length: 680
-	}
-};
-function Th(e, t, n = {}) {
-	let r = e.flatMap((e) => Ah(e, t)), i = r.filter(Eh).flatMap(({ hotbarSlots: e }) => e).filter((e, t, n) => n.indexOf(e) === t).sort((e, t) => e - t);
-	return {
-		candidates: r,
-		counts: Mh(r),
-		remappableSlots: i,
-		...n.id ? { userId: n.id } : {},
-		...n.name ? { userName: n.name } : {},
-		version: 1,
-		warnings: n.id ? [] : ["The current user was unavailable, so hotbar assignments could not be reviewed."]
-	};
-}
-function Eh(e) {
-	return e.match === "standard" && e.replacement.disposition === "ready" && e.hotbarSlots.length > 0;
-}
-function Dh(e) {
-	let t = 2166136261;
-	for (let n = 0; n < e.length; n += 1) t = Math.imul(t ^ e.charCodeAt(n), 16777619) >>> 0;
-	return t.toString(16).padStart(8, "0");
-}
-function Oh(e, t) {
-	return !!(e && e.includes(Ch) && e.endsWith(t));
-}
-function kh(e, t) {
-	let n = wh[t];
-	return !!(e && n && Oh(e.compendiumSource, t) && e.command.length === n.length && Dh(e.command) === n.fingerprint);
-}
-function Ah(e, t) {
-	let n = yh.find(({ id: t }) => e.compendiumSource?.includes(Sh) === !0 && e.compendiumSource.endsWith(t)), r = yh.find(({ id: t }) => t === e.id), i = yh.find(({ name: t }) => t === e.name), a = n ?? r ?? i;
-	if (!a) return [];
-	let o = n ? "source" : r ? "document-id" : "name", s = jh(a, e.command) ? "standard" : o === "name" ? "ambiguous" : "customized";
-	return [{
-		confidence: o,
-		hotbarSlots: [...t.get(e.id) ?? []].sort((e, t) => e - t),
-		macroId: e.id,
-		macroName: e.name,
-		match: s,
-		replacement: {
-			compendiumId: Ch,
-			...a.replacement
-		},
-		sourceMacroId: a.id,
-		sourceMacroName: a.name
-	}];
-}
-function jh(e, t) {
-	return t.length === e.commandLength && Dh(t) === e.commandFingerprint;
-}
-function Mh(e) {
-	return {
-		ambiguous: e.filter(({ match: e }) => e === "ambiguous").length,
-		customized: e.filter(({ match: e }) => e === "customized").length,
-		standard: e.filter(({ match: e }) => e === "standard").length
-	};
-}
-//#endregion
-//#region src/functions/gm-toolkit/launcher-selection.ts
-function Nh(e) {
-	return Object.fromEntries((e?.remappableSlots ?? []).map((e) => [e, !0]));
-}
-function Ph(e) {
-	return Object.entries(e).filter(([, e]) => e).map(([e]) => Number(e)).filter((e) => Number.isInteger(e)).sort((e, t) => e - t);
-}
-function Fh(e, t) {
-	return Array.from(new Set(t)).filter((e) => Number.isInteger(e) && e >= 1 && e <= 50).flatMap((t) => {
-		let n = e.candidates.find((e) => e.hotbarSlots.includes(t) && Eh(e));
-		return n?.replacement.macroId ? [{
-			macroId: n.replacement.macroId,
-			slot: t
-		}] : [];
-	});
-}
-//#endregion
-//#region src/functions/gm-toolkit/selection.ts
-function Ih(e) {
-	if (e) return {
-		...e,
-		darkWhispers: {
-			...e.darkWhispers,
-			candidates: e.darkWhispers.candidates.map((e) => ({
-				...e,
-				prompts: e.prompts.map((e) => ({ ...e })),
-				warnings: [...e.warnings]
-			})),
-			warnings: [...e.darkWhispers.warnings]
-		},
-		dispositionCounts: { ...e.dispositionCounts },
-		imports: e.imports.map((e) => ({ ...e })),
-		launchers: {
-			...e.launchers,
-			candidates: e.launchers.candidates.map((e) => ({
-				...e,
-				hotbarSlots: [...e.hotbarSlots],
-				replacement: { ...e.replacement }
-			})),
-			counts: { ...e.launchers.counts },
-			remappableSlots: [...e.launchers.remappableSlots],
-			warnings: [...e.launchers.warnings]
-		},
-		...e.source ? { source: {
-			...e.source,
-			settings: e.source.settings.map((e) => ({
-				...e,
-				value: Array.isArray(e.value) ? [...e.value] : e.value
-			})),
-			warnings: [...e.source.warnings]
-		} } : {},
-		sourceCounts: { ...e.sourceCounts }
-	};
-}
-function Lh(e, t) {
-	let n = Object.fromEntries((e?.imports ?? []).map(({ field: e }) => [e, !1]));
-	if (t) for (let t of e?.imports ?? []) n[t.field] = t.comparison !== "same";
-	return n;
-}
+// src/module/functions/xp-curve/calculate.ts
+var Ih = .01, Lh = 2 ** 53 - 1;
 function Rh(e) {
-	return Object.entries(e).filter(([, e]) => e).map(([e]) => e);
+	return {
+		curveExponent: Uh(e.curveExponent, .1, 5),
+		catchUpRate: Uh(e.catchUpRate, 0, 1e3),
+		maximumAward: Math.max(0, Wh(e.maximumAward)),
+		scaleExponent: Uh(e.scaleExponent, 0, 2),
+		scalePivot: Math.max(1, Wh(e.scalePivot))
+	};
 }
 function zh(e, t) {
-	let n = Ih(e);
-	if (!n) return;
-	let r = new Set(t);
-	for (let e of n.imports) r.has(e.field) && (e.currentValue = e.sourceValue, e.comparison = "same");
-	return n;
+	let n = e.filter((e) => e.selected), r = Rh(t), i = n.filter((e) => e.categoryId === "party").reduce((e, t) => !e || t.totalXp > e.totalXp ? t : e, void 0), a = i?.totalXp ?? 0, o = n.map((e) => {
+		let t = Wh(e.totalXp), n = Math.max(0, a - t), i = Math.max(0, e.xpPercent ?? 100) / 100, o = Vh(n, r), s = Hh(t, r), c = Math.max(0, Math.round(o * s * i)), l = Math.min(r.maximumAward, c);
+		return {
+			actorId: e.id,
+			actorName: e.name,
+			afterXp: t + l,
+			award: l,
+			beforeXp: t,
+			catchUpValue: o,
+			category: e.category,
+			decayMultiplier: s,
+			gap: n,
+			modifiedAward: c,
+			recipientMultiplier: i
+		};
+	});
+	return {
+		awards: o,
+		highestXp: a,
+		leader: i,
+		totalAward: o.reduce((e, t) => e + t.award, 0)
+	};
 }
-//#endregion
-//#region src/state/apps/gm-toolkit-migration/store.ts
-var Bh = As("gm-toolkit-migration", () => {
-	let e = /* @__PURE__ */ j({ version: 1 }), t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j(), r = /* @__PURE__ */ j(Lh(void 0, !1)), i = /* @__PURE__ */ j(""), a = /* @__PURE__ */ j({}), o = /* @__PURE__ */ j("preserve"), s = /* @__PURE__ */ j({}), c = /* @__PURE__ */ j(), l = /* @__PURE__ */ j(), u = /* @__PURE__ */ j(!1), d;
+function Bh(e, t, n, r = 1) {
+	let i = Rh(n), a = Vh(e, i), o = Hh(t, i), s = Math.max(0, Number.isFinite(r) ? r : 0), c = Math.round(a * o * s);
+	return Math.min(i.maximumAward, Math.max(0, c));
+}
+function Vh(e, t) {
+	let n = Rh(t), r = Math.max(0, Number.isFinite(e) ? e : 0) / 1e3, i = n.catchUpRate * 10 * r ** n.curveExponent;
+	return Number.isFinite(i) ? Math.min(i, Lh) : Lh;
+}
+function Hh(e, t) {
+	let n = Rh(t), r = Math.max(0, Number.isFinite(e) ? e : 0);
+	return Math.min(1, n.scalePivot / Math.max(r, n.scalePivot)) ** n.scaleExponent;
+}
+function Uh(e, t, n) {
+	let r = Number(e);
+	return Math.min(n, Math.max(t, Number.isFinite(r) ? r : Ih));
+}
+function Wh(e) {
+	let t = Number(e);
+	return Number.isFinite(t) ? Math.round(t) : 0;
+}
+// src/module/functions/xp-curve/reason.ts
+function Gh(e, t) {
+	return e.replaceAll("%session%", t.session).replaceAll("%date%", t.date).replaceAll("%datetime%", t.datetime ?? "").replace(/\s+\(\s*\)\s*/g, " ").replace(/\s{2,}/g, " ").trim();
+}
+function Kh(e) {
+	return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&#039;");
+}
+// src/types/xp-curve/XpCurve.ts
+var qh = {
+	curveExponent: 1,
+	catchUpRate: 10,
+	maximumAward: 500,
+	scaleExponent: 1,
+	scalePivot: 1e3
+}, Jh = {
+	defaultReason: "XP Curve %session% (%date%)",
+	parameters: { ...qh }
+}, Yh = Ks("xp-curve-console", () => {
+	let e = /* @__PURE__ */ P([]), t = /* @__PURE__ */ P({ ...qh }), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P(), i = /* @__PURE__ */ P(), a = /* @__PURE__ */ P(!1), o = /* @__PURE__ */ P(!1), s, c = {
+		date: "",
+		session: ""
+	}, l = K(() => zh(e.value, t.value)), u = K(() => !r.value && !!l.value.leader && l.value.totalAward > 0 && !a.value && !o.value), d = K(() => Gh(n.value, c));
 	function f(i, a) {
-		d = a, e.value = { ...i.state }, t.value = Ih(i.preview), n.value = i.cutoverReport, r.value = Lh(t.value, i.state.migration === void 0), x(), ee(), c.value = void 0, l.value = void 0;
+		e.value = i.actors.map((e) => ({ ...e })), t.value = { ...i.parameters }, n.value = i.defaultReason, r.value = i.rosterIssue, c = i.reasonContext, s = a;
 	}
 	async function p() {
-		await te(async () => {
-			let n = Rh(r.value), i = await w().importSettings({ fields: n });
-			e.value.migration = i, t.value = zh(t.value, i.appliedFields ?? []), r.value = Lh(t.value, !1), S(), l.value = `${n.length} setting${n.length === 1 ? "" : "s"} imported.`;
-		});
-	}
-	async function m() {
-		await te(async () => {
-			let e = await w().importDarkWhispers({
-				conflictPolicy: o.value,
-				resultIds: _h(a.value),
-				tableId: i.value
-			});
-			t.value = Ih(e.preview), x(), ee(), S(), l.value = `${e.added} prompt${e.added === 1 ? "" : "s"} added, ${e.replaced} replaced, and ${e.skipped} unchanged.`;
-		});
-	}
-	async function h() {
-		await te(async () => {
-			let e = await w().remapLaunchers({ slots: Ph(s.value) });
-			t.value &&= {
-				...t.value,
-				launchers: e.preview
-			}, ee(), S(), l.value = `${e.remappedSlots} hotbar slot${e.remappedSlots === 1 ? "" : "s"} updated.`;
-		});
-	}
-	async function g() {
-		await te(async () => {
-			let t = await w().reviewCutover();
-			e.value.cutoverReview = t.review, n.value = t.report, l.value = "Review saved.";
-		});
-	}
-	function _(e, t) {
-		r.value[e] = t;
-	}
-	function v(e) {
-		i.value = e, a.value = gh(C(), e);
-	}
-	function y(e, t) {
-		a.value[e] = t;
-	}
-	function b(e, t) {
-		s.value[e] = t;
-	}
-	function x() {
-		let e = C(), t = e.recommendedTableId ?? e.candidates[0]?.tableId ?? "";
-		i.value = t, a.value = gh(e, t), o.value = "preserve";
-	}
-	function ee() {
-		s.value = Nh(t.value?.launchers);
-	}
-	function S() {
-		n.value = w().getCutoverReport();
-	}
-	function C() {
-		return t.value?.darkWhispers ?? {
-			candidates: [],
-			currentPromptCount: 0,
-			warnings: []
-		};
-	}
-	async function te(e) {
-		if (!u.value) {
-			u.value = !0, c.value = void 0, l.value = void 0;
+		if (u.value) {
+			a.value = !0, i.value = void 0;
 			try {
-				await e();
+				let n = await s.applyAwards({
+					actors: e.value.map((e) => ({ ...e })),
+					parameters: { ...t.value },
+					reason: d.value
+				});
+				o.value = !0, s.onActionComplete(n);
 			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | GM Toolkit import action failed.", e), c.value = e instanceof Error ? e.message : "The action could not be completed.";
+				i.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
 			} finally {
-				u.value = !1;
+				a.value = !1;
 			}
 		}
 	}
-	function w() {
-		if (!d) throw Error("The GM Toolkit importer has not been initialized.");
-		return d;
-	}
 	return {
-		cutoverReport: n,
-		darkWhispersConflictPolicy: o,
-		darkWhispersSelections: a,
-		darkWhispersTableId: i,
-		errorMessage: c,
-		importDarkWhispers: m,
-		importSettings: p,
+		actors: e,
+		reason: n,
+		rosterIssue: r,
+		errorMessage: i,
+		isWorking: a,
+		complete: o,
+		plan: l,
+		canApply: u,
+		resolvedReason: d,
 		initialize: f,
-		isWorking: u,
-		launcherSelections: s,
-		preview: t,
-		remapLaunchers: h,
-		reviewCutover: g,
-		setDarkWhispersSelection: y,
-		setDarkWhispersTable: v,
-		setLauncherSelection: b,
-		setSettingSelection: _,
-		settingSelections: r,
-		state: e,
-		statusMessage: l
+		applyAwards: p
 	};
-}), Vh = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-secondary/40! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "gm-toolkit-content-title"
-}, Hh = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Uh = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, Wh = { class: "tw:min-w-0 tw:flex-1" }, Gh = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, Kh = { class: "dui-badge dui-badge-sm" }, qh = ["disabled"], Jh = {
+}), Xh = {
+	class: "tw:min-w-0",
+	"aria-label": "Curve XP recipients"
+}, Zh = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, Yh = {
+	class: "tw:my-2 tw:text-sm"
+}, Qh = {
 	key: 1,
-	class: "fa-solid fa-file-import",
-	"aria-hidden": "true"
-}, Xh = {
-	key: 0,
-	class: "tw:grid tw:gap-3 tw:min-[42rem]:grid-cols-2"
-}, Zh = { class: "tw:grid tw:min-w-0 tw:gap-1" }, Qh = ["value"], $h = ["value"], eg = {
-	key: 0,
-	class: "tw:grid tw:min-w-0 tw:gap-1"
-}, tg = ["value"], ng = {
-	key: 1,
-	class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!"
-}, rg = { class: "dui-table dui-table-sm tw:min-w-[42rem]" }, ig = { class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-2" }, ag = ["checked", "onChange"], og = { class: "tw:sr-only" }, sg = { class: "tw:tabular-nums" }, cg = {
-	class: "tw:max-w-md tw:whitespace-normal",
-	scope: "row"
-}, lg = { class: "dui-badge dui-badge-sm" }, ug = {
+	class: "tw:text-sm"
+}, $h = {
+	class: "tw:m-0 tw:flex tw:[list-style:none] tw:flex-wrap tw:gap-3 tw:p-0!",
+	"aria-label": "Final curve bonuses"
+}, eg = ["title"], tg = [
+	"src",
+	"alt",
+	"onError"
+], ng = ["aria-label"], rg = { class: "tw:text-sm tw:font-semibold" }, ig = { key: 0 }, ag = {
 	key: 2,
-	class: "dui-alert",
-	role: "status"
-}, dg = /* @__PURE__ */ P({
-	__name: "GmToolkitContentMigrationPanel",
+	class: "tw:mt-3 tw:text-sm"
+}, og = /* @__PURE__ */ L({
+	__name: "CurveAwardPreview",
 	props: {
-		conflictPolicy: {},
-		isWorking: { type: Boolean },
-		preview: {},
-		selectedTableId: {},
-		selections: {}
+		actors: {},
+		plan: {},
+		numbered: { type: Boolean }
 	},
-	emits: [
-		"import",
-		"selectionChange",
-		"tableChange",
-		"update:conflictPolicy"
-	],
-	setup(e, { emit: t }) {
-		let n = e, r = t, i = U(() => hh(n.preview, n.selectedTableId)), a = U(() => Object.values(n.selections).filter((e) => e).length), o = U(() => i.value?.prompts.some((e) => e.comparison === "conflict"));
-		function s(e) {
-			return e === "same" ? "Already imported" : e === "duplicate" ? "Same text exists" : e === "conflict" ? "Source changed" : "New prompt";
-		}
-		function c(e, t) {
-			let n = t.currentTarget;
-			r("selectionChange", e, n instanceof HTMLInputElement && n.checked);
-		}
-		function l(e) {
-			let t = e.currentTarget;
-			r("tableChange", t instanceof HTMLSelectElement ? t.value : "");
-		}
-		function u(e) {
-			let t = e.currentTarget;
-			r("update:conflictPolicy", t instanceof HTMLSelectElement && t.value === "replace" ? "replace" : "preserve");
-		}
-		return (t, n) => (L(), R("section", Vh, [z("div", Hh, [
-			z("div", Uh, [z("div", Wh, [z("div", Gh, [n[1] ||= z("h2", {
-				id: "gm-toolkit-content-title",
-				class: "dui-card-title tw:font-serif tw:text-lg"
-			}, " Dark Whispers prompts ", -1), z("span", Kh, D(e.preview.currentPromptCount) + " in Drowsy library ", 1)]), n[2] ||= z("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " Copy selected prompt text into Drowsy-owned world data. The original RollTable remains unchanged. ", -1)]), z("button", {
-				class: "dui-btn dui-btn-sm tw:border-secondary! tw:text-base-content!",
-				disabled: e.isWorking || a.value === 0 || !i.value,
-				type: "button",
-				onClick: n[0] ||= (e) => r("import")
-			}, [e.isWorking ? (L(), R("span", Jh)) : (L(), R("i", Yh)), V(" Import " + D(a.value || "selected") + " prompts ", 1)], 8, qh)]),
-			e.preview.candidates.length ? (L(), R("div", Xh, [z("label", Zh, [n[3] ||= z("span", { class: "tw:text-sm tw:font-semibold" }, "Source RollTable", -1), z("select", {
-				class: "dui-select dui-select-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
-				value: e.selectedTableId,
-				onChange: l
-			}, [(L(!0), R(I, null, F(e.preview.candidates, (e) => (L(), R("option", {
-				key: e.tableId,
-				value: e.tableId
-			}, D(e.tableName) + " — " + D(e.prompts.length) + " prompts ", 9, $h))), 128))], 40, Qh)]), o.value ? (L(), R("label", eg, [n[5] ||= z("span", { class: "tw:text-sm tw:font-semibold" }, "Changed imported prompts", -1), z("select", {
-				class: "dui-select dui-select-sm tw:w-full tw:border-base-content/25! tw:bg-base-100!",
-				value: e.conflictPolicy,
-				onChange: u
-			}, [...n[4] ||= [z("option", { value: "preserve" }, "Keep Drowsy version", -1), z("option", { value: "replace" }, "Replace with source version", -1)]], 40, tg)])) : H("", !0)])) : H("", !0),
-			i.value ? (L(), R("div", ng, [z("table", rg, [n[6] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Import"),
-				z("th", { scope: "col" }, "Roll"),
-				z("th", { scope: "col" }, "Prompt text"),
-				z("th", { scope: "col" }, "Comparison")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(i.value.prompts, (t) => (L(), R("tr", { key: t.resultId }, [
-				z("td", null, [z("label", ig, [z("input", {
-					class: "dui-checkbox dui-checkbox-sm",
-					checked: e.selections[t.resultId],
-					type: "checkbox",
-					onChange: (e) => c(t.resultId, e)
-				}, null, 40, ag), z("span", og, "Import Dark Whispers prompt " + D(t.range), 1)])]),
-				z("td", sg, D(t.range), 1),
-				z("th", cg, D(t.text), 1),
-				z("td", null, [z("span", lg, D(s(t.comparison)), 1)])
-			]))), 128))])])])) : (L(), R("div", ug, [...n[7] ||= [z("i", {
-				class: "fa-solid fa-table-list",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, "No imported GM Toolkit Dark Whispers RollTable is available to copy.", -1)]])),
-			(L(!0), R(I, null, F([...e.preview.warnings, ...i.value?.warnings ?? []], (e) => (L(), R("div", {
-				key: e,
-				class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
-				role: "alert"
-			}, [n[8] ||= z("i", {
-				class: "fa-solid fa-triangle-exclamation",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, D(e), 1)]))), 128))
-		])]));
-	}
-});
-//#endregion
-//#region src/functions/gm-toolkit/cutover-display.ts
-function fg(e) {
-	return {
-		"already-matched": "Already matched",
-		"changed-after-import": "Changed after import",
-		imported: "Imported",
-		"not-imported": "Not imported"
-	}[e];
-}
-function pg(e) {
-	return e === "standard" ? "Stock macro" : e === "customized" ? "Customized" : "Check manually";
-}
-function mg(e) {
-	return e.source.evidence === "current" ? e.source.active ? "Active module" : "Current world data" : e.source.evidence === "saved-snapshot" ? "Saved import snapshot" : "World documents";
-}
-//#endregion
-//#region src/view/apps/gm-toolkit-migration/GmToolkitCutoverReportPanel.vue?vue&type=script&setup=true&lang.ts
-var hg = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-accent/50! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "gm-toolkit-cutover-title"
-}, gg = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, _g = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, vg = { class: "tw:min-w-0 tw:flex-1" }, yg = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, bg = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-3" }, xg = { class: "dui-stat tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3" }, Sg = { class: "dui-stat-value tw:text-2xl" }, Cg = { class: "dui-stat-desc tw:truncate" }, wg = { class: "dui-stat tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3" }, Tg = { class: "dui-stat-value tw:text-2xl" }, Eg = { class: "dui-stat-desc" }, Dg = { class: "dui-stat tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3" }, Og = { class: "dui-stat-value tw:text-2xl" }, kg = { class: "dui-stat-desc" }, Ag = { class: "dui-collapse dui-collapse-arrow tw:border tw:border-base-content/20!" }, jg = { class: "dui-collapse-content tw:min-w-0 tw:px-3 tw:pb-3" }, Mg = { class: "tw:mb-2 tw:flex tw:flex-wrap tw:gap-1" }, Ng = { class: "dui-badge dui-badge-sm" }, Pg = {
-	key: 0,
-	class: "dui-badge dui-badge-sm"
-}, Fg = { class: "dui-badge dui-badge-sm" }, Ig = { class: "dui-badge dui-badge-sm" }, Lg = { class: "dui-badge dui-badge-sm" }, Rg = { class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/15!" }, zg = { class: "dui-table dui-table-sm tw:min-w-[38rem]" }, Bg = { scope: "row" }, Vg = { class: "tw:max-w-52 tw:break-words" }, Hg = { class: "tw:max-w-52 tw:break-words" }, Ug = { class: "dui-badge dui-badge-sm" }, Wg = { class: "dui-collapse dui-collapse-arrow tw:border tw:border-base-content/20!" }, Gg = { class: "dui-collapse-content tw:grid tw:gap-2 tw:px-3 tw:pb-3" }, Kg = { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, qg = { class: "tw:flex tw:flex-wrap tw:gap-1" }, Jg = { class: "dui-badge dui-badge-success dui-badge-sm" }, Yg = { class: "dui-badge dui-badge-sm" }, Xg = { class: "dui-badge dui-badge-warning dui-badge-sm" }, Zg = { class: "dui-badge dui-badge-warning dui-badge-sm" }, Qg = {
-	key: 0,
-	class: "dui-collapse dui-collapse-arrow tw:border tw:border-base-content/20!",
-	open: ""
-}, $g = { class: "dui-collapse-title tw:min-h-0 tw:py-3 tw:font-semibold" }, e_ = { class: "dui-collapse-content tw:min-w-0 tw:px-3 tw:pb-3" }, t_ = { class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/15!" }, n_ = { class: "dui-table dui-table-sm tw:min-w-[44rem]" }, r_ = { scope: "row" }, i_ = { class: "tw:max-w-md tw:whitespace-normal" }, a_ = {
-	key: 2,
-	class: "tw:grid tw:gap-3 tw:rounded-box tw:border tw:border-warning/50! tw:bg-warning/10! tw:p-3"
-}, o_ = {
-	key: 0,
-	class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
-	role: "alert"
-}, s_ = { class: "tw:flex tw:cursor-pointer tw:items-start tw:gap-3" }, c_ = ["disabled"], l_ = {
-	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, u_ = {
-	key: 1,
-	class: "fa-solid fa-clipboard-check",
-	"aria-hidden": "true"
-}, d_ = {
-	key: 1,
-	class: "dui-alert dui-alert-success",
-	role: "status"
-}, f_ = /* @__PURE__ */ P({
-	__name: "GmToolkitCutoverReportPanel",
-	props: {
-		isWorking: { type: Boolean },
-		report: {},
-		review: {}
-	},
-	emits: ["review"],
-	setup(e, { emit: t }) {
-		let n = e, r = t, i = /* @__PURE__ */ j(!1), a = U(() => !!(n.report && n.review?.evidenceId === n.report.evidenceId)), o = U(() => a.value && n.report?.replacement.ready === !0 && n.report.combat.active === !1), s = U(() => a.value ? o.value ? "Reviewed — ready to disable" : n.report?.replacement.ready === !1 ? "Keep GM Toolkit enabled" : "Reviewed — combat active" : "Review required");
-		return ir(() => n.report?.evidenceId, () => i.value = !1), (t, n) => (L(), R("section", hg, [z("div", gg, [z("div", _g, [z("div", vg, [z("div", yg, [n[2] ||= z("h2", {
-			id: "gm-toolkit-cutover-title",
-			class: "dui-card-title tw:font-serif tw:text-lg"
-		}, " Before you disable GM Toolkit ", -1), z("span", { class: E(["dui-badge dui-badge-sm", o.value ? "dui-badge-success" : "dui-badge-warning"]) }, D(s.value), 3)])])]), e.report ? (L(), R(I, { key: 0 }, [
-			z("div", bg, [
-				z("div", xg, [
-					n[3] ||= z("div", { class: "dui-stat-title tw:text-xs" }, "Settings found", -1),
-					z("div", Sg, D(e.report.settings.total), 1),
-					z("div", Cg, D(M(mg)(e.report)), 1)
-				]),
-				z("div", wg, [
-					n[4] ||= z("div", { class: "dui-stat-title tw:text-xs" }, "Source prompts", -1),
-					z("div", Tg, D(e.report.content.sourcePromptCount), 1),
-					z("div", Eg, D(e.report.content.currentPromptCount) + " in Drowsy", 1)
-				]),
-				z("div", Dg, [
-					n[5] ||= z("div", { class: "dui-stat-title tw:text-xs" }, "Detected launchers", -1),
-					z("div", Og, D(e.report.launchers.detectedMacros), 1),
-					z("div", kg, D(e.report.launchers.unresolved.length) + " need review", 1)
-				])
-			]),
-			(L(!0), R(I, null, F(e.report.notices, (e) => (L(), R("div", {
-				key: `${e.code}:${e.message}`,
-				class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
-				role: "alert"
-			}, [n[6] ||= z("i", {
-				class: "fa-solid fa-triangle-exclamation",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, D(e.message), 1)]))), 128)),
-			z("details", Ag, [n[8] ||= z("summary", { class: "dui-collapse-title tw:min-h-0 tw:py-3 tw:font-semibold" }, "Settings", -1), z("div", jg, [z("div", Mg, [
-				z("span", Ng, D(e.report.settings.dispositionCounts.import) + " can be imported ", 1),
-				e.report.settings.dispositionCounts.pending ? (L(), R("span", Pg, D(e.report.settings.dispositionCounts.pending) + " not transferred ", 1)) : H("", !0),
-				z("span", Fg, D(e.report.settings.dispositionCounts.supersede) + " handled another way ", 1),
-				z("span", Ig, D(e.report.settings.dispositionCounts.retire) + " not needed ", 1),
-				z("span", Lg, D(e.report.settings.dispositionCounts.skip) + " ignored ", 1)
-			]), z("div", Rg, [z("table", zg, [n[7] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Value"),
-				z("th", { scope: "col" }, "Source"),
-				z("th", { scope: "col" }, "Drowsy"),
-				z("th", { scope: "col" }, "Outcome")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(e.report.settings.items, (e) => (L(), R("tr", { key: e.field }, [
-				z("th", Bg, D(e.label), 1),
-				z("td", Vg, D(e.sourceValue), 1),
-				z("td", Hg, D(e.currentValue), 1),
-				z("td", null, [z("span", Ug, D(M(fg)(e.status)), 1)])
-			]))), 128))])])])])]),
-			z("details", Wg, [n[9] ||= z("summary", { class: "dui-collapse-title tw:min-h-0 tw:py-3 tw:font-semibold" }, " Dark Whispers content ", -1), z("div", Gg, [z("p", Kg, D(e.report.content.sourceTableName || "No source table detected"), 1), z("div", qg, [
-				z("span", Jg, D(e.report.content.comparisonCounts.same) + " imported ", 1),
-				z("span", Yg, D(e.report.content.comparisonCounts.duplicate) + " duplicates ", 1),
-				z("span", Xg, D(e.report.content.comparisonCounts.new) + " new ", 1),
-				z("span", Zg, D(e.report.content.comparisonCounts.conflict) + " changed ", 1)
-			])])]),
-			e.report.launchers.unresolved.length ? (L(), R("details", Qg, [z("summary", $g, " Launchers to check (" + D(e.report.launchers.unresolved.length) + ") ", 1), z("div", e_, [z("div", t_, [z("table", n_, [n[10] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Macro"),
-				z("th", { scope: "col" }, "Match"),
-				z("th", { scope: "col" }, "Hotbar"),
-				z("th", { scope: "col" }, "Drowsy outcome")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(e.report.launchers.unresolved, (e) => (L(), R("tr", { key: e.macroId }, [
-				z("th", r_, D(e.macroName), 1),
-				z("td", null, D(M(pg)(e.match)), 1),
-				z("td", null, D(e.hotbarSlots.length ? e.hotbarSlots.join(", ") : "None"), 1),
-				z("td", i_, D(e.outcome), 1)
-			]))), 128))])])])])])) : H("", !0),
-			a.value ? (L(), R("div", {
-				key: 1,
-				class: E(["dui-alert", o.value ? "dui-alert-success" : "dui-alert-warning"]),
-				role: "status"
-			}, [z("i", {
-				class: E(o.value ? "fa-solid fa-circle-check" : "fa-solid fa-shield-halved"),
-				"aria-hidden": "true"
-			}, null, 2), z("span", null, [V(" Reviewed by " + D(e.review?.reviewedByUserName) + " on " + D(new Date(e.review.reviewedAt).toLocaleString()) + ". ", 1), o.value ? (L(), R(I, { key: 0 }, [V(" GM Toolkit can now be disabled. Items marked “not transferred” will not be available after it is disabled. ")], 64)) : (L(), R(I, { key: 1 }, [V("Finish the active combat before disabling GM Toolkit.")], 64))])], 2)) : (L(), R("div", a_, [
-				e.review ? (L(), R("div", o_, [...n[11] ||= [z("i", {
-					class: "fa-solid fa-rotate",
+	setup(e) {
+		let t = e, n = /* @__PURE__ */ P(/* @__PURE__ */ new Set()), r = K(() => t.plan.awards.map((e) => {
+			let n = t.actors.find((t) => t.id === e.actorId);
+			return {
+				...e,
+				img: n?.img || "icons/svg/mystery-man.svg",
+				description: `${e.actorName} · ${n?.categoryName ?? "Party"} · ${Math.round(e.recipientMultiplier * 100)}% · ${e.beforeXp} → ${e.afterXp} XP`
+			};
+		}));
+		return (t, i) => (B(), V("section", Xh, [
+			e.plan.leader ? (B(), V("p", Zh, [
+				i[0] ||= H("i", {
+					class: "fa-solid fa-crown",
 					"aria-hidden": "true"
-				}, null, -1), z("span", null, " Source data or import choices changed after the previous review. Check the current summary again. ", -1)]])) : H("", !0),
-				z("label", s_, [N(z("input", {
-					"onUpdate:modelValue": n[0] ||= (e) => i.value = e,
-					class: "dui-checkbox dui-checkbox-sm tw:mt-0.5 tw:shrink-0",
-					type: "checkbox"
-				}, null, 512), [[G, i.value]]), n[12] ||= z("span", { class: "tw:text-sm" }, " I reviewed every value, prompt, and launcher above. Anything not imported or replaced is intentionally retained or accepted for manual follow-up. ", -1)]),
-				z("button", {
-					class: "dui-btn dui-btn-accent dui-btn-sm tw:justify-self-end",
-					disabled: e.isWorking || !i.value,
-					type: "button",
-					onClick: n[1] ||= (e) => r("review")
-				}, [e.isWorking ? (L(), R("span", l_)) : (L(), R("i", u_)), n[13] ||= V(" Save review ", -1)], 8, c_),
-				n[14] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/70!" }, " Review this summary before disabling GM Toolkit. Keep it enabled while any action lacks an equivalent; if combat is active, finish it first. ", -1)
-			]))
-		], 64)) : e.review ? (L(), R("div", d_, [n[15] ||= z("i", {
-			class: "fa-solid fa-circle-check",
-			"aria-hidden": "true"
-		}, null, -1), z("span", null, D(e.review.reviewedByUserName) + " reviewed the import on " + D(new Date(e.review.reviewedAt).toLocaleString()) + ". No GM Toolkit source data is currently available. ", 1)])) : H("", !0)])]));
+				}, null, -1),
+				H("strong", null, "Party leader: " + k(e.plan.leader.name), 1),
+				W(" · " + k(e.plan.highestXp.toLocaleString()) + " XP ", 1)
+			])) : G("", !0),
+			e.actors.length ? G("", !0) : (B(), V("p", Qh, " No configured characters to preview. " + k(e.numbered ? "Switch to Example to explore the curve." : "Add characters in Configure Party."), 1)),
+			H("ul", $h, [(B(!0), V(z, null, R(r.value, (t, r) => (B(), V("li", {
+				key: t.actorId,
+				class: "tw:flex tw:w-20 tw:flex-col tw:items-center tw:gap-1 tw:text-center",
+				title: t.description,
+				tabindex: "0"
+			}, [n.value.has(t.img) ? (B(), V("span", {
+				key: 1,
+				class: "tw:grid tw:size-11 tw:place-items-center tw:rounded-full tw:bg-base-200 tw:font-semibold",
+				role: "img",
+				"aria-label": t.actorName
+			}, k(t.actorName.slice(0, 2).toUpperCase()), 9, ng)) : (B(), V("img", {
+				key: 0,
+				src: t.img,
+				alt: t.actorName,
+				width: "44",
+				height: "44",
+				class: "tw:size-11 tw:rounded-full tw:object-cover",
+				onError: (e) => n.value.add(t.img)
+			}, null, 40, tg)), H("span", rg, [e.numbered ? (B(), V("span", ig, k(r + 1) + ". ", 1)) : G("", !0), W("+" + k(t.award) + " XP", 1)])], 8, eg))), 128))]),
+			e.plan.leader && e.plan.totalAward === 0 ? (B(), V("p", ag, " Nobody currently receives a curve bonus. ")) : G("", !0)
+		]));
 	}
-}), p_ = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-accent/40! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "gm-toolkit-launcher-title"
-}, m_ = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, h_ = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, g_ = { class: "tw:min-w-0 tw:flex-1" }, __ = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, v_ = { class: "dui-badge dui-badge-sm" }, y_ = ["disabled"], b_ = {
+}), sg = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, cg = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, x_ = {
+	class: "tw:dui-alert tw:dui-alert-error",
+	role: "alert"
+}, lg = {
 	key: 1,
-	class: "fa-solid fa-arrow-right-arrow-left",
-	"aria-hidden": "true"
-}, S_ = { class: "tw:flex tw:flex-wrap tw:gap-2 tw:text-xs" }, C_ = { class: "dui-badge dui-badge-sm" }, w_ = { class: "dui-badge dui-badge-sm" }, T_ = { class: "dui-badge dui-badge-sm" }, E_ = { class: "dui-badge dui-badge-sm" }, D_ = { class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!" }, O_ = { class: "dui-table dui-table-sm tw:min-w-[46rem]" }, k_ = {
-	key: 0,
-	class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-2"
-}, A_ = ["checked", "onChange"], j_ = { class: "tw:sr-only" }, M_ = {
-	key: 1,
-	"aria-hidden": "true"
-}, N_ = {
-	class: "tw:max-w-56 tw:whitespace-normal",
-	scope: "row"
-}, P_ = { class: "dui-badge dui-badge-sm" }, F_ = { class: "tw:whitespace-nowrap" }, I_ = { class: "tw:max-w-72 tw:whitespace-normal" }, L_ = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, R_ = { class: "dui-badge dui-badge-sm" }, z_ = {
-	key: 0,
-	class: "tw:font-semibold"
-}, B_ = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, V_ = /* @__PURE__ */ P({
-	__name: "GmToolkitLauncherMigrationPanel",
-	props: {
-		isWorking: { type: Boolean },
-		preview: {},
-		selections: {}
-	},
-	emits: ["remap", "selectionChange"],
-	setup(e, { emit: t }) {
-		let n = e, r = t, i = U(() => Object.values(n.selections).filter((e) => e).length);
-		function a(e) {
-			return Eh(e);
-		}
-		function o(e) {
-			return a(e) && e.hotbarSlots.every((e) => n.selections[e] === !0);
-		}
-		function s(e, t) {
-			let n = t.currentTarget, i = n instanceof HTMLInputElement && n.checked;
-			for (let t of e.hotbarSlots) r("selectionChange", t, i);
-		}
-		function c(e) {
-			return e.match === "standard" ? "Stock macro" : e.match === "customized" ? "Customized" : "Review match";
-		}
-		function l(e) {
-			return e.replacement.disposition === "ready" ? "Can remap" : e.replacement.disposition === "independent" ? "Works without GM Toolkit" : "Keep original";
-		}
-		function u(e) {
-			return e.length ? `Slot${e.length === 1 ? "" : "s"} ${e.join(", ")}` : "Not on hotbar";
-		}
-		return (t, n) => (L(), R("section", p_, [z("div", m_, [
-			z("div", h_, [z("div", g_, [z("div", __, [n[1] ||= z("h2", {
-				id: "gm-toolkit-launcher-title",
-				class: "dui-card-title tw:font-serif tw:text-lg"
-			}, " Hotbar launchers ", -1), z("span", v_, D(e.preview.candidates.length) + " found", 1)]), n[2] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Reviews this user’s hotbar without running or copying GM Toolkit commands. Customized macros stay untouched. ", -1)]), z("button", {
-				class: "dui-btn dui-btn-accent dui-btn-sm tw:shrink-0",
-				disabled: e.isWorking || i.value === 0,
-				type: "button",
-				onClick: n[0] ||= (e) => r("remap")
-			}, [e.isWorking ? (L(), R("span", b_)) : (L(), R("i", x_)), V(" Remap " + D(i.value) + " slot" + D(i.value === 1 ? "" : "s"), 1)], 8, y_)]),
-			z("div", S_, [
-				z("span", C_, D(e.preview.counts.standard) + " stock", 1),
-				z("span", w_, D(e.preview.counts.customized) + " customized", 1),
-				z("span", T_, D(e.preview.counts.ambiguous) + " review", 1),
-				z("span", E_, D(e.preview.userName ?? "Current user"), 1)
-			]),
-			z("div", D_, [z("table", O_, [n[3] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Remap"),
-				z("th", { scope: "col" }, "GM Toolkit macro"),
-				z("th", { scope: "col" }, "Match"),
-				z("th", { scope: "col" }, "Hotbar"),
-				z("th", { scope: "col" }, "Drowsy outcome")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(e.preview.candidates, (e) => (L(), R("tr", { key: e.macroId }, [
-				z("td", null, [a(e) ? (L(), R("label", k_, [z("input", {
-					class: "dui-checkbox dui-checkbox-sm",
-					checked: o(e),
-					type: "checkbox",
-					onChange: (t) => s(e, t)
-				}, null, 40, A_), z("span", j_, " Remap " + D(e.sourceMacroName) + " from " + D(u(e.hotbarSlots)), 1)])) : (L(), R("span", M_, "—"))]),
-				z("th", N_, D(e.macroName), 1),
-				z("td", null, [z("span", P_, D(c(e)), 1)]),
-				z("td", F_, D(u(e.hotbarSlots)), 1),
-				z("td", I_, [z("div", L_, [z("span", R_, D(l(e)), 1), e.replacement.macroName ? (L(), R("span", z_, D(e.replacement.macroName), 1)) : H("", !0)]), z("p", B_, D(e.replacement.label), 1)])
-			]))), 128))])])]),
-			n[5] ||= z("div", {
-				class: "dui-alert tw:py-2 tw:text-xs",
-				role: "note"
-			}, [z("i", {
-				class: "fa-solid fa-shield-halved",
-				"aria-hidden": "true"
-			}), z("span", null, " Remapping imports the Drowsy launcher if needed and updates only the selected hotbar slots. Source macros are never edited or deleted. ")], -1),
-			(L(!0), R(I, null, F(e.preview.warnings, (e) => (L(), R("div", {
-				key: e,
-				class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
-				role: "alert"
-			}, [n[4] ||= z("i", {
-				class: "fa-solid fa-triangle-exclamation",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, D(e), 1)]))), 128))
-		])]));
-	}
-}), H_ = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-secondary/40! tw:bg-base-100! tw:shadow-md",
-	"aria-labelledby": "gm-toolkit-import-title"
-}, U_ = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, W_ = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-3" }, G_ = { class: "tw:min-w-0 tw:flex-1" }, K_ = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2" }, q_ = { class: "dui-badge dui-badge-outline dui-badge-sm" }, J_ = {
-	key: 0,
-	class: "dui-badge dui-badge-sm"
-}, Y_ = {
-	key: 0,
-	class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/60!"
-}, X_ = ["disabled"], Z_ = {
-	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, Q_ = {
-	key: 1,
-	class: "fa-solid fa-file-import",
-	"aria-hidden": "true"
-}, $_ = {
-	class: "tw:flex tw:flex-wrap tw:gap-2 tw:text-xs",
-	"aria-label": "Migration inventory"
-}, ev = { class: "dui-badge dui-badge-sm" }, tv = {
-	key: 0,
-	class: "dui-badge dui-badge-ghost dui-badge-sm"
-}, nv = { class: "dui-badge dui-badge-sm" }, rv = { class: "dui-badge dui-badge-sm" }, iv = { class: "dui-badge dui-badge-sm" }, av = {
-	key: 0,
-	class: "dui-alert tw:py-2 tw:text-xs",
-	role: "note"
-}, ov = { class: "tw:max-w-full tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20!" }, sv = { class: "dui-table dui-table-sm tw:min-w-[38rem]" }, cv = { class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-2" }, lv = ["checked", "onChange"], uv = { class: "tw:sr-only" }, dv = { scope: "row" }, fv = ["title"], pv = ["title"], mv = { class: "dui-badge dui-badge-sm" }, hv = /* @__PURE__ */ P({
-	__name: "GmToolkitMigrationPanel",
-	props: {
-		isWorking: { type: Boolean },
-		lastImportedAt: {},
-		preview: {},
-		selections: {}
-	},
-	emits: ["import", "selectionChange"],
-	setup(e, { emit: t }) {
-		let n = e, r = t, i = U(() => Object.values(n.selections).filter((e) => e).length), a = U(() => n.preview.source?.active ? "Active module" : n.preview.source?.installed ? "Installed, disabled" : "Persisted world data");
-		function o(e) {
-			return e === "" ? "None" : String(e);
-		}
-		function s(e) {
-			return e === "same" ? "Already matches" : e === "target-empty" ? "New value" : "Different";
-		}
-		function c(e, t) {
-			let n = t.currentTarget;
-			r("selectionChange", e, n instanceof HTMLInputElement && n.checked);
-		}
-		return (t, n) => (L(), R("section", H_, [z("div", U_, [
-			z("div", W_, [z("div", G_, [
-				z("div", K_, [
-					n[1] ||= z("h2", {
-						id: "gm-toolkit-import-title",
-						class: "dui-card-title tw:font-serif tw:text-lg"
-					}, " Settings ", -1),
-					z("span", q_, D(a.value), 1),
-					e.preview.source?.moduleVersion ? (L(), R("span", J_, D(e.preview.source.moduleVersion), 1)) : H("", !0)
-				]),
-				n[2] ||= z("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " Choose which saved values to copy. Your GM Toolkit settings will not be changed. ", -1),
-				e.lastImportedAt ? (L(), R("p", Y_, " Last imported " + D(new Date(e.lastImportedAt).toLocaleString()), 1)) : H("", !0)
-			]), z("button", {
-				class: "dui-btn dui-btn-sm tw:border-secondary! tw:text-base-content!",
-				disabled: e.isWorking || i.value === 0,
-				type: "button",
-				onClick: n[0] ||= (e) => r("import")
-			}, [e.isWorking ? (L(), R("span", Z_)) : (L(), R("i", Q_)), V(" Import " + D(i.value || "selected"), 1)], 8, X_)]),
-			z("div", $_, [
-				z("span", ev, D(e.preview.dispositionCounts.import) + " can be imported ", 1),
-				e.preview.dispositionCounts.pending ? (L(), R("span", tv, D(e.preview.dispositionCounts.pending) + " not transferred ", 1)) : H("", !0),
-				z("span", nv, D(e.preview.dispositionCounts.supersede) + " handled another way ", 1),
-				z("span", rv, D(e.preview.dispositionCounts.retire) + " not needed ", 1),
-				z("span", iv, D(e.preview.dispositionCounts.skip) + " ignored ", 1)
-			]),
-			e.preview.source?.active ? H("", !0) : (L(), R("div", av, [...n[3] ||= [z("i", {
-				class: "fa-solid fa-database",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, " Saved world data is available even while GM Toolkit is disabled. ", -1)]])),
-			z("div", ov, [z("table", sv, [n[4] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-				z("th", { scope: "col" }, "Import"),
-				z("th", { scope: "col" }, "Value"),
-				z("th", { scope: "col" }, "GM Toolkit"),
-				z("th", { scope: "col" }, "Drowsy"),
-				z("th", { scope: "col" }, "Comparison")
-			])], -1), z("tbody", null, [(L(!0), R(I, null, F(e.preview.imports, (t) => (L(), R("tr", { key: t.field }, [
-				z("td", null, [z("label", cv, [z("input", {
-					class: "dui-checkbox dui-checkbox-sm",
-					checked: e.selections[t.field],
-					type: "checkbox",
-					onChange: (e) => c(t.field, e)
-				}, null, 40, lv), z("span", uv, "Import " + D(t.label), 1)])]),
-				z("th", dv, D(t.label), 1),
-				z("td", {
-					class: "tw:max-w-48 tw:truncate",
-					title: o(t.sourceValue)
-				}, D(o(t.sourceValue)), 9, fv),
-				z("td", {
-					class: "tw:max-w-48 tw:truncate",
-					title: o(t.currentValue)
-				}, D(o(t.currentValue)), 9, pv),
-				z("td", null, [z("span", mv, D(s(t.comparison)), 1)])
-			]))), 128))])])]),
-			(L(!0), R(I, null, F(e.preview.source?.warnings ?? [], (e) => (L(), R("div", {
-				key: e,
-				class: "dui-alert dui-alert-warning tw:py-2 tw:text-xs",
-				role: "alert"
-			}, [n[5] ||= z("i", {
-				class: "fa-solid fa-triangle-exclamation",
-				"aria-hidden": "true"
-			}, null, -1), z("span", null, D(e), 1)]))), 128))
-		])]));
-	}
-}), gv = { class: "tw:grid tw:min-w-0 tw:gap-3" }, _v = {
-	key: 4,
-	class: "dui-alert",
 	role: "status"
-}, vv = /* @__PURE__ */ P({
-	__name: "GmToolkitMigrationApp",
+}, ug = {
+	key: 2,
+	role: "status"
+}, dg = ["disabled"], fg = { class: "tw:mb-0 tw:break-words tw:text-sm" }, pg = { class: "tw:flex tw:shrink-0 tw:flex-wrap tw:justify-end tw:gap-2 tw:border-t tw:border-base-content/20 tw:p-3" }, mg = ["disabled"], hg = ["disabled"], gg = /* @__PURE__ */ L({
+	__name: "XpCurveConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = Bh();
+		let t = e, n = Yh();
 		n.initialize(t.initialization, t.actions);
-		let { cutoverReport: r, darkWhispersConflictPolicy: i, darkWhispersSelections: a, darkWhispersTableId: o, errorMessage: s, isWorking: c, launcherSelections: l, preview: u, settingSelections: d, state: f, statusMessage: p } = js(n);
-		return (e, t) => (L(), ua(Qs, {
-			description: "Copy the settings and content you want to keep, update safe hotbar links, and review the result before disabling GM Toolkit.",
-			"error-message": M(s),
-			icon: "fa-solid fa-box-archive",
-			"status-message": M(p),
-			title: "Import from GM Toolkit"
+		let { actors: r, reason: i, rosterIssue: a, errorMessage: o, isWorking: s, complete: c, plan: l, canApply: u, resolvedReason: d } = qs(n);
+		return (t, f) => (B(), V("form", {
+			class: "tw:flex tw:h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:bg-base-100! tw:text-base-content!",
+			onSubmit: f[3] ||= ss((...e) => F(n).applyAwards && F(n).applyAwards(...e), ["prevent"])
+		}, [H("div", sg, [
+			f[6] ||= H("p", { class: "tw:mt-0 tw:text-sm" }, " Catch-up bonuses for your configured party. Category XP percentages apply. ", -1),
+			F(o) ? (B(), V("p", cg, k(F(o)), 1)) : G("", !0),
+			F(c) ? (B(), V("p", lg, "Curve XP awarded.")) : G("", !0),
+			F(a) ? (B(), V("p", ug, [
+				W(k(F(a)) + " ", 1),
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-sm",
+					type: "button",
+					onClick: f[0] ||= (...t) => e.actions.openParty && e.actions.openParty(...t)
+				}, " Configure Party "),
+				f[4] ||= W(" Save your party, then reopen Curve XP to refresh this preview. ", -1)
+			])) : G("", !0),
+			U(og, {
+				actors: F(r),
+				plan: F(l)
+			}, null, 8, ["actors", "plan"]),
+			f[7] ||= H("label", {
+				for: "curve-award-reason",
+				class: "tw:mt-5 tw:mb-1 tw:block tw:text-sm tw:font-semibold"
+			}, "XP log reason", -1),
+			I(H("input", {
+				id: "curve-award-reason",
+				"onUpdate:modelValue": f[1] ||= (e) => /* @__PURE__ */ N(i) ? i.value = e : null,
+				class: "tw:dui-input tw:dui-input-sm tw:w-full tw:min-w-0",
+				type: "text",
+				disabled: F(s) || F(c)
+			}, null, 8, dg), [[q, F(i)]]),
+			H("p", fg, [f[5] ||= H("strong", null, "Log preview:", -1), W(" " + k(F(d) || "No reason"), 1)])
+		]), H("footer", pg, [H("button", {
+			class: "tw:dui-btn tw:dui-btn-sm",
+			type: "button",
+			disabled: F(s),
+			onClick: f[2] ||= (...t) => e.actions.close && e.actions.close(...t)
+		}, " Cancel ", 8, mg), H("button", {
+			class: "tw:dui-btn tw:dui-btn-sm tw:dui-btn-primary",
+			type: "submit",
+			disabled: !F(u)
+		}, k(F(s) ? "Awarding…" : `Award ${F(l).totalAward} total XP`), 9, hg)])], 32));
+	}
+});
+// src/module/functions/party/configuration.ts
+function _g(e) {
+	return {
+		version: 1,
+		categories: [{
+			id: "party",
+			name: "Party",
+			xpPercent: 100,
+			actorIds: [...new Set(e)]
 		}, {
-			default: Xn(() => [z("div", gv, [
-				M(u)?.source ? (L(), ua(hv, {
-					key: 0,
-					"is-working": M(c),
-					"last-imported-at": M(f).migration?.importedAt,
-					preview: M(u),
-					selections: M(d),
-					onImport: M(n).importSettings,
-					onSelectionChange: M(n).setSettingSelection
-				}, null, 8, [
-					"is-working",
-					"last-imported-at",
-					"preview",
-					"selections",
-					"onImport",
-					"onSelectionChange"
-				])) : H("", !0),
-				M(u) ? (L(), ua(dg, {
-					key: 1,
-					"conflict-policy": M(i),
-					"onUpdate:conflictPolicy": t[0] ||= (e) => /* @__PURE__ */ A(i) ? i.value = e : null,
-					"is-working": M(c),
-					preview: M(u).darkWhispers,
-					"selected-table-id": M(o),
-					selections: M(a),
-					onImport: M(n).importDarkWhispers,
-					onSelectionChange: M(n).setDarkWhispersSelection,
-					onTableChange: M(n).setDarkWhispersTable
-				}, null, 8, [
-					"conflict-policy",
-					"is-working",
-					"preview",
-					"selected-table-id",
-					"selections",
-					"onImport",
-					"onSelectionChange",
-					"onTableChange"
-				])) : H("", !0),
-				M(u)?.launchers.candidates.length ? (L(), ua(V_, {
-					key: 2,
-					"is-working": M(c),
-					preview: M(u).launchers,
-					selections: M(l),
-					onRemap: M(n).remapLaunchers,
-					onSelectionChange: M(n).setLauncherSelection
-				}, null, 8, [
-					"is-working",
-					"preview",
-					"selections",
-					"onRemap",
-					"onSelectionChange"
-				])) : H("", !0),
-				M(r) || M(f).cutoverReview ? (L(), ua(f_, {
-					key: 3,
-					"is-working": M(c),
-					report: M(r),
-					review: M(f).cutoverReview,
-					onReview: M(n).reviewCutover
-				}, null, 8, [
-					"is-working",
-					"report",
-					"review",
-					"onReview"
-				])) : H("", !0),
-				!M(u) && !M(r) ? (L(), R("div", _v, [...t[1] ||= [z("i", {
-					class: "fa-solid fa-circle-check",
-					"aria-hidden": "true"
-				}, null, -1), z("span", null, "No GM Toolkit settings, content, or launchers were found in this world.", -1)]])) : H("", !0)
-			])]),
-			_: 1
-		}, 8, ["error-message", "status-message"]));
-	}
-}), yv = "9rXQv4uJcQoLBitt", bv = "Dark Whispers", xv = "wfrp4e-gm-toolkit", Sv = "gm-toolkit-tables";
-function Cv(e, t) {
-	return e.flatMap((e) => Ev(e, t)).sort(kv);
-}
-function wv(e, t, n = []) {
-	let r = e.map((e) => ({
-		...e,
-		prompts: e.prompts.map((n) => ({
-			...n,
-			comparison: Av(e.tableId, n.resultId, n.text, t)
-		})),
-		warnings: [...e.warnings]
-	})), i = r[0]?.confidence, a = r.filter((e) => e.confidence === i)[0]?.tableId, o = [...n];
-	return r.length > 1 && o.push(`${r.length} possible Dark Whispers tables were found. Review the selected source before importing.`), r.length === 0 && o.push("No imported GM Toolkit Dark Whispers table was found in this world. The source table is not created or modified."), {
-		candidates: r,
-		currentPromptCount: t.prompts.length,
-		...a ? { recommendedTableId: a } : {},
-		warnings: o
+			id: "companions",
+			name: "Companions",
+			xpPercent: 50,
+			actorIds: []
+		}]
 	};
 }
-function Tv(e, t, n, r) {
-	let i = e.candidates.find((e) => e.tableId === n.tableId);
-	if (!i) throw Error("Select an available GM Toolkit Dark Whispers table.");
-	let a = new Set(n.resultIds), o = i.prompts.filter((e) => a.has(e.resultId));
-	if (o.length === 0) throw Error("Select at least one Dark Whispers prompt to import.");
-	let s = t.prompts.map((e) => ({
-		...e,
-		...e.source ? { source: { ...e.source } } : {}
-	})), c = 0, l = 0, u = 0;
-	for (let e of o) {
-		let t = s.findIndex((t) => t.source?.type === "gm-toolkit" && t.source.tableId === i.tableId && t.source.resultId === e.resultId), r = s.some((t) => t.text === e.text);
-		if (t >= 0) {
-			let r = s[t];
-			if (r.text === e.text) {
-				u += 1;
-				continue;
-			}
-			if (n.conflictPolicy === "preserve") {
-				u += 1;
-				continue;
-			}
-			s[t] = {
-				...r,
-				source: jv(i, e.resultId),
-				text: e.text
-			}, l += 1;
-			continue;
-		}
-		if (r) {
-			u += 1;
-			continue;
-		}
-		s.push({
-			id: Mv(i.tableId, e.resultId),
-			source: jv(i, e.resultId),
-			text: e.text
-		}), c += 1;
-	}
-	return {
-		added: c,
-		library: {
-			lastImport: {
-				conflictPolicy: n.conflictPolicy,
-				importedAt: r,
-				resultIds: o.map((e) => e.resultId),
-				...i.moduleVersion ? { sourceModuleVersion: i.moduleVersion } : {},
-				sourceTableId: i.tableId,
-				sourceTableName: i.tableName
-			},
-			prompts: s,
-			version: 1
-		},
-		replaced: l,
-		skipped: u
-	};
-}
-function Ev(e, t) {
-	if (!Z(e)) return [];
-	let n = X(e._id), r = X(e.name), i = Dv(e, n, r);
-	if (!n || !r || !i) return [];
-	let a = [], o = (Array.isArray(e.results) ? e.results : []).flatMap((e, t) => {
-		if (!Z(e)) return a.push(`Table row ${t + 1} was invalid and was skipped.`), [];
-		let n = X(e._id), r = tp(e.description);
-		return !n || !r ? (a.push(`Table row ${t + 1} had no stable ID or prompt text and was skipped.`), []) : [{
-			range: Ov(e.range, t),
-			resultId: n,
-			text: r
-		}];
-	});
-	return o.length === 0 && a.push("The table contains no importable prompt rows."), [{
-		confidence: i,
-		...t ? { moduleVersion: t } : {},
-		prompts: o,
-		tableId: n,
-		tableName: r,
-		warnings: a
-	}];
-}
-function Dv(e, t, n) {
-	let r = Z(e._stats) ? e._stats : {}, i = Z(e.flags) ? e.flags : {}, a = Z(i.wfrp4e) ? i.wfrp4e : {}, o = i[xv], s = X(r.compendiumSource), c = n === bv;
-	return c && s.includes(`${xv}.${Sv}`) || X(a.key).toLowerCase() === "darkwhispers" || c && Z(o) ? "metadata" : t === yv ? "id" : c ? "name" : void 0;
-}
-function Ov(e, t) {
-	if (Array.isArray(e) && e.length >= 2 && Number.isFinite(Number(e[0])) && Number.isFinite(Number(e[1]))) {
-		let t = Number(e[0]), n = Number(e[1]);
-		return t === n ? String(t) : `${t}–${n}`;
-	}
-	return String(t + 1);
-}
-function kv(e, t) {
-	let n = {
-		id: 2,
-		metadata: 3,
-		name: 1
-	};
-	return n[t.confidence] - n[e.confidence] || t.prompts.length - e.prompts.length;
-}
-function Av(e, t, n, r) {
-	let i = r.prompts.find((n) => n.source?.type === "gm-toolkit" && n.source.tableId === e && n.source.resultId === t);
-	return i ? i.text === n ? "same" : "conflict" : r.prompts.some((e) => e.text === n) ? "duplicate" : "new";
-}
-function jv(e, t) {
-	return {
-		...e.moduleVersion ? { moduleVersion: e.moduleVersion } : {},
-		resultId: t,
-		tableId: e.tableId,
-		type: "gm-toolkit"
-	};
-}
-function Mv(e, t) {
-	return `gm-toolkit:${e}:${t}`;
-}
-//#endregion
-//#region src/functions/gm-toolkit/cutover.ts
-function Nv(e) {
-	let t = Lv(e.preview, e.migration), n = Rv(e.preview), r = zv(e.preview), i = Pv(), a = Bv(e.preview, e.sourceEvidence), o = {
-		content: n,
-		launchers: r,
-		replacement: i,
-		settings: {
-			dispositionCounts: e.preview.dispositionCounts,
-			items: t,
-			total: e.preview.source?.settings.length ?? 0
-		},
-		source: {
-			moduleVersion: a.moduleVersion ?? "",
-			schemaVersion: a.schemaVersion
-		}
-	};
-	return {
-		combat: { ...e.combat },
-		content: n,
-		evidenceId: Hv(JSON.stringify(o)),
-		generatedAt: new Date(e.generatedAt).toISOString(),
-		launchers: r,
-		notices: Vv(e.preview, t, n, r, e.combat),
-		replacement: i,
-		settings: {
-			dispositionCounts: { ...e.preview.dispositionCounts },
-			items: t,
-			total: e.preview.source?.settings.length ?? 0
-		},
-		source: a,
-		version: 1
-	};
-}
-function Pv() {
-	let e = yh.filter(({ replacement: e }) => ["partial", "pending"].includes(e.disposition)).map(({ name: e }) => e);
-	return {
-		ready: e.length === 0,
-		unavailableCapabilities: e
-	};
-}
-function Fv(e, t, n) {
-	let r = $f(n);
-	if (!r || !t.id || !t.name.trim()) throw Error("A valid GM and review time are required to save the review.");
-	return {
-		evidenceId: e.evidenceId,
-		reviewedAt: r,
-		reviewedByUserId: t.id,
-		reviewedByUserName: t.name.trim(),
-		version: 1
-	};
-}
-function Iv(e) {
-	if (!Z(e) || e.version !== 1) return;
-	let t = X(e.evidenceId), n = $f(e.reviewedAt), r = X(e.reviewedByUserId), i = X(e.reviewedByUserName);
-	return t && n && r && i ? {
-		evidenceId: t,
-		reviewedAt: n,
-		reviewedByUserId: r,
-		reviewedByUserName: i,
-		version: 1
-	} : void 0;
-}
-function Lv(e, t) {
-	let n = new Set(t?.appliedFields ?? []);
-	return e.imports.map((e) => {
-		let t = n.has(e.field) ? e.comparison === "same" ? "imported" : "changed-after-import" : e.comparison === "same" ? "already-matched" : "not-imported";
+function vg(e) {
+	if (!$(e) || e.version !== 1 || !Array.isArray(e.categories)) throw Error("The saved party configuration is unreadable or from an unsupported version.");
+	let t = /* @__PURE__ */ new Set(), n = /* @__PURE__ */ new Set(), r = e.categories.map((e) => {
+		if (!$(e) || typeof e.id != "string" || !e.id.trim() || typeof e.name != "string" || !e.name.trim() || typeof e.xpPercent != "number" || !Number.isFinite(e.xpPercent) || e.xpPercent < 0 || !Array.isArray(e.actorIds)) throw Error("Every party category needs a name and a non-negative XP percentage.");
+		let r = e.id;
+		if (t.has(r)) throw Error("Party category IDs must be unique.");
+		t.add(r);
+		let i = e.actorIds.map((e) => {
+			if (typeof e != "string" || !e.trim()) throw Error("The party contains an invalid actor reference.");
+			if (n.has(e)) throw Error("An actor can belong to only one party category.");
+			return n.add(e), e;
+		});
 		return {
-			currentValue: e.currentValue,
-			field: e.field,
-			label: e.label,
-			sourceKey: e.sourceKey,
-			sourceValue: e.sourceValue,
-			status: t
+			id: r,
+			name: e.name.trim(),
+			xpPercent: e.xpPercent,
+			actorIds: i
 		};
 	});
-}
-function Rv(e) {
-	let t = e.darkWhispers.candidates.find(({ tableId: t }) => t === e.darkWhispers.recommendedTableId) ?? e.darkWhispers.candidates[0], n = t?.prompts ?? [];
+	if (!t.has("party") || !t.has("companions")) throw Error("The Party and Companions categories are required.");
 	return {
-		comparisonCounts: {
-			conflict: n.filter(({ comparison: e }) => e === "conflict").length,
-			duplicate: n.filter(({ comparison: e }) => e === "duplicate").length,
-			new: n.filter(({ comparison: e }) => e === "new").length,
-			same: n.filter(({ comparison: e }) => e === "same").length
-		},
-		currentPromptCount: e.darkWhispers.currentPromptCount,
-		sourcePromptCount: n.length,
-		...t ? {
-			sourceTableId: t.tableId,
-			sourceTableName: t.tableName
-		} : {}
+		version: 1,
+		categories: r
 	};
 }
-function zv(e) {
-	let t = e.launchers.candidates, n = t.filter(({ match: e, replacement: t }) => e !== "standard" || t.disposition === "partial" || t.disposition === "pending").map((e) => ({
-		disposition: e.replacement.disposition,
-		hotbarSlots: [...e.hotbarSlots],
-		macroId: e.macroId,
-		macroName: e.macroName,
-		match: e.match,
-		outcome: e.replacement.label
-	}));
-	for (let e of t) Eh(e) && n.push({
-		disposition: e.replacement.disposition,
-		hotbarSlots: [...e.hotbarSlots],
-		macroId: e.macroId,
-		macroName: e.macroName,
-		match: e.match,
-		outcome: "A complete replacement exists, but one or more hotbar slots still use the source macro."
+function yg(e) {
+	if (e === "" || e === void 0) return;
+	if (typeof e != "string") throw Error("The saved party configuration is unreadable.");
+	let t;
+	try {
+		t = JSON.parse(e);
+	} catch {
+		throw Error("The saved party configuration is unreadable. It has not been overwritten.");
+	}
+	return vg(t);
+}
+function bg(e, t, n) {
+	if (!e.categories.some((e) => e.id === n)) throw Error("Choose an available party category.");
+	return {
+		version: 1,
+		categories: e.categories.map((e) => ({
+			...e,
+			actorIds: [...e.actorIds.filter((e) => e !== t), ...e.id === n ? [t] : []]
+		}))
+	};
+}
+// src/module/foundry/party/configuration.ts
+var xg = "partyConfiguration";
+function Sg() {
+	return Array.from(game.actors).filter((e) => e.type === "character").map((e) => ({
+		id: e.id,
+		name: e.name,
+		img: e.img || "icons/svg/mystery-man.svg"
+	})).sort((e, t) => e.name.localeCompare(t.name));
+}
+function Cg() {
+	return _g(Array.from(game.users).filter((e) => !e.isGM && e.character && game.actors.get(e.character.id)?.type === "character").flatMap((e) => e.character && game.actors.get(e.character.id) ? [e.character.id] : []));
+}
+function wg() {
+	return yg(game.settings.get("wfrp4e-enhanced-fear-terror", "partyConfiguration")) ?? Cg();
+}
+async function Tg() {
+	X(Y.configureParty);
+	let e = yg(game.settings.get(r, xg));
+	if (e) return e;
+	let t = Cg();
+	return await Eg(t), t;
+}
+async function Eg(e) {
+	X(Y.configureParty);
+	let t = vg(e);
+	await game.settings.set(r, xg, JSON.stringify(t));
+}
+async function Dg() {
+	return {
+		configuration: await Tg(),
+		actors: Sg()
+	};
+}
+async function Og(e) {
+	X(Y.configureParty);
+	let t;
+	try {
+		t = JSON.parse(e);
+	} catch {
+		throw Error("Drag an actor from the Actors sidebar.");
+	}
+	if (!$(t) || t.type !== "Actor" || typeof t.uuid != "string") throw Error("Drag an actor from the Actors sidebar.");
+	let n = await fromUuid(t.uuid);
+	if (!$(n) || n.documentName !== "Actor" || n.type !== "character" || typeof n.id != "string" || !game.actors.get(n.id) || t.uuid !== `Actor.${n.id}`) throw Error("Choose a world character actor from the Actors sidebar. NPC characters are welcome.");
+	return {
+		id: n.id,
+		name: String(n.name),
+		img: String(n.img || "icons/svg/mystery-man.svg")
+	};
+}
+async function kg() {
+	return X(Y.configureParty), await foundry.applications.api.DialogV2.confirm({
+		modal: !0,
+		window: { title: "Reset Party?" },
+		content: "<p>Replace the saved roster with the characters currently assigned to players?</p><p>Party returns to 100% XP and Companions to 50%. Companion membership and custom categories are cleared. Apply the zones, then Save party to keep the reset.</p>",
+		rejectClose: !1
+	}) ? Cg() : null;
+}
+// src/module/foundry/party/portraits.ts
+function Ag(e, t) {
+	class n extends foundry.applications.ux.ContextMenu {
+		activateListeners(e) {
+			super.activateListeners(e), e.setAttribute("role", "menu");
+			let t = Array.from(e.querySelectorAll(".context-item"));
+			for (let e of t) e.tabIndex = 0, e.setAttribute("role", "menuitem");
+			e.addEventListener("keydown", (e) => {
+				let n = t.indexOf(document.activeElement);
+				if ([
+					"ArrowDown",
+					"ArrowUp",
+					"Home",
+					"End"
+				].includes(e.key)) {
+					e.preventDefault(), e.stopPropagation();
+					let r = e.key === "Home" ? 0 : e.key === "End" ? t.length - 1 : (n + (e.key === "ArrowDown" ? 1 : -1) + t.length) % t.length;
+					t[r]?.focus();
+				} else e.key === "Enter" || e.key === " " ? (e.preventDefault(), e.stopPropagation(), t[n]?.click()) : e.key === "Escape" && (e.preventDefault(), e.stopPropagation(), this.close(), this.target.focus());
+			});
+		}
+		async render(e, t) {
+			await super.render(e, t), this.element?.querySelector(".context-item")?.focus();
+		}
+	}
+	let r = new n(e, "[data-party-actor]", [], {
+		jQuery: !1,
+		fixed: !0,
+		relative: "target",
+		onOpen: (e) => {
+			let n = e.dataset.partyActor, i = game.actors.get(n), a = (e) => {
+				t.busy() || (X(Y.configureParty), e());
+			};
+			r.menuItems = t.busy() ? [] : [
+				...i ? [jg("Open character sheet", "fa-user", () => a(() => {
+					i.sheet?.render(!0);
+				}))] : [],
+				...t.categories().filter((e) => !e.actorIds.includes(n)).map((e) => jg(`Move to ${e.name}`, "fa-arrow-right", () => a(() => t.move(n, e.id)))),
+				jg("Remove from roster", "fa-user-minus", () => a(() => t.remove(n)))
+			];
+		}
 	});
-	return {
-		detectedMacros: t.length,
-		hotbarSlots: t.reduce((e, t) => e + t.hotbarSlots.length, 0),
-		remappableSlots: e.launchers.remappableSlots.length,
-		unresolved: n.sort((e, t) => e.macroName.localeCompare(t.macroName))
+	return () => {
+		r.element?.isConnected && r.close({ animate: !1 });
 	};
 }
-function Bv(e, t) {
-	let n = e.source, r = t === "current";
+function jg(e, t, n) {
 	return {
-		active: r && n?.active === !0,
-		evidence: t,
-		installed: r && n?.installed === !0,
-		...n?.moduleVersion ? { moduleVersion: n.moduleVersion } : {},
-		schemaVersion: "9.2.0"
+		label: e,
+		name: Kh(e),
+		icon: `<i class="fa-solid ${t}"></i>`,
+		onClick: n,
+		callback: n
 	};
 }
-function Vv(e, t, n, r, i) {
-	let a = [], o = Pv(), s = t.filter(({ status: e }) => e === "changed-after-import" || e === "not-imported").length, c = n.comparisonCounts.conflict + n.comparisonCounts.new;
-	i.active && a.push({
-		code: "active-combat",
-		message: "Finish the active combat before disabling GM Toolkit. Combat-specific data is not copied."
-	}), o.ready || a.push({
-		code: "replacement-incomplete",
-		message: `${o.unavailableCapabilities.length} GM Toolkit action${o.unavailableCapabilities.length === 1 ? " does" : "s do"} not yet have a complete Drowsy equivalent. Keep GM Toolkit enabled if you use them.`
-	}), s > 0 && a.push({
-		code: "settings-review",
-		message: `${s} compatible setting value${s === 1 ? " needs" : "s need"} an explicit keep-or-import decision.`
-	}), c > 0 && a.push({
-		code: "content-review",
-		message: `${c} Dark Whispers prompt${c === 1 ? " needs" : "s need"} an explicit import-or-preserve decision.`
-	}), r.unresolved.length > 0 && a.push({
-		code: "launcher-review",
-		message: `${r.unresolved.length} detected launcher${r.unresolved.length === 1 ? " needs" : "s need"} review before you disable GM Toolkit.`
+async function Mg(e) {
+	X(Y.configureParty);
+	let t = Sg().filter((t) => !e.actorIds.includes(t.id));
+	if (!t.length) throw Error("Every available character is already in this zone.");
+	let n = await foundry.applications.api.DialogV2.input({
+		modal: !0,
+		window: { title: `Add actor to ${e.name}` },
+		content: `<label class="form-group"><span>Character</span><select name="actor">${t.map((e) => `<option value="${Kh(e.id)}">${Kh(e.name)}</option>`).join("")}</select></label>`,
+		ok: { label: "Add actor" },
+		rejectClose: !1
 	});
-	let l = [
-		...e.source?.warnings ?? [],
-		...e.darkWhispers.warnings,
-		...e.launchers.warnings
-	];
-	return a.push(...l.map((e) => ({
-		code: "source-warning",
-		message: e
-	}))), a;
+	return n ? t.find((e) => e.id === n.actor) ?? null : null;
 }
-function Hv(e) {
-	let t = 2166136261;
-	for (let n = 0; n < e.length; n += 1) t = Math.imul(t ^ e.charCodeAt(n), 16777619) >>> 0;
-	return t.toString(16).padStart(8, "0");
+async function Ng(e) {
+	return !e.actorIds.length || await foundry.applications.api.DialogV2.confirm({
+		modal: !0,
+		window: { title: "Remove zone?" },
+		rejectClose: !1,
+		content: `<p>Remove ${Kh(e.name)} and its ${e.actorIds.length} roster members?</p><p>The actors themselves are kept.</p>`
+	}) === !0;
 }
-//#endregion
-//#region src/functions/gm-toolkit/import-fields.ts
-var Uv = /* @__PURE__ */ "sessionReference.defaultXpAmount.defaultXpSelection.defaultXpReason.automateOpposedTestAdvantage.automateDamageAdvantage.automateConditionAdvantage.promptMomentumLoss.clearAdvantageCombatJoin.clearAdvantageCombatLeave.persistAdvantageNotifications.holdingScene.exportChat.scenePullActivate.rangeNormalSight.rangeDarkVision.overrideNightVision.overrideDarkVision.defaultGroupDarkWhispers.messageDarkWhispers.suppressSpectatorNotice.quicktest1GroupTest.quicktest2GroupTest.quicktest3GroupTest.quicktest4GroupTest.defaultSkillGroupTest.bypassTestDialogGroupTest.defaultDifficultyGroupTest.defaultRollModeGroupTest.defaultTestModifierGroupTest.defaultPartyGroupTest.fallbackAdvancedSkills.fallbackAdjustDifficulty.summariseResultsThresholdGroupTest".split("."), Wv = {
-	automateConditionAdvantage: "Clear Advantage on conditions",
-	automateDamageAdvantage: "Outmanoeuvring Advantage",
-	automateOpposedTestAdvantage: "Opposed-test Advantage",
-	bypassTestDialogGroupTest: "Bypass group-test dialogs",
-	clearAdvantageCombatJoin: "Clear Advantage when joining combat",
-	clearAdvantageCombatLeave: "Clear Advantage when leaving combat",
-	defaultDifficultyGroupTest: "Group-test difficulty",
-	defaultGroupDarkWhispers: "Dark Whispers group",
-	defaultPartyGroupTest: "Group-test actor group",
-	defaultRollModeGroupTest: "Group-test roll mode",
-	defaultSkillGroupTest: "Group-test skill",
-	defaultTestModifierGroupTest: "Group-test modifier",
-	exportChat: "Export chat during turnover",
-	fallbackAdjustDifficulty: "Advanced-skill fallback steps",
-	fallbackAdvancedSkills: "Advanced-skill fallback",
-	holdingScene: "Holding Scene",
-	messageDarkWhispers: "Dark Whispers presentation",
-	overrideDarkVision: "Override Dark Vision",
-	overrideNightVision: "Override Night Vision",
-	persistAdvantageNotifications: "Persistent Advantage notices",
-	promptMomentumLoss: "Prompt for momentum loss",
-	quicktest1GroupTest: "Group quick test 1",
-	quicktest2GroupTest: "Group quick test 2",
-	quicktest3GroupTest: "Group quick test 3",
-	quicktest4GroupTest: "Group quick test 4",
-	rangeDarkVision: "Dark Vision range",
-	rangeNormalSight: "Normal vision range",
-	scenePullActivate: "Pull Everyone behavior",
-	summariseResultsThresholdGroupTest: "Group-test summary threshold",
-	suppressSpectatorNotice: "Suppress unassigned-player warning"
-};
-//#endregion
-//#region src/functions/gm-toolkit/migration.ts
-function Gv(e, t, n) {
-	let r = ty(e, t);
+// src/module/foundry/party/unsaved.ts
+async function Pg(e = !1) {
+	let t = await foundry.applications.api.DialogV2.wait({
+		window: { title: e ? "Unapplied zone changes" : "Unsaved party changes" },
+		modal: !0,
+		rejectClose: !1,
+		content: e ? "<p>Apply your zone changes to the party draft before closing?</p>" : "<p>Save your changes to the party before closing?</p>",
+		buttons: [
+			{
+				action: "save",
+				label: e ? "Apply" : "Save",
+				icon: "fa-solid fa-floppy-disk"
+			},
+			{
+				action: "discard",
+				label: "Discard",
+				icon: "fa-solid fa-trash"
+			},
+			{
+				action: "cancel",
+				label: "Keep editing",
+				icon: "fa-solid fa-pen",
+				default: !0
+			}
+		]
+	});
+	return t === "save" || t === "discard" ? t : null;
+}
+// src/module/apps/configure-party/state/zones.ts
+var Fg = Ks("party-zones", () => {
+	let e = /* @__PURE__ */ P({
+		version: 1,
+		categories: []
+	}), t = /* @__PURE__ */ P(""), n = K(() => JSON.stringify(e.value) !== t.value), r = /* @__PURE__ */ P(!1), i = /* @__PURE__ */ P(""), a;
+	function o(n, r) {
+		e.value = structuredClone(n), a = r, t.value = JSON.stringify(e.value);
+	}
+	function s() {
+		e.value.categories.push({
+			id: crypto.randomUUID(),
+			name: "New zone",
+			xpPercent: 100,
+			actorIds: []
+		});
+	}
+	async function c(t) {
+		t !== "party" && t !== "companions" && await p(async () => {
+			let n = e.value.categories.find((e) => e.id === t);
+			await a.remove(n) && (e.value.categories = e.value.categories.filter((e) => e.id !== t));
+		});
+	}
+	async function l() {
+		await p(async () => {
+			let t = await a.reset();
+			t && (e.value = t);
+		});
+	}
+	async function u() {
+		await p(d) && a.close();
+	}
+	async function d() {
+		a.apply(vg(e.value)), t.value = JSON.stringify(e.value);
+	}
+	async function f() {
+		if (r.value) return !1;
+		if (!n.value) return !0;
+		let e = !1;
+		return await p(async () => {
+			let t = await a.confirmClose();
+			t === "save" && await d(), e = t === "save" || t === "discard";
+		}) && e;
+	}
+	async function p(e) {
+		if (r.value) return !1;
+		r.value = !0, i.value = "";
+		try {
+			return await e(), !0;
+		} catch (e) {
+			return i.value = e instanceof Error ? e.message : "Could not configure party zones.", !1;
+		} finally {
+			r.value = !1;
+		}
+	}
 	return {
-		disposition: e.disposition,
-		family: e.family,
-		key: e.key,
-		source: n,
-		valid: r.valid,
-		value: r.value
+		configuration: e,
+		busy: r,
+		isDirty: n,
+		canClose: f,
+		error: i,
+		initialize: o,
+		add: s,
+		remove: c,
+		reset: l,
+		apply: u,
+		cancel: () => a.close()
 	};
-}
-function Kv(e, t, n = {
-	candidates: [],
-	currentPromptCount: 0,
-	warnings: []
-}, r = {
-	candidates: [],
-	counts: {
-		ambiguous: 0,
-		customized: 0,
-		standard: 0
+}), Ig = { class: "tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:gap-4 tw:p-3" }, Lg = {
+	key: 0,
+	role: "alert",
+	class: "tw:text-error tw:text-sm"
+}, Rg = ["disabled"], zg = {
+	key: 0,
+	class: "tw:min-w-0 tw:flex-1 tw:text-sm"
+}, Bg = ["onUpdate:modelValue"], Vg = { class: "tw:flex tw:items-center tw:gap-1 tw:text-sm" }, Hg = ["onUpdate:modelValue", "aria-label"], Ug = ["aria-label", "onClick"], Wg = {
+	key: 3,
+	class: "tw:w-8"
+}, Gg = { class: "tw:flex tw:flex-wrap tw:gap-2 tw:border-t tw:border-base-content/15 tw:pt-3" }, Kg = ["disabled"], qg = ["disabled"], Jg = ["disabled"], Yg = /* @__PURE__ */ L({
+	__name: "PartyZonesApp",
+	props: {
+		initialConfiguration: {},
+		actions: {}
 	},
-	remappableSlots: [],
-	version: 1,
-	warnings: []
-}) {
-	let i = [
-		Xv(e, t, "sessionReference", "sessionID", "Session reference"),
-		Xv(e, t, "defaultXpAmount", "addXPDefaultAmount", "XP amount"),
-		Xv(e, t, "defaultXpSelection", "defaultPartySessionTurnover", "Recipients"),
-		Xv(e, t, "defaultXpReason", "addXPDefaultReason", "XP reason"),
-		...Uv.slice(4).map((n) => qv(e, t.featureSettings ?? {}, n))
-	];
-	return {
-		darkWhispers: n,
-		dispositionCounts: ry(e.settings, "disposition", [
-			"import",
-			"pending",
-			"retire",
-			"skip",
-			"supersede"
-		]),
-		imports: i,
-		launchers: r,
-		source: e,
-		sourceCounts: ry(e.settings, "source", [
-			"baseline",
-			"persisted",
-			"registered"
-		]),
-		version: 1
-	};
-}
-function qv(e, t, n) {
-	let r = ey(e.settings.find((e) => e.key === n)?.value), i = t[n] ?? "";
-	return {
-		comparison: $v(i, r),
-		currentValue: i,
-		field: n,
-		label: Wv[n] ?? n,
-		sourceKey: n,
-		sourceValue: r
-	};
-}
-function Jv(e) {
-	if (!Z(e) || e.schemaVersion !== "9.2.0") return;
-	let t = Array.isArray(e.settings) ? e.settings.flatMap(ny) : [];
-	if (!t.length) return;
-	let n = X(e.moduleVersion);
-	return {
-		active: e.active === !0,
-		installed: e.installed === !0,
-		...n ? { moduleVersion: n } : {},
-		schemaVersion: "9.2.0",
-		settings: t,
-		warnings: Array.isArray(e.warnings) ? e.warnings.filter((e) => typeof e == "string") : []
-	};
-}
-function Yv(e) {
-	return typeof e == "string" && Uv.includes(e);
-}
-function Xv(e, t, n, r, i) {
-	let a = Zv(n, e.settings.find((e) => e.key === r)?.value), o = Qv(n, t);
-	return {
-		comparison: $v(o, a),
-		currentValue: o,
-		field: n,
-		label: i,
-		sourceKey: r,
-		sourceValue: a
-	};
-}
-function Zv(e, t) {
-	if (e === "defaultXpAmount") {
-		let e = Number(t);
-		return Number.isFinite(e) ? Math.round(e) : 0;
+	setup(e) {
+		let t = e, n = Fg();
+		n.initialize(t.initialConfiguration, t.actions), t.actions.bindCloseGuard(n.canClose);
+		let { configuration: r, error: i, busy: a } = qs(n);
+		return (e, t) => (B(), V("main", Ig, [
+			t[8] ||= H("p", { class: "tw:m-0 tw:text-sm tw:opacity-70" }, "Set the zones and their shares of Party XP.", -1),
+			F(i) ? (B(), V("p", Lg, k(F(i)), 1)) : G("", !0),
+			H("form", {
+				id: "party-zones-form",
+				class: "tw:min-h-0 tw:flex-1 tw:overflow-auto",
+				onSubmit: t[1] ||= ss((...e) => F(n).apply && F(n).apply(...e), ["prevent"])
+			}, [H("fieldset", {
+				disabled: F(a),
+				class: "tw:m-0 tw:grid tw:gap-3 tw:border-0 tw:p-0"
+			}, [(B(!0), V(z, null, R(F(r).categories, (e) => (B(), V("div", {
+				key: e.id,
+				class: "tw:flex tw:items-center tw:gap-2"
+			}, [
+				["party", "companions"].includes(e.id) ? (B(), V("strong", zg, k(e.name), 1)) : I((B(), V("input", {
+					key: 1,
+					"onUpdate:modelValue": (t) => e.name = t,
+					"aria-label": "Zone name",
+					required: "",
+					class: "tw:dui-input tw:dui-input-sm tw:min-w-0 tw:flex-1"
+				}, null, 8, Bg)), [[q, e.name]]),
+				H("label", Vg, [I(H("input", {
+					"onUpdate:modelValue": (t) => e.xpPercent = t,
+					"aria-label": `${e.name} XP percentage`,
+					type: "number",
+					min: "0",
+					step: "any",
+					required: "",
+					class: "tw:dui-input tw:dui-input-sm tw:w-20"
+				}, null, 8, Hg), [[
+					q,
+					e.xpPercent,
+					void 0,
+					{ number: !0 }
+				]]), t[4] ||= H("span", null, "% XP", -1)]),
+				["party", "companions"].includes(e.id) ? (B(), V("span", Wg)) : (B(), V("button", {
+					key: 2,
+					type: "button",
+					"aria-label": `Remove ${e.name} zone`,
+					class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm tw:dui-btn-square",
+					onClick: (t) => F(n).remove(e.id)
+				}, [...t[5] ||= [H("i", {
+					class: "fa-solid fa-trash",
+					"aria-hidden": "true"
+				}, null, -1)]], 8, Ug))
+			]))), 128)), H("button", {
+				type: "button",
+				class: "tw:dui-btn tw:dui-btn-sm tw:justify-self-start",
+				onClick: t[0] ||= (...e) => F(n).add && F(n).add(...e)
+			}, [...t[6] ||= [H("i", {
+				class: "fa-solid fa-plus",
+				"aria-hidden": "true"
+			}, null, -1), W(" Add zone ", -1)]])], 8, Rg)], 32),
+			H("footer", Gg, [
+				H("button", {
+					type: "button",
+					disabled: F(a),
+					class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm",
+					onClick: t[2] ||= (...e) => F(n).reset && F(n).reset(...e)
+				}, " Reset party… ", 8, Kg),
+				t[7] ||= H("span", { class: "tw:flex-1" }, null, -1),
+				H("button", {
+					type: "button",
+					disabled: F(a),
+					class: "tw:dui-btn tw:dui-btn-sm",
+					onClick: t[3] ||= (...e) => F(n).cancel && F(n).cancel(...e)
+				}, " Cancel ", 8, qg),
+				H("button", {
+					type: "submit",
+					form: "party-zones-form",
+					disabled: F(a),
+					class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-sm"
+				}, " Apply zones ", 8, Jg)
+			])
+		]));
 	}
-	return e === "defaultXpSelection" ? t === "company" ? "company" : "party" : typeof t == "string" && t !== "null" ? t : "";
-}
-function Qv(e, t) {
-	switch (e) {
-		case "sessionReference": return t.sessionReference;
-		case "defaultXpAmount": return t.xpAwardSettings.defaultAmount;
-		case "defaultXpReason": return t.xpAwardSettings.defaultReason;
-		case "defaultXpSelection": return t.xpAwardSettings.defaultSelection;
+}), Xg = class extends Uc {
+	configuration;
+	finish;
+	static ACCESS_POLICY = Y.configureParty;
+	static DEFAULT_OPTIONS = {
+		...super.DEFAULT_OPTIONS,
+		position: {
+			width: 440,
+			height: 380
+		},
+		window: {
+			title: "Party Zones",
+			icon: "fa-solid fa-gear",
+			resizable: !0
+		}
+	};
+	result = null;
+	closeGuard;
+	closing = !1;
+	constructor(e, t) {
+		super(), this.configuration = e, this.finish = t;
 	}
-}
-function $v(e, t) {
-	return e === t ? "same" : e === "" ? "target-empty" : "different";
-}
-function ey(e) {
-	return typeof e == "boolean" || typeof e == "number" || typeof e == "string" ? e : "";
-}
-function ty(e, t) {
-	if (e.kind === "array") return Array.isArray(t) ? {
-		valid: !0,
-		value: t
-	} : {
-		valid: !1,
-		value: e.defaultValue
-	};
-	if (e.kind === "boolean") return typeof t == "boolean" ? {
-		valid: !0,
-		value: t
-	} : {
-		valid: !1,
-		value: e.defaultValue
-	};
-	if (e.kind === "number") {
-		let n = Number(t);
-		return Number.isFinite(n) ? {
-			valid: !0,
-			value: n
-		} : {
-			valid: !1,
-			value: e.defaultValue
+	getVueComponent() {
+		return Yg;
+	}
+	async close() {
+		if (this.closing) return this;
+		this.closing = !0;
+		try {
+			return this.closeGuard && !await this.closeGuard() ? this : await super.close();
+		} finally {
+			this.closing = !1;
+		}
+	}
+	getVueProps() {
+		return {
+			initialConfiguration: this.configuration,
+			actions: {
+				apply: (e) => {
+					this.result = e;
+				},
+				reset: kg,
+				remove: Ng,
+				bindCloseGuard: (e) => {
+					this.closeGuard = e;
+				},
+				confirmClose: () => Pg(!0),
+				close: () => {
+					this.close();
+				}
+			}
 		};
 	}
-	return typeof t == "string" ? {
-		valid: !0,
-		value: t
-	} : {
-		valid: !1,
-		value: e.defaultValue
+	async _preClose(e) {
+		await super._preClose(e), this.finish(this.result);
+	}
+}, Zg = Ks("configure-party", () => {
+	let e = /* @__PURE__ */ P({
+		version: 1,
+		categories: []
+	}), t = /* @__PURE__ */ P([]), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P(!1), i = /* @__PURE__ */ P(""), a = K(() => JSON.stringify(e.value) !== i.value), o;
+	function s(n, r) {
+		e.value = structuredClone(n.configuration), t.value = structuredClone(n.actors), o = r, i.value = JSON.stringify(e.value);
+	}
+	function c(t, n) {
+		e.value = bg(e.value, t, n);
+	}
+	function l(t) {
+		for (let n of e.value.categories) n.actorIds = n.actorIds.filter((e) => e !== t);
+	}
+	function u(e, n) {
+		t.value.some((t) => t.id === e.id) || t.value.push(e), c(e.id, n);
+	}
+	async function d(e, t) {
+		await _(async () => u(await o.resolveDrop(e), t));
+	}
+	async function f(t) {
+		await _(async () => {
+			let n = e.value.categories.find((e) => e.id === t), r = await o.pickActor(n);
+			r && u(r, t);
+		});
+	}
+	async function p() {
+		await _(async () => {
+			let t = await o.configure(vg(e.value));
+			t && (e.value = vg(t));
+		});
+	}
+	async function m() {
+		await _(h) && o.close();
+	}
+	async function h() {
+		await o.save(vg(e.value)), i.value = JSON.stringify(e.value);
+	}
+	async function g() {
+		if (r.value) return !1;
+		if (!a.value) return !0;
+		let e = !1;
+		return await _(async () => {
+			let t = await o.confirmClose();
+			t === "save" && await h(), e = t === "save" || t === "discard";
+		}) && e;
+	}
+	async function _(e) {
+		if (r.value) return !1;
+		r.value = !0, n.value = "";
+		try {
+			return await e(), !0;
+		} catch (e) {
+			return n.value = e instanceof Error ? e.message : "Could not update the party.", !1;
+		} finally {
+			r.value = !1;
+		}
+	}
+	return {
+		configuration: e,
+		actors: t,
+		error: n,
+		busy: r,
+		isDirty: a,
+		canClose: g,
+		initialize: s,
+		moveActor: c,
+		removeActor: l,
+		drop: d,
+		addActor: f,
+		configure: p,
+		save: m,
+		cancel: () => o.close()
 	};
+}), Qg = { class: "tw:flex tw:items-center tw:justify-between tw:gap-3" }, $g = ["disabled"], e_ = {
+	key: 0,
+	class: "tw:m-0 tw:text-error tw:text-sm",
+	role: "alert"
+}, t_ = { class: "party-zones tw:min-h-0 tw:flex-1 tw:overflow-auto" }, n_ = [
+	"data-party-category",
+	"aria-label",
+	"onDragover",
+	"onDrop"
+], r_ = { class: "tw:mb-3 tw:flex tw:items-center tw:justify-between tw:gap-2" }, i_ = { class: "tw:m-0 tw:font-sans tw:text-sm tw:font-semibold" }, a_ = { class: "tw:text-xs tw:opacity-60" }, o_ = { class: "party-portraits" }, s_ = [
+	"disabled",
+	"draggable",
+	"data-party-actor",
+	"data-tooltip",
+	"aria-label",
+	"onDragstart"
+], c_ = ["src"], l_ = {
+	key: 0,
+	class: "fa-solid fa-triangle-exclamation party-missing-marker",
+	"aria-hidden": "true"
+}, u_ = [
+	"disabled",
+	"aria-label",
+	"title",
+	"onClick"
+], d_ = {
+	key: 0,
+	class: "party-empty tw:text-xs tw:opacity-50"
+}, f_ = { class: "tw:flex tw:justify-end tw:gap-2 tw:border-t tw:border-base-content/15 tw:pt-3" }, p_ = ["disabled"], m_ = ["disabled"], h_ = /*#__PURE__*/ ((e, t) => {
+	let n = e.__vccOpts || e;
+	for (let [e, r] of t) n[e] = r;
+	return n;
+})(/* @__PURE__ */ L({
+	__name: "ConfigurePartyApp",
+	props: {
+		initialization: {},
+		actions: {}
+	},
+	setup(e) {
+		let t = e, n = Zg();
+		n.initialize(t.initialization, t.actions), t.actions.bindCloseGuard(n.canClose);
+		let { configuration: r, actors: i, error: a, busy: o } = qs(n), s = /* @__PURE__ */ P(), c = /* @__PURE__ */ P(""), l = K(() => new Map(i.value.map((e) => [e.id, e]))), u = (e) => l.value.get(e)?.name || `Missing actor (${e})`, d;
+		Rr(() => {
+			d = t.actions.bindMenu(s.value, {
+				categories: () => r.value.categories,
+				busy: () => o.value,
+				move: n.moveActor,
+				remove: n.removeActor
+			});
+		}), Vr(() => d?.());
+		function f(e, t) {
+			e.dataTransfer && !o.value && (e.dataTransfer.effectAllowed = "move", e.dataTransfer.setData("text/plain", JSON.stringify({
+				type: "Actor",
+				uuid: `Actor.${t}`
+			})));
+		}
+		function p(e, t) {
+			c.value = "";
+			let r = e.dataTransfer?.getData("text/plain");
+			r && !o.value && n.drop(r, t);
+		}
+		function m(e) {
+			let t = e.currentTarget;
+			if (!(t instanceof HTMLElement)) return;
+			let { left: n, bottom: r } = t.getBoundingClientRect();
+			t.dispatchEvent(new MouseEvent("contextmenu", {
+				bubbles: !0,
+				cancelable: !0,
+				clientX: n,
+				clientY: r
+			}));
+		}
+		function h(e) {
+			(e.key === "ContextMenu" || e.shiftKey && e.key === "F10") && (e.preventDefault(), m(e));
+		}
+		return (e, t) => (B(), V("main", {
+			ref_key: "root",
+			ref: s,
+			class: "party-gallery tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:gap-3 tw:p-3"
+		}, [
+			H("header", Qg, [t[6] ||= H("p", { class: "tw:m-0 tw:text-xs tw:opacity-60" }, " Drag actors between zones. Right-click for actions. ", -1), H("button", {
+				type: "button",
+				disabled: F(o),
+				"aria-label": "Configure party zones",
+				title: "Configure party zones",
+				class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-sm tw:dui-btn-square",
+				onClick: t[0] ||= (...e) => F(n).configure && F(n).configure(...e)
+			}, [...t[5] ||= [H("i", {
+				class: "fa-solid fa-gear",
+				"aria-hidden": "true"
+			}, null, -1)]], 8, $g)]),
+			F(a) ? (B(), V("p", e_, k(F(a)), 1)) : G("", !0),
+			H("div", t_, [(B(!0), V(z, null, R(F(r).categories, (e) => (B(), V("section", {
+				key: e.id,
+				"data-party-category": e.id,
+				"aria-label": e.name,
+				class: ke(["party-zone", { "party-zone-over": c.value === e.id }]),
+				onDragover: ss((t) => c.value = e.id, ["prevent"]),
+				onDragleave: t[2] ||= ss((e) => c.value = "", ["self"]),
+				onDrop: ss((t) => p(t, e.id), ["prevent"])
+			}, [H("header", r_, [H("h2", i_, k(e.name), 1), H("span", a_, k(e.xpPercent) + "% XP", 1)]), H("div", o_, [
+				(B(!0), V(z, null, R(e.actorIds, (e) => (B(), V("button", {
+					key: e,
+					type: "button",
+					disabled: F(o),
+					draggable: !F(o),
+					"data-party-actor": e,
+					"data-tooltip": F(Kh)(u(e)),
+					"aria-label": u(e),
+					"aria-haspopup": "menu",
+					class: ke(["party-portrait", { "party-portrait-missing": !l.value.has(e) }]),
+					onDragstart: (t) => f(t, e),
+					onDragend: t[1] ||= (e) => c.value = "",
+					onClick: ss(m, ["stop"]),
+					onKeydown: h
+				}, [H("img", {
+					src: l.value.get(e)?.img || "icons/svg/mystery-man.svg",
+					alt: "",
+					draggable: "false"
+				}, null, 8, c_), l.value.has(e) ? G("", !0) : (B(), V("i", l_))], 42, s_))), 128)),
+				H("button", {
+					type: "button",
+					disabled: F(o),
+					class: "party-portrait party-add",
+					"aria-label": `Add actor to ${e.name}`,
+					title: `Add actor to ${e.name}`,
+					onClick: (t) => F(n).addActor(e.id)
+				}, [...t[7] ||= [H("i", {
+					class: "fa-solid fa-plus",
+					"aria-hidden": "true"
+				}, null, -1)]], 8, u_),
+				e.actorIds.length ? G("", !0) : (B(), V("span", d_, "Drop actors here"))
+			])], 42, n_))), 128))]),
+			H("footer", f_, [H("button", {
+				type: "button",
+				disabled: F(o),
+				class: "tw:dui-btn tw:dui-btn-sm",
+				onClick: t[3] ||= (...e) => F(n).cancel && F(n).cancel(...e)
+			}, " Cancel ", 8, p_), H("button", {
+				type: "button",
+				disabled: F(o),
+				class: "tw:dui-btn tw:dui-btn-primary tw:dui-btn-sm",
+				onClick: t[4] ||= (...e) => F(n).save && F(n).save(...e)
+			}, " Save party ", 8, m_)])
+		], 512));
+	}
+}), [["__scopeId", "data-v-505a04cd"]]), g_ = class e extends Uc {
+	static ACCESS_POLICY = Y.configureParty;
+	static DEFAULT_OPTIONS = {
+		...super.DEFAULT_OPTIONS,
+		id: `${r}-configure-party`,
+		position: {
+			width: 500,
+			height: 620
+		},
+		window: {
+			title: "Configure Party",
+			icon: "fa-solid fa-people-group",
+			resizable: !0
+		}
+	};
+	initialization;
+	zones;
+	closeGuard;
+	closing = !1;
+	async configureZones(e) {
+		let t, n = new Promise((e) => {
+			t = e;
+		});
+		this.zones = new Xg(e, t);
+		try {
+			return await this.zones.render(!0), await n;
+		} finally {
+			this.zones = void 0;
+		}
+	}
+	async close() {
+		if (this.closing) return this;
+		this.closing = !0;
+		try {
+			let e = this.zones;
+			return await e?.close(), e?.rendered || this.closeGuard && !await this.closeGuard() ? this : await super.close();
+		} finally {
+			this.closing = !1;
+		}
+	}
+	async render(t) {
+		return e.canCurrentUserAccess() && (this.initialization = await Dg()), super.render(t);
+	}
+	getVueComponent() {
+		return h_;
+	}
+	getVueProps() {
+		return {
+			initialization: this.initialization,
+			actions: {
+				resolveDrop: Og,
+				save: Eg,
+				configure: (e) => this.configureZones(e),
+				bindMenu: Ag,
+				pickActor: Mg,
+				bindCloseGuard: (e) => {
+					this.closeGuard = e;
+				},
+				confirmClose: () => Pg(),
+				close: () => {
+					this.close();
+				}
+			}
+		};
+	}
+};
+async function __() {
+	let e = new g_();
+	return await e.render(!0), e;
 }
-function ny(e) {
-	if (!Z(e)) return [];
-	let t = e.disposition, n = e.family, r = e.source, i = e.value;
-	return !iy(t) || !ay(n) || !oy(r) || !sy(i) ? [] : [{
-		disposition: t,
-		family: n,
-		key: X(e.key),
-		source: r,
-		valid: e.valid === !0,
-		value: i
-	}];
-}
-function ry(e, t, n) {
-	return Object.fromEntries(n.map((n) => [n, e.filter((e) => e[t] === n).length]));
-}
-function iy(e) {
-	return [
-		"import",
-		"pending",
-		"retire",
-		"skip",
-		"supersede"
-	].includes(String(e));
-}
-function ay(e) {
-	return [
-		"advantage",
-		"dark-whispers",
-		"group-tests",
-		"session",
-		"spectators",
-		"token-hud",
-		"vision"
-	].includes(String(e));
-}
-function oy(e) {
-	return [
-		"baseline",
-		"persisted",
-		"registered"
-	].includes(String(e));
-}
-function sy(e) {
-	return [
-		"boolean",
-		"number",
-		"string"
-	].includes(typeof e) || Array.isArray(e);
-}
-//#endregion
-//#region src/types/xp-award/XpAward.ts
-var cy = {
+// src/types/xp-award/XpAward.ts
+var v_ = {
 	batches: [],
 	version: 1
-}, ly = 500;
-function uy(e, t) {
+}, y_ = 500;
+function b_(e, t) {
 	return {
-		batches: [t, ...e.batches].slice(0, ly),
+		batches: [t, ...e.batches].slice(0, y_),
 		version: 1
 	};
 }
-function dy(e) {
-	if (typeof e != "string") return {
-		...cy,
+function x_(e) {
+	if (e === void 0) return {
+		...v_,
 		batches: []
 	};
+	if (typeof e != "string") throw Error("XP audit history is unreadable. No XP was applied.");
 	try {
 		let t = JSON.parse(e);
-		return !Z(t) || t.version !== 1 || !Array.isArray(t.batches) ? {
-			...cy,
-			batches: []
-		} : {
-			batches: t.batches.flatMap(fy).slice(0, ly),
+		if (!$(t) || t.version !== 1 || !Array.isArray(t.batches)) throw Error("Unsupported XP audit history.");
+		let n = t.batches.flatMap(S_);
+		if (n.length !== t.batches.length || t.batches.some((e, t) => !$(e) || !Array.isArray(e.awards) || e.awards.length !== n[t]?.awards.length)) throw Error("XP audit history contains invalid records.");
+		return {
+			batches: n.slice(0, y_),
 			version: 1
 		};
 	} catch {
-		return {
-			...cy,
-			batches: []
-		};
+		throw Error("XP audit history is unreadable or unsupported. It has not been overwritten; no XP was applied.");
 	}
 }
-function fy(e) {
-	if (!Z(e) || !Array.isArray(e.awards)) return [];
-	let t = $f(e.awardedAt), n = X(e.id), r = X(e.reason), i = X(e.sessionReference), a = e.awards.flatMap(py);
+function S_(e) {
+	if (!$(e) || !Array.isArray(e.awards)) return [];
+	let t = Sp(e.awardedAt), n = Q(e.id), r = Q(e.reason), i = Q(e.sessionReference), a = e.awards.flatMap(C_);
 	return !t || !n || a.length === 0 ? [] : [{
 		awardedAt: t,
 		awards: a,
@@ -8244,103 +7940,91 @@ function fy(e) {
 		totalChange: a.reduce((e, t) => e + t.amount, 0)
 	}];
 }
-function py(e) {
-	if (!Z(e)) return [];
+function C_(e) {
+	if (!$(e)) return [];
 	let t = e.category, n = Number(e.amount), r = Number(e.beforeXp), i = Number(e.afterXp);
 	return t !== "standard" && t !== "companion" || !Number.isFinite(n) || !Number.isFinite(r) || !Number.isFinite(i) ? [] : [{
-		actorId: X(e.actorId),
-		actorName: X(e.actorName),
+		actorId: Q(e.actorId),
+		actorName: Q(e.actorName),
 		afterXp: Math.round(i),
 		amount: Math.round(n),
 		beforeXp: Math.round(r),
 		category: t
 	}];
 }
-//#endregion
-//#region src/module/xp-award/settings/keys.ts
-var my = {
+// src/module/foundry/xp-award/settings/keys.ts
+var w_ = {
 	auditLog: "xpAwardAuditLog",
 	defaultAmount: "xpAwardDefaultAmount",
 	defaultReason: "xpAwardDefaultReason",
 	defaultSelection: "xpAwardDefaultSelection",
 	includeTimestampInReason: "xpAwardIncludeTimestampInReason"
 };
-//#endregion
-//#region src/module/xp-award/settings/load.ts
-function hy() {
+// src/module/foundry/xp-award/settings/load.ts
+function T_() {
 	return {
-		defaultAmount: Math.round(Number(game.settings.get(q, my.defaultAmount))),
-		defaultReason: yy(my.defaultReason),
-		defaultSelection: by(),
-		includeTimestampInReason: game.settings.get(q, my.includeTimestampInReason) === !0
+		defaultAmount: Math.round(Number(game.settings.get(r, w_.defaultAmount))),
+		defaultReason: k_(w_.defaultReason),
+		defaultSelection: A_(),
+		includeTimestampInReason: game.settings.get(r, w_.includeTimestampInReason) === !0
 	};
 }
-async function gy(e) {
+async function E_(e) {
 	let t = [
-		[my.defaultAmount, Math.round(e.defaultAmount)],
-		[my.defaultReason, e.defaultReason],
-		[my.defaultSelection, e.defaultSelection],
-		[my.includeTimestampInReason, e.includeTimestampInReason]
+		[w_.defaultAmount, Math.round(e.defaultAmount)],
+		[w_.defaultReason, e.defaultReason],
+		[w_.defaultSelection, e.defaultSelection],
+		[w_.includeTimestampInReason, e.includeTimestampInReason]
 	];
-	for (let [e, n] of t) await game.settings.set(q, e, n);
+	for (let [e, n] of t) await game.settings.set(r, e, n);
 }
-function _y() {
-	return dy(game.settings.get(q, my.auditLog));
+function D_() {
+	return x_(game.settings.get(r, w_.auditLog));
 }
-async function vy(e) {
-	await game.settings.set(q, my.auditLog, JSON.stringify(e));
+async function O_(e) {
+	await game.settings.set(r, w_.auditLog, JSON.stringify(e));
 }
-function yy(e) {
-	let t = game.settings.get(q, e);
+function k_(e) {
+	let t = game.settings.get(r, e);
 	return typeof t == "string" ? t : "";
 }
-function by() {
-	let e = yy(my.defaultSelection);
+function A_() {
+	let e = k_(w_.defaultSelection);
 	return e === "company" || e === "world" ? e : "party";
 }
-//#endregion
-//#region src/functions/xp-curve/reason.ts
-function xy(e, t) {
-	return e.replaceAll("%session%", t.session).replaceAll("%date%", t.date).replaceAll("%datetime%", t.datetime ?? "").replace(/\s+\(\s*\)\s*/g, " ").replace(/\s{2,}/g, " ").trim();
-}
-function Sy(e) {
-	return e.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&#039;");
-}
-//#endregion
-//#region src/functions/xp-award/reason.ts
-function Cy(e, t, n) {
+// src/module/functions/xp-award/reason.ts
+function j_(e, t, n) {
 	let r = e;
-	return n && !r.includes("%datetime%") && (r = r.trim() ? `${r} — awarded %datetime%` : "Awarded %datetime%"), xy(r, t);
+	return n && !r.includes("%datetime%") && (r = r.trim() ? `${r} — awarded %datetime%` : "Awarded %datetime%"), Gh(r, t);
 }
-function wy(e) {
+function M_(e) {
 	return `${e.slice(0, 10)} ${e.slice(11, 19)} UTC`;
 }
-//#endregion
-//#region src/functions/session-management/submission.ts
-function Ty(e) {
+// src/module/functions/session-management/submission.ts
+function N_(e) {
 	let t = Number(e);
 	if (!e.trim() || !Number.isSafeInteger(t) || t < 0 || !Number.isSafeInteger(t + 1)) throw Error("Enter a whole session number of zero or more.");
 	return String(t + 1);
 }
-function Ey(e, t, n) {
+function P_(e, t, n) {
 	let r = new Date(n);
 	if (Number.isNaN(r.getTime())) throw Error("Enter a valid session date and time.");
 	let i = r.toISOString();
-	return Cy(e.defaultReason, {
+	return j_(e.defaultReason, {
 		date: n.slice(0, 10),
-		datetime: wy(i),
+		datetime: M_(i),
 		session: t.trim()
 	}, e.includeTimestampInReason);
 }
-function Dy(e) {
+function F_(e) {
 	if (Number.isNaN(new Date(e.occurredAt).getTime())) throw Error("Enter a valid session date and time.");
 	if (e.xp) {
-		if (e.nextSessionReference !== Ty(e.sessionReference)) throw Error("The next session must be one higher than the submitted session number.");
+		if (e.nextSessionReference !== N_(e.sessionReference)) throw Error("The next session must be one higher than the submitted session number.");
 		if (!Number.isSafeInteger(e.xp.defaultAmount) || e.xp.defaultAmount < 0) throw Error("Enter a whole Session XP amount of zero or more.");
 		if (e.xpAward && !e.xp.actorIds.length) throw Error("Select at least one XP recipient, or enter 0 XP.");
 	}
 }
-function Oy(e) {
+function I_(e) {
 	if (!e || typeof e != "object") return;
 	let t = e;
 	if (![
@@ -8362,69 +8046,26 @@ function Oy(e) {
 	].includes(String(n.defaultSelection)))) return;
 	let r = e;
 	try {
-		return Dy(r), r;
+		return F_(r), r;
 	} catch {
 		return;
 	}
 }
-function ky(e, t) {
+function L_(e, t) {
 	let n = new Date(t), r = Number.isNaN(n.getTime()) ? "Choose a date and time" : new Intl.DateTimeFormat(void 0, {
 		dateStyle: "medium",
 		timeStyle: "short"
 	}).format(n);
 	return `Session ${e || "—"} · ${r}`;
 }
-//#endregion
-//#region src/types/session-management/SessionManagement.ts
-var Ay = {
+// src/types/session-management/SessionManagement.ts
+var R_ = {
 	currentSessionReference: "",
 	sessions: [],
 	version: 1
-}, jy = { version: 1 };
-//#endregion
-//#region src/functions/gm-toolkit/state.ts
-function My(e) {
-	let t = Py(e);
-	if (!t || t.version !== 1) return { ...jy };
-	let n = Ny(t.migration), r = Iv(t.cutoverReview);
-	return {
-		...r ? { cutoverReview: r } : {},
-		...n ? { migration: n } : {},
-		version: 1
-	};
-}
-function Ny(e) {
-	if (!Z(e) || !Z(e.xpAwardSettings)) return;
-	let t = $f(e.importedAt), n = X(e.sessionReference), r = e.xpAwardSettings, i = r.defaultSelection;
-	if (!t || i !== "party" && i !== "company" && i !== "world" || !Number.isFinite(Number(r.defaultAmount))) return;
-	let a = Jv(e.source), o = Array.isArray(e.appliedFields) ? e.appliedFields.filter(Yv) : void 0;
-	return {
-		...o ? { appliedFields: o } : {},
-		importedAt: t,
-		sessionReference: n,
-		...a ? { source: a } : {},
-		...e.version === 2 ? { version: 2 } : {},
-		xpAwardSettings: {
-			defaultAmount: Math.round(Number(r.defaultAmount)),
-			defaultReason: X(r.defaultReason),
-			defaultSelection: i,
-			includeTimestampInReason: r.includeTimestampInReason === !0
-		}
-	};
-}
-function Py(e) {
-	if (typeof e == "string") try {
-		let t = JSON.parse(e);
-		return Z(t) ? t : void 0;
-	} catch {
-		return;
-	}
-}
-//#endregion
-//#region src/functions/session-management/session.ts
-var Fy = 500;
-function Iy(e, t, n) {
-	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = Ky(t.occurredAt, "session occurrence"), o = Ky(n.recordedAt, "session record");
+}, z_ = 500;
+function B_(e, t, n) {
+	let r = t.sessionReference.trim(), i = t.nextSessionReference.trim(), a = Q_(t.occurredAt, "session occurrence"), o = Q_(n.recordedAt, "session record");
 	if (!r) throw Error("Enter the session reference that is being completed.");
 	if (!i) throw Error("Enter the next session reference.");
 	let s = {
@@ -8438,41 +8079,39 @@ function Iy(e, t, n) {
 		state: {
 			...e,
 			currentSessionReference: i,
-			sessions: [s, ...e.sessions].slice(0, Fy)
+			sessions: [s, ...e.sessions].slice(0, z_)
 		}
 	};
 }
-function Ly(e) {
-	let t = Gy(e);
+function V_(e) {
+	let t = Z_(e);
 	if (!t || t.version !== 1) return {
-		...Ay,
+		...R_,
 		sessions: []
 	};
-	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(Vy).slice(0, Fy) : [], r = Ny(t.gmToolkitMigration), i = Iv(t.gmToolkitCutoverReview), a = Hy(t.turnover);
+	let n = Array.isArray(t.sessions) ? t.sessions.flatMap(G_).slice(0, z_) : [], r = K_(t.turnover);
 	return {
-		currentSessionReference: X(t.currentSessionReference),
-		...i ? { gmToolkitCutoverReview: i } : {},
-		...r ? { gmToolkitMigration: r } : {},
+		currentSessionReference: Q(t.currentSessionReference),
 		sessions: n,
-		...a ? { turnover: a } : {},
+		...r ? { turnover: r } : {},
 		version: 1
 	};
 }
-function Ry(e, t, n, r) {
-	let i = t.trim(), a = Ky(n, "turnover start");
+function H_(e, t, n, r) {
+	let i = t.trim(), a = Q_(n, "turnover start");
 	if (!e || !i) throw Error("A turnover ID and session reference are required.");
 	return {
 		id: e,
 		sessionReference: i,
 		startedAt: a,
-		steps: By.map((e) => ({
+		steps: W_.map((e) => ({
 			id: e,
 			status: r.has(e) ? "pending" : "skipped"
 		}))
 	};
 }
-function zy(e, t, n, r, i) {
-	let a = Ky(r, "turnover step");
+function U_(e, t, n, r, i) {
+	let a = Q_(r, "turnover step");
 	return {
 		...e,
 		steps: e.steps.map((e) => e.id === t ? {
@@ -8483,7 +8122,7 @@ function zy(e, t, n, r, i) {
 		} : { ...e })
 	};
 }
-var By = [
+var W_ = [
 	"pause",
 	"holding-scene",
 	"xp",
@@ -8491,9 +8130,9 @@ var By = [
 	"chat-export",
 	"record"
 ];
-function Vy(e) {
-	if (!Z(e)) return [];
-	let t = X(e.id), n = $f(e.occurredAt), r = $f(e.recordedAt), i = X(e.reference);
+function G_(e) {
+	if (!$(e)) return [];
+	let t = Q(e.id), n = Sp(e.occurredAt), r = Sp(e.recordedAt), i = Q(e.reference);
 	return t && n && r && i ? [{
 		id: t,
 		occurredAt: n,
@@ -8501,32 +8140,46 @@ function Vy(e) {
 		reference: i
 	}] : [];
 }
-function Hy(e) {
-	if (!Z(e) || !Array.isArray(e.steps)) return;
-	let t = X(e.id), n = X(e.sessionReference), r = $f(e.startedAt), i = e.steps.flatMap((e) => {
-		if (!Z(e)) return [];
-		let t = X(e.id), n = X(e.status);
-		if (!Uy(t) || !Wy(n)) return [];
-		let r = $f(e.finishedAt), i = X(e.detail);
+function K_(e) {
+	if (!$(e) || !Array.isArray(e.steps)) return;
+	let t = Q(e.id), n = Q(e.sessionReference), r = Sp(e.startedAt), i = e.steps.flatMap((e) => {
+		if (!$(e)) return [];
+		let t = Q(e.id), n = Q(e.status);
+		if (!Y_(t) || !X_(n)) return [];
+		let r = Sp(e.finishedAt), i = Q(e.detail);
 		return [{
 			id: t,
 			status: n,
 			...r ? { finishedAt: r } : {},
 			...i ? { detail: i } : {}
 		}];
-	}), a = Oy(e.request);
-	return t && n && r && i.length === By.length ? {
+	}), a = I_(e.request), o = J_(e.xpApplied), s = q_(e.xpLogBaseline);
+	return t && n && r && i.length === W_.length ? {
 		id: t,
 		sessionReference: n,
 		startedAt: r,
 		steps: i,
-		...a ? { request: a } : {}
+		...a ? { request: a } : {},
+		...o.length ? { xpApplied: o } : {},
+		...s ? { xpLogBaseline: s } : {}
 	} : void 0;
 }
-function Uy(e) {
-	return By.includes(e);
+function q_(e) {
+	if (e !== void 0) {
+		if (!$(e) || Array.isArray(e) || Object.values(e).some((e) => !Number.isSafeInteger(e) || Number(e) < 0)) throw Error("The saved session turnover's XP progress is unreadable. Check the actors' XP before continuing.");
+		return e;
+	}
 }
-function Wy(e) {
+function J_(e) {
+	if (e === void 0) return [];
+	let t = Array.isArray(e) ? e.flatMap(C_) : [];
+	if (!Array.isArray(e) || t.length !== e.length || t.some((e) => !e.actorId)) throw Error("The saved session turnover's XP progress is unreadable. Check the actors' XP before continuing.");
+	return t;
+}
+function Y_(e) {
+	return W_.includes(e);
+}
+function X_(e) {
 	return [
 		"completed",
 		"failed",
@@ -8534,66 +8187,64 @@ function Wy(e) {
 		"skipped"
 	].includes(e);
 }
-function Gy(e) {
+function Z_(e) {
 	if (typeof e == "string") try {
 		let t = JSON.parse(e);
-		return Z(t) ? t : void 0;
+		return $(t) ? t : void 0;
 	} catch {
 		return;
 	}
 }
-function Ky(e, t) {
+function Q_(e, t) {
 	let n = new Date(e);
 	if (Number.isNaN(n.getTime())) throw Error(`Enter a valid ${t} date and time.`);
 	return n.toISOString();
 }
-//#endregion
-//#region src/module/session-management/settings/keys.ts
-var qy = {
+// src/module/foundry/session-management/settings/keys.ts
+var $_ = {
 	options: "sessionTurnoverOptions",
 	exportChat: "sessionExportChat",
 	holdingSceneUuid: "sessionHoldingSceneUuid",
 	pullPolicy: "sessionPullPolicy",
 	state: "sessionManagementState"
 };
-//#endregion
-//#region src/module/session-management/settings/load.ts
-function Jy() {
-	return Ly(game.settings.get(q, qy.state));
+// src/module/foundry/session-management/settings/load.ts
+function ev() {
+	return V_(game.settings.get(r, $_.state));
 }
-function Yy() {
-	return Jy().currentSessionReference;
+function tv() {
+	return ev().currentSessionReference;
 }
-function Xy() {
-	let e = game.settings.get(q, qy.pullPolicy), t = $y(), n = hy(), r = String(game.settings.get("wfrp4e-enhanced-fear-terror", qy.holdingSceneUuid) ?? "").trim();
+function nv() {
+	let e = game.settings.get(r, $_.pullPolicy), t = av(), n = T_(), i = String(game.settings.get("wfrp4e-enhanced-fear-terror", $_.holdingSceneUuid) ?? "").trim();
 	return {
 		pause: t.pause !== !1,
 		fortuneReset: t.fortuneReset !== !1,
-		holdingScene: typeof t.holdingScene == "boolean" ? t.holdingScene : !!r,
+		holdingScene: typeof t.holdingScene == "boolean" ? t.holdingScene : !!i,
 		xp: {
 			defaultAmount: typeof t.defaultAmount == "number" ? t.defaultAmount : Math.max(0, n.defaultAmount),
 			defaultReason: typeof t.defaultReason == "string" ? t.defaultReason : n.defaultReason,
 			defaultSelection: t.defaultSelection === "party" || t.defaultSelection === "company" || t.defaultSelection === "world" ? t.defaultSelection : n.defaultSelection,
 			includeTimestampInReason: typeof t.includeTimestampInReason == "boolean" ? t.includeTimestampInReason : n.includeTimestampInReason
 		},
-		exportChat: game.settings.get(q, qy.exportChat) === !0,
-		holdingSceneUuid: r,
+		exportChat: game.settings.get(r, $_.exportChat) === !0,
+		holdingSceneUuid: i,
 		pullPolicy: e === "activate" || e === "prompt" ? e : "pull"
 	};
 }
-async function Zy(e) {
-	e.xp && await game.settings.set(q, qy.options, JSON.stringify({
+async function rv(e) {
+	e.xp && await game.settings.set(r, $_.options, JSON.stringify({
 		pause: e.pause,
 		fortuneReset: e.fortuneReset,
 		holdingScene: e.holdingScene,
 		...e.xp
-	})), await game.settings.set(q, qy.holdingSceneUuid, e.holdingSceneUuid.trim()), await game.settings.set(q, qy.exportChat, e.exportChat), await game.settings.set(q, qy.pullPolicy, e.pullPolicy);
+	})), await game.settings.set(r, $_.holdingSceneUuid, e.holdingSceneUuid.trim()), await game.settings.set(r, $_.exportChat, e.exportChat), await game.settings.set(r, $_.pullPolicy, e.pullPolicy);
 }
-async function Qy(e) {
-	await game.settings.set(q, qy.state, JSON.stringify(e));
+async function iv(e) {
+	await game.settings.set(r, $_.state, JSON.stringify(e));
 }
-function $y() {
-	let e = game.settings.get(q, qy.options);
+function av() {
+	let e = game.settings.get(r, $_.options);
 	if (typeof e != "string") return {};
 	try {
 		let t = JSON.parse(e);
@@ -8602,1443 +8253,561 @@ function $y() {
 		return {};
 	}
 }
-//#endregion
-//#region src/module/gm-toolkit/content-source.ts
-function eb() {
-	let e = game.modules.get(Tc)?.version;
-	return Cv(Array.from(game.tables).map((e) => tb(e.toObject())), e);
+// src/module/foundry/xp-curve/actors.ts
+function ov(e) {
+	let t = wg(), n = uv(), r = n === void 0 ? "default" : "targets";
+	return {
+		actors: Array.from(game.actors).filter((e) => e.type === "character").map((r) => {
+			let i = t.categories.find((e) => e.actorIds.includes(r.id)), a = n?.has(r.id) ?? (e === "world" || (e === "party" ? i?.id === "party" : !!i));
+			return cv(r, i?.id === "companions" ? "companion" : "standard", a, i?.xpPercent ?? 100, i?.name ?? "Other").choice;
+		}).sort((e, t) => Number(t.selected) - Number(e.selected) || e.name.localeCompare(t.name)),
+		selectionSource: r
+	};
 }
-function tb(e) {
-	if (typeof e != "object" || !e) return e;
-	let t = Reflect.get(e, "results");
-	return Array.isArray(t) ? {
+function sv(e) {
+	let t = wg();
+	return e.map((e) => {
+		let n = game.actors.get(e);
+		if (!n || n.type !== "character") throw Error(`XP recipient ${e} is no longer an available character actor.`);
+		let r = t.categories.find((e) => e.actorIds.includes(n.id));
+		return cv(n, r?.id === "companions" ? "companion" : "standard", !0, r?.xpPercent ?? 100, r?.name ?? "Other");
+	});
+}
+function cv(e, t, n, r = 100, i = "Target") {
+	let a = lv(e);
+	return {
+		awardExperience: a.awardExperience,
+		choice: {
+			category: t,
+			xpPercent: r,
+			categoryName: i,
+			img: e.img || "icons/svg/mystery-man.svg",
+			id: e.id,
+			name: e.name,
+			selected: n,
+			totalXp: a.totalXp
+		},
+		xpLog: a.log
+	};
+}
+function lv(e) {
+	let t = e.system;
+	if (!dv(t)) throw Error(`WFRP4e actor "${e.name}" does not expose readable system data.`);
+	let n = t.details;
+	if (!dv(n)) throw Error(`WFRP4e actor "${e.name}" does not expose XP data.`);
+	let r = n.experience, i = dv(r) ? r.log : void 0;
+	if (!dv(r) || !Number.isFinite(Number(r.total)) || !Number.isFinite(Number(r.spent)) || !Array.isArray(i)) throw Error(`WFRP4e actor "${e.name}" does not expose readable XP totals and log.`);
+	return {
+		awardExperience: async (t, n) => {
+			let a = Number(r.total) + t, o = [...i, {
+				reason: n,
+				amount: t,
+				spent: r.spent,
+				total: a,
+				type: "total"
+			}];
+			if (!await e.update({
+				"system.details.experience.total": a,
+				"system.details.experience.log": o
+			})) throw Error(`The XP update for ${e.name} was cancelled.`);
+		},
+		log: i.map((e) => dv(e) ? {
+			amount: e.amount,
+			reason: e.reason,
+			total: e.total
+		} : {
+			amount: void 0,
+			reason: void 0,
+			total: void 0
+		}),
+		totalXp: Math.max(0, Math.round(Number(r.total)))
+	};
+}
+function uv() {
+	let e = game.user?.targets;
+	if (e && e.size !== 0) return new Set(Array.from(e).map((e) => e.actor).filter((e) => e?.type === "character").map((e) => e.id));
+}
+function dv(e) {
+	return typeof e == "object" && !!e;
+}
+// src/module/foundry/xp-curve/roster.ts
+function fv() {
+	let e = [], t;
+	for (let n of wg().categories) for (let r of n.actorIds) {
+		let i = game.actors.get(r);
+		if (!i || i.type !== "character") {
+			t = `A member of ${n.name} is missing. Repair the roster in Configure Party.`;
+			continue;
+		}
+		let a = cv(i, n.id === "companions" ? "companion" : "standard", !0, n.xpPercent, n.name);
+		a.choice.categoryId = n.id, e.push(a);
+	}
+	return e.some(({ choice: e }) => e.categoryId === "party") || (t = "Add a character to the Party zone in Configure Party to establish the XP leader."), {
+		actors: e.map(({ choice: e }) => e),
+		runtimes: e,
+		rosterIssue: t
+	};
+}
+// src/module/foundry/xp-curve/initialization.ts
+function pv() {
+	let e = $l(), { actors: t, rosterIssue: n } = fv();
+	return {
 		...e,
-		results: t.map((e) => typeof e != "object" || !e ? e : {
-			...e,
-			description: nb(Reflect.get(e, "description"))
-		})
-	} : e;
-}
-function nb(e) {
-	if (typeof e != "string") return "";
-	if (!/[<&]/.test(e)) return e;
-	let t = document.createElement("div");
-	return t.innerHTML = e, t.querySelectorAll("script, style, template").forEach((e) => e.remove()), t.textContent ?? "";
-}
-//#endregion
-//#region src/module/gm-toolkit/launcher-source.ts
-var rb = `${q}.macros`;
-function ib() {
-	let e = Array.from(game.macros).flatMap(ob), t = game.user, n = /* @__PURE__ */ new Map();
-	if (t) for (let e = 1; e <= 5; e += 1) for (let { macro: r, slot: i } of t.getHotbarMacros(e)) r?.id && n.set(r.id, [...n.get(r.id) ?? [], i]);
-	return Th(e, n, {
-		id: t?.id,
-		name: t?.name
-	});
-}
-async function ab(e) {
-	let t = Array.from(game.macros).find((t) => {
-		let n = ob(t)[0];
-		return kh(n, e);
-	});
-	if (t) return {
-		imported: !1,
-		macro: t
+		actors: t,
+		rosterIssue: n,
+		reasonContext: mv()
 	};
-	let n = game.packs.get(rb);
-	if (!n) throw Error("The Drowsy launcher compendium is unavailable.");
+}
+function mv() {
 	return {
-		imported: !0,
-		macro: await game.macros.importFromCompendium(n, e)
+		date: game.world.nextSession?.slice(0, 10) || (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
+		session: tv()
 	};
 }
-function ob(e) {
-	let t = e.toObject();
-	if (!Z(t)) return [];
-	let n = X(t._id ?? e.id), r = X(t.name ?? e.name), i = X(t.command), a = X(t.type);
-	if (!n || !r || !a) return [];
-	let o = t._stats, s = Z(o) ? X(o.compendiumSource) : "";
-	return [{
-		command: i,
-		...s ? { compendiumSource: s } : {},
-		id: n,
-		name: r,
-		type: a
-	}];
-}
-//#endregion
-//#region src/module/gm-toolkit/settings/keys.ts
-var sb = { state: "gmToolkitMigrationState" };
-//#endregion
-//#region src/module/gm-toolkit/settings/load.ts
-function cb() {
-	let e = My(game.settings.get(q, sb.state));
-	if (e.migration || e.cutoverReview) return e;
-	let t = Jy();
-	return {
-		...t.gmToolkitCutoverReview ? { cutoverReview: t.gmToolkitCutoverReview } : {},
-		...t.gmToolkitMigration ? { migration: t.gmToolkitMigration } : {},
-		version: 1
-	};
-}
-async function lb(e) {
-	await game.settings.set(q, sb.state, JSON.stringify(e));
-}
-//#endregion
-//#region src/functions/gm-toolkit/catalog.ts
-var Q = (e, t, n, r, i) => ({
-	defaultValue: r,
-	disposition: i,
-	family: t,
-	key: e,
-	kind: n
-}), ub = [
-	Q("automateOpposedTestAdvantage", "advantage", "boolean", !0, "import"),
-	Q("automateDamageAdvantage", "advantage", "boolean", !0, "import"),
-	Q("automateConditionAdvantage", "advantage", "boolean", !0, "import"),
-	Q("promptMomentumLoss", "advantage", "boolean", !0, "import"),
-	Q("clearAdvantageCombatJoin", "advantage", "boolean", !0, "import"),
-	Q("clearAdvantageCombatLeave", "advantage", "boolean", !0, "import"),
-	Q("persistAdvantageNotifications", "advantage", "boolean", !1, "import"),
-	Q("sessionID", "session", "string", "0", "import"),
-	Q("defaultPartySessionTurnover", "session", "string", "party", "import"),
-	Q("addXPPrompt", "session", "boolean", !1, "supersede"),
-	Q("addXPDefaultAmount", "session", "number", 20, "import"),
-	Q("addXPDefaultReason", "session", "string", "Session %session% (%date%)", "import"),
-	Q("holdingScene", "session", "string", "", "import"),
-	Q("exportChat", "session", "boolean", !1, "import"),
-	Q("scenePullActivate", "session", "string", "never", "import"),
-	Q("rangeNormalSight", "vision", "number", 2, "import"),
-	Q("rangeDarkVision", "vision", "number", 120, "import"),
-	Q("overrideNightVision", "vision", "boolean", !1, "import"),
-	Q("overrideDarkVision", "vision", "boolean", !1, "import"),
-	Q("defaultGroupDarkWhispers", "dark-whispers", "string", "party", "import"),
-	Q("messageDarkWhispers", "dark-whispers", "string", "taunt", "import"),
-	Q("enableTokenHudExtensions", "token-hud", "boolean", !1, "retire"),
-	Q("tokenHudStatusEffectsBackground", "token-hud", "string", "#cececeff", "retire"),
-	Q("suppressSpectatorNotice", "spectators", "boolean", !1, "import"),
-	Q("quicktest1GroupTest", "group-tests", "string", "Perception", "import"),
-	Q("quicktest2GroupTest", "group-tests", "string", "Cool", "import"),
-	Q("quicktest3GroupTest", "group-tests", "string", "Intuition", "import"),
-	Q("quicktest4GroupTest", "group-tests", "string", "Gossip", "import"),
-	Q("defaultSkillGroupTest", "group-tests", "string", "Lore (Reikland)", "import"),
-	Q("bypassTestDialogGroupTest", "group-tests", "boolean", !0, "import"),
-	Q("defaultDifficultyGroupTest", "group-tests", "string", "average", "import"),
-	Q("defaultRollModeGroupTest", "group-tests", "string", "blindroll", "import"),
-	Q("defaultTestModifierGroupTest", "group-tests", "number", 0, "import"),
-	Q("defaultPartyGroupTest", "group-tests", "string", "party", "import"),
-	Q("fallbackAdvancedSkills", "group-tests", "boolean", !1, "import"),
-	Q("fallbackAdjustDifficulty", "group-tests", "number", 0, "import"),
-	Q("summariseResultsThresholdGroupTest", "group-tests", "number", 2, "import"),
-	Q("aggregateResultGroupTest", "group-tests", "array", [], "skip")
-];
-//#endregion
-//#region src/module/gm-toolkit/source.ts
-function db() {
-	let e = game.modules.get(Tc), t = game.settings.storage?.get("world"), n = /* @__PURE__ */ new Map();
-	for (let e of ub) {
-		let r = t?.getItem(mb(e.key));
-		r != null && n.set(e.key, r);
-	}
-	if (!e && n.size === 0) return;
-	let r = [], i = ub.map((e) => {
-		let t = fb(e, n);
-		return t.valid || r.push(`${mb(e.key)} could not be normalized; the 9.2.0 baseline is shown instead.`), t;
-	});
-	return {
-		active: e?.active === !0,
-		installed: e !== void 0,
-		...e?.version ? { moduleVersion: e.version } : {},
-		schemaVersion: "9.2.0",
-		settings: i,
-		warnings: r
-	};
-}
-function fb(e, t) {
-	let n = t.get(e.key);
-	return n === void 0 ? game.settings.settings.has(mb(e.key)) ? Gv(e, game.settings.get(Tc, e.key), "registered") : Gv(e, e.defaultValue, "baseline") : Gv(e, pb(n, e), "persisted");
-}
-function pb(e, t) {
+// src/module/foundry/xp-curve/service.ts
+var hv = !1;
+async function gv(e) {
+	if (X(Y.xpCurveConsole), hv) throw Error("A Curve XP award is already in progress.");
+	hv = !0;
 	try {
-		return JSON.parse(e);
-	} catch {
-		return t.kind === "string" ? e : void 0;
+		return await _v(e);
+	} finally {
+		hv = !1;
 	}
 }
-function mb(e) {
-	return `${Tc}.${e}`;
-}
-//#endregion
-//#region src/module/gm-toolkit/setting-targets.ts
-var hb = {
-	automateConditionAdvantage: Vd.automateCondition,
-	automateDamageAdvantage: Vd.automateDamage,
-	automateOpposedTestAdvantage: Vd.automateOpposed,
-	bypassTestDialogGroupTest: tm.bypassDialog,
-	clearAdvantageCombatJoin: Vd.clearOnJoin,
-	clearAdvantageCombatLeave: Vd.clearOnLeave,
-	defaultDifficultyGroupTest: tm.defaultDifficulty,
-	defaultGroupDarkWhispers: sp.defaultGroup,
-	defaultPartyGroupTest: tm.defaultGroup,
-	defaultRollModeGroupTest: tm.defaultRollMode,
-	defaultSkillGroupTest: tm.defaultSkill,
-	defaultTestModifierGroupTest: tm.defaultModifier,
-	exportChat: qy.exportChat,
-	fallbackAdjustDifficulty: tm.fallbackDifficultySteps,
-	fallbackAdvancedSkills: tm.fallbackAdvanced,
-	holdingScene: qy.holdingSceneUuid,
-	messageDarkWhispers: sp.messageStyle,
-	overrideDarkVision: ah.overrideDarkVision,
-	overrideNightVision: ah.overrideNightVision,
-	persistAdvantageNotifications: Vd.persistentNotifications,
-	promptMomentumLoss: Vd.promptMomentumLoss,
-	quicktest1GroupTest: tm.quickTest1,
-	quicktest2GroupTest: tm.quickTest2,
-	quicktest3GroupTest: tm.quickTest3,
-	quicktest4GroupTest: tm.quickTest4,
-	rangeDarkVision: ah.darkRange,
-	rangeNormalSight: ah.normalRange,
-	scenePullActivate: qy.pullPolicy,
-	summariseResultsThresholdGroupTest: tm.summaryThreshold,
-	suppressSpectatorNotice: Bu.showUnassignedPlayerWarning
-};
-function gb() {
-	return Object.fromEntries(Object.entries(hb).map(([e, t]) => [e, xb(e, game.settings.get(q, t))]));
-}
-async function _b(e, t) {
-	let n = hb[e];
-	if (!n) throw Error(`No Drowsy setting target exists for ${e}.`);
-	await game.settings.set(q, n, await yb(e, t));
-}
-async function vb(e, t) {
-	if (!hb[e]) throw Error(`No Drowsy setting target exists for ${e}.`);
-	await yb(e, t);
-}
-async function yb(e, t) {
-	return e === "holdingScene" ? bb(String(t)) : e === "scenePullActivate" ? t === "always" ? "activate" : t === "prompt" ? "prompt" : "pull" : e === "suppressSpectatorNotice" ? t !== !0 : e === "messageDarkWhispers" ? t === "tempt" || t === "offer" ? "offer" : t === "plain" ? "plain" : "taunt" : Sb(t);
-}
-function bb(e) {
-	let t = e.trim();
-	if (!t) return "";
-	let n = Array.from(game.scenes).filter((e) => e.name.localeCompare(t, void 0, { sensitivity: "accent" }) === 0);
-	if (n.length === 0) throw Error(`Holding Scene “${t}” was not found. Choose it manually in Session Management.`);
-	if (n.length > 1) throw Error(`More than one Scene is named “${t}”. Choose it manually in Session Management.`);
-	return n[0].uuid;
-}
-function xb(e, t) {
-	if (e === "holdingScene") {
-		let e = String(t ?? "");
-		return Array.from(game.scenes ?? []).find((t) => t.uuid === e)?.name ?? "";
+async function _v(e) {
+	let { actors: t, runtimes: n, rosterIssue: r } = fv();
+	if (r) throw Error(r);
+	let i = Rh($l().parameters), a = new Map(e.actors.map((e) => [e.id, e]));
+	if (a.size !== e.actors.length || a.size !== t.length || t.some((e) => {
+		let t = a.get(e.id);
+		return !t || t.totalXp !== e.totalXp || t.xpPercent !== e.xpPercent || t.categoryId !== e.categoryId;
+	}) || JSON.stringify(i) !== JSON.stringify(Rh(e.parameters))) throw Error("XP, the party roster, or curve settings changed after this preview. No XP was applied. Check any earlier partial award, then reopen Curve XP to review fresh amounts.");
+	let o = zh(t, i);
+	if (!o.leader || o.totalAward < 1) throw Error("This curve produces no XP awards for the configured party.");
+	let s = e.reason.trim(), c = [];
+	for (let [e, t] of n.entries()) {
+		let n = o.awards[e];
+		if (n.award !== 0) try {
+			await t.awardExperience(n.award, s), c.push(n.actorName);
+		} catch (e) {
+			let t = e instanceof Error ? e.message : String(e);
+			throw Error(`Could not award XP to ${n.actorName}. ${t}${c.length ? ` XP was already applied to ${c.join(", ")}.` : ""} Check the actors’ XP logs before trying again.`, { cause: e });
+		}
 	}
-	return e === "scenePullActivate" ? t === "activate" ? "always" : t === "prompt" ? "prompt" : "never" : e === "suppressSpectatorNotice" ? t !== !0 : e === "messageDarkWhispers" && t === "offer" ? "tempt" : Sb(t);
-}
-function Sb(e) {
-	return typeof e == "boolean" || typeof e == "number" || typeof e == "string" ? e : "";
-}
-//#endregion
-//#region src/module/gm-toolkit/migration.ts
-function Cb() {
-	let e = db(), t = cp(), n = wv(eb(), t.library, t.warnings), r = ib();
-	if (!(!e && n.candidates.length === 0 && r.candidates.length === 0)) return e ? Kv(e, {
-		featureSettings: gb(),
-		sessionReference: Jy().currentSessionReference,
-		xpAwardSettings: hy()
-	}, n, r) : {
-		darkWhispers: n,
-		dispositionCounts: {
-			import: 0,
-			pending: 0,
-			retire: 0,
-			skip: 0,
-			supersede: 0
-		},
-		imports: [],
-		launchers: r,
-		sourceCounts: {
-			baseline: 0,
-			persisted: 0,
-			registered: 0
-		},
-		version: 1
+	let l = {
+		...o,
+		reason: s
 	};
-}
-function wb(e = Cb(), t = cb()) {
-	let n = e?.source, r = t.migration?.source, i = n ?? r;
-	if (!e && !i) return;
-	let a = Jy(), o = i ? Kv(i, {
-		featureSettings: gb(),
-		sessionReference: a.currentSessionReference,
-		xpAwardSettings: hy()
-	}, e?.darkWhispers, e?.launchers) : e, s = game.combats.active;
-	return Nv({
-		combat: s ? {
-			active: !0,
-			id: s.id,
-			name: s.name,
-			...Number.isFinite(s.round) ? { round: Number(s.round) } : {}
-		} : { active: !1 },
-		generatedAt: (/* @__PURE__ */ new Date()).toISOString(),
-		...t.migration ? { migration: t.migration } : {},
-		preview: o,
-		sourceEvidence: n ? "current" : r ? "saved-snapshot" : "world-documents"
-	});
-}
-//#endregion
-//#region src/module/gm-toolkit/initialization.ts
-function Tb() {
-	let e = cb(), t = Cb(), n = wb(t, e);
-	return {
-		...n ? { cutoverReport: n } : {},
-		...t ? { preview: t } : {},
-		state: e
-	};
-}
-//#endregion
-//#region src/functions/gm-toolkit/apply.ts
-function Eb(e, t, n) {
-	let r = new Set(n), i = {
-		sessionReference: t.sessionReference,
-		xpAwardSettings: { ...t.xpAwardSettings }
-	};
-	for (let t of e.imports) if (r.has(t.field)) switch (t.field) {
-		case "sessionReference":
-			i.sessionReference = String(t.sourceValue);
-			break;
-		case "defaultXpAmount":
-			i.xpAwardSettings.defaultAmount = Number(t.sourceValue);
-			break;
-		case "defaultXpReason":
-			i.xpAwardSettings.defaultReason = String(t.sourceValue);
-			break;
-		case "defaultXpSelection":
-			i.xpAwardSettings.defaultSelection = t.sourceValue === "company" ? "company" : "party";
-			break;
+	try {
+		await vv(l);
+	} catch (e) {
+		console.error("Drowsy's Toolkit | Curve XP applied, but chat summary failed.", e), ui.notifications.error("Curve XP was applied, but the chat summary failed. Do not award it again.");
 	}
-	return i;
+	return ui.notifications.info(`Awarded ${l.totalAward} total curve XP across ${c.length} characters.`), l;
 }
-//#endregion
-//#region src/module/gm-toolkit/service.ts
-async function Db(e) {
-	Y(J.gmToolkitMigration);
-	let t = Cb();
-	if (!t?.source) throw Error("No installed module or persisted GM Toolkit world settings were found.");
-	let n = Array.from(new Set(e.fields)).filter(Yv);
-	if (!n.length) throw Error("Select at least one value to import.");
-	let r = n.filter((e) => ![
-		"defaultXpAmount",
-		"defaultXpReason",
-		"defaultXpSelection",
-		"sessionReference"
-	].includes(e));
-	r.sort((e, t) => e === "holdingScene" ? -1 : +(t === "holdingScene"));
-	for (let e of r) {
-		let n = t.source.settings.find((t) => t.key === e);
-		n && await vb(e, n.value);
-	}
-	let i = Jy(), a = Eb(t, {
-		sessionReference: i.currentSessionReference,
-		xpAwardSettings: hy()
-	}, n), o = {
-		appliedFields: n,
-		importedAt: (/* @__PURE__ */ new Date()).toISOString(),
-		sessionReference: a.sessionReference,
-		source: t.source,
-		version: 2,
-		xpAwardSettings: a.xpAwardSettings
-	};
-	n.some((e) => [
-		"defaultXpAmount",
-		"defaultXpReason",
-		"defaultXpSelection"
-	].includes(e)) && await gy(o.xpAwardSettings), n.includes("sessionReference") && await Qy({
-		...i,
-		currentSessionReference: o.sessionReference
-	});
-	for (let e of r) {
-		let n = t.source.settings.find((t) => t.key === e);
-		n && await _b(e, n.value);
-	}
-	return await lb({
-		...cb(),
-		migration: o,
-		version: 1
-	}), ui.notifications.info(`${n.length} value${n.length === 1 ? "" : "s"} imported into Drowsy’s Toolkit.`), o;
+async function vv(e) {
+	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${Kh(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>Curve XP</h2><p>${Kh(e.reason)}</p><p>Party leader: ${Kh(e.leader?.name ?? "")} (${e.highestXp} XP)</p><ul>${t}</ul>`;
+	await ChatMessage.create(game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" }));
 }
-var Ob = Db;
-async function kb(e) {
-	Y(J.gmToolkitMigration);
-	let t = Cb();
-	if (!t) throw Error("No GM Toolkit Dark Whispers table was found.");
-	let n = Tv(t.darkWhispers, lp(), e, (/* @__PURE__ */ new Date()).toISOString());
-	await up(n.library);
-	let r = Cb();
-	if (!r) throw Error("The Dark Whispers prompts were saved but could not be reloaded.");
-	return ui.notifications.info(`${n.added} Dark Whispers prompt${n.added === 1 ? "" : "s"} added, ${n.replaced} replaced, and ${n.skipped} unchanged.`), {
-		...n,
-		preview: r
-	};
-}
-async function Ab(e) {
-	Y(J.gmToolkitMigration);
-	let t = game.user;
-	if (!t) throw Error("The current Foundry user is unavailable.");
-	let n = Fh(ib(), e.slots);
-	if (!n.length) throw Error("Select at least one standard hotbar launcher with an available replacement.");
-	let r = /* @__PURE__ */ new Map();
-	for (let e of n) {
-		let n = r.get(e.macroId);
-		n || (n = await ab(e.macroId), r.set(e.macroId, n)), await t.assignHotbarMacro(n.macro, e.slot);
-	}
-	let i = Array.from(r.values()).filter(({ imported: e }) => e).length;
-	return ui.notifications.info(`${n.length} hotbar slot${n.length === 1 ? "" : "s"} remapped to Drowsy launchers.`), {
-		importedLaunchers: i,
-		preview: ib(),
-		remappedSlots: n.length
-	};
-}
-async function jb() {
-	Y(J.gmToolkitMigration);
-	let e = game.user;
-	if (!e) throw Error("The current Foundry user is unavailable.");
-	let t = cb(), n = wb(void 0, t);
-	if (!n) throw Error("No GM Toolkit data is available to review.");
-	let r = Fv(n, {
-		id: e.id,
-		name: e.name
-	}, (/* @__PURE__ */ new Date()).toISOString());
-	return await lb({
-		...t,
-		cutoverReview: r,
-		version: 1
-	}), ui.notifications.info("Migration review saved."), {
-		report: n,
-		review: r
-	};
-}
-//#endregion
-//#region src/module/apps/gm-toolkit-migration/GmToolkitMigrationApplication.ts
-var Mb = class extends Oc {
-	static ACCESS_POLICY = J.gmToolkitMigration;
+// src/module/apps/xp-curve-console/view/XpCurveConsoleApplication.ts
+var yv = class extends Uc {
+	static ACCESS_POLICY = Y.xpCurveConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-gm-toolkit-migration`],
-		id: `${q}-gm-toolkit-migration`,
+		classes: [r, `${r}-xp-curve-console`],
+		id: `${r}-xp-curve-console`,
 		position: {
-			height: 760,
-			width: 780
+			height: 420,
+			width: 500
 		},
 		window: {
-			icon: "fa-solid fa-box-archive",
+			icon: "fa-solid fa-chart-line",
 			resizable: !0,
-			title: `${wc} — Import from GM Toolkit`
+			title: "Curve XP"
 		}
 	};
 	getVueComponent() {
-		return vv;
+		return gg;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				getCutoverReport: wb,
-				importDarkWhispers: kb,
-				importSettings: Db,
-				remapLaunchers: Ab,
-				reviewCutover: jb
+				applyAwards: gv,
+				onActionComplete: () => {
+					this.close().catch((e) => {
+						console.error(`${r} | Failed to close the Curve XP.`, e), ui.notifications.error("XP awards completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
+					});
+				},
+				openParty: () => {
+					__();
+				},
+				close: () => {
+					this.close();
+				}
 			},
-			initialization: Tb()
+			initialization: pv()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/gm-toolkit-migration/open.ts
-async function Nb() {
-	let e = new Mb();
+// src/module/apps/xp-curve-console/view/open.ts
+async function bv() {
+	let e = new yv();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/functions/xp-curve/calculate.ts
-var Pb = .01, Fb = 2 ** 53 - 1;
-function Ib(e) {
+function xv() {
+	bv().catch((e) => {
+		console.error(`${r} | Failed to open the Curve XP.`, e), Kc("Drowsy’s WFRP4e Toolkit could not open the Curve XP. See the browser console for details.");
+	});
+}
+// src/module/functions/xp-curve/setup.ts
+var Sv = [
+	{
+		key: "catchUpRate",
+		title: "Choose the catch-up pace",
+		label: "Catch-up rate",
+		min: 0,
+		max: 1e3,
+		increment: .5,
+		unit: "%",
+		guidance: "Drag the handle up for more help or down for less. At the default linear shape, 10% gives 100 XP for a 1,000 XP gap, before weakening and category rates. This is extra XP each session."
+	},
+	{
+		key: "curveExponent",
+		title: "Shape the help across gaps",
+		label: "Gap weighting",
+		min: .1,
+		max: 5,
+		increment: .05,
+		unit: "",
+		guidance: "Drag the handle to bend the curve. Keep 1 for a straight line. Above 1 favors gaps larger than 1,000 XP; below 1 gives relatively more help to smaller gaps. The award at a 1,000 XP gap stays fixed."
+	},
+	{
+		key: "scalePivot",
+		title: "Choose when help starts easing",
+		label: "Start weakening above",
+		min: 1,
+		max: 1e6,
+		increment: 100,
+		unit: "total XP",
+		guidance: "As WFRP characters advance, further improvements generally cost more XP. A gap between 5,000 and 10,000 XP can matter much less than 0 versus 2,000. Weakening focuses help on the early growth where being behind hurts most. Drag left or right to choose when that easing begins, using each character’s own total XP."
+	},
+	{
+		key: "scaleExponent",
+		title: "Choose how gently help eases",
+		label: "Weakening strength",
+		min: 0,
+		max: 2,
+		increment: .05,
+		unit: "",
+		guidance: "This decides how strongly you account for XP gaps becoming less significant as characters advance. Drag up for gentler weakening or down for stronger weakening. At 1, twice the previous step’s XP threshold means half the help. This is a campaign preference: set 0 to turn weakening off."
+	},
+	{
+		key: "maximumAward",
+		title: "Set the per-session ceiling",
+		label: "Maximum curve XP per character",
+		min: 0,
+		max: 1e5,
+		increment: 10,
+		unit: "XP",
+		guidance: "Drag the ceiling up or down. This limits each character’s final bonus after weakening and category rates. It does not change the catch-up pace. Zero disables curve awards."
+	},
+	{
+		key: "review",
+		title: "See how the campaign progresses",
+		label: "",
+		min: 0,
+		max: 0,
+		increment: 1,
+		unit: "",
+		guidance: "Compare the next curve award and a session-by-session forecast. Saving sets the curve for your world; it never grants XP. Use Curve XP to make an actual award."
+	}
+];
+function Cv(e) {
 	return {
-		companionMultiplier: Hb(e.companionMultiplier, 0, 1),
-		curveExponent: Hb(e.curveExponent, .1, 5),
-		gapForMaximumAward: Math.max(1, Ub(e.gapForMaximumAward)),
-		maximumAward: Math.max(0, Ub(e.maximumAward)),
-		scaleExponent: Hb(e.scaleExponent, 0, 2),
-		scalePivot: Math.max(1, Ub(e.scalePivot))
+		parameters: { ...e },
+		previewMode: "party",
+		sessions: 10,
+		sessionXp: 100
 	};
 }
-function Lb(e, t) {
-	let n = e.filter((e) => e.selected), r = Ib(t), i = Math.max(0, ...n.map((e) => e.totalXp)), a = n.map((e) => {
-		let t = Ub(e.totalXp), n = Math.max(0, i - t), a = e.category === "companion" ? r.companionMultiplier : 1, o = Rb(n, r), s = zb(t, r), c = Math.max(0, Math.round(o * s * a)), l = Math.min(r.maximumAward, c);
+function wv() {
+	return [
+		{
+			id: "example-leader",
+			name: "Party leader",
+			categoryId: "party",
+			categoryName: "Party",
+			totalXp: 2500,
+			xpPercent: 100
+		},
+		{
+			id: "example-new",
+			name: "New character",
+			categoryId: "party",
+			categoryName: "Party",
+			totalXp: 0,
+			xpPercent: 100
+		},
+		{
+			id: "example-established",
+			name: "Established character",
+			categoryId: "party",
+			categoryName: "Party",
+			totalXp: 1500,
+			xpPercent: 100
+		},
+		{
+			id: "example-companion",
+			name: "Companion",
+			categoryId: "companions",
+			categoryName: "Companions",
+			totalXp: 1e3,
+			xpPercent: 50
+		}
+	].map((e) => ({
+		...e,
+		selected: !0,
+		category: e.categoryId === "companions" ? "companion" : "standard",
+		img: "icons/svg/mystery-man.svg"
+	}));
+}
+function Tv(e, t) {
+	let n = Sv[t];
+	if (!Number.isFinite(e) || e < n.min || e > n.max) return `Enter a value between ${n.min} and ${n.max}.`;
+	if (["scalePivot", "maximumAward"].includes(n.key) && !Number.isInteger(e)) return "Enter a whole XP amount.";
+}
+// src/module/foundry/xp-curve/configuration.ts
+function Ev() {
+	let e = $l(), { actors: t, rosterIssue: n } = fv();
+	return {
+		...e,
+		actors: t,
+		rosterIssue: n
+	};
+}
+async function Dv(e) {
+	X(Y.xpCurveConsole), await eu({
+		defaultReason: e.defaultReason,
+		parameters: Rh(e.parameters)
+	}), ui.notifications.info("Curve XP configuration saved.");
+}
+async function Ov() {
+	return await foundry.applications.api.DialogV2.confirm({
+		window: { title: "Reset Curve XP to defaults?" },
+		modal: !0,
+		rejectClose: !1,
+		content: "<p>Restore 10% catch-up, linear gap weighting, weakening above 1,000 XP at strength 1, and a 500 XP ceiling?</p><p>This changes your setup draft. Finish the steps and save to apply it.</p>"
+	}) === !0;
+}
+async function kv() {
+	return await foundry.applications.api.DialogV2.confirm({
+		window: { title: "Discard Curve XP setup?" },
+		modal: !0,
+		rejectClose: !1,
+		content: "<p>Your curve changes have not been saved. Discard them and close setup?</p>"
+	}) === !0;
+}
+// src/module/functions/xp-award/calculate.ts
+function Av(e, t) {
+	let n = Number.isFinite(t) ? Math.round(t) : 0, r = e.filter((e) => e.selected).map((e) => {
+		let t = e.xpPercent ?? 100, r = Math.floor(n * t / 100);
+		if (!Number.isSafeInteger(r)) throw Error("The XP amount and percentage produce an invalid award.");
+		let i = Math.max(r, -e.totalXp);
 		return {
 			actorId: e.id,
 			actorName: e.name,
-			afterXp: t + l,
-			award: l,
-			beforeXp: t,
-			catchUpValue: o,
-			category: e.category,
-			decayMultiplier: s,
-			gap: n,
-			modifiedAward: c,
-			recipientMultiplier: a
+			afterXp: e.totalXp + i,
+			amount: i,
+			beforeXp: e.totalXp,
+			category: e.category
 		};
 	});
 	return {
-		awards: a,
-		highestXp: i,
-		totalAward: a.reduce((e, t) => e + t.award, 0)
+		awards: r,
+		totalChange: r.reduce((e, t) => e + t.amount, 0)
 	};
 }
-function Rb(e, t) {
-	let n = Ib(t), r = Math.max(0, Number.isFinite(e) ? e : 0) / n.gapForMaximumAward, i = n.maximumAward * r ** n.curveExponent;
-	return Number.isFinite(i) ? Math.min(i, Fb) : Fb;
+// src/module/functions/xp-curve/simulation.ts
+function jv(e, t, n, r) {
+	if (!Number.isInteger(n) || n < 1 || n > 100) throw Error("Choose between 1 and 100 sessions.");
+	if (!Number.isSafeInteger(r) || r < 0 || r > 1e5) throw Error("Choose ordinary session XP between 0 and 100,000.");
+	let i = e.map((e) => ({ ...e })), a = [];
+	for (let e = 1; e <= n; e++) {
+		let n = Av(i, r), o = new Map(n.awards.map((e) => [e.actorId, e]));
+		i = i.map((e) => ({
+			...e,
+			totalXp: o.get(e.id)?.afterXp ?? e.totalXp
+		}));
+		let s = zh(i, t), c = new Map(s.awards.map((e) => [e.actorId, e]));
+		i = i.map((e) => ({
+			...e,
+			totalXp: c.get(e.id)?.afterXp ?? e.totalXp
+		}));
+		let l = Math.max(0, ...i.filter((e) => e.categoryId === "party").map((e) => e.totalXp));
+		for (let t of i) a.push({
+			session: e,
+			actorId: t.id,
+			actorName: t.name,
+			ordinaryXp: o.get(t.id)?.amount ?? 0,
+			curveXp: c.get(t.id)?.award ?? 0,
+			totalXp: t.totalXp,
+			gap: Math.max(0, l - t.totalXp)
+		});
+	}
+	return a;
 }
-function zb(e, t) {
-	let n = Ib(t), r = Math.max(0, Number.isFinite(e) ? e : 0);
-	return Math.min(1, n.scalePivot / Math.max(r, n.scalePivot)) ** n.scaleExponent;
-}
-function Bb(e, t = e.gapForMaximumAward * 1.4, n = 24) {
-	let r = Ib(e), i = Math.max(2, Ub(n)), a = Math.max(r.gapForMaximumAward * 1.4, Number.isFinite(t) ? t : 0);
-	return Array.from({ length: i + 1 }, (e, t) => {
-		let n = a * t / i;
-		return {
-			award: Rb(n, r),
-			gap: n
-		};
+// src/types/xp-curve/Configuration.ts
+var Mv = {
+	...Jh,
+	parameters: { ...Jh.parameters }
+}, Nv = Ks("xp-curve-configurator", () => {
+	let e = /* @__PURE__ */ P(Cv(Mv.parameters)), t = /* @__PURE__ */ P(0), n = /* @__PURE__ */ P({
+		...Mv,
+		actors: []
+	}), r = /* @__PURE__ */ P(), i = /* @__PURE__ */ P(), a = /* @__PURE__ */ P(!1), o = /* @__PURE__ */ P(!1), s, c = K(() => Sv[t.value]), l = K(() => e.value.previewMode === "example" ? wv() : n.value.actors), u = K(() => zh(l.value, e.value.parameters)), d = K(() => !o.value && JSON.stringify(e.value.parameters) !== JSON.stringify(n.value.parameters)), f = K(() => c.value.key === "review" ? void 0 : Tv(e.value.parameters[c.value.key], t.value)), p = K(() => {
+		try {
+			return {
+				rows: jv(l.value, e.value.parameters, e.value.sessions, e.value.sessionXp),
+				error: void 0
+			};
+		} catch (e) {
+			return {
+				rows: [],
+				error: e instanceof Error ? e.message : "Enter valid forecast assumptions."
+			};
+		}
 	});
-}
-function Vb(e, t = e.scalePivot * 4, n = 32) {
-	let r = Ib(e), i = Math.max(2, Ub(n)), a = Math.max(1e3, r.scalePivot * 4, Number.isFinite(t) ? t : 0);
-	return Array.from({ length: i + 1 }, (e, t) => {
-		let n = a * t / i;
-		return {
-			multiplier: zb(n, r),
-			recipientXp: n
-		};
-	});
-}
-function Hb(e, t, n) {
-	let r = Number(e);
-	return Math.min(n, Math.max(t, Number.isFinite(r) ? r : Pb));
-}
-function Ub(e) {
-	let t = Number(e);
-	return Number.isFinite(t) ? Math.round(t) : 0;
-}
-//#endregion
-//#region src/types/xp-curve/XpCurve.ts
-var Wb = {
-	companionMultiplier: .5,
-	curveExponent: 1.75,
-	gapForMaximumAward: 5e3,
-	maximumAward: 1e3,
-	scaleExponent: 1,
-	scalePivot: 7500
-}, Gb = {
-	defaultReason: "XP Curve %session% (%date%)",
-	defaultSelection: "company",
-	parameters: { ...Wb }
-};
-//#endregion
-//#region src/state/apps/shared/xp-actor-selection.ts
-function Kb(e) {
-	let t = /* @__PURE__ */ j([]), n = U(() => t.value.filter((e) => e.selected)), r = /* @__PURE__ */ new Set();
-	function i(e) {
-		t.value = e.map((e) => ({ ...e })), r = new Set(e.filter((e) => e.selected).map((e) => e.id));
+	function m(r, i, o, c = 0) {
+		n.value = r, s = i, e.value = o ? {
+			...o,
+			parameters: { ...o.parameters }
+		} : Cv(r.parameters), t.value = c, s.bindCloseGuard(async () => !a.value && (!d.value || await s.confirmClose()));
 	}
-	function a(n, r) {
-		let i = t.value.find((e) => e.id === n);
-		if (!i) throw Error(`${e} cannot select unknown actor ${n}.`);
-		i.selected = r;
-	}
-	function o(e) {
-		for (let n of t.value) n.selected = e;
-	}
-	function s() {
-		for (let e of t.value) e.selected = r.has(e.id);
-	}
-	return {
-		actors: t,
-		initializeActors: i,
-		resetSelection: s,
-		selectedActors: n,
-		setActorSelected: a,
-		setAllActorsSelected: o
-	};
-}
-//#endregion
-//#region src/state/apps/xp-curve-console/store.ts
-var qb = As("xp-curve-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Kb("The XP Curve Console"), o = /* @__PURE__ */ j({ ...Wb }), s = /* @__PURE__ */ j(""), c = /* @__PURE__ */ j("party"), l = /* @__PURE__ */ j("default"), u = /* @__PURE__ */ j(), d = /* @__PURE__ */ j(!1), f, p, m = U(() => Lb(e.value, o.value)), h = U(() => m.value.awards.filter((e) => e.award > 0).length), g = U(() => r.value.length >= 2 && m.value.totalAward > 0 && !d.value), _ = U(() => xy(s.value, x()));
-	function v(e, n) {
-		f = n, p = e.reasonContext, t(e.actors), o.value = { ...e.parameters }, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.selectionSource, u.value = void 0;
-	}
-	async function y() {
-		if (!(!g.value || d.value)) {
-			d.value = !0, u.value = void 0;
+	async function h() {
+		if (!a.value) {
+			a.value = !0;
 			try {
-				let e = {
-					actorIds: r.value.map((e) => e.id),
-					defaultReason: s.value,
-					defaultSelection: c.value,
-					parameters: o.value
-				}, t = await b().applyAwards(e);
-				b().onActionComplete(t);
-			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | XP curve award failed.", e), u.value = e instanceof Error ? e.message : "The XP awards could not be completed.";
+				if (!await s.confirmReset()) return;
+				e.value.parameters = { ...Mv.parameters }, i.value = "Defaults restored in this draft. Finish setup to save them.", r.value = void 0;
 			} finally {
-				d.value = !1;
+				a.value = !1;
 			}
 		}
 	}
-	function b() {
-		if (!f) throw Error("The XP Curve Console has not been initialized.");
-		return f;
-	}
-	function x() {
-		if (!p) throw Error("The XP Curve Console has not been initialized.");
-		return p;
-	}
-	return {
-		actors: e,
-		applyAwards: y,
-		canApply: g,
-		defaultReason: s,
-		errorMessage: u,
-		initialize: v,
-		isWorking: d,
-		plan: m,
-		positiveAwardCount: h,
-		resetSelection: n,
-		resolvedReason: _,
-		selectedActors: r,
-		selectionSource: l,
-		setActorSelected: i,
-		setAllActorsSelected: a
-	};
-}), Jb = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:justify-end tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-3" }, Yb = ["disabled"], Xb = {
-	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, Zb = /* @__PURE__ */ P({
-	__name: "ConsoleActionFooter",
-	props: {
-		disabled: { type: Boolean },
-		icon: {},
-		label: {},
-		working: { type: Boolean }
-	},
-	emits: ["action"],
-	setup(e, { emit: t }) {
-		let n = t;
-		return (t, r) => (L(), R("footer", Jb, [z("button", {
-			class: "dui-btn dui-btn-primary tw:w-full tw:min-w-0 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md tw:min-[32rem]:w-auto tw:min-[32rem]:min-w-52",
-			disabled: e.disabled,
-			type: "button",
-			onClick: r[0] ||= (e) => n("action")
-		}, [e.working ? (L(), R("span", Xb)) : (L(), R("i", {
-			key: 1,
-			class: E(e.icon),
-			"aria-hidden": "true"
-		}, null, 2)), V(" " + D(e.label), 1)], 8, Yb)]));
-	}
-}), Qb = { class: "tw:cursor-pointer" }, $b = ["checked", "disabled"], ex = { class: "tw:sr-only" }, tx = /* @__PURE__ */ P({
-	__name: "ActorSelectionCheckbox",
-	props: {
-		actorId: {},
-		actorName: {},
-		checked: { type: Boolean },
-		disabled: { type: Boolean },
-		purpose: {}
-	},
-	emits: ["change"],
-	setup(e, { emit: t }) {
-		let n = e, r = t;
-		function i(e) {
-			e.currentTarget instanceof HTMLInputElement && r("change", n.actorId, e.currentTarget.checked);
-		}
-		return (t, n) => (L(), R("label", Qb, [z("input", {
-			class: "dui-checkbox dui-checkbox-primary dui-checkbox-sm tw:appearance-none! tw:rounded-sm! tw:border-2! tw:border-primary! tw:bg-base-100! tw:bg-none! tw:shadow-none! tw:checked:border-primary! tw:checked:bg-primary! tw:checked:bg-none! tw:checked:text-primary-content!",
-			type: "checkbox",
-			checked: e.checked,
-			disabled: e.disabled,
-			onChange: i
-		}, null, 40, $b), z("span", ex, "Include " + D(e.actorName) + " in " + D(e.purpose), 1)]));
-	}
-}), nx = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
-	"aria-labelledby": "recipients-title"
-}, rx = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, ix = { class: "tw:flex tw:flex-wrap tw:items-start tw:justify-between tw:gap-2" }, ax = { class: "tw:flex tw:items-center tw:gap-2" }, ox = { class: "dui-badge dui-badge-sm" }, sx = { class: "tw:flex tw:flex-wrap tw:gap-1" }, cx = ["disabled"], lx = ["disabled"], ux = ["disabled"], dx = {
-	key: 0,
-	class: "tw:max-w-full tw:min-w-0 tw:overflow-x-auto tw:rounded-box tw:border tw:border-base-content/20! tw:bg-base-100!"
-}, fx = { class: "dui-table dui-table-sm tw:min-w-[52rem]" }, px = {
-	class: "tw:min-w-44",
-	scope: "row"
-}, mx = { class: "tw:block tw:font-semibold" }, hx = {
-	key: 0,
-	class: "dui-badge dui-badge-ghost dui-badge-xs"
-}, gx = { class: "tw:text-right tw:tabular-nums" }, _x = { class: "tw:text-right tw:tabular-nums" }, vx = { class: "tw:text-right tw:tabular-nums" }, yx = { class: "tw:text-right tw:tabular-nums" }, bx = { class: "tw:text-right tw:font-bold tw:tabular-nums" }, xx = { class: "tw:text-right tw:tabular-nums" }, Sx = {
-	key: 1,
-	class: "dui-alert dui-alert-warning",
-	role: "status"
-}, Cx = /* @__PURE__ */ P({
-	__name: "XpRecipientTable",
-	props: {
-		actors: {},
-		disabled: { type: Boolean },
-		plan: {}
-	},
-	emits: [
-		"reset",
-		"select-all",
-		"update:selected"
-	],
-	setup(e, { emit: t }) {
-		let n = e, r = t;
-		function i(e) {
-			return n.plan.awards.find((t) => t.actorId === e);
-		}
-		function a(e, t) {
-			r("update:selected", e, t);
-		}
-		return (t, n) => (L(), R("section", nx, [z("div", rx, [z("div", ix, [z("div", null, [z("div", ax, [n[3] ||= z("h2", {
-			id: "recipients-title",
-			class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-		}, " Recipients ", -1), z("span", ox, D(e.plan.awards.length) + " selected", 1)]), n[4] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " The XP leader sets the gap only. Decay is calculated from each recipient’s own total. ", -1)]), z("div", sx, [
-			z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-sm",
-				disabled: e.disabled,
-				type: "button",
-				onClick: n[0] ||= (e) => r("select-all", !0)
-			}, " All ", 8, cx),
-			z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-sm",
-				disabled: e.disabled,
-				type: "button",
-				onClick: n[1] ||= (e) => r("select-all", !1)
-			}, " None ", 8, lx),
-			z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-sm",
-				disabled: e.disabled,
-				type: "button",
-				onClick: n[2] ||= (e) => r("reset")
-			}, " Reset ", 8, ux)
-		])]), e.actors.length ? (L(), R("div", dx, [z("table", fx, [n[5] ||= z("thead", { class: "tw:bg-base-300/60!" }, [z("tr", null, [
-			z("th", { scope: "col" }, "Use"),
-			z("th", { scope: "col" }, "Actor"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "Total XP"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "Leader gap"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "Initial XP"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "Decay"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "Final award"),
-			z("th", {
-				class: "tw:text-right",
-				scope: "col"
-			}, "New total")
-		])], -1), z("tbody", null, [(L(!0), R(I, null, F(e.actors, (t) => (L(), R("tr", {
-			key: t.id,
-			class: E({ "tw:bg-base-200!": t.selected })
-		}, [
-			z("td", null, [B(tx, {
-				"actor-id": t.id,
-				"actor-name": t.name,
-				checked: t.selected,
-				disabled: e.disabled,
-				purpose: "the XP curve",
-				onChange: a
-			}, null, 8, [
-				"actor-id",
-				"actor-name",
-				"checked",
-				"disabled"
-			])]),
-			z("th", px, [z("span", mx, D(t.name), 1), t.category === "companion" ? (L(), R("span", hx, " Companion rate ")) : H("", !0)]),
-			z("td", gx, D(t.totalXp), 1),
-			z("td", _x, D(i(t.id)?.gap ?? "—"), 1),
-			z("td", vx, D(i(t.id) ? Math.round(i(t.id)?.catchUpValue ?? 0) : "—"), 1),
-			z("td", yx, D(i(t.id) ? `${Math.round((i(t.id)?.decayMultiplier ?? 0) * 100)}%` : "—"), 1),
-			z("td", bx, D(i(t.id) ? `+${i(t.id)?.award}` : "—"), 1),
-			z("td", xx, D(i(t.id)?.afterXp ?? "—"), 1)
-		], 2))), 128))])])])) : (L(), R("div", Sx, [...n[6] ||= [z("i", {
-			class: "fa-solid fa-user-slash",
-			"aria-hidden": "true"
-		}, null, -1), z("span", null, "No WFRP4e character actors are available in this world.", -1)]]))])]));
-	}
-}), wx = {
-	key: 0,
-	class: "dui-alert dui-alert-warning tw:mb-3",
-	role: "status"
-}, Tx = { class: "tw:grid tw:min-w-0 tw:gap-3 tw:min-[68rem]:grid-cols-[1.25fr_1fr]" }, Ex = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
-	"aria-labelledby": "award-message-title"
-}, Dx = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, Ox = { class: "tw:min-w-0 tw:rounded-box tw:bg-base-200! tw:p-3 tw:text-sm" }, kx = { class: "tw:m-0 tw:break-words tw:font-semibold" }, Ax = /* @__PURE__ */ P({
-	__name: "XpAwardWorkspace",
-	props: /*@__PURE__*/ Wr({
-		actors: {},
-		disabled: { type: Boolean },
-		plan: {},
-		resolvedReason: {},
-		selectionSource: {}
-	}, {
-		defaultReason: { required: !0 },
-		defaultReasonModifiers: {}
-	}),
-	emits: /*@__PURE__*/ Wr([
-		"reset",
-		"select-all",
-		"update:selected"
-	], ["update:defaultReason"]),
-	setup(e, { emit: t }) {
-		let n = di(e, "defaultReason"), r = t;
-		function i(e, t) {
-			r("update:selected", e, t);
-		}
-		return (t, a) => (L(), R(I, null, [e.selectionSource === "targets" && e.plan.awards.length === 0 ? (L(), R("div", wx, [...a[3] ||= [z("i", {
-			class: "fa-solid fa-bullseye",
-			"aria-hidden": "true"
-		}, null, -1), z("span", { class: "tw:min-w-0 tw:break-words" }, " The targeted tokens do not contain eligible WFRP4e character actors. ", -1)]])) : H("", !0), z("div", Tx, [B(Cx, {
-			actors: e.actors,
-			disabled: e.disabled,
-			plan: e.plan,
-			onReset: a[0] ||= (e) => r("reset"),
-			onSelectAll: a[1] ||= (e) => r("select-all", e),
-			"onUpdate:selected": i
-		}, null, 8, [
-			"actors",
-			"disabled",
-			"plan"
-		]), z("section", Ex, [z("div", Dx, [
-			a[5] ||= z("div", null, [z("h2", {
-				id: "award-message-title",
-				class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-			}, " Award message "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " This reason is written to each recipient’s WFRP4e experience log. ")], -1),
-			a[6] ||= z("label", {
-				class: "dui-label tw:whitespace-normal",
-				for: "xp-award-reason"
-			}, " Experience log reason ", -1),
-			N(z("input", {
-				id: "xp-award-reason",
-				"onUpdate:modelValue": a[2] ||= (e) => n.value = e,
-				class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
-				type: "text"
-			}, null, 512), [[W, n.value]]),
-			a[7] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, [
-				V(" Supports Drowsy’s "),
-				z("code", null, "%session%"),
-				V(" reference and Foundry’s "),
-				z("code", null, "%date%"),
-				V(" value. ")
-			], -1),
-			z("div", Ox, [a[4] ||= z("span", { class: "tw:text-xs tw:text-base-content/60!" }, "This award will record", -1), z("p", kx, D(e.resolvedReason || "No reason"), 1)]),
-			a[8] ||= z("div", {
-				class: "dui-alert tw:text-xs",
-				role: "note"
-			}, [z("i", {
-				class: "fa-solid fa-circle-info",
-				"aria-hidden": "true"
-			}), z("span", { class: "tw:min-w-0 tw:break-words" }, " Use the cog in the header to change curves and recipient defaults. Saving there refreshes this award ledger with the new calculation. ")], -1)
-		])])])], 64));
-	}
-}), jx = { class: "dui-navbar tw:min-h-0 tw:min-w-0 tw:gap-2 tw:border-b-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:px-3 tw:py-2 tw:text-base-content! tw:shadow-sm" }, Mx = { class: "dui-navbar-end tw:w-auto tw:max-w-full tw:shrink tw:items-center tw:gap-2" }, Nx = ["title"], Px = {
-	class: "dui-tooltip dui-tooltip-left",
-	"data-tip": "Configure XP Curve Console"
-}, Fx = { class: "tw:grid tw:grid-cols-2 tw:gap-px tw:border-b tw:border-base-content/20! tw:bg-base-content/20! tw:min-[38rem]:grid-cols-4" }, Ix = { class: "tw:contents" }, Lx = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, Rx = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, zx = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, Bx = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, Vx = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, Hx = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, Ux = { class: "tw:min-w-0 tw:bg-base-100! tw:px-4 tw:py-2" }, Wx = { class: "tw:m-0 tw:font-serif tw:text-lg tw:font-bold tw:text-base-content! tw:tabular-nums" }, Gx = /* @__PURE__ */ P({
-	__name: "XpConsoleHeader",
-	props: {
-		highestXp: {},
-		positiveAwardCount: {},
-		selectedCount: {},
-		selectionLabel: {},
-		selectionSource: {},
-		totalAward: {}
-	},
-	emits: ["configure"],
-	setup(e, { emit: t }) {
-		let n = t;
-		return (t, r) => (L(), R(I, null, [z("header", jx, [r[3] ||= z("div", { class: "dui-navbar-start tw:min-w-0 tw:flex-1" }, [z("span", {
-			class: "tw:inline-grid tw:size-8 tw:shrink-0 tw:place-items-center tw:rounded-full tw:border-2 tw:border-base-100/50! tw:bg-primary! tw:text-sm tw:text-primary-content! tw:shadow-sm",
-			"aria-hidden": "true"
-		}, [z("i", { class: "fa-solid fa-chart-line" })])], -1), z("div", Mx, [z("span", {
-			class: "dui-badge dui-badge-outline dui-badge-sm tw:h-auto tw:max-w-56 tw:whitespace-normal tw:border-base-content/25! tw:py-1 tw:text-center",
-			title: e.selectionSource === "targets" ? "Eligible targeted character tokens were selected when the console opened." : "No tokens were targeted, so the configured recipient default was used."
-		}, [r[1] ||= z("span", {
-			class: "dui-status dui-status-primary dui-status-sm tw:shrink-0",
-			"aria-hidden": "true"
-		}, null, -1), V(" " + D(e.selectionLabel), 1)], 8, Nx), z("span", Px, [z("button", {
-			class: "dui-btn dui-btn-ghost dui-btn-sm dui-btn-square tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content!",
-			"aria-label": "Configure XP Curve Console",
-			title: "Configure XP Curve Console",
-			type: "button",
-			onClick: r[0] ||= (e) => n("configure")
-		}, [...r[2] ||= [z("i", {
-			class: "fa-solid fa-gear",
-			"aria-hidden": "true"
-		}, null, -1)]])])])]), z("div", Fx, [z("dl", Ix, [
-			z("div", Lx, [r[4] ||= z("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Selected recipients", -1), z("dd", Rx, D(e.selectedCount), 1)]),
-			z("div", zx, [r[5] ||= z("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "XP leader total", -1), z("dd", Bx, D(e.highestXp), 1)]),
-			z("div", Vx, [r[6] ||= z("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Recipients gaining XP", -1), z("dd", Hx, D(e.positiveAwardCount), 1)]),
-			z("div", Ux, [r[7] ||= z("dt", { class: "tw:text-xs tw:text-base-content/60!" }, "Total award", -1), z("dd", Wx, D(e.totalAward) + " XP ", 1)])
-		])])], 64));
-	}
-}), Kx = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, qx = {
-	key: 0,
-	class: "dui-alert dui-alert-error tw:m-4 tw:mb-0",
-	role: "alert"
-}, Jx = { class: "tw:min-w-0 tw:break-words" }, Yx = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Xx = /* @__PURE__ */ P({
-	__name: "XpCurveConsoleApp",
-	props: {
-		actions: {},
-		initialization: {}
-	},
-	setup(e) {
-		let t = e, n = qb();
-		n.initialize(t.initialization, t.actions);
-		let { actors: r, canApply: i, defaultReason: a, errorMessage: o, isWorking: s, plan: c, positiveAwardCount: l, resolvedReason: u, selectedActors: d, selectionSource: f } = js(n), p = U(() => f.value === "targets" ? "Recipients: targeted tokens" : `Recipients: ${{
-			company: "company default",
-			party: "party default",
-			world: "world default"
-		}[t.initialization.defaultSelection]}`);
-		return (e, m) => (L(), R("main", Kx, [
-			B(Gx, {
-				"highest-xp": M(c).highestXp,
-				"positive-award-count": M(l),
-				"selected-count": M(d).length,
-				"selection-label": p.value,
-				"selection-source": M(f),
-				"total-award": M(c).totalAward,
-				onConfigure: t.actions.openConfigurator
-			}, null, 8, [
-				"highest-xp",
-				"positive-award-count",
-				"selected-count",
-				"selection-label",
-				"selection-source",
-				"total-award",
-				"onConfigure"
-			]),
-			M(o) ? (L(), R("div", qx, [m[1] ||= z("i", {
-				class: "fa-solid fa-triangle-exclamation",
-				"aria-hidden": "true"
-			}, null, -1), z("span", Jx, D(M(o)), 1)])) : H("", !0),
-			z("div", Yx, [B(Ax, {
-				"default-reason": M(a),
-				"onUpdate:defaultReason": m[0] ||= (e) => /* @__PURE__ */ A(a) ? a.value = e : null,
-				actors: M(r),
-				disabled: M(s),
-				plan: M(c),
-				"resolved-reason": M(u),
-				"selection-source": M(f),
-				onReset: M(n).resetSelection,
-				onSelectAll: M(n).setAllActorsSelected,
-				"onUpdate:selected": M(n).setActorSelected
-			}, null, 8, [
-				"default-reason",
-				"actors",
-				"disabled",
-				"plan",
-				"resolved-reason",
-				"selection-source",
-				"onReset",
-				"onSelectAll",
-				"onUpdate:selected"
-			])]),
-			B(Zb, {
-				disabled: !M(i),
-				icon: "fa-solid fa-award",
-				label: `Award ${M(c).totalAward} XP`,
-				working: M(s),
-				onAction: M(n).applyAwards
-			}, null, 8, [
-				"disabled",
-				"label",
-				"working",
-				"onAction"
-			])
-		]));
-	}
-}), Zx = {
-	...Gb,
-	launchers: { tokenControls: !0 },
-	parameters: { ...Gb.parameters }
-}, Qx = As("xp-curve-configurator", () => {
-	let e = /* @__PURE__ */ j([]), t = /* @__PURE__ */ j({ ...Zx.parameters }), n = /* @__PURE__ */ j(Zx.defaultReason), r = /* @__PURE__ */ j(Zx.defaultSelection), i = /* @__PURE__ */ j({ ...Zx.launchers }), a = /* @__PURE__ */ j(), o = /* @__PURE__ */ j(), s = /* @__PURE__ */ j(!1), c, l = U(() => Lb(e.value, t.value)), u = U(() => Math.max(0, ...l.value.awards.map((e) => e.gap))), d = U(() => Bb(t.value, Math.max(u.value * 1.1, 1))), f = U(() => Vb(t.value, Math.max(l.value.highestXp * 1.1, 1)));
-	function p(s, l) {
-		c = l, e.value = s.actors.map((e) => ({ ...e })), t.value = { ...s.parameters }, n.value = s.defaultReason, r.value = s.defaultSelection, i.value = { ...s.launchers }, a.value = void 0, o.value = void 0;
-	}
-	function m(e) {
-		r.value = e, o.value = void 0;
-	}
-	function h() {
-		t.value = { ...Zx.parameters }, n.value = Zx.defaultReason, r.value = Zx.defaultSelection, i.value = { ...Zx.launchers }, a.value = void 0, o.value = "Defaults restored. Save configuration to apply them.";
-	}
-	async function g() {
-		if (!s.value) {
-			s.value = !0, a.value = void 0, o.value = void 0;
+	async function g(t) {
+		if (!(a.value || t > 0 && f.value)) {
+			a.value = !0;
 			try {
-				t.value = Ib(t.value);
-				let e = {
-					defaultReason: n.value,
-					defaultSelection: r.value,
-					launchers: { ...i.value },
-					parameters: { ...t.value }
-				};
-				await _().saveConfiguration(e), o.value = "Configuration saved. Launcher changes apply after a reload.";
+				await s.changeStep({
+					...e.value,
+					parameters: { ...e.value.parameters }
+				}, t);
 			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | XP configuration save failed.", e), a.value = e instanceof Error ? e.message : "The XP Curve Console configuration could not be saved.";
+				r.value = e instanceof Error ? e.message : "Could not open the next step.";
 			} finally {
-				s.value = !1;
+				a.value = !1;
 			}
 		}
 	}
-	function _() {
-		if (!c) throw Error("The XP Curve Configurator has not been initialized.");
-		return c;
+	async function _() {
+		if (a.value || c.value.key !== "review") return;
+		let t = Sv.slice(0, -1).findIndex((t, n) => t.key !== "review" && Tv(e.value.parameters[t.key], n));
+		if (t >= 0) r.value = `Review step ${t + 1}: ${Sv[t].title}.`;
+		else {
+			a.value = !0, r.value = void 0;
+			try {
+				await s.saveConfiguration({
+					defaultReason: n.value.defaultReason,
+					parameters: { ...e.value.parameters }
+				}), o.value = !0, a.value = !1, s.close();
+			} catch (e) {
+				r.value = e instanceof Error ? e.message : "The configuration could not be saved.";
+			} finally {
+				a.value = !1;
+			}
+		}
 	}
 	return {
-		actors: e,
-		curveSamples: d,
-		decaySamples: f,
-		defaultReason: n,
-		defaultSelection: r,
-		errorMessage: a,
-		initialize: p,
-		isSaving: s,
-		launchers: i,
-		parameters: t,
-		plan: l,
+		draft: e,
+		stepIndex: t,
+		step: c,
+		initialization: n,
+		previewActors: l,
+		plan: u,
+		forecast: p,
+		hasChanges: d,
+		inputError: f,
+		errorMessage: r,
+		statusMessage: i,
+		isWorking: a,
+		initialize: m,
 		resetToDefaults: h,
-		saveConfiguration: g,
-		setDefaultSelection: m,
-		statusMessage: o
+		changeStep: g,
+		saveConfiguration: _
 	};
-});
-function $x(e, t, n, r) {
+}), Pv = 5e3, Fv = 1e3;
+function Iv(e, t, n = t) {
+	let r = Math.max(t, n);
+	for (; e >= r && Number.isFinite(r * 2);) r *= 2;
+	for (; r > t && e <= r * .4;) r /= 2;
+	return r;
+}
+function Lv(e, t, n, r) {
+	let i = e === "catchUpRate" || e === "curveExponent", a = 0;
+	e === "scalePivot" && (a = n.scalePivot), e === "scaleExponent" && (a = n.scalePivot * 2);
+	for (let e of t) a = Math.max(a, i ? e.gap : e.beforeXp);
+	let o = Iv(a, Pv, r?.maximumX), s = 1;
+	return (i || e === "maximumAward" || e === "review") && (s = Iv(i ? Vh(o, n) : n.maximumAward, Fv, r?.maximumY)), {
+		maximumX: o,
+		maximumY: s,
+		handleGap: o * .75
+	};
+}
+function Rv(e, t, n, r = {}) {
+	n = Rh(n);
+	let i = zh(t, n), a = e === "scalePivot" || e === "scaleExponent", o = e === "maximumAward" || e === "review", s = r.frozen ?? Lv(e, i.awards, n, r.previous), c = (e, t) => ({
+		x: Bv(e, s.maximumX),
+		y: Vv(t, s.maximumY)
+	}), l = o ? [...new Set(t.map((e) => e.xpPercent ?? 100))].filter((e) => e > 0) : [100], u = (l.length ? l : [100]).map((e) => ({
+		label: o ? `${e}% category rate` : a ? "Catch-up strength" : "Initial curve XP",
+		points: Array.from({ length: 61 }, (t, r) => {
+			let l = r / 60 * s.maximumX, u = a ? Hh(l, n) : o ? Bh(Math.max(0, i.highestXp - l), l, n, e / 100) : Vh(l, n), d = c(l, u);
+			return `${d.x.toFixed(1)},${d.y.toFixed(1)}`;
+		}).join(" ")
+	})), d = i.awards.map((e, t) => ({
+		...c(a || o ? e.beforeXp : e.gap, a ? e.decayMultiplier : o ? e.award : e.catchUpValue),
+		actorId: e.actorId,
+		index: t + 1,
+		label: `${e.actorName}: ${e.beforeXp} total XP, ${e.gap} XP behind; +${e.award} final curve XP`
+	}));
 	return {
-		maximumGap: Math.max(1, e * 1.4, ...n.map((e) => e.gap), ...r.map((e) => e.gap * 1.05)),
-		maximumValue: Math.max(1, t * 1.25, ...n.map((e) => e.award * 1.05), ...r.map((e) => e.catchUpValue * 1.05))
+		bounds: s,
+		handle: e === "scalePivot" ? c(n.scalePivot, 1) : e === "scaleExponent" ? c(n.scalePivot * 2, Hh(n.scalePivot * 2, n)) : e === "maximumAward" ? c(s.maximumX * .5, n.maximumAward) : c(s.handleGap, Vh(s.handleGap, n)),
+		series: u,
+		markers: d,
+		weakening: a,
+		title: a ? "How much catch-up help remains" : o ? "Final curve XP at the current Party leader’s XP" : "Initial help before weakening and category rates",
+		xLabel: a || o ? "Character total XP" : "XP gap below the Party leader",
+		yLabel: a ? "Help remaining" : o ? "Final bonus XP" : "Initial bonus XP"
 	};
 }
-function eS(e, t, n) {
-	return { maximumRecipientXp: Math.max(1e3, e * 4, ...t.map((e) => e.recipientXp), ...n.map((e) => e.beforeXp * 1.05)) };
+function zv(e, t, n, r) {
+	let i = Math.max(0, Math.min(1, (t.x - 68) / 472)) * n.maximumX, a = Math.max(0, Math.min(1, 1 - (t.y - 24) / 192)) * n.maximumY;
+	return e === "scalePivot" ? Math.max(1, Math.min(1e6, Math.round(i))) : e === "maximumAward" ? Math.min(1e5, Math.round(a)) : e === "scaleExponent" ? Hv(Math.max(0, Math.min(2, Math.log(Math.max(.25, a)) / Math.log(.5)))) : e === "catchUpRate" ? Hv(Math.min(1e3, a / (10 * (n.handleGap / 1e3) ** r.curveExponent))) : r.catchUpRate === 0 ? r.curveExponent : Hv(Math.max(.1, Math.min(5, Math.log(Math.max(.001, a) / (r.catchUpRate * 10)) / Math.log(n.handleGap / 1e3))));
 }
-function tS(e) {
-	let t = (t) => cS(t, e.bounds.maximumGap), n = (t) => lS(t, e.bounds.maximumValue);
-	return {
-		points: e.samples.map((e) => `${t(e.gap).toFixed(1)},${n(e.award).toFixed(1)}`).join(" "),
-		recipientLegend: e.awards.map((e, t) => ({
-			actorId: e.actorId,
-			index: t + 1,
-			text: `${e.actorName} — ${e.gap} XP gap — initial ${Math.round(e.catchUpValue)} XP`
-		})),
-		recipientPoints: e.awards.map((e, r) => ({
-			actorId: e.actorId,
-			index: r + 1,
-			label: `${e.actorName}: ${Math.round(e.gap)} XP gap, ${Math.round(e.catchUpValue)} initial XP`,
-			x: t(e.gap),
-			y: n(e.catchUpValue)
-		})),
-		referencePoint: {
-			x: t(e.gapForMaximumAward),
-			y: n(e.maximumAward)
-		},
-		shapePoint: {
-			x: t(e.gapForMaximumAward / 2),
-			y: n(e.maximumAward * .5 ** e.curveExponent)
-		}
-	};
+function Bv(e, t) {
+	return 68 + e / Math.max(1, t) * 472;
 }
-function nS(e) {
-	let t = (t) => cS(t, e.bounds.maximumRecipientXp), n = uS;
-	return {
-		pivotPoint: {
-			x: t(e.scalePivot),
-			y: n(1)
-		},
-		points: e.samples.map((e) => `${t(e.recipientXp).toFixed(1)},${n(e.multiplier).toFixed(1)}`).join(" "),
-		recipientLegend: e.awards.map((e, t) => ({
-			actorId: e.actorId,
-			index: t + 1,
-			text: `${e.actorName} — ${e.beforeXp} XP — ${Math.round(e.decayMultiplier * 100)}% multiplier`
-		})),
-		recipientPoints: e.awards.map((e, r) => ({
-			actorId: e.actorId,
-			index: r + 1,
-			label: `${e.actorName}: ${e.beforeXp} total XP, ${Math.round(e.decayMultiplier * 100)}% catch-up strength`,
-			x: t(e.beforeXp),
-			y: n(e.decayMultiplier)
-		})),
-		strengthPoint: {
-			x: t(e.scalePivot * 2),
-			y: n(.5 ** e.scaleExponent)
-		}
-	};
+function Vv(e, t) {
+	return 24 + (1 - e / Math.max(.001, t)) * 192;
 }
-function rS(e, t, n, r) {
-	if (e === "reference") {
-		let r = dS((t.x - 68) / 472, .001, 1), i = 1 - dS((t.y - 24) / 192, 0, 1);
-		return {
-			gapForMaximumAward: Math.max(1, Math.round(r * n.maximumGap)),
-			kind: e,
-			maximumAward: Math.max(0, Math.round(i * n.maximumValue))
-		};
-	}
-	let i = dS((216 - t.y) / 192 * (n.maximumValue / Math.max(1, r)), .03, .99);
-	return {
-		curveExponent: fS(dS(Math.log(i) / Math.log(.5), .1, 5), .05),
-		kind: e
-	};
+function Hv(e) {
+	return Math.round(e * 100) / 100;
 }
-function iS(e, t, n) {
-	if (e === "pivot") {
-		let r = dS((t.x - 68) / 472, .001, 1);
-		return {
-			kind: e,
-			scalePivot: Math.max(1, Math.round(r * n.maximumRecipientXp))
-		};
-	}
-	let r = dS(1 - (t.y - 24) / 192, .25, .99);
-	return {
-		kind: e,
-		scaleExponent: fS(dS(Math.log(r) / Math.log(.5), 0, 2), .05)
-	};
-}
-function aS(e, t, n) {
-	let r = Math.max(10, Math.round(t / 20)), i = Math.max(1, Math.round(Math.max(1, n) / 20));
-	if (e === "ArrowLeft" || e === "ArrowRight") return { gapForMaximumAward: Math.max(1, t + (e === "ArrowLeft" ? -r : r)) };
-	if (e === "ArrowUp" || e === "ArrowDown") return { maximumAward: Math.max(0, n + (e === "ArrowUp" ? i : -i)) };
-}
-function oS(e, t, n, r) {
-	if ([
-		"ArrowDown",
-		"ArrowLeft",
-		"ArrowRight",
-		"ArrowUp"
-	].includes(e)) return fS(dS(t + (e === "ArrowUp" || e === "ArrowRight" ? -1 : 1) * .05, n, r), .05);
-}
-function sS(e, t) {
-	if (e !== "ArrowLeft" && e !== "ArrowRight") return;
-	let n = Math.max(100, Math.round(t / 20));
-	return Math.max(1, t + (e === "ArrowLeft" ? -n : n));
-}
-function cS(e, t) {
-	return 68 + Math.max(0, e) / Math.max(1, t) * 472;
-}
-function lS(e, t) {
-	return 24 + (1 - Math.max(0, e) / Math.max(1, t)) * 192;
-}
-function uS(e) {
-	return 24 + (1 - dS(e, 0, 1)) * 192;
-}
-function dS(e, t, n) {
-	return Math.min(n, Math.max(t, e));
-}
-function fS(e, t) {
-	let n = t.toString().split(".")[1]?.length ?? 0;
-	return Number((Math.round(e / t) * t).toFixed(n));
-}
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/graphMath.ts
-function pS(e, t) {
-	let n = e.getBoundingClientRect();
-	return {
-		x: (t.clientX - n.left) / n.width * 560,
-		y: (t.clientY - n.top) / n.height * 270
-	};
-}
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/graph/GraphCanvas.vue?vue&type=script&setup=true&lang.ts
-var mS = ["viewBox", "aria-labelledby"], hS = ["id"], gS = ["id"], _S = [
-	"x1",
-	"x2",
-	"y1",
-	"y2"
-], vS = [
-	"x1",
-	"x2",
-	"y1",
-	"y2"
-], yS = [
-	"x1",
-	"x2",
-	"y1",
-	"y2"
-], bS = ["points"], xS = ["cx", "cy"], SS = ["x", "y"], CS = ["x", "y"], wS = ["x", "y"], TS = ["x", "y"], ES = ["x", "y"], DS = ["x", "y"], OS = ["transform", "y"], kS = /* @__PURE__ */ P({
-	__name: "GraphCanvas",
-	props: {
-		description: {},
-		descriptionId: {},
-		markers: {},
-		maximumXLabel: {},
-		minimumYLabel: {},
-		points: {},
-		title: {},
-		titleId: {},
-		verticalGuideX: {},
-		xAxisLabel: {},
-		yAxisLabel: {},
-		maximumYLabel: {}
-	},
-	emits: [
-		"pointercancel",
-		"pointermove",
-		"pointerup"
-	],
-	setup(e, { emit: t }) {
-		let n = t;
-		return (t, r) => (L(), R("svg", {
-			class: "tw:block tw:h-auto tw:w-full tw:max-w-full tw:touch-none tw:[user-select:none]",
-			viewBox: `0 0 ${M(560)} ${M(270)}`,
-			role: "img",
-			"aria-labelledby": `${e.titleId} ${e.descriptionId}`,
-			onPointercancel: r[0] ||= (e) => n("pointercancel", e),
-			onPointermove: r[1] ||= (e) => n("pointermove", e),
-			onPointerup: r[2] ||= (e) => n("pointerup", e)
-		}, [
-			z("title", { id: e.titleId }, D(e.title), 9, hS),
-			z("desc", { id: e.descriptionId }, D(e.description), 9, gS),
-			z("line", {
-				class: "tw:text-base-content/25!",
-				x1: M(68),
-				x2: M(68),
-				y1: M(24),
-				y2: M(24) + M(192),
-				stroke: "currentColor"
-			}, null, 8, _S),
-			z("line", {
-				class: "tw:text-base-content/25!",
-				x1: M(68),
-				x2: M(68) + M(472),
-				y1: M(24) + M(192),
-				y2: M(24) + M(192),
-				stroke: "currentColor"
-			}, null, 8, vS),
-			z("line", {
-				class: "tw:text-base-content/25!",
-				x1: e.verticalGuideX,
-				x2: e.verticalGuideX,
-				y1: M(24),
-				y2: M(24) + M(192),
-				stroke: "currentColor",
-				"stroke-dasharray": "4 5"
-			}, null, 8, yS),
-			Lr(t.$slots, "guides"),
-			z("polyline", {
-				class: "tw:text-secondary!",
-				fill: "none",
-				points: e.points,
-				stroke: "currentColor",
-				"stroke-linecap": "round",
-				"stroke-linejoin": "round",
-				"stroke-width": "3"
-			}, null, 8, bS),
-			(L(!0), R(I, null, F(e.markers, (e) => (L(), R("g", {
-				key: e.actorId,
-				class: "tw:text-base-content!",
-				"aria-hidden": "true"
-			}, [z("circle", {
-				cx: e.x,
-				cy: e.y,
-				fill: "currentColor",
-				r: "9"
-			}, [z("title", null, D(e.label), 1)], 8, xS), z("text", {
-				class: "tw:text-base-100!",
-				x: e.x,
-				y: e.y + 3,
-				fill: "currentColor",
-				"font-size": "9",
-				"font-weight": "700",
-				"text-anchor": "middle"
-			}, D(e.index), 9, SS)]))), 128)),
-			Lr(t.$slots, "handles"),
-			z("text", {
-				class: "tw:text-base-content/65!",
-				x: M(68),
-				y: M(24) + M(192) + 18,
-				fill: "currentColor",
-				"font-size": "11",
-				"text-anchor": "middle"
-			}, " 0 ", 8, CS),
-			z("text", {
-				class: "tw:text-base-content/65!",
-				x: M(68) + M(472),
-				y: M(24) + M(192) + 18,
-				fill: "currentColor",
-				"font-size": "11",
-				"text-anchor": "end"
-			}, D(e.maximumXLabel), 9, wS),
-			z("text", {
-				class: "tw:text-base-content/75!",
-				x: M(68) + M(472) / 2,
-				y: M(270) - 8,
-				fill: "currentColor",
-				"font-size": "12",
-				"font-weight": "600",
-				"text-anchor": "middle"
-			}, D(e.xAxisLabel), 9, TS),
-			e.maximumYLabel ? (L(), R("text", {
-				key: 0,
-				class: "tw:text-base-content/65!",
-				x: M(68) - 10,
-				y: M(24) + 4,
-				fill: "currentColor",
-				"font-size": "11",
-				"text-anchor": "end"
-			}, D(e.maximumYLabel), 9, ES)) : H("", !0),
-			z("text", {
-				class: "tw:text-base-content/65!",
-				x: M(68) - 10,
-				y: M(24) + M(192) + 3,
-				fill: "currentColor",
-				"font-size": "11",
-				"text-anchor": "end"
-			}, D(e.minimumYLabel), 9, DS),
-			z("text", {
-				class: "tw:text-base-content/75!",
-				transform: `rotate(-90 16 ${M(24) + M(192) / 2})`,
-				x: "16",
-				y: M(24) + M(192) / 2,
-				fill: "currentColor",
-				"font-size": "12",
-				"font-weight": "600",
-				"text-anchor": "middle"
-			}, D(e.yAxisLabel), 9, OS),
-			Lr(t.$slots, "labels")
-		], 40, mS));
-	}
-}), AS = [
-	"role",
-	"aria-label",
-	"aria-valuemax",
-	"aria-valuemin",
-	"aria-valuenow",
-	"aria-valuetext"
-], jS = ["x", "y"], MS = ["x", "y"], NS = /* @__PURE__ */ P({
-	__name: "DiamondHandle",
-	props: {
-		ariaLabel: {},
-		x: {},
-		y: {},
-		ariaValueMax: {},
-		ariaValueMin: {},
-		ariaValueNow: {},
-		ariaValueText: {},
-		role: {}
-	},
-	emits: ["keydown", "pointerdown"],
-	setup(e, { emit: t }) {
-		let n = t;
-		return (t, r) => (L(), R("g", {
-			class: "tw:cursor-grab tw:text-secondary!",
-			role: e.role ?? "slider",
-			tabindex: "0",
-			"aria-label": e.ariaLabel,
-			"aria-valuemax": e.ariaValueMax,
-			"aria-valuemin": e.ariaValueMin,
-			"aria-valuenow": e.ariaValueNow,
-			"aria-valuetext": e.ariaValueText,
-			onKeydown: r[0] ||= (e) => n("keydown", e),
-			onPointerdown: r[1] ||= Go((e) => n("pointerdown", e), ["stop"])
-		}, [z("rect", {
-			x: e.x - 8,
-			y: e.y - 8,
-			fill: "currentColor",
-			height: "16",
-			rx: "2",
-			stroke: "currentColor",
-			"stroke-width": "8",
-			"stroke-opacity": "0.18",
-			width: "16"
-		}, null, 8, jS), z("rect", {
-			class: "tw:text-base-100!",
-			x: e.x - 3,
-			y: e.y - 3,
-			fill: "currentColor",
-			height: "6",
-			rx: "1",
-			width: "6"
-		}, null, 8, MS)], 40, AS));
-	}
-}), PS = {
-	key: 0,
-	class: "tw:mt-2"
-}, FS = { class: "tw:mt-1 tw:grid tw:[list-style:none] tw:grid-cols-1 tw:gap-x-3 tw:gap-y-1 tw:p-0 tw:text-xs tw:text-base-content/70! tw:min-[32rem]:grid-cols-2" }, IS = { class: "tw:font-bold tw:text-base-content!" }, LS = { class: "tw:break-words" }, RS = /* @__PURE__ */ P({
-	__name: "RecipientLegend",
-	props: { items: {} },
-	setup(e) {
-		return (t, n) => e.items.length ? (L(), R("figcaption", PS, [n[0] ||= z("span", { class: "tw:text-xs tw:font-semibold" }, "Selected recipients", -1), z("ol", FS, [(L(!0), R(I, null, F(e.items, (e) => (L(), R("li", {
-			key: e.actorId,
-			class: "tw:min-w-0"
-		}, [z("span", IS, D(e.index) + ".", 1), z("span", LS, D(e.text), 1)]))), 128))])])) : H("", !0);
-	}
-}), zS = [
-	"aria-label",
-	"aria-valuemax",
-	"aria-valuemin",
-	"aria-valuenow",
-	"aria-valuetext"
-], BS = ["cx", "cy"], VS = ["cx", "cy"], HS = /* @__PURE__ */ P({
-	__name: "RoundHandle",
-	props: {
-		ariaLabel: {},
-		ariaValueMax: {},
-		ariaValueMin: {},
-		ariaValueNow: {},
-		ariaValueText: {},
-		x: {},
-		y: {}
-	},
-	emits: ["keydown", "pointerdown"],
-	setup(e, { emit: t }) {
-		let n = t;
-		return (t, r) => (L(), R("g", {
-			class: "tw:cursor-grab tw:text-secondary!",
-			role: "slider",
-			tabindex: "0",
-			"aria-label": e.ariaLabel,
-			"aria-valuemax": e.ariaValueMax,
-			"aria-valuemin": e.ariaValueMin,
-			"aria-valuenow": e.ariaValueNow,
-			"aria-valuetext": e.ariaValueText,
-			onKeydown: r[0] ||= (e) => n("keydown", e),
-			onPointerdown: r[1] ||= Go((e) => n("pointerdown", e), ["stop"])
-		}, [z("circle", {
-			cx: e.x,
-			cy: e.y,
-			fill: "currentColor",
-			r: "8",
-			stroke: "currentColor",
-			"stroke-width": "8",
-			"stroke-opacity": "0.18"
-		}, null, 8, BS), z("circle", {
-			class: "tw:text-base-100!",
-			cx: e.x,
-			cy: e.y,
-			fill: "currentColor",
-			r: "3"
-		}, null, 8, VS)], 40, zS));
-	}
-});
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/graph/drag.ts
-function US(e, t) {
-	let n = /* @__PURE__ */ sn();
+// src/module/apps/xp-curve-configurator/view/curve/graph/drag.ts
+function Uv(e, t) {
+	let n = /* @__PURE__ */ pn();
 	function r(r, i) {
 		let a = i.currentTarget.ownerSVGElement;
 		if (!a) throw Error("XP graph drag handles must be rendered inside an SVG element.");
@@ -10065,989 +8834,700 @@ function US(e, t) {
 		updateDrag: i
 	};
 }
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/useCatchUpGraph.ts
-function WS(e, t) {
-	let n = U(() => $x(e.gapForMaximumAward, e.maximumAward, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = US(() => ({ ...n.value }), _), s = U(() => r.value?.snapshot ?? n.value), c = U(() => tS({
-		awards: e.awards,
-		bounds: s.value,
-		curveExponent: e.curveExponent,
-		gapForMaximumAward: e.gapForMaximumAward,
-		maximumAward: e.maximumAward,
-		samples: e.samples
-	})), l = U(() => s.value.maximumGap), u = U(() => c.value.points), d = U(() => c.value.recipientLegend), f = U(() => c.value.recipientPoints), p = U(() => c.value.referencePoint), m = U(() => c.value.shapePoint);
-	function h(e) {
-		return cS(e, s.value.maximumGap);
-	}
-	function g(e) {
-		return lS(e, s.value.maximumValue);
-	}
-	function _(n, r) {
-		let i = rS(n.kind, pS(n.svg, r), n.snapshot, e.maximumAward);
-		if (i.kind === "reference") {
-			t("update:gapForMaximumAward", i.gapForMaximumAward), t("update:maximumAward", i.maximumAward);
-			return;
-		}
-		t("update:curveExponent", i.curveExponent);
-	}
-	function v(n) {
-		let r = aS(n.key, e.gapForMaximumAward, e.maximumAward);
-		r && (n.preventDefault(), r.gapForMaximumAward !== void 0 && t("update:gapForMaximumAward", r.gapForMaximumAward), r.maximumAward !== void 0 && t("update:maximumAward", r.maximumAward));
-	}
-	function y(n) {
-		let r = oS(n.key, e.curveExponent, .1, 5);
-		r !== void 0 && (n.preventDefault(), t("update:curveExponent", r));
-	}
+// src/module/apps/xp-curve-configurator/view/curve/graphMath.ts
+function Wv(e, t) {
+	let n = e.getBoundingClientRect();
 	return {
-		beginDrag: i,
-		endDrag: a,
-		maximumGap: l,
-		points: u,
-		recipientLegend: d,
-		recipientPoints: f,
-		referencePoint: p,
-		shapePoint: m,
-		toGraphX: h,
-		toGraphY: g,
-		updateDrag: o,
-		updateReferenceWithKeyboard: v,
-		updateShapeWithKeyboard: y
+		x: (t.clientX - n.left) / n.width * 560,
+		y: (t.clientY - n.top) / n.height * 270
 	};
 }
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/XpCurveGraph.vue?vue&type=script&setup=true&lang.ts
-var GS = {
-	class: "tw:m-0 tw:block tw:min-w-0",
-	"aria-labelledby": "xp-catch-up-graph-heading"
-}, KS = [
+// src/module/apps/xp-curve-configurator/view/curve/useStepGraph.ts
+function Gv(e, t) {
+	let { activeDrag: n, beginDrag: r, endDrag: i, updateDrag: a } = Uv(() => o.value.bounds, (n, r) => t(n.kind, zv(n.kind, Wv(n.svg, r), n.snapshot, e.parameters))), o = K((t) => Rv(e.step, e.actors, e.parameters, {
+		previous: t?.bounds,
+		frozen: n.value?.snapshot
+	})), s = K(() => Sv.find((t) => t.key === e.step));
+	function c(t) {
+		e.step !== "review" && r(e.step, t);
+	}
+	function l(n) {
+		if (e.step === "review" || ![
+			"ArrowUp",
+			"ArrowDown",
+			"ArrowLeft",
+			"ArrowRight"
+		].includes(n.key)) return;
+		n.preventDefault();
+		let r = n.key === "ArrowUp" || n.key === "ArrowRight" ? 1 : -1, i = e.step === "scaleExponent" ? -r : r, a = e.parameters[e.step] + i * s.value.increment;
+		t(e.step, Math.round(Math.max(s.value.min, Math.min(s.value.max, a)) * 100) / 100);
+	}
+	return {
+		graph: o,
+		definition: s,
+		start: c,
+		endDrag: i,
+		updateDrag: a,
+		keydown: l
+	};
+}
+// src/module/apps/xp-curve-configurator/view/curve/graph/GraphCanvas.vue?vue&type=script&setup=true&lang.ts
+var Kv = ["viewBox", "aria-labelledby"], qv = ["id"], Jv = ["id"], Yv = [
 	"x1",
 	"x2",
 	"y1",
 	"y2"
-], qS = ["x", "y"], JS = /* @__PURE__ */ P({
-	__name: "XpCurveGraph",
+], Xv = [
+	"x1",
+	"x2",
+	"y1",
+	"y2"
+], Zv = [
+	"x1",
+	"x2",
+	"y1",
+	"y2"
+], Qv = ["points", "stroke-dasharray"], $v = ["aria-label"], ey = ["cx", "cy"], ty = ["x", "y"], ny = ["x", "y"], ry = ["x", "y"], iy = ["x", "y"], ay = ["x", "y"], oy = ["x", "y"], sy = ["transform", "y"], cy = /* @__PURE__ */ L({
+	__name: "GraphCanvas",
 	props: {
-		awards: {},
-		curveExponent: {},
-		gapForMaximumAward: {},
-		maximumAward: {},
-		samples: {}
+		description: {},
+		descriptionId: {},
+		markers: {},
+		maximumXLabel: {},
+		minimumYLabel: {},
+		series: {},
+		title: {},
+		titleId: {},
+		verticalGuideX: {},
+		xAxisLabel: {},
+		yAxisLabel: {},
+		maximumYLabel: {}
 	},
 	emits: [
-		"update:curveExponent",
-		"update:gapForMaximumAward",
-		"update:maximumAward"
+		"pointercancel",
+		"pointermove",
+		"pointerup"
 	],
 	setup(e, { emit: t }) {
-		let { beginDrag: n, endDrag: r, maximumGap: i, points: a, recipientLegend: o, recipientPoints: s, referencePoint: c, shapePoint: l, toGraphX: u, toGraphY: d, updateDrag: f, updateReferenceWithKeyboard: p, updateShapeWithKeyboard: m } = WS(e, t);
-		return (t, h) => (L(), R("figure", GS, [
-			h[2] ||= z("div", { class: "tw:mb-2" }, [z("h4", {
-				id: "xp-catch-up-graph-heading",
-				class: "tw:m-0 tw:text-sm tw:font-semibold"
-			}, " Initial catch-up value by XP gap "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Drag the diamond to set the reference gap and hard limit. Drag the round point to shape the curve. ")], -1),
-			B(kS, {
-				description: "The horizontal axis is the recipient's gap below the selected XP leader. The vertical axis is the initial catch-up value before recipient decay, companion rate, and the final hard limit. Numbered markers identify selected recipients.",
-				"description-id": "xp-catch-up-graph-description",
-				markers: M(s),
-				"maximum-x-label": `${Math.round(M(i))} XP`,
-				"minimum-y-label": "0",
-				points: M(a),
-				title: "Editable catch-up XP curve",
-				"title-id": "xp-catch-up-graph-title",
-				"vertical-guide-x": M(u)(e.gapForMaximumAward),
-				"x-axis-label": "Gap below selected XP leader",
-				"y-axis-label": "Initial catch-up XP",
-				onPointercancel: M(r),
-				onPointermove: M(f),
-				onPointerup: M(r)
+		let n = t;
+		return (t, r) => (B(), V("svg", {
+			class: "tw:block tw:h-auto tw:w-full tw:max-w-[35rem] tw:touch-none tw:[user-select:none]",
+			viewBox: `0 0 ${F(560)} ${F(270)}`,
+			role: "group",
+			"aria-labelledby": `${e.titleId} ${e.descriptionId}`,
+			onPointercancel: r[0] ||= (e) => n("pointercancel", e),
+			onPointermove: r[1] ||= (e) => n("pointermove", e),
+			onPointerup: r[2] ||= (e) => n("pointerup", e)
+		}, [
+			H("title", { id: e.titleId }, k(e.title), 9, qv),
+			H("desc", { id: e.descriptionId }, k(e.description), 9, Jv),
+			H("line", {
+				class: "tw:text-base-content/25!",
+				x1: F(68),
+				x2: F(68),
+				y1: F(24),
+				y2: F(24) + F(192),
+				stroke: "currentColor"
+			}, null, 8, Yv),
+			H("line", {
+				class: "tw:text-base-content/25!",
+				x1: F(68),
+				x2: F(68) + F(472),
+				y1: F(24) + F(192),
+				y2: F(24) + F(192),
+				stroke: "currentColor"
+			}, null, 8, Xv),
+			H("line", {
+				class: "tw:text-base-content/25!",
+				x1: e.verticalGuideX,
+				x2: e.verticalGuideX,
+				y1: F(24),
+				y2: F(24) + F(192),
+				stroke: "currentColor",
+				"stroke-dasharray": "4 5"
+			}, null, 8, Zv),
+			Jr(t.$slots, "guides"),
+			(B(!0), V(z, null, R(e.series, (e, t) => (B(), V("polyline", {
+				key: e.label,
+				class: "tw:text-secondary!",
+				fill: "none",
+				points: e.points,
+				"stroke-dasharray": t === 0 ? void 0 : `${3 + t * 2} 4`,
+				stroke: "currentColor",
+				"stroke-linecap": "round",
+				"stroke-linejoin": "round",
+				"stroke-width": "3"
+			}, [H("title", null, k(e.label), 1)], 8, Qv))), 128)),
+			(B(!0), V(z, null, R(e.markers, (e) => (B(), V("g", {
+				key: e.actorId,
+				class: "tw:text-base-content!",
+				"aria-label": e.label,
+				role: "img",
+				tabindex: "0"
+			}, [H("circle", {
+				class: "tw:[r:14px] tw:@min-[28rem]:[r:9px]",
+				cx: e.x,
+				cy: e.y,
+				fill: "currentColor",
+				r: "9"
+			}, [H("title", null, k(e.label), 1)], 8, ey), H("text", {
+				class: "tw:text-[17px] tw:text-base-100! tw:@min-[28rem]:text-[9px]",
+				x: e.x,
+				y: e.y + 3,
+				fill: "currentColor",
+				"font-size": "9",
+				"font-weight": "700",
+				"text-anchor": "middle"
+			}, k(e.index), 9, ty)], 8, $v))), 128)),
+			Jr(t.$slots, "handles"),
+			H("text", {
+				class: "tw:text-[18px] tw:text-base-content/65! tw:@min-[28rem]:text-[11px]",
+				x: F(68),
+				y: F(24) + F(192) + 18,
+				fill: "currentColor",
+				"font-size": "11",
+				"text-anchor": "middle"
+			}, " 0 ", 8, ny),
+			H("text", {
+				class: "tw:text-[18px] tw:text-base-content/65! tw:@min-[28rem]:text-[11px]",
+				x: F(68) + F(472),
+				y: F(24) + F(192) + 18,
+				fill: "currentColor",
+				"font-size": "11",
+				"text-anchor": "end"
+			}, k(e.maximumXLabel), 9, ry),
+			H("text", {
+				class: "tw:text-[20px] tw:text-base-content/75! tw:@min-[28rem]:text-[12px]",
+				x: F(68) + F(472) / 2,
+				y: F(270) - 8,
+				fill: "currentColor",
+				"font-size": "12",
+				"font-weight": "600",
+				"text-anchor": "middle"
+			}, k(e.xAxisLabel), 9, iy),
+			e.maximumYLabel ? (B(), V("text", {
+				key: 0,
+				class: "tw:text-[18px] tw:text-base-content/65! tw:@min-[28rem]:text-[11px]",
+				x: F(68) - 10,
+				y: F(24) + 4,
+				fill: "currentColor",
+				"font-size": "11",
+				"text-anchor": "end"
+			}, k(e.maximumYLabel), 9, ay)) : G("", !0),
+			H("text", {
+				class: "tw:text-[18px] tw:text-base-content/65! tw:@min-[28rem]:text-[11px]",
+				x: F(68) - 10,
+				y: F(24) + F(192) + 3,
+				fill: "currentColor",
+				"font-size": "11",
+				"text-anchor": "end"
+			}, k(e.minimumYLabel), 9, oy),
+			H("text", {
+				class: "tw:text-[20px] tw:text-base-content/75! tw:@min-[28rem]:text-[12px]",
+				transform: `rotate(-90 16 ${F(24) + F(192) / 2})`,
+				x: "16",
+				y: F(24) + F(192) / 2,
+				fill: "currentColor",
+				"font-size": "12",
+				"font-weight": "600",
+				"text-anchor": "middle"
+			}, k(e.yAxisLabel), 9, sy),
+			Jr(t.$slots, "labels")
+		], 40, Kv));
+	}
+}), ly = [
+	"role",
+	"aria-label",
+	"aria-valuemax",
+	"aria-valuemin",
+	"aria-valuenow",
+	"aria-valuetext"
+], uy = ["cx", "cy"], dy = ["x", "y"], fy = ["x", "y"], py = /* @__PURE__ */ L({
+	__name: "DiamondHandle",
+	props: {
+		label: {},
+		x: {},
+		y: {},
+		valueMax: {},
+		valueMin: {},
+		valueNow: {},
+		valueText: {},
+		role: {}
+	},
+	emits: ["keydown", "pointerdown"],
+	setup(e, { emit: t }) {
+		let n = t;
+		return (t, r) => (B(), V("g", {
+			class: "tw:cursor-grab tw:text-secondary!",
+			role: e.role ?? "slider",
+			tabindex: "0",
+			"aria-label": e.label,
+			"aria-valuemax": e.valueMax,
+			"aria-valuemin": e.valueMin,
+			"aria-valuenow": e.valueNow,
+			"aria-valuetext": e.valueText,
+			onKeydown: r[0] ||= (e) => n("keydown", e),
+			onPointerdown: r[1] ||= ss((e) => n("pointerdown", e), ["stop"])
+		}, [
+			H("circle", {
+				cx: e.x,
+				cy: e.y,
+				r: "40",
+				fill: "transparent"
+			}, null, 8, uy),
+			H("rect", {
+				x: e.x - 8,
+				y: e.y - 8,
+				fill: "currentColor",
+				height: "16",
+				rx: "2",
+				stroke: "currentColor",
+				"stroke-width": "8",
+				"stroke-opacity": "0.18",
+				width: "16"
+			}, null, 8, dy),
+			H("rect", {
+				class: "tw:text-base-100!",
+				x: e.x - 3,
+				y: e.y - 3,
+				fill: "currentColor",
+				height: "6",
+				rx: "1",
+				width: "6"
+			}, null, 8, fy)
+		], 40, ly));
+	}
+}), my = { class: "tw:@container tw:m-0 tw:min-w-0" }, hy = { class: "tw:mt-0! tw:mb-1 tw:text-left! tw:text-sm tw:font-semibold tw:text-base-content! tw:not-italic!" }, gy = [
+	"x1",
+	"x2",
+	"y1",
+	"y2"
+], _y = {
+	key: 0,
+	class: "tw:my-1 tw:text-xs"
+}, vy = {
+	key: 1,
+	class: "tw:text-sm"
+}, yy = {
+	key: 2,
+	class: "tw:my-1 tw:text-xs"
+}, by = /* @__PURE__ */ L({
+	__name: "CurveStepGraph",
+	props: {
+		actors: {},
+		parameters: {},
+		step: {}
+	},
+	emits: ["update"],
+	setup(e, { emit: t }) {
+		let n = e, r = t, { graph: i, definition: a, start: o, endDrag: s, updateDrag: c, keydown: l } = Gv(n, (e, t) => r("update", e, t));
+		return (t, n) => (B(), V("figure", my, [
+			H("figcaption", hy, k(F(i).title), 1),
+			U(cy, {
+				description: `${F(i).xLabel} on the horizontal axis; ${F(i).yLabel} on the vertical axis. Numbered markers match the portraits below.`,
+				"description-id": "curve-description",
+				"title-id": "curve-title",
+				title: F(i).title,
+				markers: F(i).markers,
+				"maximum-x-label": `${Math.round(F(i).bounds.maximumX)} XP`,
+				"minimum-y-label": F(i).weakening ? "0%" : "0",
+				"maximum-y-label": F(i).weakening ? "100%" : `${Math.round(F(i).bounds.maximumY)}`,
+				series: F(i).series,
+				"vertical-guide-x": F(i).handle.x,
+				"x-axis-label": F(i).xLabel,
+				"y-axis-label": F(i).yLabel,
+				onPointercancel: F(s),
+				onPointermove: F(c),
+				onPointerup: F(s)
 			}, {
-				guides: Xn(() => [z("line", {
-					class: "tw:text-warning",
-					x1: M(68),
-					x2: M(68) + M(472),
-					y1: M(d)(e.maximumAward),
-					y2: M(d)(e.maximumAward),
+				guides: ir(() => [e.step === "maximumAward" ? (B(), V("line", {
+					key: 0,
+					x1: F(68),
+					x2: F(68) + F(472),
+					y1: F(i).handle.y,
+					y2: F(i).handle.y,
 					stroke: "currentColor",
-					"stroke-dasharray": "6 5"
-				}, null, 8, KS)]),
-				handles: Xn(() => [B(HS, {
-					"aria-label": "Catch-up curve shape",
-					"aria-value-max": 5,
-					"aria-value-min": .1,
-					"aria-value-now": e.curveExponent,
-					"aria-value-text": `Exponent ${e.curveExponent}`,
-					x: M(l).x,
-					y: M(l).y,
-					onKeydown: M(m),
-					onPointerdown: h[0] ||= (e) => M(n)("shape", e)
+					"stroke-dasharray": "5 5"
+				}, null, 8, gy)) : G("", !0)]),
+				handles: ir(() => [e.step === "review" ? G("", !0) : (B(), Ca(py, {
+					key: 0,
+					label: F(a).label,
+					"value-min": F(a).min,
+					"value-max": F(a).max,
+					"value-now": e.parameters[e.step],
+					"value-text": `${e.parameters[e.step]} ${F(a).unit}`,
+					x: F(i).handle.x,
+					y: F(i).handle.y,
+					onPointerdown: F(o),
+					onKeydown: F(l)
 				}, null, 8, [
-					"aria-value-now",
-					"aria-value-text",
+					"label",
+					"value-min",
+					"value-max",
+					"value-now",
+					"value-text",
 					"x",
 					"y",
+					"onPointerdown",
 					"onKeydown"
-				]), B(NS, {
-					"aria-label": `Reference point: ${e.gapForMaximumAward} XP gap and ${e.maximumAward} XP hard limit. Use left and right arrows for the gap, up and down arrows for the hard limit.`,
-					role: "button",
-					x: M(c).x,
-					y: M(c).y,
-					onKeydown: M(p),
-					onPointerdown: h[1] ||= (e) => M(n)("reference", e)
-				}, null, 8, [
-					"aria-label",
-					"x",
-					"y",
-					"onKeydown"
-				])]),
-				labels: Xn(() => [z("text", {
-					class: "tw:text-warning",
-					x: M(68) + 7,
-					y: Math.max(M(24) + 12, M(d)(e.maximumAward) - 7),
-					fill: "currentColor",
-					"font-size": "11",
-					"font-weight": "600"
-				}, " Hard limit " + D(e.maximumAward) + " XP ", 9, qS)]),
+				]))]),
 				_: 1
 			}, 8, [
+				"description",
+				"title",
 				"markers",
 				"maximum-x-label",
-				"points",
+				"minimum-y-label",
+				"maximum-y-label",
+				"series",
 				"vertical-guide-x",
+				"x-axis-label",
+				"y-axis-label",
 				"onPointercancel",
 				"onPointermove",
 				"onPointerup"
 			]),
-			B(RS, { items: M(o) }, null, 8, ["items"])
+			e.step === "review" ? G("", !0) : (B(), V("p", _y, " Drag the square handle, focus it and use arrow keys, or enter a value below. ")),
+			e.step === "curveExponent" && e.parameters.catchUpRate === 0 ? (B(), V("p", vy, " The pace is zero, so this curve has no height to shape. Go Back to increase the pace first. ")) : G("", !0),
+			F(i).series.length > 1 ? (B(), V("p", yy, " Lines show the configured category rates. Portrait markers include their category’s percentage. ")) : G("", !0)
 		]));
 	}
-});
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/useDecayGraph.ts
-function YS(e, t) {
-	let n = U(() => eS(e.scalePivot, e.samples, e.awards)), { activeDrag: r, beginDrag: i, endDrag: a, updateDrag: o } = US(() => ({ ...n.value }), g), s = U(() => r.value?.snapshot ?? n.value), c = U(() => nS({
-		awards: e.awards,
-		bounds: s.value,
-		samples: e.samples,
-		scaleExponent: e.scaleExponent,
-		scalePivot: e.scalePivot
-	})), l = U(() => s.value.maximumRecipientXp), u = U(() => c.value.points), d = U(() => c.value.pivotPoint), f = U(() => c.value.recipientLegend), p = U(() => c.value.recipientPoints), m = U(() => c.value.strengthPoint);
-	function h(e) {
-		return cS(e, s.value.maximumRecipientXp);
-	}
-	function g(e, n) {
-		let r = iS(e.kind, pS(e.svg, n), e.snapshot);
-		if (r.kind === "pivot") {
-			t("update:scalePivot", r.scalePivot);
-			return;
-		}
-		t("update:scaleExponent", r.scaleExponent);
-	}
-	function _(n) {
-		let r = sS(n.key, e.scalePivot);
-		r !== void 0 && (n.preventDefault(), t("update:scalePivot", r));
-	}
-	function v(n) {
-		let r = oS(n.key, e.scaleExponent, 0, 2);
-		r !== void 0 && (n.preventDefault(), t("update:scaleExponent", r));
-	}
-	return {
-		beginDrag: i,
-		endDrag: a,
-		maximumRecipientXp: l,
-		pivotPoint: d,
-		points: u,
-		recipientLegend: f,
-		recipientPoints: p,
-		strengthPoint: m,
-		toGraphX: h,
-		updateDrag: o,
-		updatePivotWithKeyboard: _,
-		updateStrengthWithKeyboard: v
-	};
-}
-//#endregion
-//#region src/view/apps/xp-curve-configurator/curve/XpDecayGraph.vue?vue&type=script&setup=true&lang.ts
-var XS = {
-	class: "tw:m-0 tw:block tw:min-w-0",
-	"aria-labelledby": "xp-decay-graph-heading"
-}, ZS = /* @__PURE__ */ P({
-	__name: "XpDecayGraph",
-	props: {
-		awards: {},
-		samples: {},
-		scaleExponent: {},
-		scalePivot: {}
-	},
-	emits: ["update:scaleExponent", "update:scalePivot"],
-	setup(e, { emit: t }) {
-		let { beginDrag: n, endDrag: r, maximumRecipientXp: i, pivotPoint: a, points: o, recipientLegend: s, recipientPoints: c, strengthPoint: l, toGraphX: u, updateDrag: d, updatePivotWithKeyboard: f, updateStrengthWithKeyboard: p } = YS(e, t);
-		return (t, m) => (L(), R("figure", XS, [
-			m[2] ||= z("div", { class: "tw:mb-2" }, [z("h4", {
-				id: "xp-decay-graph-heading",
-				class: "tw:m-0 tw:text-sm tw:font-semibold"
-			}, " Catch-up strength by recipient total XP "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Drag the diamond to choose where decay begins. Drag the round point to make decay gentler or stronger. ")], -1),
-			B(kS, {
-				description: "The horizontal axis is each recipient's own total XP. The vertical axis is the multiplier applied to that recipient's initial catch-up value. Numbered markers identify selected recipients.",
-				"description-id": "xp-decay-graph-description",
-				markers: M(c),
-				"maximum-x-label": `${Math.round(M(i))} XP`,
-				"maximum-y-label": "100%",
-				"minimum-y-label": "0%",
-				points: M(o),
-				title: "Editable recipient XP decay curve",
-				"title-id": "xp-decay-graph-title",
-				"vertical-guide-x": M(u)(e.scalePivot),
-				"x-axis-label": "Recipient total XP",
-				"y-axis-label": "Decay multiplier",
-				onPointercancel: M(r),
-				onPointermove: M(d),
-				onPointerup: M(r)
-			}, {
-				handles: Xn(() => [B(HS, {
-					"aria-label": "Recipient decay strength",
-					"aria-value-max": 2,
-					"aria-value-min": 0,
-					"aria-value-now": e.scaleExponent,
-					"aria-value-text": `Decay exponent ${e.scaleExponent}`,
-					x: M(l).x,
-					y: M(l).y,
-					onKeydown: M(p),
-					onPointerdown: m[0] ||= (e) => M(n)("strength", e)
-				}, null, 8, [
-					"aria-value-now",
-					"aria-value-text",
-					"x",
-					"y",
-					"onKeydown"
-				]), B(NS, {
-					"aria-label": "Recipient total XP where decay begins",
-					"aria-value-max": Math.round(M(i)),
-					"aria-value-min": 1,
-					"aria-value-now": e.scalePivot,
-					"aria-value-text": `${e.scalePivot} total XP`,
-					x: M(a).x,
-					y: M(a).y,
-					onKeydown: M(f),
-					onPointerdown: m[1] ||= (e) => M(n)("pivot", e)
-				}, null, 8, [
-					"aria-value-max",
-					"aria-value-now",
-					"aria-value-text",
-					"x",
-					"y",
-					"onKeydown"
-				])]),
-				_: 1
-			}, 8, [
-				"markers",
-				"maximum-x-label",
-				"points",
-				"vertical-guide-x",
-				"onPointercancel",
-				"onPointermove",
-				"onPointerup"
-			]),
-			B(RS, { items: M(s) }, null, 8, ["items"])
-		]));
-	}
-}), QS = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
-	"aria-labelledby": "curve-settings-title"
-}, $S = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, eC = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-3 tw:min-[66rem]:grid-cols-2" }, tC = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, nC = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, rC = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, iC = { class: "dui-fieldset tw:min-w-0" }, aC = { class: "dui-fieldset tw:min-w-0" }, oC = { class: "dui-fieldset tw:min-w-0" }, sC = { class: "dui-card dui-card-border tw:min-w-0 tw:border tw:border-base-content/20! tw:bg-base-200! tw:text-base-content! tw:shadow-sm" }, cC = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-3" }, lC = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-2 tw:min-[34rem]:grid-cols-3" }, uC = { class: "dui-fieldset tw:min-w-0" }, dC = { class: "dui-fieldset tw:min-w-0" }, fC = { class: "dui-fieldset tw:min-w-0" }, pC = /* @__PURE__ */ P({
-	__name: "XpCurveConfiguration",
-	props: /*@__PURE__*/ Wr({
-		awards: {},
-		decaySamples: {},
-		samples: {}
-	}, {
-		companionMultiplier: { required: !0 },
-		companionMultiplierModifiers: {},
-		curveExponent: { required: !0 },
-		curveExponentModifiers: {},
-		gapForMaximumAward: { required: !0 },
-		gapForMaximumAwardModifiers: {},
-		maximumAward: { required: !0 },
-		maximumAwardModifiers: {},
-		scaleExponent: { required: !0 },
-		scaleExponentModifiers: {},
-		scalePivot: { required: !0 },
-		scalePivotModifiers: {}
-	}),
-	emits: [
-		"update:companionMultiplier",
-		"update:curveExponent",
-		"update:gapForMaximumAward",
-		"update:maximumAward",
-		"update:scaleExponent",
-		"update:scalePivot"
-	],
-	setup(e) {
-		let t = di(e, "companionMultiplier"), n = di(e, "curveExponent"), r = di(e, "gapForMaximumAward"), i = di(e, "maximumAward"), a = di(e, "scaleExponent"), o = di(e, "scalePivot");
-		return (s, c) => (L(), R("section", QS, [z("div", $S, [
-			c[31] ||= z("div", null, [z("h2", {
-				id: "curve-settings-title",
-				class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-			}, " How awards are calculated "), z("p", { class: "tw:m-0 tw:max-w-3xl tw:text-xs tw:text-base-content/65!" }, " The graphs and number fields are two controls for the same settings. Drag either curve and its fields update immediately. ")], -1),
-			z("div", eC, [z("article", tC, [z("div", nC, [
-				c[20] ||= z("div", null, [z("h3", { class: "dui-card-title tw:font-serif tw:text-base tw:text-base-content!" }, " 1. Catch-up curve "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " This curve converts the XP gap below the selected leader into an initial XP value. ")], -1),
-				z("div", rC, [
-					z("fieldset", iC, [
-						c[11] ||= z("legend", { class: "dui-fieldset-legend" }, "Hard limit", -1),
-						c[12] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-maximum-award"
-						}, " Maximum final award ", -1),
-						N(z("input", {
-							id: "xp-maximum-award",
-							"onUpdate:modelValue": c[0] ||= (e) => i.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							min: "0",
-							step: "1",
-							type: "number"
-						}, null, 512), [[
-							W,
-							i.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[13] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Applied last; no recipient can receive more. ", -1)
-					]),
-					z("fieldset", aC, [
-						c[14] ||= z("legend", { class: "dui-fieldset-legend" }, "Reference gap", -1),
-						c[15] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-gap-for-cap"
-						}, " Gap equal to the hard limit ", -1),
-						N(z("input", {
-							id: "xp-gap-for-cap",
-							"onUpdate:modelValue": c[1] ||= (e) => r.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							min: "1",
-							step: "1",
-							type: "number"
-						}, null, 512), [[
-							W,
-							r.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[16] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " At this gap, initial catch-up equals the limit before decay. ", -1)
-					]),
-					z("fieldset", oC, [
-						c[17] ||= z("legend", { class: "dui-fieldset-legend" }, "Curve shape", -1),
-						c[18] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-curve-exponent"
-						}, " Catch-up exponent ", -1),
-						N(z("input", {
-							id: "xp-curve-exponent",
-							"onUpdate:modelValue": c[2] ||= (e) => n.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							max: "5",
-							min: "0.1",
-							step: "0.05",
-							type: "number"
-						}, null, 512), [[
-							W,
-							n.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[19] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Below 1 helps small gaps sooner; above 1 favors large gaps. ", -1)
-					])
-				]),
-				B(JS, {
-					"curve-exponent": n.value,
-					"onUpdate:curveExponent": c[3] ||= (e) => n.value = e,
-					"gap-for-maximum-award": r.value,
-					"onUpdate:gapForMaximumAward": c[4] ||= (e) => r.value = e,
-					"maximum-award": i.value,
-					"onUpdate:maximumAward": c[5] ||= (e) => i.value = e,
-					awards: e.awards,
-					samples: e.samples
-				}, null, 8, [
-					"curve-exponent",
-					"gap-for-maximum-award",
-					"maximum-award",
-					"awards",
-					"samples"
-				])
-			])]), z("article", sC, [z("div", cC, [
-				c[30] ||= z("div", null, [z("h3", { class: "dui-card-title tw:font-serif tw:text-base tw:text-base-content!" }, " 2. Recipient decay curve "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " High-XP builds depend less on raw XP differences. This multiplier is evaluated separately for every recipient. ")], -1),
-				z("div", lC, [
-					z("fieldset", uC, [
-						c[21] ||= z("legend", { class: "dui-fieldset-legend" }, "Decay start", -1),
-						c[22] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-scale-pivot"
-						}, " Full-strength recipient XP ", -1),
-						N(z("input", {
-							id: "xp-scale-pivot",
-							"onUpdate:modelValue": c[6] ||= (e) => o.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							min: "1",
-							step: "100",
-							type: "number"
-						}, null, 512), [[
-							W,
-							o.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[23] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Recipients at or below this total keep 100% strength. ", -1)
-					]),
-					z("fieldset", dC, [
-						c[24] ||= z("legend", { class: "dui-fieldset-legend" }, "Decay strength", -1),
-						c[25] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-scale-exponent"
-						}, " Recipient decay exponent ", -1),
-						N(z("input", {
-							id: "xp-scale-exponent",
-							"onUpdate:modelValue": c[7] ||= (e) => a.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							max: "2",
-							min: "0",
-							step: "0.05",
-							type: "number"
-						}, null, 512), [[
-							W,
-							a.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[26] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Zero disables decay; higher values weaken catch-up faster. ", -1)
-					]),
-					z("fieldset", fC, [
-						c[27] ||= z("legend", { class: "dui-fieldset-legend" }, "Companion rate", -1),
-						c[28] ||= z("label", {
-							class: "dui-label tw:whitespace-normal",
-							for: "xp-companion-rate"
-						}, " Companion multiplier ", -1),
-						N(z("input", {
-							id: "xp-companion-rate",
-							"onUpdate:modelValue": c[8] ||= (e) => t.value = e,
-							class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content! tw:tabular-nums",
-							max: "1",
-							min: "0",
-							step: "0.05",
-							type: "number"
-						}, null, 512), [[
-							W,
-							t.value,
-							void 0,
-							{ number: !0 }
-						]]),
-						c[29] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " 0.5 gives player-owned companions half the calculated XP. ", -1)
-					])
-				]),
-				B(ZS, {
-					"scale-exponent": a.value,
-					"onUpdate:scaleExponent": c[9] ||= (e) => a.value = e,
-					"scale-pivot": o.value,
-					"onUpdate:scalePivot": c[10] ||= (e) => o.value = e,
-					awards: e.awards,
-					samples: e.decaySamples
-				}, null, 8, [
-					"scale-exponent",
-					"scale-pivot",
-					"awards",
-					"samples"
-				])
-			])])]),
-			c[32] ||= z("div", {
-				class: "dui-alert tw:text-xs",
-				role: "note"
-			}, [z("i", {
-				class: "fa-solid fa-calculator",
-				"aria-hidden": "true"
-			}), z("span", { class: "tw:min-w-0 tw:break-words" }, [
-				V(" Initial catch-up = hard limit × (leader gap ÷ reference gap)"),
-				z("sup", null, "shape"),
-				V(". Final XP = min(hard limit, initial catch-up × recipient decay × companion rate). ")
-			])], -1)
-		])]));
-	}
-}), mC = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
-	"aria-labelledby": "recipient-defaults-title"
-}, hC = { class: "dui-card-body tw:min-w-0 tw:gap-4 tw:p-4" }, gC = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-4 tw:min-[42rem]:grid-cols-2" }, _C = { class: "dui-fieldset tw:min-w-0" }, vC = { class: "dui-fieldset tw:min-w-0" }, yC = /* @__PURE__ */ P({
-	__name: "XpRecipientDefaults",
-	props: {
-		defaultReason: { required: !0 },
-		defaultReasonModifiers: {},
-		defaultSelection: { required: !0 },
-		defaultSelectionModifiers: {}
-	},
-	emits: ["update:defaultReason", "update:defaultSelection"],
-	setup(e) {
-		let t = di(e, "defaultReason"), n = di(e, "defaultSelection");
-		return (e, r) => (L(), R("section", mC, [z("div", hC, [r[9] ||= z("div", null, [z("h2", {
-			id: "recipient-defaults-title",
-			class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-		}, " Recipient and journal defaults "), z("p", { class: "tw:m-0 tw:text-sm tw:text-base-content/70!" }, " These values seed a newly opened console when no eligible tokens are targeted. ")], -1), z("div", gC, [z("fieldset", _C, [
-			r[3] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Default recipients", -1),
-			r[4] ||= z("label", {
-				class: "dui-label tw:whitespace-normal",
-				for: "xp-default-selection"
-			}, " When no tokens are targeted ", -1),
-			N(z("select", {
-				id: "xp-default-selection",
-				"onUpdate:modelValue": r[0] ||= (e) => n.value = e,
-				class: "dui-select dui-select-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!"
-			}, [...r[2] ||= [
-				z("option", { value: "party" }, "Party (assigned player characters)", -1),
-				z("option", { value: "company" }, "Company (party plus companions)", -1),
-				z("option", { value: "world" }, "World (every character actor)", -1)
-			]], 512), [[zo, n.value]]),
-			r[5] ||= z("p", { class: "dui-label tw:whitespace-normal" }, " Explicit targets replace this Drowsy’s WFRP4e Toolkit default. ", -1)
-		]), z("fieldset", vC, [
-			r[6] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Experience journal", -1),
-			r[7] ||= z("label", {
-				class: "dui-label tw:whitespace-normal",
-				for: "xp-config-default-reason"
-			}, " Default award reason ", -1),
-			N(z("input", {
-				id: "xp-config-default-reason",
-				"onUpdate:modelValue": r[1] ||= (e) => t.value = e,
-				class: "dui-input dui-input-sm tw:w-full tw:min-w-0 tw:max-w-full tw:border-base-content/25! tw:bg-base-100! tw:text-base-content!",
-				type: "text"
-			}, null, 512), [[W, t.value]]),
-			r[8] ||= z("p", { class: "dui-label tw:whitespace-normal" }, [
-				V(" Supports the "),
-				z("code", null, "%session%"),
-				V(" and "),
-				z("code", null, "%date%"),
-				V(" tokens. The award console can still edit the reason for one batch. ")
-			], -1)
-		])])])]));
-	}
-}), bC = { class: "tw:flex tw:h-full tw:max-h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, xC = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, SC = {
+}), xy = {
+	class: "tw:mt-5 tw:min-w-0 tw:border-t tw:border-base-content/20 tw:pt-3",
+	"aria-label": "Session projection"
+}, Sy = { class: "tw:my-2 tw:text-base" }, Cy = { class: "tw:flex tw:flex-wrap tw:items-center tw:gap-2 tw:text-sm" }, wy = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:mb-3",
+	class: "tw:text-sm tw:text-error",
 	role: "alert"
-}, CC = { class: "tw:min-w-0 tw:break-words" }, wC = {
+}, Ty = {
 	key: 1,
-	class: "dui-alert dui-alert-success tw:mb-3",
-	role: "status",
-	"aria-live": "polite"
-}, TC = { class: "tw:grid tw:min-w-0 tw:grid-cols-1 tw:gap-3 tw:min-[54rem]:grid-cols-[minmax(15rem,0.72fr)_minmax(0,2fr)]" }, EC = {
-	class: "dui-card dui-card-border tw:min-w-0 tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:text-base-content! tw:shadow-md",
-	"aria-labelledby": "xp-launcher-settings"
-}, DC = { class: "dui-card-body tw:min-w-0 tw:gap-3 tw:p-4" }, OC = { class: "dui-fieldset tw:gap-2" }, kC = { class: "dui-label tw:cursor-pointer tw:items-start tw:gap-3 tw:rounded-box tw:border tw:border-base-content/15! tw:bg-base-200! tw:p-3 tw:text-base-content! tw:whitespace-normal" }, AC = { class: "tw:mt-3 tw:min-w-0" }, jC = { class: "tw:flex tw:min-w-0 tw:shrink-0 tw:flex-col tw:items-stretch tw:gap-2 tw:border-t-4 tw:border-double tw:border-base-content/25! tw:bg-base-100! tw:p-4 tw:min-[34rem]:flex-row tw:min-[34rem]:items-center tw:min-[34rem]:justify-between" }, MC = { class: "tw:flex tw:min-w-0 tw:flex-col tw:gap-2 tw:min-[30rem]:flex-row" }, NC = ["disabled"], PC = ["disabled"], FC = {
+	class: "tw:text-sm"
+}, Ey = {
+	key: 2,
+	class: "tw:max-h-72 tw:min-w-0 tw:max-w-full tw:overflow-x-auto tw:overflow-y-auto",
+	tabindex: "0",
+	"aria-label": "Session results"
+}, Dy = { class: "tw:dui-table tw:dui-table-sm tw:bg-base-100! tw:text-base-content!" }, Oy = { scope: "row" }, ky = /* @__PURE__ */ L({
+	__name: "CurveForecast",
+	props: /*@__PURE__*/ ti({
+		rows: {},
+		error: {},
+		hasLeader: { type: Boolean },
+		example: { type: Boolean }
+	}, {
+		sessions: { required: !0 },
+		sessionsModifiers: {},
+		sessionXp: { required: !0 },
+		sessionXpModifiers: {}
+	}),
+	emits: ["update:sessions", "update:sessionXp"],
+	setup(e) {
+		let t = Si(e, "sessions"), n = Si(e, "sessionXp");
+		return (r, i) => (B(), V("section", xy, [
+			H("h3", Sy, k(e.example ? "Example" : "Party") + " session projection", 1),
+			H("div", Cy, [
+				i[2] ||= H("label", { for: "curve-sessions" }, "After", -1),
+				I(H("input", {
+					id: "curve-sessions",
+					"onUpdate:modelValue": i[0] ||= (e) => t.value = e,
+					class: "tw:dui-input tw:dui-input-sm tw:w-20",
+					type: "number",
+					min: "1",
+					max: "100",
+					step: "1",
+					"aria-label": "Number of simulated sessions"
+				}, null, 512), [[
+					q,
+					t.value,
+					void 0,
+					{ number: !0 }
+				]]),
+				i[3] ||= H("label", { for: "curve-session-xp" }, "sessions, at", -1),
+				I(H("input", {
+					id: "curve-session-xp",
+					"onUpdate:modelValue": i[1] ||= (e) => n.value = e,
+					class: "tw:dui-input tw:dui-input-sm tw:w-24",
+					type: "number",
+					min: "0",
+					max: "100000",
+					step: "1",
+					"aria-label": "Ordinary XP per session"
+				}, null, 512), [[
+					q,
+					n.value,
+					void 0,
+					{ number: !0 }
+				]]),
+				i[4] ||= H("span", null, "ordinary XP per session:", -1)
+			]),
+			i[7] ||= H("p", { class: "tw:my-2 tw:text-xs" }, " Ordinary XP is awarded first using category percentages, then Curve XP once. The Party leader is recalculated each session. These inputs only change this forecast. ", -1),
+			e.error ? (B(), V("p", wy, k(e.error), 1)) : e.hasLeader ? (B(), V("div", Ey, [H("table", Dy, [
+				i[5] ||= H("caption", { class: "tw:sr-only" }, " XP gained and resulting totals for every simulated session ", -1),
+				i[6] ||= H("thead", { class: "tw:bg-base-200! tw:text-base-content!" }, [H("tr", null, [
+					H("th", { scope: "col" }, "Session"),
+					H("th", { scope: "col" }, "Character"),
+					H("th", { scope: "col" }, "Ordinary"),
+					H("th", { scope: "col" }, "Curve"),
+					H("th", { scope: "col" }, "Total XP"),
+					H("th", { scope: "col" }, "Gap")
+				])], -1),
+				H("tbody", null, [(B(!0), V(z, null, R(e.rows, (e) => (B(), V("tr", {
+					key: `${e.session}-${e.actorId}`,
+					class: "tw:even:bg-base-200!"
+				}, [
+					H("td", null, k(e.session), 1),
+					H("th", Oy, k(e.actorName), 1),
+					H("td", null, "+" + k(e.ordinaryXp), 1),
+					H("td", null, "+" + k(e.curveXp), 1),
+					H("td", null, k(e.totalXp), 1),
+					H("td", null, k(e.gap), 1)
+				]))), 128))])
+			])])) : (B(), V("p", Ty, " A Party-zone leader is needed to project catch-up. ")),
+			i[8] ||= H("p", { class: "tw:mb-0 tw:text-xs" }, " The gap is a guide to progress. Similar XP totals do not guarantee equal character effectiveness. ", -1)
+		]));
+	}
+}), Ay = { class: "tw:shrink-0 tw:border-b tw:border-base-content/20 tw:p-4" }, jy = { class: "tw:m-0 tw:text-xs" }, My = { class: "tw:my-1 tw:border-0! tw:text-xl" }, Ny = { class: "tw:m-0 tw:text-sm" }, Py = { class: "tw:min-h-0 tw:min-w-0 tw:flex-1 tw:overflow-auto tw:p-4" }, Fy = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, IC = {
+	class: "tw:dui-alert tw:dui-alert-error tw:mb-3",
+	role: "alert"
+}, Iy = {
 	key: 1,
-	class: "fa-solid fa-stamp",
+	class: "tw:mb-3 tw:text-sm",
+	role: "status"
+}, Ly = {
+	class: "tw:mb-3 tw:flex tw:flex-wrap tw:items-center tw:gap-2",
+	role: "group",
+	"aria-label": "Preview actors"
+}, Ry = ["aria-pressed"], zy = ["aria-pressed"], By = {
+	key: 2,
+	class: "tw:mb-3 tw:text-sm",
+	role: "status"
+}, Vy = ["disabled"], Hy = ["disabled"], Uy = {
+	key: 0,
+	class: "tw:my-3 tw:flex tw:flex-wrap tw:items-center tw:gap-2"
+}, Wy = {
+	for: "curve-step-value",
+	class: "tw:text-sm tw:font-semibold"
+}, Gy = ["min", "max"], Ky = { class: "tw:text-sm" }, qy = {
+	key: 0,
+	class: "tw:text-sm tw:text-error",
+	role: "alert"
+}, Jy = { class: "tw:flex tw:shrink-0 tw:flex-wrap tw:items-center tw:justify-between tw:gap-2 tw:border-t tw:border-base-content/20 tw:p-3" }, Yy = ["disabled"], Xy = { class: "tw:flex tw:flex-wrap tw:gap-2" }, Zy = ["disabled"], Qy = ["disabled"], $y = ["disabled"], eb = {
+	key: 0,
+	class: "fa-solid fa-arrow-right",
 	"aria-hidden": "true"
-}, LC = /* @__PURE__ */ P({
+}, tb = /* @__PURE__ */ L({
 	__name: "XpCurveConfiguratorApp",
 	props: {
 		actions: {},
-		initialization: {}
+		initialization: {},
+		initialDraft: {},
+		initialStep: {}
 	},
 	setup(e) {
-		let t = e, n = Qx();
-		n.initialize(t.initialization, t.actions);
-		let { curveSamples: r, decaySamples: i, defaultReason: a, defaultSelection: o, errorMessage: s, isSaving: c, launchers: l, parameters: u, plan: d, statusMessage: f } = js(n);
-		return (e, t) => (L(), R("main", bC, [
-			B(Gs, {
-				description: "Set launchers, recipient defaults, and the catch-up and decay curves used by new award consoles.",
-				icon: "fa-solid fa-sliders",
-				title: "XP Curve Configurator"
-			}),
-			z("div", xC, [
-				M(s) ? (L(), R("div", SC, [t[10] ||= z("i", {
-					class: "fa-solid fa-triangle-exclamation",
-					"aria-hidden": "true"
-				}, null, -1), z("span", CC, D(M(s)), 1)])) : H("", !0),
-				M(f) ? (L(), R("div", wC, [t[11] ||= z("i", {
-					class: "fa-solid fa-circle-check",
-					"aria-hidden": "true"
-				}, null, -1), z("span", null, D(M(f)), 1)])) : H("", !0),
-				z("div", TC, [z("section", EC, [z("div", DC, [
-					t[14] ||= z("div", null, [z("h2", {
-						id: "xp-launcher-settings",
-						class: "dui-card-title tw:font-serif tw:text-lg tw:text-base-content!"
-					}, " Console launchers "), z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Client preferences for this browser and user. ")], -1),
-					z("fieldset", OC, [t[13] ||= z("legend", { class: "dui-fieldset-legend tw:text-base-content!" }, "Available locations", -1), z("label", kC, [N(z("input", {
-						"onUpdate:modelValue": t[0] ||= (e) => M(l).tokenControls = e,
-						class: "dui-toggle dui-toggle-primary dui-toggle-sm tw:mt-0.5 tw:shrink-0 tw:checked:border-primary! tw:checked:bg-primary! tw:checked:text-primary-content!",
-						type: "checkbox"
-					}, null, 512), [[G, M(l).tokenControls]]), t[12] ||= z("span", { class: "tw:min-w-0" }, [z("strong", { class: "tw:block" }, "Token Controls"), z("span", { class: "tw:text-xs tw:text-base-content/65!" }, " Show the chart launcher in Token Controls. ")], -1)])]),
-					t[15] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Launcher changes apply after a reload. Macros and the module API stay available. ", -1)
-				])]), B(yC, {
-					"default-reason": M(a),
-					"onUpdate:defaultReason": t[1] ||= (e) => /* @__PURE__ */ A(a) ? a.value = e : null,
-					"default-selection": M(o),
-					"onUpdate:defaultSelection": M(n).setDefaultSelection
-				}, null, 8, [
-					"default-reason",
-					"default-selection",
-					"onUpdate:defaultSelection"
-				])]),
-				z("div", AC, [B(pC, {
-					"companion-multiplier": M(u).companionMultiplier,
-					"onUpdate:companionMultiplier": t[2] ||= (e) => M(u).companionMultiplier = e,
-					"curve-exponent": M(u).curveExponent,
-					"onUpdate:curveExponent": t[3] ||= (e) => M(u).curveExponent = e,
-					"gap-for-maximum-award": M(u).gapForMaximumAward,
-					"onUpdate:gapForMaximumAward": t[4] ||= (e) => M(u).gapForMaximumAward = e,
-					"maximum-award": M(u).maximumAward,
-					"onUpdate:maximumAward": t[5] ||= (e) => M(u).maximumAward = e,
-					"scale-exponent": M(u).scaleExponent,
-					"onUpdate:scaleExponent": t[6] ||= (e) => M(u).scaleExponent = e,
-					"scale-pivot": M(u).scalePivot,
-					"onUpdate:scalePivot": t[7] ||= (e) => M(u).scalePivot = e,
-					awards: M(d).awards,
-					"decay-samples": M(i),
-					samples: M(r)
-				}, null, 8, [
-					"companion-multiplier",
-					"curve-exponent",
-					"gap-for-maximum-award",
-					"maximum-award",
-					"scale-exponent",
-					"scale-pivot",
-					"awards",
-					"decay-samples",
-					"samples"
-				])])
+		let t = e, n = Nv();
+		n.initialize(t.initialization, t.actions, t.initialDraft, t.initialStep);
+		let { draft: r, stepIndex: i, step: a, previewActors: o, plan: s, forecast: c, inputError: l, errorMessage: u, statusMessage: d, isWorking: f } = qs(n);
+		return (t, p) => (B(), V("form", {
+			class: "tw:flex tw:h-full tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:bg-base-100! tw:text-base-content!",
+			onSubmit: p[11] ||= ss((e) => F(a).key === "review" ? F(n).saveConfiguration() : F(n).changeStep(1), ["prevent"])
+		}, [
+			H("header", Ay, [
+				H("p", jy, "Step " + k(F(i) + 1) + " of " + k(F(Sv).length), 1),
+				H("h2", My, k(F(a).title), 1),
+				H("p", Ny, k(F(a).guidance), 1)
 			]),
-			z("footer", jC, [t[18] ||= z("p", { class: "tw:m-0 tw:min-w-0 tw:text-xs tw:text-base-content/65!" }, " Saving configuration never awards XP. World defaults apply to the next console opening. ", -1), z("div", MC, [z("button", {
-				class: "dui-btn dui-btn-ghost tw:min-w-44 tw:rounded-full tw:border tw:border-base-content/20! tw:bg-base-200!",
-				disabled: M(c),
+			H("div", Py, [
+				F(u) ? (B(), V("p", Fy, k(F(u)), 1)) : G("", !0),
+				F(d) ? (B(), V("p", Iy, k(F(d)), 1)) : G("", !0),
+				H("div", Ly, [
+					p[12] ||= H("span", { class: "tw:text-sm" }, "Show on the curve:", -1),
+					H("button", {
+						class: ke(["tw:dui-btn tw:dui-btn-sm", { "tw:dui-btn-primary": F(r).previewMode === "party" }]),
+						type: "button",
+						"aria-pressed": F(r).previewMode === "party",
+						onClick: p[0] ||= (e) => F(r).previewMode = "party"
+					}, " My party ", 10, Ry),
+					H("button", {
+						class: ke(["tw:dui-btn tw:dui-btn-sm", { "tw:dui-btn-primary": F(r).previewMode === "example" }]),
+						type: "button",
+						"aria-pressed": F(r).previewMode === "example",
+						onClick: p[1] ||= (e) => F(r).previewMode = "example"
+					}, " Example ", 10, zy)
+				]),
+				F(r).previewMode === "party" && e.initialization.rosterIssue ? (B(), V("p", By, [
+					W(k(e.initialization.rosterIssue) + " ", 1),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-sm",
+						type: "button",
+						onClick: p[2] ||= (...t) => e.actions.openParty && e.actions.openParty(...t)
+					}, " Configure Party "),
+					H("button", {
+						class: "tw:dui-btn tw:dui-btn-sm",
+						type: "button",
+						disabled: F(f),
+						onClick: p[3] ||= (e) => F(n).changeStep(0)
+					}, " Refresh party ", 8, Vy)
+				])) : G("", !0),
+				H("fieldset", {
+					disabled: F(f),
+					class: "tw:m-0 tw:min-w-0 tw:border-0 tw:p-0"
+				}, [
+					U(by, {
+						actors: F(o),
+						parameters: F(r).parameters,
+						step: F(a).key,
+						onUpdate: p[4] ||= (e, t) => F(r).parameters[e] = t
+					}, null, 8, [
+						"actors",
+						"parameters",
+						"step"
+					]),
+					F(a).key === "review" ? G("", !0) : (B(), V("div", Uy, [
+						H("label", Wy, k(F(a).label), 1),
+						I(H("input", {
+							id: "curve-step-value",
+							"onUpdate:modelValue": p[5] ||= (e) => F(r).parameters[F(a).key] = e,
+							class: "tw:dui-input tw:dui-input-sm tw:w-28",
+							type: "number",
+							min: F(a).min,
+							max: F(a).max,
+							step: "any",
+							required: ""
+						}, null, 8, Gy), [[
+							q,
+							F(r).parameters[F(a).key],
+							void 0,
+							{ number: !0 }
+						]]),
+						H("span", Ky, k(F(a).unit), 1),
+						F(l) ? (B(), V("span", qy, k(F(l)), 1)) : G("", !0)
+					])),
+					U(og, {
+						actors: F(o),
+						plan: F(s),
+						numbered: !0
+					}, null, 8, ["actors", "plan"]),
+					F(a).key === "review" ? (B(), Ca(ky, {
+						key: 1,
+						sessions: F(r).sessions,
+						"onUpdate:sessions": p[6] ||= (e) => F(r).sessions = e,
+						"session-xp": F(r).sessionXp,
+						"onUpdate:sessionXp": p[7] ||= (e) => F(r).sessionXp = e,
+						rows: F(c).rows,
+						error: F(c).error,
+						"has-leader": !!F(s).leader,
+						example: F(r).previewMode === "example"
+					}, null, 8, [
+						"sessions",
+						"session-xp",
+						"rows",
+						"error",
+						"has-leader",
+						"example"
+					])) : G("", !0)
+				], 8, Hy)
+			]),
+			H("footer", Jy, [H("button", {
+				class: "tw:dui-btn tw:dui-btn-sm tw:dui-btn-ghost",
 				type: "button",
-				onClick: t[8] ||= (...e) => M(n).resetToDefaults && M(n).resetToDefaults(...e)
-			}, [...t[16] ||= [z("i", {
+				disabled: F(f),
+				onClick: p[8] ||= (...e) => F(n).resetToDefaults && F(n).resetToDefaults(...e)
+			}, [...p[13] ||= [H("i", {
 				class: "fa-solid fa-arrow-rotate-left",
 				"aria-hidden": "true"
-			}, null, -1), V(" Reset to defaults ", -1)]], 8, NC), z("button", {
-				class: "dui-btn dui-btn-primary tw:min-w-48 tw:rounded-full tw:border-2 tw:border-base-100/40! tw:shadow-md",
-				disabled: M(c),
-				type: "button",
-				onClick: t[9] ||= (...e) => M(n).saveConfiguration && M(n).saveConfiguration(...e)
-			}, [M(c) ? (L(), R("span", FC)) : (L(), R("i", IC)), t[17] ||= V(" Save configuration ", -1)], 8, PC)])])
-		]));
+			}, null, -1), W(" Reset to defaults ", -1)]], 8, Yy), H("div", Xy, [
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-sm",
+					type: "button",
+					disabled: F(f),
+					onClick: p[9] ||= (...t) => e.actions.close && e.actions.close(...t)
+				}, " Cancel ", 8, Zy),
+				F(i) > 0 ? (B(), V("button", {
+					key: 0,
+					class: "tw:dui-btn tw:dui-btn-sm",
+					type: "button",
+					disabled: F(f),
+					onClick: p[10] ||= (e) => F(n).changeStep(-1)
+				}, " Back ", 8, Qy)) : G("", !0),
+				H("button", {
+					class: "tw:dui-btn tw:dui-btn-sm tw:dui-btn-primary",
+					type: "submit",
+					disabled: F(f) || !!F(l)
+				}, [W(k(F(f) ? "Please wait…" : F(a).key === "review" ? "Save configuration" : "Continue") + " ", 1), F(a).key === "review" ? G("", !0) : (B(), V("i", eb))], 8, $y)
+			])])
+		], 32));
 	}
-});
-//#endregion
-//#region src/functions/xp-curve/selection.ts
-function RC(e) {
-	let { assignedActorIds: t, candidates: n, defaultSelection: r, targetedActorIds: i } = e;
-	return n.map((e) => {
-		let n = zC(e, t);
-		return {
-			category: n,
-			id: e.id,
-			name: e.name,
-			selected: i?.has(e.id) ?? BC(e.id, n, r, t),
-			totalXp: e.totalXp
-		};
-	}).sort(VC);
-}
-function zC(e, t) {
-	return e.hasPlayerOwner && !t.has(e.id) ? "companion" : "standard";
-}
-function BC(e, t, n, r) {
-	return n === "world" ? !0 : n === "company" ? r.has(e) || t === "companion" : r.has(e);
-}
-function VC(e, t) {
-	return e.selected === t.selected ? e.name.localeCompare(t.name) : e.selected ? -1 : 1;
-}
-//#endregion
-//#region src/module/xp-curve/actors.ts
-function HC(e) {
-	let t = qC(), n = JC(), r = n === void 0 ? "default" : "targets";
-	return {
-		actors: RC({
-			assignedActorIds: t,
-			candidates: Array.from(game.actors).filter((e) => e.type === "character").map(WC),
-			defaultSelection: e,
-			targetedActorIds: n
-		}),
-		selectionSource: r
-	};
-}
-function UC(e) {
-	let t = qC();
-	return e.map((e) => {
-		let n = game.actors.get(e);
-		if (!n || n.type !== "character") throw Error(`XP recipient ${e} is no longer an available character actor.`);
-		return GC(n, zC(n, t), !0);
-	});
-}
-function WC(e) {
-	let t = KC(e);
-	return {
-		hasPlayerOwner: e.hasPlayerOwner,
-		id: e.id,
-		name: e.name,
-		totalXp: t.totalXp
-	};
-}
-function GC(e, t, n) {
-	let r = KC(e);
-	return {
-		awardExperience: r.awardExperience,
-		choice: {
-			category: t,
-			id: e.id,
-			name: e.name,
-			selected: n,
-			totalXp: r.totalXp
-		}
-	};
-}
-function KC(e) {
-	let t = e.system;
-	if (!YC(t)) throw Error(`WFRP4e actor "${e.name}" does not expose readable system data.`);
-	let n = t.details, r = t.awardExp;
-	if (!YC(n) || typeof r != "function") throw Error(`WFRP4e actor "${e.name}" does not expose XP award operations.`);
-	let i = n.experience;
-	if (!YC(i) || !Number.isFinite(Number(i.total))) throw Error(`WFRP4e actor "${e.name}" does not expose a numeric total XP value.`);
-	return {
-		awardExperience: async (e, n) => {
-			await r.call(t, e, n, null, !0);
-		},
-		totalXp: Math.max(0, Math.round(Number(i.total)))
-	};
-}
-function qC() {
-	return new Set(Array.from(game.users).map((e) => e.character?.id).filter((e) => typeof e == "string"));
-}
-function JC() {
-	let e = game.user?.targets;
-	if (!(!e || e.size === 0)) return new Set(Array.from(e).map((e) => e.actor).filter((e) => e?.type === "character").map((e) => e.id));
-}
-function YC(e) {
-	return typeof e == "object" && !!e;
-}
-//#endregion
-//#region src/module/xp-curve/settings/keys.ts
-var $ = {
-	companionMultiplier: "xpCurveCompanionMultiplier",
-	curveExponent: "xpCurveExponent",
-	defaultReason: "xpCurveDefaultReason",
-	defaultSelection: "xpCurveDefaultSelection",
-	gapForMaximumAward: "xpCurveGapForMaximumAward",
-	maximumAward: "xpCurveMaximumAward",
-	scaleExponent: "xpCurveScaleExponent",
-	scalePivot: "xpCurveScalePivot",
-	showTokenControlsLauncher: "showXpCurveTokenControlsLauncher"
-};
-//#endregion
-//#region src/module/xp-curve/settings/load.ts
-function XC() {
-	return {
-		defaultReason: tw($.defaultReason),
-		defaultSelection: nw($.defaultSelection),
-		parameters: {
-			companionMultiplier: ew($.companionMultiplier),
-			curveExponent: ew($.curveExponent),
-			gapForMaximumAward: ew($.gapForMaximumAward),
-			maximumAward: ew($.maximumAward),
-			scaleExponent: ew($.scaleExponent),
-			scalePivot: ew($.scalePivot)
-		}
-	};
-}
-async function ZC(e) {
-	let t = [
-		[$.companionMultiplier, e.parameters.companionMultiplier],
-		[$.curveExponent, e.parameters.curveExponent],
-		[$.defaultReason, e.defaultReason],
-		[$.defaultSelection, e.defaultSelection],
-		[$.gapForMaximumAward, e.parameters.gapForMaximumAward],
-		[$.maximumAward, e.parameters.maximumAward],
-		[$.scaleExponent, e.parameters.scaleExponent],
-		[$.scalePivot, e.parameters.scalePivot]
-	];
-	for (let [e, n] of t) await game.settings.set(q, e, n);
-}
-function QC(e) {
-	return $C(e);
-}
-function $C(e) {
-	return game.settings.get(q, e) === !0;
-}
-function ew(e) {
-	return Number(game.settings.get(q, e));
-}
-function tw(e) {
-	let t = game.settings.get(q, e);
-	return typeof t == "string" ? t : "";
-}
-function nw(e) {
-	return rw(tw(e));
-}
-function rw(e) {
-	return e === "company" || e === "world" ? e : "party";
-}
-//#endregion
-//#region src/module/xp-curve/configuration.ts
-function iw() {
-	let e = XC();
-	return {
-		...e,
-		actors: HC(e.defaultSelection).actors,
-		launchers: { tokenControls: QC($.showTokenControlsLauncher) }
-	};
-}
-async function aw(e) {
-	Y(J.xpCurveConsole), await ZC({
-		defaultReason: e.defaultReason,
-		defaultSelection: e.defaultSelection,
-		parameters: Ib(e.parameters)
-	}), await game.settings.set(q, $.showTokenControlsLauncher, e.launchers.tokenControls), ui.notifications.info("XP Curve Console configuration saved.");
-}
-//#endregion
-//#region src/module/apps/xp-curve-configurator/XpCurveConfiguratorApplication.ts
-var ow = class extends Oc {
-	static ACCESS_POLICY = J.xpCurveConsole;
+}), nb = class extends Uc {
+	static ACCESS_POLICY = Y.xpCurveConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-xp-curve-configurator`],
-		id: `${q}-xp-curve-configurator`,
+		id: `${r}-xp-curve-configurator`,
 		position: {
-			height: 760,
-			width: 920
+			height: 740,
+			width: 680
 		},
 		window: {
 			icon: "fa-solid fa-chart-line",
 			resizable: !0,
-			title: `${wc} — XP Curve Configurator`
+			title: "Configure Curve XP"
 		}
 	};
-	#e;
-	constructor(e = {}) {
-		super(), this.#e = e;
+	initialization;
+	draft;
+	stepIndex = 0;
+	closeGuard;
+	closing = !1;
+	async close() {
+		if (this.closing) return this;
+		this.closing = !0;
+		try {
+			return this.closeGuard && !await this.closeGuard() ? this : await super.close();
+		} finally {
+			this.closing = !1;
+		}
 	}
 	getVueComponent() {
-		return LC;
+		return tb;
 	}
 	getVueProps() {
-		return {
-			actions: { saveConfiguration: async (e) => {
-				await aw(e), await this.#e.onSaved?.();
-			} },
-			initialization: iw()
-		};
-	}
-};
-//#endregion
-//#region src/module/apps/xp-curve-configurator/open.ts
-async function sw(e = {}) {
-	let t = new ow(e);
-	return await t.render(!0), t;
-}
-function cw(e = {}) {
-	sw(e).catch((e) => {
-		console.error(`${q} | Failed to open the XP Curve Configurator.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Configurator. See the browser console for details.");
-	});
-}
-//#endregion
-//#region src/module/xp-curve/initialization.ts
-function lw() {
-	let e = XC(), t = HC(e.defaultSelection);
-	return {
-		...e,
-		...t,
-		reasonContext: uw()
-	};
-}
-function uw() {
-	return {
-		date: game.world.nextSession?.slice(0, 10) || (/* @__PURE__ */ new Date()).toISOString().slice(0, 10),
-		session: Yy()
-	};
-}
-//#endregion
-//#region src/module/xp-curve/service.ts
-async function dw(e) {
-	Y(J.xpCurveConsole);
-	let t = UC(Array.from(new Set(e.actorIds))), n = Ib(e.parameters), r = Lb(t.map((e) => e.choice), n);
-	if (r.awards.length < 2) throw Error("Select at least two character actors to calculate catch-up XP.");
-	if (r.totalAward < 1) throw Error("This curve produces no XP awards for the selected actors.");
-	await ZC({
-		defaultReason: e.defaultReason,
-		defaultSelection: e.defaultSelection,
-		parameters: n
-	});
-	let i = xy(e.defaultReason, uw()), a = [];
-	for (let [e, n] of t.entries()) {
-		let t = r.awards[e];
-		if (t.award !== 0) try {
-			await n.awardExperience(t.award, i), a.push(t.actorName);
-		} catch (e) {
-			let n = a.length > 0 ? ` XP was already applied to ${a.join(", ")}.` : "", r = e instanceof Error ? ` ${e.message}` : "";
-			throw Error(`Could not award XP to ${t.actorName}.${n}${r}`, { cause: e });
-		}
-	}
-	let o = {
-		...r,
-		reason: i
-	};
-	return await fw(o), ui.notifications.info(`Awarded ${o.totalAward} total XP across ${a.length} actors.`), o;
-}
-async function fw(e) {
-	let t = e.awards.filter((e) => e.award > 0).map((e) => `<li><strong>${Sy(e.actorName)}</strong>: +${e.award} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Curve Award</h2><p>${Sy(e.reason)}</p><ul>${t}</ul><p><strong>${e.totalAward} XP awarded in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
-	await ChatMessage.create(r);
-}
-//#endregion
-//#region src/module/apps/xp-curve-console/XpCurveConsoleApplication.ts
-var pw = class extends Oc {
-	static ACCESS_POLICY = J.xpCurveConsole;
-	static DEFAULT_OPTIONS = {
-		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-xp-curve-console`],
-		id: `${q}-xp-curve-console`,
-		position: {
-			height: 720,
-			width: 820
-		},
-		window: {
-			icon: "fa-solid fa-chart-line",
-			resizable: !0,
-			title: `${wc} — XP Curve Console`
-		}
-	};
-	getVueComponent() {
-		return Xx;
-	}
-	getVueProps() {
-		return {
+		return this.initialization ??= Ev(), {
 			actions: {
-				applyAwards: dw,
-				onActionComplete: () => {
-					this.close().catch((e) => {
-						console.error(`${q} | Failed to close the XP Curve Console.`, e), ui.notifications.error("XP awards completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
-					});
+				saveConfiguration: Dv,
+				changeStep: async (e, t) => {
+					this.draft = e, this.stepIndex = Math.max(0, Math.min(Sv.length - 1, this.stepIndex + t));
+					let n = Ev();
+					this.initialization = {
+						...this.initialization,
+						actors: n.actors,
+						rosterIssue: n.rosterIssue
+					}, await this.render(!0);
 				},
-				openConfigurator: () => {
-					cw({ onSaved: () => this.render(!0) });
+				confirmReset: Ov,
+				confirmClose: kv,
+				bindCloseGuard: (e) => {
+					this.closeGuard = e;
+				},
+				close: () => {
+					this.close();
+				},
+				openParty: () => {
+					__();
 				}
 			},
-			initialization: lw()
+			initialization: this.initialization,
+			initialDraft: this.draft,
+			initialStep: this.stepIndex
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/xp-curve-console/open.ts
-async function mw() {
-	let e = new pw();
+// src/module/apps/xp-curve-configurator/view/open.ts
+async function rb() {
+	let e = new nb();
 	return await e.render(!0), e;
 }
-function hw() {
-	mw().catch((e) => {
-		console.error(`${q} | Failed to open the XP Curve Console.`, e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not open the XP Curve Console. See the browser console for details.");
-	});
-}
-//#endregion
-//#region src/functions/session-management/form.ts
-function gw(e) {
+// src/module/functions/session-management/form.ts
+function ib(e) {
 	let t = structuredClone(e), n = e.state.turnover?.steps.some((e) => e.status === "failed" || e.status === "pending") ? e.state.turnover.request : void 0;
 	return n?.xp && (t.settings.xp = { ...n.xp }), {
 		initialization: t,
@@ -11062,7 +9542,7 @@ function gw(e) {
 		}
 	};
 }
-function _w(e, t) {
+function ab(e, t) {
 	return {
 		chatExport: t.exportChat,
 		fortuneReset: t.fortuneReset,
@@ -11070,7 +9550,7 @@ function _w(e, t) {
 		pause: t.pause,
 		xpAward: e.amount > 0,
 		sessionReference: e.currentSessionReference,
-		nextSessionReference: Ty(e.currentSessionReference),
+		nextSessionReference: N_(e.currentSessionReference),
 		occurredAt: e.occurredAtLocal,
 		xp: {
 			...t.xp,
@@ -11079,7 +9559,7 @@ function _w(e, t) {
 		}
 	};
 }
-function vw(e, t, n) {
+function ob(e, t, n) {
 	return {
 		...e,
 		turnover: t.operation,
@@ -11089,7 +9569,7 @@ function vw(e, t, n) {
 		} : {}
 	};
 }
-function yw(e, t, n, r) {
+function sb(e, t, n, r) {
 	return {
 		form: {
 			...e,
@@ -11099,38 +9579,18 @@ function yw(e, t, n, r) {
 		reloadActors: r.settings.xp.defaultSelection !== n.xp.defaultSelection
 	};
 }
-//#endregion
-//#region src/functions/xp-award/calculate.ts
-function bw(e, t) {
-	let n = Number.isFinite(t) ? Math.round(t) : 0, r = e.filter((e) => e.selected).map((e) => {
-		let t = e.category === "companion" ? Math.floor(n / 2) : n, r = Math.max(t, -e.totalXp);
-		return {
-			actorId: e.id,
-			actorName: e.name,
-			afterXp: e.totalXp + r,
-			amount: r,
-			beforeXp: e.totalXp,
-			category: e.category
-		};
-	});
-	return {
-		awards: r,
-		totalChange: r.reduce((e, t) => e + t.amount, 0)
-	};
-}
-//#endregion
-//#region src/state/apps/session-management/store.ts
-var xw = As("session-management", () => {
-	let e = /* @__PURE__ */ j(), t = /* @__PURE__ */ j(""), n = /* @__PURE__ */ j(""), r = /* @__PURE__ */ j(0), i = /* @__PURE__ */ j([]), a = /* @__PURE__ */ j("end"), o = /* @__PURE__ */ j(), s = /* @__PURE__ */ j(), c = /* @__PURE__ */ j(!1), l = /* @__PURE__ */ j(!1), u, d = U(() => e.value.state), f = U(() => e.value.settings), p = U(() => d.value.turnover?.steps.some((e) => e.status === "failed" || e.status === "pending") ?? !1), m = U(() => {
+// src/module/apps/session-management/state/store.ts
+var cb = Ks("session-management", () => {
+	let e = /* @__PURE__ */ P(), t = /* @__PURE__ */ P(""), n = /* @__PURE__ */ P(""), r = /* @__PURE__ */ P(0), i = /* @__PURE__ */ P([]), a = /* @__PURE__ */ P("end"), o = /* @__PURE__ */ P(), s = /* @__PURE__ */ P(), c = /* @__PURE__ */ P(!1), l = /* @__PURE__ */ P(!1), u, d = K(() => e.value.state), f = K(() => e.value.settings), p = K(() => d.value.turnover?.steps.some((e) => e.status === "failed" || e.status === "pending") ?? !1), m = K(() => {
 		try {
-			return Ty(t.value);
+			return N_(t.value);
 		} catch {
 			return "";
 		}
-	}), h = U(() => !!n.value && !Number.isNaN(new Date(n.value).getTime())), g = U(() => bw(i.value, r.value)), _ = U(() => h.value ? Ey(f.value.xp, t.value, n.value) : ""), v = U(() => !c.value && !l.value && !!m.value && h.value && Number.isSafeInteger(r.value) && r.value >= 0 && (r.value === 0 || g.value.awards.length > 0));
+	}), h = K(() => !!n.value && !Number.isNaN(new Date(n.value).getTime())), g = K(() => Av(i.value, r.value)), _ = K(() => h.value ? P_(f.value.xp, t.value, n.value) : ""), v = K(() => !c.value && !l.value && !!m.value && h.value && Number.isSafeInteger(r.value) && r.value >= 0 && (r.value === 0 || g.value.awards.length > 0));
 	function y(t, n) {
 		u = n;
-		let r = gw(t);
+		let r = ib(t);
 		e.value = r.initialization, x(r.form);
 	}
 	function b() {
@@ -11148,8 +9608,8 @@ var xw = As("session-management", () => {
 		if (v.value) {
 			c.value = !0, o.value = void 0, s.value = void 0;
 			try {
-				let n = _w(b(), f.value), r = await u.runSessionTurnover(n);
-				e.value.state = vw(d.value, r, n.nextSessionReference), r.record && (t.value = d.value.currentSessionReference, s.value = `Session ${r.record.reference} completed. Ready for session ${t.value}.`);
+				let n = ab(b(), f.value), r = await u.runSessionTurnover(n);
+				e.value.state = ob(d.value, r, n.nextSessionReference), r.record && (t.value = d.value.currentSessionReference, s.value = `Session ${r.record.reference} completed. Ready for session ${t.value}.`);
 			} catch (e) {
 				console.error("Drowsy’s WFRP4e Toolkit | Session turnover failed.", e), o.value = e instanceof Error ? e.message : "The session could not be completed.", y(u.reload(), u);
 			} finally {
@@ -11157,12 +9617,12 @@ var xw = As("session-management", () => {
 			}
 		}
 	}
-	async function S() {
+	async function te() {
 		if (!(c.value || p.value || l.value)) {
 			l.value = !0;
 			try {
 				await u.openSettings((t) => {
-					let n = yw(b(), d.value.currentSessionReference, f.value, t);
+					let n = sb(b(), d.value.currentSessionReference, f.value, t);
 					x(n.form), e.value.settings = t.settings, d.value.currentSessionReference = t.currentSessionReference, n.reloadActors && (i.value = u.reload().actors);
 				});
 			} catch (e) {
@@ -11185,7 +9645,7 @@ var xw = As("session-management", () => {
 		isWorking: c,
 		nextSessionReference: m,
 		occurredAtLocal: n,
-		openSettings: S,
+		openSettings: te,
 		pending: p,
 		plan: g,
 		reason: _,
@@ -11193,166 +9653,166 @@ var xw = As("session-management", () => {
 		state: d,
 		statusMessage: s
 	};
-}), Sw = { class: "tw:grid tw:min-h-0 tw:flex-1 tw:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] tw:gap-4 tw:@max-[32rem]:grid-cols-1 tw:@max-[32rem]:grid-rows-[minmax(0,1.3fr)_minmax(0,1fr)]" }, Cw = { class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:gap-3" }, ww = ["disabled"], Tw = {
+}), lb = { class: "tw:grid tw:min-h-0 tw:flex-1 tw:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] tw:gap-4 tw:@max-[32rem]:grid-cols-1 tw:@max-[32rem]:grid-rows-[minmax(0,1.3fr)_minmax(0,1fr)]" }, ub = { class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:gap-3" }, db = ["disabled"], fb = {
 	class: "tw:grid tw:gap-1 tw:text-sm tw:@max-[32rem]:col-span-2",
 	for: "session-occurred-at"
-}, Ew = {
+}, pb = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-xp"
-}, Dw = {
+}, mb = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-number"
-}, Ow = ["value"], kw = {
+}, hb = ["value"], gb = {
 	"aria-labelledby": "session-preview-title",
 	class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-2"
-}, Aw = {
+}, _b = {
 	class: "tw:min-h-0 tw:overflow-y-auto tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100! tw:p-3 tw:text-sm tw:break-words",
 	"aria-live": "polite"
-}, jw = { class: "tw:mt-1 tw:mb-3" }, Mw = { class: "tw:mt-1 tw:mb-0" }, Nw = {
+}, vb = { class: "tw:mt-1 tw:mb-3" }, yb = { class: "tw:mt-1 tw:mb-0" }, bb = {
 	key: 0,
 	class: "tw:mt-2 tw:mb-0 tw:text-xs tw:text-base-content/70!"
-}, Pw = {
+}, xb = {
 	class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100!",
 	"aria-labelledby": "session-recipients-title"
-}, Fw = { class: "tw:shrink-0 tw:border-b tw:border-base-content/15 tw:p-3" }, Iw = {
+}, Sb = { class: "tw:shrink-0 tw:border-b tw:border-base-content/15 tw:p-3" }, Cb = {
 	id: "session-recipients-title",
 	class: "tw:m-0 tw:font-serif tw:text-lg"
-}, Lw = { class: "tw:text-sm tw:font-normal" }, Rw = { class: "tw:min-h-0 tw:flex-1 tw:overflow-y-auto tw:overscroll-contain tw:p-2" }, zw = { class: "tw:min-w-0 tw:flex-1 tw:break-words tw:text-sm" }, Bw = { class: "tw:block tw:font-semibold" }, Vw = { class: "tw:block tw:text-xs tw:text-base-content/65!" }, Hw = [
+}, wb = { class: "tw:text-sm tw:font-normal" }, Tb = { class: "tw:min-h-0 tw:flex-1 tw:overflow-y-auto tw:overscroll-contain tw:p-2" }, Eb = { class: "tw:min-w-0 tw:flex-1 tw:break-words tw:text-sm" }, Db = { class: "tw:block tw:font-semibold" }, Ob = { class: "tw:block tw:text-xs tw:text-base-content/65!" }, kb = [
 	"onUpdate:modelValue",
 	"aria-label",
 	"disabled"
-], Uw = {
+], Ab = {
 	key: 0,
 	class: "tw:p-3 tw:text-sm"
-}, Ww = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-t tw:border-base-content/15 tw:pt-3" }, Gw = { class: "tw:min-w-0 tw:text-sm" }, Kw = { class: "tw:m-0" }, qw = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, Jw = ["disabled"], Yw = {
+}, jb = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-t tw:border-base-content/15 tw:pt-3" }, Mb = { class: "tw:min-w-0 tw:text-sm" }, Nb = { class: "tw:m-0" }, Pb = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, Fb = ["disabled"], Ib = {
 	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
+	class: "tw:dui-loading tw:dui-loading-spinner tw:dui-loading-sm",
 	"aria-hidden": "true"
-}, Xw = /* @__PURE__ */ P({
+}, Lb = /* @__PURE__ */ L({
 	__name: "SessionEndPanel",
 	setup(e) {
-		let t = xw(), { actors: n, amount: r, canConfirm: i, currentSessionReference: a, isSettingsOpen: o, isWorking: s, nextSessionReference: c, occurredAtLocal: l, pending: u, plan: d, reason: f, settings: p } = js(t);
-		return (e, m) => (L(), R("form", {
+		let t = cb(), { actors: n, amount: r, canConfirm: i, currentSessionReference: a, isSettingsOpen: o, isWorking: s, nextSessionReference: c, occurredAtLocal: l, pending: u, plan: d, reason: f, settings: p } = qs(t);
+		return (e, m) => (B(), V("form", {
 			id: "session-end",
 			role: "tabpanel",
 			"aria-labelledby": "session-tab-end",
 			class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-3 tw:p-4",
-			onSubmit: m[3] ||= Go((...e) => M(t).confirm && M(t).confirm(...e), ["prevent"])
-		}, [z("div", Sw, [z("div", Cw, [z("fieldset", {
+			onSubmit: m[3] ||= ss((...e) => F(t).confirm && F(t).confirm(...e), ["prevent"])
+		}, [H("div", lb, [H("div", ub, [H("fieldset", {
 			class: "tw:m-0 tw:grid tw:gap-3 tw:border-0 tw:p-0 tw:@max-[32rem]:grid-cols-2",
-			disabled: M(s) || M(u) || M(o)
+			disabled: F(s) || F(u) || F(o)
 		}, [
-			z("label", Tw, [m[4] ||= z("span", null, "Date & time", -1), N(z("input", {
+			H("label", fb, [m[4] ||= H("span", null, "Date & time", -1), I(H("input", {
 				id: "session-occurred-at",
-				"onUpdate:modelValue": m[0] ||= (e) => /* @__PURE__ */ A(l) ? l.value = e : null,
-				class: "dui-input dui-input-sm tw:min-w-0 tw:w-full tw:bg-base-100!",
+				"onUpdate:modelValue": m[0] ||= (e) => /* @__PURE__ */ N(l) ? l.value = e : null,
+				class: "tw:dui-input tw:dui-input-sm tw:min-w-0 tw:w-full tw:bg-base-100!",
 				type: "datetime-local",
 				required: ""
-			}, null, 512), [[W, M(l)]])]),
-			z("label", Ew, [m[5] ||= z("span", null, "Session XP", -1), N(z("input", {
+			}, null, 512), [[q, F(l)]])]),
+			H("label", pb, [m[5] ||= H("span", null, "Session XP", -1), I(H("input", {
 				id: "session-xp",
-				"onUpdate:modelValue": m[1] ||= (e) => /* @__PURE__ */ A(r) ? r.value = e : null,
-				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
+				"onUpdate:modelValue": m[1] ||= (e) => /* @__PURE__ */ N(r) ? r.value = e : null,
+				class: "tw:dui-input tw:dui-input-sm tw:w-full tw:bg-base-100!",
 				type: "number",
 				min: "0",
 				step: "1",
 				required: ""
 			}, null, 512), [[
-				W,
-				M(r),
+				q,
+				F(r),
 				void 0,
 				{ number: !0 }
 			]])]),
-			z("label", Dw, [m[6] ||= z("span", null, "Session number", -1), z("input", {
+			H("label", mb, [m[6] ||= H("span", null, "Session number", -1), H("input", {
 				id: "session-number",
-				value: M(a),
-				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
+				value: F(a),
+				class: "tw:dui-input tw:dui-input-sm tw:w-full tw:bg-base-100!",
 				type: "number",
 				min: "0",
 				step: "1",
 				required: "",
 				onInput: m[2] ||= (e) => a.value = e.target.value
-			}, null, 40, Ow)])
-		], 8, ww), z("section", kw, [m[9] ||= z("h2", {
+			}, null, 40, hb)])
+		], 8, db), H("section", gb, [m[9] ||= H("h2", {
 			id: "session-preview-title",
 			class: "tw:m-0 tw:font-serif tw:text-lg"
-		}, "Preview", -1), z("div", Aw, [
-			m[7] ||= z("p", { class: "tw:m-0 tw:font-semibold" }, "Session log", -1),
-			z("p", jw, D(M(ky)(M(a), M(l))), 1),
-			m[8] ||= z("p", { class: "tw:m-0 tw:font-semibold" }, "XP entries", -1),
-			z("p", Mw, D(M(r) > 0 ? M(f) || "Choose a date and time" : "No XP will be awarded."), 1),
-			M(r) > 0 ? (L(), R("p", Nw, " Amounts appear beside each selected recipient. Companions receive half XP. ")) : H("", !0)
-		])])]), z("section", Pw, [z("div", Fw, [z("h2", Iw, [m[10] ||= V(" Recipients ", -1), z("span", Lw, "(" + D(M(d).awards.length) + ")", 1)])]), z("div", Rw, [(L(!0), R(I, null, F(M(n), (e) => (L(), R("label", {
+		}, "Preview", -1), H("div", _b, [
+			m[7] ||= H("p", { class: "tw:m-0 tw:font-semibold" }, "Session log", -1),
+			H("p", vb, k(F(L_)(F(a), F(l))), 1),
+			m[8] ||= H("p", { class: "tw:m-0 tw:font-semibold" }, "XP entries", -1),
+			H("p", yb, k(F(r) > 0 ? F(f) || "Choose a date and time" : "No XP will be awarded."), 1),
+			F(r) > 0 ? (B(), V("p", bb, " Amounts appear beside each selected recipient. XP rates come from Configure Party. ")) : G("", !0)
+		])])]), H("section", xb, [H("div", Sb, [H("h2", Cb, [m[10] ||= W(" Recipients ", -1), H("span", wb, "(" + k(F(d).awards.length) + ")", 1)])]), H("div", Tb, [(B(!0), V(z, null, R(F(n), (e) => (B(), V("label", {
 			key: e.id,
 			class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-3 tw:rounded-box tw:p-3 tw:hover:bg-base-200"
 		}, [
-			m[11] ||= z("i", {
+			m[11] ||= H("i", {
 				class: "fa-solid fa-user tw:shrink-0 tw:text-xl tw:text-base-content/60!",
 				"aria-hidden": "true"
 			}, null, -1),
-			z("span", zw, [z("span", Bw, D(e.name), 1), z("span", Vw, [V(D(e.category === "companion" ? "Companion" : "Character"), 1), e.selected ? (L(), R(I, { key: 0 }, [V(" · +" + D(M(d).awards.find((t) => t.actorId === e.id)?.amount ?? 0) + " XP", 1)], 64)) : H("", !0)])]),
-			N(z("input", {
+			H("span", Eb, [H("span", Db, k(e.name), 1), H("span", Ob, [W(k(e.categoryName || "Character"), 1), e.selected ? (B(), V(z, { key: 0 }, [W(" · +" + k(F(d).awards.find((t) => t.actorId === e.id)?.amount ?? 0) + " XP", 1)], 64)) : G("", !0)])]),
+			I(H("input", {
 				"onUpdate:modelValue": (t) => e.selected = t,
-				class: "dui-checkbox dui-checkbox-sm dui-checkbox-primary tw:shrink-0",
+				class: "tw:dui-checkbox tw:dui-checkbox-sm tw:dui-checkbox-primary tw:shrink-0",
 				"aria-label": `Include ${e.name}`,
-				disabled: M(s) || M(u) || M(o),
+				disabled: F(s) || F(u) || F(o),
 				type: "checkbox"
-			}, null, 8, Hw), [[G, e.selected]])
-		]))), 128)), M(n).length ? H("", !0) : (L(), R("p", Uw, "No character actors are available."))])])]), z("footer", Ww, [z("div", Gw, [z("p", Kw, [m[12] ||= V(" Next session: ", -1), z("strong", null, D(M(c) || "—"), 1)]), z("p", qw, D([
-			M(p).pause && "Pause play",
-			M(p).fortuneReset && "Restore Fortune",
-			M(p).holdingScene && "Holding scene",
-			M(p).exportChat && "Export chat"
-		].filter(Boolean).join(" · ")), 1)]), z("button", {
-			class: "dui-btn dui-btn-primary tw:shrink-0",
-			disabled: !M(i),
+			}, null, 8, kb), [[J, e.selected]])
+		]))), 128)), F(n).length ? G("", !0) : (B(), V("p", Ab, "No character actors are available."))])])]), H("footer", jb, [H("div", Mb, [H("p", Nb, [m[12] ||= W(" Next session: ", -1), H("strong", null, k(F(c) || "—"), 1)]), H("p", Pb, k([
+			F(p).pause && "Pause play",
+			F(p).fortuneReset && "Restore Fortune",
+			F(p).holdingScene && "Holding scene",
+			F(p).exportChat && "Export chat"
+		].filter(Boolean).join(" · ")), 1)]), H("button", {
+			class: "tw:dui-btn tw:dui-btn-primary tw:shrink-0",
+			disabled: !F(i),
 			type: "submit"
-		}, [M(s) ? (L(), R("span", Yw)) : H("", !0), V(D(M(u) ? "Retry" : "Confirm"), 1)], 8, Jw)])], 32));
+		}, [F(s) ? (B(), V("span", Ib)) : G("", !0), W(k(F(u) ? "Retry" : "Confirm"), 1)], 8, Fb)])], 32));
 	}
-}), Zw = {
+}), Rb = {
 	id: "session-log",
 	role: "tabpanel",
 	"aria-labelledby": "session-tab-log",
 	class: "tw:min-h-0 tw:flex-1 tw:overflow-y-auto tw:p-4"
-}, Qw = {
+}, zb = {
 	key: 0,
 	class: "tw:text-sm"
-}, $w = {
+}, Bb = {
 	key: 1,
 	class: "tw:m-0 tw:grid tw:[list-style:none] tw:gap-2 tw:p-0"
-}, eT = { class: "tw:m-0 tw:text-sm" }, tT = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, nT = /* @__PURE__ */ P({
+}, Vb = { class: "tw:m-0 tw:text-sm" }, Hb = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, Ub = /* @__PURE__ */ L({
 	__name: "SessionLogPanel",
 	setup(e) {
-		let { state: t } = js(xw());
+		let { state: t } = qs(cb());
 		function n(e) {
 			return new Intl.DateTimeFormat(void 0, {
 				dateStyle: "medium",
 				timeStyle: "short"
 			}).format(new Date(e));
 		}
-		return (e, r) => (L(), R("section", Zw, [M(t).sessions.length ? (L(), R("ol", $w, [(L(!0), R(I, null, F(M(t).sessions, (e) => (L(), R("li", {
+		return (e, r) => (B(), V("section", Rb, [F(t).sessions.length ? (B(), V("ol", Bb, [(B(!0), V(z, null, R(F(t).sessions, (e) => (B(), V("li", {
 			key: e.id,
 			class: "tw:rounded-box tw:border tw:border-base-content/15 tw:bg-base-100! tw:p-3"
-		}, [z("p", eT, D(M(ky)(e.reference, e.occurredAt)), 1), z("p", tT, " Recorded " + D(n(e.recordedAt)), 1)]))), 128))])) : (L(), R("p", Qw, "No sessions recorded yet."))]));
+		}, [H("p", Vb, k(F(L_)(e.reference, e.occurredAt)), 1), H("p", Hb, " Recorded " + k(n(e.recordedAt)), 1)]))), 128))])) : (B(), V("p", zb, "No sessions recorded yet."))]));
 	}
-}), rT = { class: "tw:@container tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, iT = { class: "tw:flex tw:shrink-0 tw:items-center tw:gap-2 tw:border-b tw:border-base-content/20 tw:px-4 tw:pt-2" }, aT = ["aria-selected", "tabindex"], oT = ["aria-selected", "tabindex"], sT = ["disabled"], cT = {
+}), Wb = { class: "tw:@container tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, Gb = { class: "tw:flex tw:shrink-0 tw:items-center tw:gap-2 tw:border-b tw:border-base-content/20 tw:px-4 tw:pt-2" }, Kb = ["aria-selected", "tabindex"], qb = ["aria-selected", "tabindex"], Jb = ["disabled"], Yb = {
 	key: 0,
-	class: "dui-alert dui-alert-error tw:mx-4 tw:mt-3 tw:shrink-0 tw:text-sm",
+	class: "tw:dui-alert tw:dui-alert-error tw:mx-4 tw:mt-3 tw:shrink-0 tw:text-sm",
 	role: "alert"
-}, lT = {
+}, Xb = {
 	key: 1,
-	class: "dui-alert dui-alert-success tw:mx-4 tw:mt-3 tw:shrink-0 tw:text-sm",
+	class: "tw:dui-alert tw:dui-alert-success tw:mx-4 tw:mt-3 tw:shrink-0 tw:text-sm",
 	role: "status"
-}, uT = /* @__PURE__ */ P({
+}, Zb = /* @__PURE__ */ L({
 	__name: "SessionManagementConsoleApp",
 	props: {
 		actions: {},
 		initialization: {}
 	},
 	setup(e) {
-		let t = e, n = xw();
+		let t = e, n = cb();
 		n.initialize(t.initialization, t.actions);
-		let { activeTab: r, errorMessage: i, isWorking: a, isSettingsOpen: o, pending: s, statusMessage: c } = js(n);
+		let { activeTab: r, errorMessage: i, isWorking: a, isSettingsOpen: o, pending: s, statusMessage: c } = qs(n);
 		function l(e) {
 			[
 				"ArrowLeft",
@@ -11361,55 +9821,54 @@ var xw = As("session-management", () => {
 				"End"
 			].includes(e.key) && (e.preventDefault(), r.value = e.key === "Home" ? "end" : e.key === "End" || r.value === "end" ? "log" : "end", e.currentTarget.querySelector(`#session-tab-${r.value}`)?.focus());
 		}
-		return (e, t) => (L(), R("main", rT, [
-			z("header", iT, [z("div", {
-				class: "dui-tabs dui-tabs-border tw:flex-1",
+		return (e, t) => (B(), V("main", Wb, [
+			H("header", Gb, [H("div", {
+				class: "tw:dui-tabs tw:dui-tabs-border tw:flex-1",
 				role: "tablist",
 				"aria-label": "Session management",
 				onKeydown: l
-			}, [z("button", {
+			}, [H("button", {
 				id: "session-tab-end",
-				class: E(["dui-tab tw:flex-1 tw:font-serif tw:text-lg", { "dui-tab-active": M(r) === "end" }]),
+				class: ke(["tw:dui-tab tw:flex-1 tw:font-serif tw:text-lg", { "tw:dui-tab-active": F(r) === "end" }]),
 				type: "button",
 				role: "tab",
-				"aria-selected": M(r) === "end",
+				"aria-selected": F(r) === "end",
 				"aria-controls": "session-end",
-				tabindex: M(r) === "end" ? 0 : -1,
+				tabindex: F(r) === "end" ? 0 : -1,
 				onClick: t[0] ||= (e) => r.value = "end"
-			}, " End of Session ", 10, aT), z("button", {
+			}, " End of Session ", 10, Kb), H("button", {
 				id: "session-tab-log",
-				class: E(["dui-tab tw:flex-1 tw:font-serif tw:text-lg", { "dui-tab-active": M(r) === "log" }]),
+				class: ke(["tw:dui-tab tw:flex-1 tw:font-serif tw:text-lg", { "tw:dui-tab-active": F(r) === "log" }]),
 				type: "button",
 				role: "tab",
-				"aria-selected": M(r) === "log",
+				"aria-selected": F(r) === "log",
 				"aria-controls": "session-log",
-				tabindex: M(r) === "log" ? 0 : -1,
+				tabindex: F(r) === "log" ? 0 : -1,
 				onClick: t[1] ||= (e) => r.value = "log"
-			}, " Log ", 10, oT)], 32), z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-square dui-btn-sm tw:mb-2",
+			}, " Log ", 10, qb)], 32), H("button", {
+				class: "tw:dui-btn tw:dui-btn-ghost tw:dui-btn-square tw:dui-btn-sm tw:mb-2",
 				type: "button",
 				"aria-label": "Session Management Settings",
 				title: "Session Management Settings",
-				disabled: M(a) || M(s) || M(o),
-				onClick: t[2] ||= (...e) => M(n).openSettings && M(n).openSettings(...e)
-			}, [...t[3] ||= [z("i", {
+				disabled: F(a) || F(s) || F(o),
+				onClick: t[2] ||= (...e) => F(n).openSettings && F(n).openSettings(...e)
+			}, [...t[3] ||= [H("i", {
 				class: "fa-solid fa-gear",
 				"aria-hidden": "true"
-			}, null, -1)]], 8, sT)]),
-			M(i) ? (L(), R("div", cT, D(M(i)), 1)) : H("", !0),
-			M(c) ? (L(), R("div", lT, D(M(c)), 1)) : H("", !0),
-			N(B(Xw, null, null, 512), [[io, M(r) === "end"]]),
-			N(B(nT, null, null, 512), [[io, M(r) === "log"]])
+			}, null, -1)]], 8, Jb)]),
+			F(i) ? (B(), V("div", Yb, k(F(i)), 1)) : G("", !0),
+			F(c) ? (B(), V("div", Xb, k(F(c)), 1)) : G("", !0),
+			I(U(Lb, null, null, 512), [[vo, F(r) === "end"]]),
+			I(U(Ub, null, null, 512), [[vo, F(r) === "log"]])
 		]));
 	}
 });
-//#endregion
-//#region src/module/session-management/initialization.ts
-function dT() {
-	let e = Jy(), t = Xy();
+// src/module/foundry/session-management/initialization.ts
+function Qb() {
+	let e = ev(), t = nv();
 	return {
-		actors: HC(t.xp.defaultSelection).actors,
-		occurredAtLocal: fT(/* @__PURE__ */ new Date()),
+		actors: ov(t.xp.defaultSelection).actors,
+		occurredAtLocal: $b(/* @__PURE__ */ new Date()),
 		scenes: Array.from(game.scenes).map(({ name: e, uuid: t }) => ({
 			label: e,
 			uuid: t
@@ -11418,19 +9877,18 @@ function dT() {
 		state: e
 	};
 }
-function fT(e) {
+function $b(e) {
 	return (/* @__PURE__ */ new Date(e.getTime() - e.getTimezoneOffset() * 6e4)).toISOString().slice(0, 16);
 }
-//#endregion
-//#region src/module/session-management/fortune.ts
-async function pT(e) {
-	Y(J.sessionManagementConsole);
-	let t = hy(), n = e ?? HC(t.defaultSelection).actors.filter(({ selected: e }) => e).map(({ id: e }) => e), r = 0;
+// src/module/foundry/session-management/fortune.ts
+async function ex(e) {
+	X(Y.sessionManagementConsole);
+	let t = T_(), n = e ?? ov(t.defaultSelection).actors.filter(({ selected: e }) => e).map(({ id: e }) => e), r = 0;
 	for (let e of n) {
 		let t = game.actors.get(e);
 		if (!t) continue;
-		let n = mT(t);
-		hT(t.system, [
+		let n = tx(t);
+		nx(t.system, [
 			"status",
 			"fortune",
 			"value"
@@ -11438,15 +9896,15 @@ async function pT(e) {
 	}
 	return `Fortune restored for ${r} of ${n.length} characters.`;
 }
-function mT(e) {
-	let t = hT(e.system, [
+function tx(e) {
+	let t = nx(e.system, [
 		"status",
 		"fate",
 		"value"
-	]), n = game.i18n.localize("NAME.Luck"), r = Array.from(e.items ?? []).filter((e) => e.type === "talent" && e.name === n).reduce((e, t) => e + hT(t.system, ["advances", "value"]), 0);
+	]), n = game.i18n.localize("NAME.Luck"), r = Array.from(e.items ?? []).filter((e) => e.type === "talent" && e.name === n).reduce((e, t) => e + nx(t.system, ["advances", "value"]), 0);
 	return Math.max(0, t + r);
 }
-function hT(e, t) {
+function nx(e, t) {
 	let n = e;
 	for (let e of t) {
 		if (!n || typeof n != "object") return 0;
@@ -11455,155 +9913,253 @@ function hT(e, t) {
 	let r = Number(n);
 	return Number.isFinite(r) ? Math.round(r) : 0;
 }
-//#endregion
-//#region src/module/xp-award/service.ts
-async function gT(e, t) {
-	Y(J.xpAwardConsole);
-	let n = Array.from(new Set(e.actorIds));
-	if (n.length === 0) throw Error("Select at least one character actor.");
+// src/module/functions/xp-award/recovery.ts
+function rx(e, t, n, r) {
+	let i = t.slice(n).filter((e) => e.reason === r && Number.isFinite(Number(e.amount)));
+	if (i.length > 1) throw Error(`${e.name} already has ${i.length} XP log entries for "${r}". Check their XP log before continuing.`);
+	let [a] = i;
+	if (!a) return;
+	let o = Math.round(Number(a.amount)), s = Number.isFinite(Number(a.total)) ? Math.round(Number(a.total)) : e.totalXp;
+	return {
+		actorId: e.id,
+		actorName: e.name,
+		afterXp: s,
+		amount: o,
+		beforeXp: s - o,
+		category: e.category
+	};
+}
+// src/module/foundry/xp-award/recipients.ts
+async function ix(e) {
+	X(Y.xpAwards);
+	let t = [];
+	if (e === "targets") {
+		let e = Array.from(game.user.targets ?? []);
+		if (!e.length) throw Error("Target at least one character before opening Target XP.");
+		for (let n of e) {
+			if (!n.actor || n.actor.type !== "character") throw Error("Every target must be a character actor that can receive XP.");
+			let e = cv(n.actor, "standard", !0, 100, "Target");
+			e.choice.id = n.actor.uuid, t.push(e);
+		}
+	} else {
+		let e = await Tg();
+		for (let n of e.categories) if (n.xpPercent !== 0) for (let e of n.actorIds) {
+			let r = game.actors.get(e);
+			if (!r || r.type !== "character") throw Error(`A member of ${n.name} is missing. Open Configure Party to repair the roster.`);
+			let i = cv(r, n.id === "companions" ? "companion" : "standard", !0, n.xpPercent, n.name);
+			i.choice.id = r.uuid, t.push(i);
+		}
+		if (!t.length) throw Error("Add XP recipients in Configure Party before opening Party XP.");
+	}
+	return [...new Map(t.map((e) => [e.choice.id, e.choice])).values()];
+}
+async function ax(e) {
+	let t = /* @__PURE__ */ new Set(), n = [];
+	for (let r of e.actors) {
+		if (t.has(r.id)) throw Error("The XP preview contains a duplicate recipient.");
+		t.add(r.id);
+		let e = await fromUuid(r.id);
+		if (!$(e) || e.documentName !== "Actor" || e.type !== "character") throw Error(`${r.name} is no longer available. No XP was applied.`);
+		let i = r.xpPercent;
+		if (typeof i != "number" || !Number.isFinite(i) || i < 0) throw Error("The XP preview contains an invalid percentage.");
+		let a = cv(e, r.category, !0, i, r.categoryName);
+		if (a.choice.id = r.id, a.choice.totalXp !== r.totalXp) throw Error(`${r.name}'s XP has changed since this preview. Review any earlier partial award before opening a new one; this submission changed no XP.`);
+		n.push(a);
+	}
+	if (!n.length) throw Error("No XP recipients are available.");
+	return n;
+}
+// src/module/foundry/xp-award/service.ts
+async function ox(e, t, n) {
+	X(Y.xpAwards);
+	let r = Array.from(new Set(e.actorIds));
+	if (r.length === 0) throw Error("Select at least one character actor.");
 	if (!Number.isSafeInteger(e.defaultAmount) || e.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP change.");
-	let r = UC(n), i = bw(r.map((e) => e.choice), e.defaultAmount), a = (/* @__PURE__ */ new Date()).toISOString(), o = t?.reference ?? Yy(), s = t?.reason ?? Cy(e.defaultReason, {
-		date: a.slice(0, 10),
-		datetime: wy(a),
-		session: o
-	}, e.includeTimestampInReason), c = [];
-	for (let [e, t] of r.entries()) {
-		let n = i.awards[e];
-		try {
-			await t.awardExperience(n.amount, s), c.push(n);
-		} catch (e) {
-			let t = c.length > 0 ? ` XP was already changed for ${c.map((e) => e.actorName).join(", ")}.` : "", r = e instanceof Error ? ` ${e.message}` : "";
-			throw Error(`Could not change XP for ${n.actorName}.${t}${r}`, { cause: e });
+	D_();
+	let i = n?.applied ?? [], a = new Set(i.map((e) => e.actorId)), o = (e.prepared ? await ax(e.prepared) : sv(r.filter((e) => !a.has(e)))).filter((e) => !a.has(e.choice.id)), s = e.prepared?.awardedAt ?? (/* @__PURE__ */ new Date()).toISOString(), c = t?.reference ?? e.prepared?.sessionReference ?? tv(), l = t?.reason ?? e.prepared?.reason ?? j_(e.defaultReason, {
+		date: s.slice(0, 10),
+		datetime: M_(s),
+		session: c
+	}, e.includeTimestampInReason), u = [...i], d = [], f = n?.logBaseline;
+	if (!f) await n?.onBaseline(Object.fromEntries(o.map(({ choice: e, xpLog: t }) => [e.id, t.length]))), d.push(...o);
+	else for (let e of o) {
+		let t = f[e.choice.id];
+		if (t === void 0) throw Error(`The saved XP progress has no starting record for ${e.choice.name}. Check their XP log before continuing.`);
+		let r = rx(e.choice, e.xpLog, t, l);
+		r ? (u.push(r), await n.onApplied(r)) : d.push(e);
+	}
+	let p = Av(d.map((e) => e.choice), e.defaultAmount);
+	if (u.length === 0 && !p.awards.some((e) => e.amount !== 0)) throw Error("This amount produces no XP changes for these recipients.");
+	for (let [e, t] of d.entries()) {
+		let r = p.awards[e];
+		if (r.amount !== 0) {
+			try {
+				await t.awardExperience(r.amount, l), u.push(r);
+			} catch (e) {
+				let t = u.length > 0 ? ` XP was already changed for ${u.map((e) => e.actorName).join(", ")}.` : "", n = e instanceof Error ? ` ${e.message}` : "";
+				throw Error(`Could not change XP for ${r.actorName}.${t}${n}`, { cause: e });
+			}
+			await n?.onApplied(r);
 		}
 	}
-	let l = {
-		...i,
-		awardedAt: a,
-		reason: s,
-		sessionReference: o
-	}, u = {
-		...l,
+	let m = {
+		awards: u,
+		totalChange: u.reduce((e, t) => e + t.amount, 0),
+		awardedAt: s,
+		reason: l,
+		sessionReference: c
+	}, h = {
+		...m,
 		id: crypto.randomUUID()
 	};
-	return await vy(uy(_y(), u)), await _T(l), ui.notifications.info(`Applied ${vT(l.totalChange)} XP across ${l.awards.length} actors.`), l;
+	try {
+		await O_(b_(D_(), h));
+	} catch (e) {
+		console.error("Drowsy's Toolkit | XP applied, but audit history could not be saved.", e), ui.notifications.error("XP was applied, but its toolkit audit entry could not be saved. Do not award it again; check the actors' XP logs.");
+	}
+	try {
+		await sx(m);
+	} catch (e) {
+		console.error("Drowsy's Toolkit | XP applied, but chat summary failed.", e), ui.notifications.error("XP was applied, but the chat summary failed. Do not award it again.");
+	}
+	return ui.notifications.info(`Applied ${cx(m.totalChange)} XP to ${m.awards.length} ${m.awards.length === 1 ? "actor" : "actors"}.`), m;
 }
-async function _T(e) {
-	let t = e.awards.map((e) => `<li><strong>${Sy(e.actorName)}</strong>: ${vT(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${Sy(e.reason || "No reason")}</p><p><small>${Sy(wy(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${vT(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
+async function sx(e) {
+	let t = e.awards.map((e) => `<li><strong>${Kh(e.actorName)}</strong>: ${cx(e.amount)} XP (${e.beforeXp} → ${e.afterXp})</li>`).join(""), n = `<h2>XP Award</h2><p>${Kh(e.reason || "No reason")}</p><p><small>${Kh(M_(e.awardedAt))}</small></p><ul>${t}</ul><p><strong>${cx(e.totalChange)} XP in total.</strong></p>`, r = game.wfrp4e.utility.chatDataSetup(n, "gmroll", !1, { alias: "Drowsy’s WFRP4e Toolkit" });
 	await ChatMessage.create(r);
 }
-function vT(e) {
+function cx(e) {
 	return e > 0 ? `+${e}` : String(e);
 }
-//#endregion
-//#region src/module/session-management/service.ts
-async function yT(e) {
-	Y(J.sessionManagementConsole);
+// src/module/foundry/session-management/service.ts
+async function lx(e) {
+	X(Y.sessionManagementConsole);
 	let t = e.trim();
 	if (!t) throw Error("Enter a current session reference.");
-	await Qy({
-		...Jy(),
+	await iv({
+		...ev(),
 		currentSessionReference: t
 	}), ui.notifications.info(`Current session reference saved as ${t}.`);
 }
-async function bT(e) {
-	Y(J.sessionManagementConsole);
-	let t = Iy(Jy(), e, {
+async function ux(e) {
+	X(Y.sessionManagementConsole);
+	let t = B_(ev(), e, {
 		id: crypto.randomUUID(),
 		recordedAt: (/* @__PURE__ */ new Date()).toISOString()
 	});
-	return await Qy(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
+	return await iv(t.state), ui.notifications.info(`Session ${t.record.reference} recorded. Current session is now ${t.state.currentSessionReference}.`), t.record;
 }
-async function xT(e) {
-	Y(J.sessionManagementConsole), await Zy(e), ui.notifications.info("Session turnover options saved.");
+async function dx(e) {
+	X(Y.sessionManagementConsole), await rv(e), ui.notifications.info("Session turnover options saved.");
 }
-async function ST() {
-	Y(J.sessionManagementConsole);
-	let e = OT(), t = e.scenes.viewed;
+async function fx() {
+	X(Y.sessionManagementConsole);
+	let e = vx(), t = e.scenes.viewed;
 	if (!t) throw Error("View a Scene before pulling players.");
-	let n = Xy().pullPolicy;
+	let n = nv().pullPolicy;
 	if (n === "prompt" && (n = await foundry.applications.api.DialogV2.confirm({
 		content: `<p>Activate <strong>${foundry.utils.escapeHTML(t.name)}</strong> for everyone? Choose Cancel to pull connected players without activating it.</p>`,
 		modal: !0,
 		rejectClose: !1,
 		window: { title: "Pull Everyone to Scene" }
-	}) ? "activate" : "pull"), n === "activate") {
-		await t.activate(), ui.notifications.info(`${t.name} is now the active Scene.`);
-		return;
+	}) ? "activate" : "pull"), n === "activate") await t.activate(), ui.notifications.info(`${t.name} is now the active Scene.`);
+	else {
+		for (let n of e.users) !n.isGM && n.active && e.socket.emit("pullToScene", t.id, n.id);
+		ui.notifications.info(`Connected players were pulled to ${t.name}.`);
 	}
-	for (let n of e.users) !n.isGM && n.active && e.socket.emit("pullToScene", t.id, n.id);
-	ui.notifications.info(`Connected players were pulled to ${t.name}.`);
 }
-async function CT(e) {
-	Y(J.sessionManagementConsole), Dy(e);
-	let t = Jy();
+async function px(e) {
+	X(Y.sessionManagementConsole), F_(e);
+	let t = ev();
 	t.turnover?.request && t.turnover.steps.some((e) => e.status === "failed" || e.status === "pending") && (e = t.turnover.request);
-	let n = TT(t.turnover, e);
+	let n = hx(t.turnover, e);
 	t = {
 		...t,
 		turnover: n
-	}, await Qy(t);
-	for (let r of n.steps) if (!(r.status === "completed" || r.status === "skipped")) try {
+	}, await iv(t);
+	for (let r of n.steps) if (r.status !== "completed" && r.status !== "skipped") try {
 		if (r.id === "record") {
-			n = zy(n, r.id, "completed", DT());
-			let i = Iy({
+			n = U_(n, r.id, "completed", _x());
+			let i = B_({
 				...t,
 				turnover: n
 			}, e, {
 				id: crypto.randomUUID(),
-				recordedAt: DT()
+				recordedAt: _x()
 			});
-			return await Qy(i.state), ui.notifications.info(`Session ${i.record.reference} turnover completed.`), {
+			return await iv(i.state), ui.notifications.info(`Session ${i.record.reference} turnover completed.`), {
 				operation: n,
 				record: i.record
 			};
 		}
-		let i = await wT(r.id, e);
-		n = zy(n, r.id, "completed", DT(), i), t = {
+		let i = await mx(r.id, e, {
+			applied: n.xpApplied ?? [],
+			logBaseline: n.xpLogBaseline,
+			onBaseline: async (e) => {
+				n = {
+					...n,
+					xpLogBaseline: e
+				}, t = {
+					...t,
+					turnover: n
+				}, await iv(t);
+			},
+			onApplied: async (e) => {
+				n = {
+					...n,
+					xpApplied: [...n.xpApplied ?? [], e]
+				}, t = {
+					...t,
+					turnover: n
+				}, await iv(t);
+			}
+		});
+		n = U_(n, r.id, "completed", _x(), i), t = {
 			...t,
 			turnover: n
-		}, await Qy(t);
+		}, await iv(t);
 	} catch (e) {
 		let i = e instanceof Error ? e.message : "The step failed.";
-		throw n = zy(n, r.id, "failed", DT(), i), await Qy({
+		throw n = U_(n, r.id, "failed", _x(), i), await iv({
 			...t,
 			turnover: n
-		}), Error(`${ET(r.id)} failed: ${i}`, { cause: e });
+		}), Error(`${gx(r.id)} failed: ${i}`, { cause: e });
 	}
 	return { operation: n };
 }
-async function wT(e, t) {
-	let n = OT();
-	if (e === "pause") return await n.togglePause(!0, { broadcast: !0 }), "Game paused for all users.";
+async function mx(e, t, n) {
+	let r = vx();
+	if (e === "pause") return await r.togglePause(!0, { broadcast: !0 }), "Game paused for all users.";
 	if (e === "holding-scene") {
-		let e = Xy().holdingSceneUuid;
+		let e = nv().holdingSceneUuid;
 		if (!e) throw Error("Choose a holding Scene first.");
 		let t = await fromUuid(e);
 		if (!t || t.documentName !== "Scene") throw Error("The configured holding Scene no longer exists.");
 		return await t.activate(), `${t.name} activated.`;
 	}
 	if (e === "xp") {
-		let e = t.xp ?? hy(), n = t.xp?.actorIds ?? HC(e.defaultSelection).actors.filter(({ selected: e }) => e).map(({ id: e }) => e);
-		return await gT({
+		let e = t.xp ?? T_(), r = t.xp?.actorIds ?? ov(e.defaultSelection).actors.filter(({ selected: e }) => e).map(({ id: e }) => e);
+		return await ox({
 			...e,
-			actorIds: n
+			actorIds: r
 		}, {
 			reference: t.sessionReference.trim(),
-			reason: Ey(e, t.sessionReference, t.occurredAt)
-		}), `XP applied to ${n.length} character${n.length === 1 ? "" : "s"}.`;
+			reason: P_(e, t.sessionReference, t.occurredAt)
+		}, n), `XP applied to ${r.length} character${r.length === 1 ? "" : "s"}.`;
 	}
-	if (e === "fortune") return pT(t.xp?.actorIds);
-	if (!n.messages.export) throw Error("Chat export is unavailable in this Foundry version.");
-	return await n.messages.export(), "Chat log exported.";
+	if (e === "fortune") return ex(t.xp?.actorIds);
+	if (!r.messages.export) throw Error("Chat export is unavailable in this Foundry version.");
+	return await r.messages.export(), "Chat log exported.";
 }
-function TT(e, t) {
+function hx(e, t) {
 	if (e?.sessionReference === t.sessionReference.trim() && e.steps.some(({ status: e }) => e === "failed" || e === "pending")) return e;
-	let n = new Set(["record"]);
+	let n = /* @__PURE__ */ new Set(["record"]);
 	return t.pause && n.add("pause"), t.holdingScene && n.add("holding-scene"), t.xpAward && n.add("xp"), t.fortuneReset && n.add("fortune"), t.chatExport && n.add("chat-export"), {
-		...Ry(crypto.randomUUID(), t.sessionReference, DT(), n),
+		...H_(crypto.randomUUID(), t.sessionReference, _x(), n),
 		request: structuredClone(t)
 	};
 }
-function ET(e) {
+function gx(e) {
 	return {
 		"chat-export": "Chat export",
 		fortune: "Fortune reset",
@@ -11613,24 +10169,23 @@ function ET(e) {
 		xp: "XP award"
 	}[e];
 }
-function DT() {
+function _x() {
 	return (/* @__PURE__ */ new Date()).toISOString();
 }
-function OT() {
+function vx() {
 	return game;
 }
-//#endregion
-//#region src/state/apps/session-management/configuration.ts
-var kT = As("session-configuration", () => {
-	let e = /* @__PURE__ */ j(), t = /* @__PURE__ */ j(""), n = /* @__PURE__ */ j(!1), r = /* @__PURE__ */ j(), i;
+// src/module/apps/session-management/state/configuration.ts
+var yx = Ks("session-configuration", () => {
+	let e = /* @__PURE__ */ P(), t = /* @__PURE__ */ P(""), n = /* @__PURE__ */ P(!1), r = /* @__PURE__ */ P(), i;
 	function a(n, r) {
 		e.value = structuredClone(n.settings), t.value = n.currentSessionReference || "1", i = r;
 	}
 	async function o() {
-		if (!(n.value || !e.value)) {
+		if (!n.value && e.value) {
 			n.value = !0, r.value = void 0;
 			try {
-				if (Ty(t.value), !Number.isSafeInteger(e.value.xp.defaultAmount) || e.value.xp.defaultAmount < 0) throw Error("Enter a whole XP amount of zero or more.");
+				if (N_(t.value), !Number.isSafeInteger(e.value.xp.defaultAmount) || e.value.xp.defaultAmount < 0) throw Error("Enter a whole XP amount of zero or more.");
 				if (e.value.holdingScene && !e.value.holdingSceneUuid) throw Error("Choose a holding scene, or turn off scene movement.");
 				await i.save(JSON.parse(JSON.stringify(e.value)), t.value.trim());
 			} catch (e) {
@@ -11648,168 +10203,168 @@ var kT = As("session-configuration", () => {
 		save: o,
 		settings: e
 	};
-}), AT = ["disabled"], jT = {
+}), bx = ["disabled"], xx = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-current-setting"
-}, MT = ["value"], NT = {
+}, Sx = ["value"], Cx = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-xp-default"
-}, PT = {
+}, wx = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-recipient-default"
-}, FT = {
+}, Tx = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-reason"
-}, IT = { class: "dui-label tw:justify-start tw:gap-2 tw:whitespace-normal" }, LT = { class: "tw:grid tw:gap-3 tw:border-t tw:border-base-content/20 tw:pt-3" }, RT = { class: "dui-label tw:justify-start tw:gap-2" }, zT = { class: "dui-label tw:justify-start tw:gap-2" }, BT = { class: "dui-label tw:justify-start tw:gap-2" }, VT = { class: "dui-label tw:justify-start tw:gap-2" }, HT = {
+}, Ex = { class: "tw:dui-label tw:justify-start tw:gap-2 tw:whitespace-normal" }, Dx = { class: "tw:grid tw:gap-3 tw:border-t tw:border-base-content/20 tw:pt-3" }, Ox = { class: "tw:dui-label tw:justify-start tw:gap-2" }, kx = { class: "tw:dui-label tw:justify-start tw:gap-2" }, Ax = { class: "tw:dui-label tw:justify-start tw:gap-2" }, jx = { class: "tw:dui-label tw:justify-start tw:gap-2" }, Mx = {
 	key: 0,
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-holding-scene"
-}, UT = ["value"], WT = {
+}, Nx = ["value"], Px = {
 	class: "tw:grid tw:gap-1 tw:text-sm",
 	for: "session-pull-policy"
-}, GT = { class: "tw:flex tw:shrink-0 tw:justify-end tw:border-t tw:border-base-content/20 tw:p-3" }, KT = ["disabled"], qT = /* @__PURE__ */ P({
+}, Fx = { class: "tw:flex tw:shrink-0 tw:justify-end tw:border-t tw:border-base-content/20 tw:p-3" }, Ix = ["disabled"], Lx = /* @__PURE__ */ L({
 	__name: "SessionSettingsApp",
 	props: {
 		initialization: {},
 		actions: {}
 	},
 	setup(e) {
-		let t = e, n = kT();
+		let t = e, n = yx();
 		n.initialize(t.initialization, t.actions);
-		let { errorMessage: r, isWorking: i, reference: a, settings: o } = js(n);
-		return (t, s) => (L(), ua(Qs, {
+		let { errorMessage: r, isWorking: i, reference: a, settings: o } = qs(n);
+		return (t, s) => (B(), Ca(mc, {
 			title: "Session Management Settings",
 			description: "Defaults and occasional corrections.",
 			icon: "fa-solid fa-gear",
-			"error-message": M(r)
+			"error-message": F(r)
 		}, {
-			footer: Xn(() => [z("footer", GT, [z("button", {
-				class: "dui-btn dui-btn-primary",
+			footer: ir(() => [H("footer", Fx, [H("button", {
+				class: "tw:dui-btn tw:dui-btn-primary",
 				type: "submit",
 				form: "session-settings-form",
-				disabled: M(i)
-			}, " Save settings ", 8, KT)])]),
-			default: Xn(() => [M(o) ? (L(), R("form", {
+				disabled: F(i)
+			}, " Save settings ", 8, Ix)])]),
+			default: ir(() => [F(o) ? (B(), V("form", {
 				key: 0,
 				id: "session-settings-form",
 				class: "tw:grid tw:gap-4",
-				onSubmit: s[11] ||= Go((...e) => M(n).save && M(n).save(...e), ["prevent"])
-			}, [z("fieldset", {
+				onSubmit: s[11] ||= ss((...e) => F(n).save && F(n).save(...e), ["prevent"])
+			}, [H("fieldset", {
 				class: "tw:m-0 tw:grid tw:gap-3 tw:border-0 tw:p-0",
-				disabled: M(i)
+				disabled: F(i)
 			}, [
-				z("label", jT, [
-					s[12] ||= z("span", null, "Current session number", -1),
-					z("input", {
+				H("label", xx, [
+					s[12] ||= H("span", null, "Current session number", -1),
+					H("input", {
 						id: "session-current-setting",
-						value: M(a),
-						class: "dui-input dui-input-sm tw:w-full",
+						value: F(a),
+						class: "tw:dui-input tw:dui-input-sm tw:w-full",
 						type: "number",
 						min: "0",
 						step: "1",
 						required: "",
 						onInput: s[0] ||= (e) => a.value = e.target.value
-					}, null, 40, MT),
-					s[13] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Correct the current number without recording a session or awarding XP.", -1)
+					}, null, 40, Sx),
+					s[13] ||= H("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Correct the current number without recording a session or awarding XP.", -1)
 				]),
-				z("label", NT, [s[14] ||= z("span", null, "Default session XP", -1), N(z("input", {
+				H("label", Cx, [s[14] ||= H("span", null, "Default session XP", -1), I(H("input", {
 					id: "session-xp-default",
-					"onUpdate:modelValue": s[1] ||= (e) => M(o).xp.defaultAmount = e,
-					class: "dui-input dui-input-sm tw:w-full",
+					"onUpdate:modelValue": s[1] ||= (e) => F(o).xp.defaultAmount = e,
+					class: "tw:dui-input tw:dui-input-sm tw:w-full",
 					type: "number",
 					min: "0",
 					step: "1",
 					required: ""
 				}, null, 512), [[
-					W,
-					M(o).xp.defaultAmount,
+					q,
+					F(o).xp.defaultAmount,
 					void 0,
 					{ number: !0 }
 				]])]),
-				z("label", PT, [s[16] ||= z("span", null, "Default recipients", -1), N(z("select", {
+				H("label", wx, [s[16] ||= H("span", null, "Default recipients", -1), I(H("select", {
 					id: "session-recipient-default",
-					"onUpdate:modelValue": s[2] ||= (e) => M(o).xp.defaultSelection = e,
-					class: "dui-select dui-select-sm tw:w-full"
+					"onUpdate:modelValue": s[2] ||= (e) => F(o).xp.defaultSelection = e,
+					class: "tw:dui-select tw:dui-select-sm tw:w-full"
 				}, [...s[15] ||= [
-					z("option", { value: "party" }, "Party", -1),
-					z("option", { value: "company" }, "Company (party and companions)", -1),
-					z("option", { value: "world" }, "All characters", -1)
-				]], 512), [[zo, M(o).xp.defaultSelection]])]),
-				z("label", FT, [
-					s[17] ||= z("span", null, "XP entry text", -1),
-					N(z("input", {
+					H("option", { value: "party" }, "Party", -1),
+					H("option", { value: "company" }, "Company (party and companions)", -1),
+					H("option", { value: "world" }, "All characters", -1)
+				]], 512), [[es, F(o).xp.defaultSelection]])]),
+				H("label", Tx, [
+					s[17] ||= H("span", null, "XP entry text", -1),
+					I(H("input", {
 						id: "session-reason",
-						"onUpdate:modelValue": s[3] ||= (e) => M(o).xp.defaultReason = e,
-						class: "dui-input dui-input-sm tw:w-full",
+						"onUpdate:modelValue": s[3] ||= (e) => F(o).xp.defaultReason = e,
+						class: "tw:dui-input tw:dui-input-sm tw:w-full",
 						type: "text"
-					}, null, 512), [[W, M(o).xp.defaultReason]]),
-					s[18] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Use %session%, %date%, and %datetime% for the submitted session.", -1)
+					}, null, 512), [[q, F(o).xp.defaultReason]]),
+					s[18] ||= H("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Use %session%, %date%, and %datetime% for the submitted session.", -1)
 				]),
-				z("label", IT, [N(z("input", {
-					"onUpdate:modelValue": s[4] ||= (e) => M(o).xp.includeTimestampInReason = e,
+				H("label", Ex, [I(H("input", {
+					"onUpdate:modelValue": s[4] ||= (e) => F(o).xp.includeTimestampInReason = e,
 					"aria-label": "Include date and time in XP entries",
-					class: "dui-checkbox dui-checkbox-sm",
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
 					type: "checkbox"
-				}, null, 512), [[G, M(o).xp.includeTimestampInReason]]), s[19] ||= V("Include date and time in XP entries", -1)]),
-				z("div", LT, [
-					z("label", RT, [N(z("input", {
-						"onUpdate:modelValue": s[5] ||= (e) => M(o).pause = e,
+				}, null, 512), [[J, F(o).xp.includeTimestampInReason]]), s[19] ||= W("Include date and time in XP entries", -1)]),
+				H("div", Dx, [
+					H("label", Ox, [I(H("input", {
+						"onUpdate:modelValue": s[5] ||= (e) => F(o).pause = e,
 						"aria-label": "Pause play",
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(o).pause]]), s[20] ||= V("Pause play", -1)]),
-					z("label", zT, [N(z("input", {
-						"onUpdate:modelValue": s[6] ||= (e) => M(o).fortuneReset = e,
+					}, null, 512), [[J, F(o).pause]]), s[20] ||= W("Pause play", -1)]),
+					H("label", kx, [I(H("input", {
+						"onUpdate:modelValue": s[6] ||= (e) => F(o).fortuneReset = e,
 						"aria-label": "Restore recipients' Fortune",
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(o).fortuneReset]]), s[21] ||= V("Restore recipients’ Fortune", -1)]),
-					z("label", BT, [N(z("input", {
-						"onUpdate:modelValue": s[7] ||= (e) => M(o).exportChat = e,
+					}, null, 512), [[J, F(o).fortuneReset]]), s[21] ||= W("Restore recipients’ Fortune", -1)]),
+					H("label", Ax, [I(H("input", {
+						"onUpdate:modelValue": s[7] ||= (e) => F(o).exportChat = e,
 						"aria-label": "Export chat log",
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(o).exportChat]]), s[22] ||= V("Export chat log", -1)]),
-					z("label", VT, [N(z("input", {
-						"onUpdate:modelValue": s[8] ||= (e) => M(o).holdingScene = e,
+					}, null, 512), [[J, F(o).exportChat]]), s[22] ||= W("Export chat log", -1)]),
+					H("label", jx, [I(H("input", {
+						"onUpdate:modelValue": s[8] ||= (e) => F(o).holdingScene = e,
 						"aria-label": "Move to a holding scene",
-						class: "dui-checkbox dui-checkbox-sm",
+						class: "tw:dui-checkbox tw:dui-checkbox-sm",
 						type: "checkbox"
-					}, null, 512), [[G, M(o).holdingScene]]), s[23] ||= V("Move to a holding scene", -1)]),
-					M(o).holdingScene ? (L(), R("label", HT, [s[25] ||= z("span", null, "Holding scene", -1), N(z("select", {
+					}, null, 512), [[J, F(o).holdingScene]]), s[23] ||= W("Move to a holding scene", -1)]),
+					F(o).holdingScene ? (B(), V("label", Mx, [s[25] ||= H("span", null, "Holding scene", -1), I(H("select", {
 						id: "session-holding-scene",
-						"onUpdate:modelValue": s[9] ||= (e) => M(o).holdingSceneUuid = e,
-						class: "dui-select dui-select-sm tw:w-full",
+						"onUpdate:modelValue": s[9] ||= (e) => F(o).holdingSceneUuid = e,
+						class: "tw:dui-select tw:dui-select-sm tw:w-full",
 						required: ""
-					}, [s[24] ||= z("option", { value: "" }, "Choose a scene", -1), (L(!0), R(I, null, F(e.initialization.scenes, (e) => (L(), R("option", {
+					}, [s[24] ||= H("option", { value: "" }, "Choose a scene", -1), (B(!0), V(z, null, R(e.initialization.scenes, (e) => (B(), V("option", {
 						key: e.uuid,
 						value: e.uuid
-					}, D(e.label), 9, UT))), 128))], 512), [[zo, M(o).holdingSceneUuid]])])) : H("", !0),
-					z("label", WT, [s[27] ||= z("span", null, "Standalone Pull Everyone action", -1), N(z("select", {
+					}, k(e.label), 9, Nx))), 128))], 512), [[es, F(o).holdingSceneUuid]])])) : G("", !0),
+					H("label", Px, [s[27] ||= H("span", null, "Standalone Pull Everyone action", -1), I(H("select", {
 						id: "session-pull-policy",
-						"onUpdate:modelValue": s[10] ||= (e) => M(o).pullPolicy = e,
-						class: "dui-select dui-select-sm tw:w-full"
+						"onUpdate:modelValue": s[10] ||= (e) => F(o).pullPolicy = e,
+						class: "tw:dui-select tw:dui-select-sm tw:w-full"
 					}, [...s[26] ||= [
-						z("option", { value: "pull" }, "Pull connected players", -1),
-						z("option", { value: "activate" }, "Activate scene for everyone", -1),
-						z("option", { value: "prompt" }, "Ask each time", -1)
-					]], 512), [[zo, M(o).pullPolicy]])])
+						H("option", { value: "pull" }, "Pull connected players", -1),
+						H("option", { value: "activate" }, "Activate scene for everyone", -1),
+						H("option", { value: "prompt" }, "Ask each time", -1)
+					]], 512), [[es, F(o).pullPolicy]])])
 				])
-			], 8, AT)], 32)) : H("", !0)]),
+			], 8, bx)], 32)) : G("", !0)]),
 			_: 1
 		}, 8, ["error-message"]));
 	}
-}), JT = class extends Oc {
-	static ACCESS_POLICY = J.sessionManagementConsole;
+}), Rx = class extends Uc {
+	static ACCESS_POLICY = Y.sessionManagementConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		id: `${q}-session-settings`,
+		id: `${r}-session-settings`,
 		position: {
 			width: 480,
 			height: 720
 		},
 		window: {
-			title: `${wc} — Session Management Settings`,
+			title: `${i} — Session Management Settings`,
 			icon: "fa-solid fa-gear",
 			resizable: !0
 		}
@@ -11817,13 +10372,13 @@ var kT = As("session-configuration", () => {
 	onSaved;
 	onClosed;
 	getVueComponent() {
-		return qT;
+		return Lx;
 	}
 	getVueProps() {
-		let e = dT();
+		let e = Qb();
 		return {
 			actions: { save: async (t, n) => {
-				await xT(t), n !== e.state.currentSessionReference && await yT(n), this.onSaved?.({
+				await dx(t), n !== e.state.currentSessionReference && await lx(n), this.onSaved?.({
 					currentSessionReference: n,
 					scenes: e.scenes,
 					settings: t
@@ -11839,22 +10394,21 @@ var kT = As("session-configuration", () => {
 		await super._preClose(e), this.onClosed?.();
 	}
 };
-async function YT(e) {
-	let t = new JT();
+async function zx(e) {
+	let t = new Rx();
 	t.onSaved = e;
 	let n = new Promise((e) => {
 		t.onClosed = e;
 	});
 	await t.render(!0), await n;
 }
-//#endregion
-//#region src/module/apps/session-management/SessionManagementApplication.ts
-var XT = class extends Oc {
-	static ACCESS_POLICY = J.sessionManagementConsole;
+// src/module/apps/session-management/view/SessionManagementApplication.ts
+var Bx = class extends Uc {
+	static ACCESS_POLICY = Y.sessionManagementConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-session-management`],
-		id: `${q}-session-management`,
+		classes: [r, `${r}-session-management`],
+		id: `${r}-session-management`,
 		position: {
 			height: 590,
 			width: 700
@@ -11862,436 +10416,128 @@ var XT = class extends Oc {
 		window: {
 			icon: "fa-solid fa-calendar-check",
 			resizable: !0,
-			title: `${wc} — Session Turnover Console`
+			title: `${i} — Session Turnover Console`
 		}
 	};
 	getVueComponent() {
-		return uT;
+		return Zb;
 	}
 	getVueProps() {
 		return {
 			actions: {
-				openSettings: YT,
-				reload: dT,
-				runSessionTurnover: CT
+				openSettings: zx,
+				reload: Qb,
+				runSessionTurnover: px
 			},
-			initialization: dT()
+			initialization: Qb()
 		};
 	}
 };
-//#endregion
-//#region src/module/apps/session-management/open.ts
-async function ZT() {
-	let e = new XT();
+// src/module/apps/session-management/view/open.ts
+async function Vx() {
+	let e = new Bx();
 	return await e.render(!0), e;
 }
-//#endregion
-//#region src/state/apps/xp-award-console/store.ts
-var QT = As("xp-award-console", () => {
-	let { actors: e, initializeActors: t, resetSelection: n, selectedActors: r, setActorSelected: i, setAllActorsSelected: a } = Kb("The XP Award Console"), o = /* @__PURE__ */ j(20), s = /* @__PURE__ */ j(""), c = /* @__PURE__ */ j("party"), l = /* @__PURE__ */ j(!0), u = /* @__PURE__ */ j("default"), d = /* @__PURE__ */ j(), f = /* @__PURE__ */ j(!1), p = /* @__PURE__ */ j(!1), m, h, g = U(() => bw(e.value, o.value)), _ = U(() => r.value.length > 0 && Number.isSafeInteger(o.value) && o.value !== 0 && !f.value && !p.value), v = U(() => {
-		let e = S().reasonContext;
-		return Cy(s.value, e, l.value);
-	});
-	function y(e, n) {
-		m = n, h = e, t(e.actors), o.value = e.defaultAmount, s.value = e.defaultReason, c.value = e.defaultSelection, l.value = e.includeTimestampInReason, u.value = e.selectionSource, d.value = void 0;
-	}
-	async function b() {
-		if (!(f.value || p.value)) {
-			p.value = !0, d.value = void 0;
-			try {
-				await ee().openSettings((n) => {
-					let r = S();
-					o.value === r.defaultAmount && (o.value = n.defaultAmount), s.value === r.defaultReason && (s.value = n.defaultReason), e.value.every((e) => e.selected === r.actors.find((t) => t.id === e.id)?.selected) && (t(n.actors), u.value = n.selectionSource), c.value = n.defaultSelection, l.value = n.includeTimestampInReason, h = n;
-				});
-			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | Could not open XP settings.", e), d.value = e instanceof Error ? e.message : "Could not open XP settings.";
-			} finally {
-				p.value = !1;
-			}
-		}
-	}
-	async function x() {
-		if (!(!_.value || f.value)) {
-			f.value = !0, d.value = void 0;
-			try {
-				let e = {
-					actorIds: r.value.map((e) => e.id),
-					defaultAmount: Math.round(o.value),
-					defaultReason: s.value,
-					defaultSelection: c.value,
-					includeTimestampInReason: l.value
-				}, t = await ee().applyAwards(e);
-				ee().onActionComplete(t);
-			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | Fixed XP award failed.", e), d.value = e instanceof Error ? e.message : "The XP changes could not be completed.";
-			} finally {
-				f.value = !1;
-			}
-		}
-	}
-	function ee() {
-		if (!m) throw Error("The XP Award Console has not been initialized.");
-		return m;
-	}
-	function S() {
-		if (!h) throw Error("The XP Award Console has not been initialized.");
-		return h;
-	}
-	return {
-		actors: e,
-		amount: o,
-		applyAwards: x,
-		canApply: _,
-		defaultReason: s,
-		defaultSelection: c,
-		errorMessage: d,
-		includeTimestampInReason: l,
-		initialize: y,
-		isWorking: f,
-		isSettingsOpen: p,
-		openSettings: b,
-		plan: g,
-		resetSelection: n,
-		resolvedReason: v,
-		selectedActors: r,
-		selectionSource: u,
-		setActorSelected: i,
-		setAllActorsSelected: a
-	};
-}), $T = { class: "tw:@container tw:flex tw:h-full tw:min-h-0 tw:flex-col tw:overflow-hidden tw:bg-base-200! tw:text-base-content!" }, eE = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-b tw:border-base-content/20 tw:px-4 tw:py-2" }, tE = ["disabled"], nE = {
-	key: 0,
-	class: "dui-alert dui-alert-error tw:m-3 tw:mb-0 tw:shrink-0",
-	role: "alert"
-}, rE = { class: "tw:grid tw:min-h-0 tw:flex-1 tw:grid-cols-2 tw:gap-4 tw:@max-[32rem]:grid-cols-1 tw:@max-[32rem]:grid-rows-[minmax(0,1fr)_minmax(0,1fr)]" }, iE = { class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:gap-3" }, aE = ["disabled"], oE = {
-	class: "tw:grid tw:gap-1 tw:text-sm",
-	for: "fixed-xp-amount"
-}, sE = {
-	class: "tw:grid tw:gap-1 tw:text-sm",
-	for: "fixed-xp-reason"
-}, cE = {
-	class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-2",
-	"aria-labelledby": "xp-preview-title"
-}, lE = {
-	class: "tw:min-h-0 tw:overflow-y-auto tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100! tw:p-3 tw:text-sm tw:break-words",
-	"aria-live": "polite"
-}, uE = { class: "tw:mt-1 tw:mb-2" }, dE = {
-	key: 0,
-	class: "tw:mt-2 tw:mb-0 tw:text-xs tw:text-base-content/65!"
-}, fE = {
-	class: "tw:flex tw:min-h-0 tw:min-w-0 tw:flex-col tw:overflow-hidden tw:rounded-box tw:border tw:border-base-content/20 tw:bg-base-100!",
-	"aria-labelledby": "xp-recipients-title"
-}, pE = { class: "tw:shrink-0 tw:border-b tw:border-base-content/15 tw:p-3" }, mE = {
-	id: "xp-recipients-title",
-	class: "tw:m-0 tw:font-serif tw:text-lg"
-}, hE = { class: "tw:text-sm tw:font-normal" }, gE = { class: "tw:mt-1 tw:mb-0 tw:text-xs tw:text-base-content/65!" }, _E = { class: "tw:min-h-0 tw:flex-1 tw:overflow-y-auto tw:overscroll-contain tw:p-2" }, vE = { class: "tw:min-w-0 tw:flex-1 tw:break-words tw:text-sm" }, yE = { class: "tw:block tw:font-semibold" }, bE = { class: "tw:block tw:text-xs tw:text-base-content/65!" }, xE = [
-	"onUpdate:modelValue",
-	"aria-label",
-	"disabled"
-], SE = {
-	key: 0,
-	class: "tw:p-3 tw:text-sm"
-}, CE = { class: "tw:flex tw:shrink-0 tw:items-center tw:justify-between tw:gap-3 tw:border-t tw:border-base-content/15 tw:pt-3" }, wE = { class: "tw:m-0 tw:text-sm" }, TE = ["disabled"], EE = {
-	key: 0,
-	class: "dui-loading dui-loading-spinner dui-loading-sm",
-	"aria-hidden": "true"
-}, DE = /* @__PURE__ */ P({
-	__name: "XpAwardConsoleApp",
-	props: {
-		actions: {},
-		initialization: {}
-	},
-	setup(e) {
-		let t = e, n = QT();
-		n.initialize(t.initialization, t.actions);
-		let { actors: r, amount: i, canApply: a, defaultReason: o, defaultSelection: s, errorMessage: c, includeTimestampInReason: l, isSettingsOpen: u, isWorking: d, plan: f, resolvedReason: p, selectedActors: m, selectionSource: h } = js(n);
-		function g(e) {
-			return e > 0 ? `+${e}` : String(e);
-		}
-		return (e, t) => (L(), R("main", $T, [
-			z("header", eE, [t[5] ||= z("h1", { class: "tw:m-0 tw:font-serif tw:text-xl" }, "Award XP", -1), z("button", {
-				class: "dui-btn dui-btn-ghost dui-btn-square dui-btn-sm",
-				type: "button",
-				"aria-label": "Open XP Award Settings",
-				title: "XP Award Settings",
-				disabled: M(d) || M(u),
-				onClick: t[0] ||= (...e) => M(n).openSettings && M(n).openSettings(...e)
-			}, [...t[4] ||= [z("i", {
-				class: "fa-solid fa-gear",
-				"aria-hidden": "true"
-			}, null, -1)]], 8, tE)]),
-			M(c) ? (L(), R("p", nE, D(M(c)), 1)) : H("", !0),
-			z("form", {
-				class: "tw:flex tw:min-h-0 tw:flex-1 tw:flex-col tw:gap-3 tw:p-4",
-				onSubmit: t[3] ||= Go((...e) => M(n).applyAwards && M(n).applyAwards(...e), ["prevent"])
-			}, [z("div", rE, [z("div", iE, [z("fieldset", {
-				class: "tw:m-0 tw:grid tw:shrink-0 tw:gap-3 tw:border-0 tw:p-0",
-				disabled: M(d) || M(u)
-			}, [z("label", oE, [t[6] ||= z("span", null, "XP", -1), N(z("input", {
-				id: "fixed-xp-amount",
-				"onUpdate:modelValue": t[1] ||= (e) => /* @__PURE__ */ A(i) ? i.value = e : null,
-				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
-				type: "number",
-				step: "1",
-				required: ""
-			}, null, 512), [[
-				W,
-				M(i),
-				void 0,
-				{ number: !0 }
-			]])]), z("label", sE, [t[7] ||= z("span", null, "Reason", -1), N(z("input", {
-				id: "fixed-xp-reason",
-				"onUpdate:modelValue": t[2] ||= (e) => /* @__PURE__ */ A(o) ? o.value = e : null,
-				class: "dui-input dui-input-sm tw:w-full tw:bg-base-100!",
-				type: "text"
-			}, null, 512), [[W, M(o)]])])], 8, aE), z("section", cE, [t[10] ||= z("h2", {
-				id: "xp-preview-title",
-				class: "tw:m-0 tw:font-serif tw:text-lg"
-			}, "Preview", -1), z("div", lE, [
-				t[8] ||= z("p", { class: "tw:m-0 tw:font-semibold" }, "XP entries", -1),
-				z("p", uE, D(M(p) || "No reason"), 1),
-				t[9] ||= z("p", { class: "tw:m-0 tw:text-xs tw:text-base-content/65!" }, " Amounts appear beside selected recipients. Companions receive half XP. ", -1),
-				M(l) ? (L(), R("p", dE, " The timestamp is set when you confirm. ")) : H("", !0)
-			])])]), z("section", fE, [z("div", pE, [z("h2", mE, [t[11] ||= V(" Recipients ", -1), z("span", hE, "(" + D(M(m).length) + ")", 1)]), z("p", gE, D(M(h) === "targets" ? "From your targets" : `From your ${M(s)} default`), 1)]), z("div", _E, [(L(!0), R(I, null, F(M(r), (e) => (L(), R("label", {
-				key: e.id,
-				class: "tw:flex tw:cursor-pointer tw:items-center tw:gap-3 tw:rounded-box tw:p-3 tw:hover:bg-base-200"
-			}, [
-				t[12] ||= z("i", {
-					class: "fa-solid fa-user tw:shrink-0 tw:text-xl tw:text-base-content/60!",
-					"aria-hidden": "true"
-				}, null, -1),
-				z("span", vE, [z("span", yE, D(e.name), 1), z("span", bE, [V(D(e.category === "companion" ? "Companion" : "Character"), 1), e.selected ? (L(), R(I, { key: 0 }, [V(" · " + D(g(M(f).awards.find((t) => t.actorId === e.id)?.amount ?? 0)) + " XP", 1)], 64)) : H("", !0)])]),
-				N(z("input", {
-					"onUpdate:modelValue": (t) => e.selected = t,
-					class: "dui-checkbox dui-checkbox-sm dui-checkbox-primary tw:shrink-0",
-					"aria-label": `Include ${e.name}`,
-					disabled: M(d) || M(u),
-					type: "checkbox"
-				}, null, 8, xE), [[G, e.selected]])
-			]))), 128)), M(r).length ? H("", !0) : (L(), R("p", SE, " No character actors are available. "))])])]), z("footer", CE, [z("p", wE, D(M(m).length ? `${g(M(f).totalChange)} XP in total` : "Select at least one recipient."), 1), z("button", {
-				class: "dui-btn dui-btn-primary tw:shrink-0",
-				disabled: !M(a),
-				type: "submit"
-			}, [M(d) ? (L(), R("span", EE)) : H("", !0), t[13] ||= V("Confirm ", -1)], 8, TE)])], 32)
-		]));
-	}
-});
-//#endregion
-//#region src/module/xp-award/initialization.ts
-function OE() {
-	let e = hy(), t = HC(e.defaultSelection), n = (/* @__PURE__ */ new Date()).toISOString();
-	return {
-		...e,
-		...t,
-		awardedAt: n,
-		reasonContext: {
-			date: n.slice(0, 10),
-			datetime: wy(n),
-			session: Yy()
-		}
-	};
+// src/module/functions/xp-award/dialog.ts
+function Hx(e, t) {
+	return Av(e, t).awards.filter((e) => e.amount !== 0).map((t) => {
+		let n = e.find((e) => e.id === t.actorId), r = `${n.name} — ${t.amount > 0 ? "+" : ""}${t.amount} XP`;
+		return `<span class="xp-recipient" tabindex="0" data-recipient-id="${Kh(n.id)}" title="${Kh(r)}" aria-label="${Kh(r)}" data-tooltip="${Kh(Kh(r))}"><img src="${Kh(n.img || "icons/svg/mystery-man.svg")}" alt="" width="36" height="36"></span>`;
+	}).join("");
 }
-//#endregion
-//#region src/state/apps/xp-award-console/settings.ts
-var kE = As("xp-award-settings", () => {
-	let e = /* @__PURE__ */ j(), t = /* @__PURE__ */ j(!1), n = /* @__PURE__ */ j(), r;
-	function i(t, n) {
-		e.value = { ...t }, r = n;
-	}
-	async function a() {
-		if (!(t.value || !e.value)) {
-			t.value = !0, n.value = void 0;
-			try {
-				if (!Number.isSafeInteger(e.value.defaultAmount) || e.value.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
-				await r.save({ ...e.value });
-			} catch (e) {
-				console.error("Drowsy’s WFRP4e Toolkit | Could not save XP settings.", e), n.value = e instanceof Error ? e.message : "Could not save XP settings.";
-			} finally {
-				t.value = !1;
-			}
-		}
-	}
-	return {
-		errorMessage: n,
-		initialize: i,
-		isWorking: t,
-		save: a,
-		settings: e
-	};
-}), AE = ["disabled"], jE = {
-	class: "tw:grid tw:gap-1 tw:text-sm",
-	for: "xp-default-amount"
-}, ME = {
-	class: "tw:grid tw:gap-1 tw:text-sm",
-	for: "xp-default-reason"
-}, NE = {
-	class: "tw:grid tw:gap-1 tw:text-sm",
-	for: "xp-default-recipients"
-}, PE = { class: "tw:flex tw:items-center tw:gap-3 tw:text-sm" }, FE = { class: "tw:flex tw:shrink-0 tw:justify-end tw:border-t tw:border-base-content/15 tw:p-4" }, IE = ["disabled"], LE = /* @__PURE__ */ P({
-	__name: "XpAwardSettingsApp",
-	props: {
-		actions: {},
-		initialization: {}
-	},
-	setup(e) {
-		let t = e, n = kE();
-		n.initialize(t.initialization, t.actions);
-		let { settings: r, isWorking: i, errorMessage: a } = js(n);
-		return (e, t) => (L(), ua(Qs, {
-			title: "XP Award Settings",
-			description: "Defaults for new awards.",
-			icon: "fa-solid fa-gear",
-			"error-message": M(a)
+function Ux(e, t) {
+	return `<fieldset class="xp-inputs"><label class="form-group"><span>XP amount</span><input type="number" name="amount" value="${e}" step="1" required autofocus></label><label class="form-group stacked"><span>Reason</span><input type="text" name="reason" value="${Kh(t)}" autocomplete="off"></label></fieldset><div class="xp-log-preview"><small>Log entry</small><p data-xp-reason></p></div><div class="xp-recipients" aria-label="XP recipients"></div><p class="xp-error" role="alert" hidden></p>`;
+}
+// src/module/foundry/xp-award/dialog.ts
+var Wx = () => Kx("party"), Gx = () => Kx("targets");
+async function Kx(e) {
+	let t = await ix(e), n = T_(), i = (/* @__PURE__ */ new Date()).toISOString(), a = tv(), o = {
+		date: i.slice(0, 10),
+		datetime: M_(i),
+		session: a
+	}, s = !1, c = new foundry.applications.api.DialogV2({
+		classes: ["drowsy-xp-award"],
+		window: { title: e === "party" ? "Party XP" : "Target XP" },
+		position: { width: 420 },
+		form: { closeOnSubmit: !1 },
+		content: Ux(n.defaultAmount, n.defaultReason),
+		buttons: [{
+			action: "cancel",
+			label: "Cancel",
+			type: "button",
+			callback: () => c.close()
 		}, {
-			footer: Xn(() => [z("div", FE, [z("button", {
-				form: "xp-award-settings-form",
-				class: "dui-btn dui-btn-primary",
-				disabled: M(i),
-				type: "submit"
-			}, " Save settings ", 8, IE)])]),
-			default: Xn(() => [M(r) ? (L(), R("form", {
-				key: 0,
-				id: "xp-award-settings-form",
-				onSubmit: t[4] ||= Go((...e) => M(n).save && M(n).save(...e), ["prevent"])
-			}, [z("fieldset", {
-				class: "tw:m-0 tw:grid tw:gap-4 tw:border-0 tw:p-0",
-				disabled: M(i)
-			}, [
-				z("label", jE, [
-					t[5] ||= z("span", null, "Default XP", -1),
-					N(z("input", {
-						id: "xp-default-amount",
-						"onUpdate:modelValue": t[0] ||= (e) => M(r).defaultAmount = e,
-						class: "dui-input dui-input-sm tw:w-full",
-						type: "number",
-						step: "1",
-						required: ""
-					}, null, 512), [[
-						W,
-						M(r).defaultAmount,
-						void 0,
-						{ number: !0 }
-					]]),
-					t[6] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Negative amounts remove XP. Totals cannot fall below zero.", -1)
-				]),
-				z("label", ME, [
-					t[7] ||= z("span", null, "Default reason", -1),
-					N(z("input", {
-						id: "xp-default-reason",
-						"onUpdate:modelValue": t[1] ||= (e) => M(r).defaultReason = e,
-						class: "dui-input dui-input-sm tw:w-full",
-						type: "text"
-					}, null, 512), [[W, M(r).defaultReason]]),
-					t[8] ||= z("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Supports %session%, %date%, and %datetime%.", -1)
-				]),
-				z("label", NE, [t[10] ||= z("span", null, "Recipients when nothing is targeted", -1), N(z("select", {
-					id: "xp-default-recipients",
-					"onUpdate:modelValue": t[2] ||= (e) => M(r).defaultSelection = e,
-					class: "dui-select dui-select-sm tw:w-full"
-				}, [...t[9] ||= [
-					z("option", { value: "party" }, "Party — assigned characters", -1),
-					z("option", { value: "company" }, "Company — player-owned characters", -1),
-					z("option", { value: "world" }, "World — all characters", -1)
-				]], 512), [[zo, M(r).defaultSelection]])]),
-				z("label", PE, [N(z("input", {
-					"onUpdate:modelValue": t[3] ||= (e) => M(r).includeTimestampInReason = e,
-					class: "dui-checkbox dui-checkbox-sm",
-					type: "checkbox",
-					"aria-label": "Include award date and time in the reason"
-				}, null, 512), [[G, M(r).includeTimestampInReason]]), t[11] ||= V("Include award date and time in the reason", -1)])
-			], 8, AE)], 32)) : H("", !0)]),
-			_: 1
-		}, 8, ["error-message"]));
-	}
-}), RE = class extends Oc {
-	static ACCESS_POLICY = J.xpAwardConsole;
-	static DEFAULT_OPTIONS = {
-		...super.DEFAULT_OPTIONS,
-		id: `${q}-xp-award-settings`,
-		position: {
-			width: 460,
-			height: 530
-		},
-		window: {
-			title: `${wc} — XP Award Settings`,
-			icon: "fa-solid fa-gear",
-			resizable: !0
-		}
-	};
-	onSaved;
-	onClosed;
-	getVueComponent() {
-		return LE;
-	}
-	getVueProps() {
-		return {
-			actions: { save: async (e) => {
-				if (Y(J.xpAwardConsole), !Number.isSafeInteger(e.defaultAmount) || e.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
-				await gy(e), this.onSaved?.(OE()), await this.close();
-			} },
-			initialization: hy()
-		};
-	}
-	async _preClose(e) {
-		await super._preClose(e), this.onClosed?.();
-	}
-};
-async function zE(e) {
-	let t = new RE();
-	t.onSaved = e;
-	let n = new Promise((e) => {
-		t.onClosed = e;
-	});
-	await t.render(!0), await n;
-}
-//#endregion
-//#region src/module/apps/xp-award-console/XpAwardConsoleApplication.ts
-var BE = class extends Oc {
-	static ACCESS_POLICY = J.xpAwardConsole;
-	static DEFAULT_OPTIONS = {
-		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-xp-award-console`],
-		id: `${q}-xp-award-console`,
-		position: {
-			height: 500,
-			width: 700
-		},
-		window: {
-			icon: "fa-solid fa-award",
-			resizable: !0,
-			title: `${wc} — XP Award Console`
-		}
-	};
-	getVueComponent() {
-		return DE;
-	}
-	getVueProps() {
-		return {
-			actions: {
-				applyAwards: gT,
-				openSettings: zE,
-				onActionComplete: () => {
-					this.close().catch((e) => {
-						console.error(`${q} | Failed to close the XP Award Console.`, e), ui.notifications.error("XP changes completed, but Drowsy’s WFRP4e Toolkit could not close the console.");
-					});
+			action: "award",
+			label: "Submit",
+			default: !0,
+			callback: async () => {
+				if (s) return;
+				let o = u();
+				if (!o || !Number.isSafeInteger(o.amount) || o.amount === 0) return;
+				s = !0;
+				let d = c.element.querySelector("fieldset");
+				d.disabled = !0;
+				let f = c.element.querySelector(".xp-error");
+				f.hidden = !0;
+				try {
+					await ox({
+						...n,
+						defaultAmount: o.amount,
+						defaultReason: o.reason,
+						actorIds: t.map((e) => e.id),
+						prepared: {
+							mode: e,
+							actors: t,
+							awardedAt: i,
+							sessionReference: a,
+							reason: l(o.reason)
+						}
+					}), await c.close();
+				} catch (e) {
+					console.error(`${r} | XP award failed.`, e), f.textContent = e instanceof Error ? e.message : "The XP award could not be completed.", f.hidden = !1;
+				} finally {
+					s = !1, d.disabled = !1;
 				}
-			},
-			initialization: OE()
+			}
+		}]
+	});
+	function l(e) {
+		return j_(e, o, n.includeTimestampInReason);
+	}
+	function u() {
+		let e = c.element.querySelector("form");
+		if (!e) return;
+		let t = new FormData(e), n = String(t.get("amount") ?? "");
+		return {
+			amount: n.trim() ? Number(n) : NaN,
+			reason: String(t.get("reason") ?? "")
 		};
 	}
-};
-//#endregion
-//#region src/module/apps/xp-award-console/open.ts
-async function VE() {
-	let e = new BE();
-	return await e.render(!0), e;
+	function d() {
+		let e = u();
+		if (!e) return;
+		let n = Number.isSafeInteger(e.amount) && e.amount !== 0, r = c.element.querySelector("[data-xp-reason]");
+		r.textContent = l(e.reason) || "No reason";
+		let i = c.element.querySelector(".xp-recipients"), a = c.element.querySelector("[data-action=\"award\"]");
+		try {
+			let r = n ? e.amount : 0;
+			i.innerHTML = Hx(t, r);
+			let o = Av(t, r).awards.some((e) => e.amount !== 0);
+			a.disabled = !n || !o || s;
+		} catch {
+			i.replaceChildren(), a.disabled = !0;
+		}
+	}
+	return c.addEventListener("render", () => {
+		c.element.querySelector("form")?.addEventListener("input", d), d();
+	}), await c.render(!0), c;
 }
-//#endregion
-//#region src/view/apps/shared/LauncherConsole.vue?vue&type=script&setup=true&lang.ts
-var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, WE = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, GE = ["disabled", "onClick"], KE = { class: "dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, qE = { class: "tw:min-w-0 tw:flex-1" }, JE = { class: "tw:block tw:font-semibold tw:text-base-content!" }, YE = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, XE = {
+// src/module/apps/shared/view/LauncherConsole.vue?vue&type=script&setup=true&lang.ts
+var qx = { class: "tw:grid tw:min-w-0 tw:gap-4" }, Jx = { class: "tw:m-0 tw:font-serif tw:text-lg tw:text-base-content!" }, Yx = { class: "tw:grid tw:min-w-0 tw:gap-2 tw:min-[38rem]:grid-cols-2" }, Xx = ["disabled", "onClick"], Zx = { class: "tw:dui-card-body tw:w-full tw:min-w-0 tw:flex-row tw:items-start tw:gap-3 tw:p-4" }, Qx = { class: "tw:min-w-0 tw:flex-1" }, $x = { class: "tw:block tw:font-semibold tw:text-base-content!" }, eS = { class: "tw:block tw:text-xs tw:text-base-content/75!" }, tS = {
 	key: 0,
-	class: "dui-loading dui-loading-sm dui-loading-spinner tw:shrink-0",
+	class: "tw:dui-loading tw:dui-loading-sm tw:dui-loading-spinner tw:shrink-0",
 	"aria-label": "Working"
-}, ZE = /* @__PURE__ */ P({
+}, nS = /* @__PURE__ */ L({
 	__name: "LauncherConsole",
 	props: {
 		description: {},
@@ -12300,7 +10546,7 @@ var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font
 		title: {}
 	},
 	setup(e) {
-		let t = /* @__PURE__ */ j(), n = /* @__PURE__ */ j();
+		let t = /* @__PURE__ */ P(), n = /* @__PURE__ */ P();
 		async function r(e) {
 			t.value = void 0, n.value = e.id;
 			try {
@@ -12311,29 +10557,29 @@ var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font
 				n.value = void 0;
 			}
 		}
-		return (i, a) => (L(), ua(Qs, {
+		return (i, a) => (B(), Ca(mc, {
 			description: e.description,
 			"error-message": t.value,
 			icon: e.icon,
 			title: e.title
 		}, {
-			default: Xn(() => [z("div", HE, [(L(!0), R(I, null, F(e.sections, (e) => (L(), R("section", {
+			default: ir(() => [H("div", qx, [(B(!0), V(z, null, R(e.sections, (e) => (B(), V("section", {
 				key: e.id,
 				class: "tw:grid tw:gap-2"
-			}, [z("h2", UE, D(e.label), 1), z("div", WE, [(L(!0), R(I, null, F(e.actions, (e) => (L(), R("button", {
+			}, [H("h2", Jx, k(e.label), 1), H("div", Yx, [(B(!0), V(z, null, R(e.actions, (e) => (B(), V("button", {
 				key: e.id,
-				class: "dui-card dui-card-border tw:m-0! tw:h-auto! tw:min-h-0! tw:w-full! tw:min-w-0 tw:cursor-pointer tw:items-stretch! tw:justify-start! tw:gap-0! tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-0! tw:text-left tw:text-base-content! tw:shadow-sm tw:transition tw:leading-normal! hover:tw:border-primary/60!",
+				class: "tw:dui-card tw:dui-card-border tw:m-0! tw:h-auto! tw:min-h-0! tw:w-full! tw:min-w-0 tw:cursor-pointer tw:items-stretch! tw:justify-start! tw:gap-0! tw:border-2 tw:border-base-content/20! tw:bg-base-100! tw:p-0! tw:text-left tw:text-base-content! tw:shadow-sm tw:transition tw:leading-normal! hover:tw:border-primary/60!",
 				disabled: n.value !== void 0,
 				type: "button",
 				onClick: (t) => r(e)
-			}, [z("span", KE, [
-				z("i", {
-					class: E([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
+			}, [H("span", Zx, [
+				H("i", {
+					class: ke([e.icon, "tw:mt-1 tw:w-6 tw:shrink-0 tw:text-center tw:text-lg tw:text-primary!"]),
 					"aria-hidden": "true"
 				}, null, 2),
-				z("span", qE, [z("span", JE, D(e.label), 1), z("span", YE, D(e.description), 1)]),
-				n.value === e.id ? (L(), R("span", XE)) : H("", !0)
-			])], 8, GE))), 128))])]))), 128))])]),
+				H("span", Qx, [H("span", $x, k(e.label), 1), H("span", eS, k(e.description), 1)]),
+				n.value === e.id ? (B(), V("span", tS)) : G("", !0)
+			])], 8, Xx))), 128))])]))), 128))])]),
 			_: 1
 		}, 8, [
 			"description",
@@ -12342,24 +10588,24 @@ var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font
 			"title"
 		]));
 	}
-}), QE = /* @__PURE__ */ P({
+}), rS = /* @__PURE__ */ L({
 	__name: "ToolkitHomeApp",
 	props: { sections: {} },
 	setup(e) {
-		return (t, n) => (L(), ua(ZE, {
+		return (t, n) => (B(), Ca(nS, {
 			description: "Open the tools you need without relying on world macro names.",
 			icon: "fa-solid fa-toolbox",
 			sections: e.sections,
 			title: "Drowsy’s WFRP4e Toolkit"
 		}, null, 8, ["sections"]));
 	}
-}), $E = class extends Oc {
+}), iS = class extends Uc {
 	sections;
-	static ACCESS_POLICY = J.toolkitHome;
+	static ACCESS_POLICY = Y.toolkitHome;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-toolkit-home`],
-		id: `${q}-toolkit-home`,
+		classes: [r, `${r}-toolkit-home`],
+		id: `${r}-toolkit-home`,
 		position: {
 			height: 720,
 			width: 760
@@ -12367,30 +10613,28 @@ var HE = { class: "tw:grid tw:min-w-0 tw:gap-4" }, UE = { class: "tw:m-0 tw:font
 		window: {
 			icon: "fa-solid fa-toolbox",
 			resizable: !0,
-			title: wc
+			title: i
 		}
 	};
 	constructor(e) {
 		super(), this.sections = e;
 	}
 	getVueComponent() {
-		return QE;
+		return rS;
 	}
 	getVueProps() {
 		return { sections: this.sections };
 	}
 };
-//#endregion
-//#region src/functions/grid-scale/calculate.ts
-function eD(e) {
+// src/module/functions/grid-scale/calculate.ts
+function aS(e) {
 	return Number.isFinite(e.size) && e.size > 0 && Number.isFinite(e.distance) && e.distance > 0;
 }
-function tD(e, t) {
+function oS(e, t) {
 	return e.size / t.size * (t.distance / e.distance);
 }
-//#endregion
-//#region src/module/grid-scale/service.ts
-async function nD() {
+// src/module/foundry/grid-scale/service.ts
+async function sS() {
 	let e = canvas?.scene, t = game.user;
 	if (!e) {
 		ui.notifications.warn("No Scene is currently viewed.");
@@ -12409,20 +10653,14 @@ async function nD() {
 		size: Number(e.grid.size),
 		units: String(e.grid.units ?? "")
 	};
-	if (!eD(n)) {
+	if (!aS(n)) {
 		ui.notifications.error("The current Scene has an invalid grid size or distance.");
 		return;
 	}
-	let r = await rD(n);
-	if (r) {
-		if (!eD(r)) {
-			ui.notifications.error("Grid size and distance must both be positive numbers.");
-			return;
-		}
-		await iD(e, n, r);
-	}
+	let r = await cS(n);
+	r && (aS(r) ? await lS(e, n, r) : ui.notifications.error("Grid size and distance must both be positive numbers."));
 }
-async function rD(e) {
+async function cS(e) {
 	let t = foundry.utils.escapeHTML(e.units), n = await foundry.applications.api.DialogV2.input({
 		window: { title: "Change Grid Scale" },
 		position: { width: 480 },
@@ -12485,8 +10723,8 @@ async function rD(e) {
 		units: String(n.units ?? "").trim()
 	} : null;
 }
-async function iD(e, t, n) {
-	let r = tD(t, n), i = e.lights.map((e) => ({
+async function lS(e, t, n) {
+	let r = oS(t, n), i = e.lights.map((e) => ({
 		_id: e.id,
 		"config.bright": e.config.bright,
 		"config.dim": e.config.dim
@@ -12504,9 +10742,9 @@ async function iD(e, t, n) {
 		"light.dim": e.light.dim * r
 	})), c = !1, l = !1;
 	try {
-		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(oD(n)), ui.notifications.info(`Grid updated from ${sD(t)} to ${sD(n)}.`);
+		a.length > 0 && (await e.updateEmbeddedDocuments("AmbientLight", a), c = !0), s.length > 0 && (await e.updateEmbeddedDocuments("Token", s), l = !0), await e.update(dS(n)), ui.notifications.info(`Grid updated from ${fS(t)} to ${fS(n)}.`);
 	} catch (n) {
-		let r = await aD({
+		let r = await uS({
 			ambientLightsChanged: c,
 			oldAmbientLights: i,
 			oldGrid: t,
@@ -12517,40 +10755,39 @@ async function iD(e, t, n) {
 		throw console.error("Change Grid Scale macro failed.", n, r), Error(a, { cause: n });
 	}
 }
-async function aD(e) {
+async function uS(e) {
 	let t = [];
-	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(oD(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
+	return (e.scene.grid.size !== e.oldGrid.size || e.scene.grid.distance !== e.oldGrid.distance || e.scene.grid.units !== e.oldGrid.units) && t.push(e.scene.update(dS(e.oldGrid))), e.ambientLightsChanged && t.push(e.scene.updateEmbeddedDocuments("AmbientLight", e.oldAmbientLights)), e.tokenLightsChanged && t.push(e.scene.updateEmbeddedDocuments("Token", e.oldTokenLights)), Promise.allSettled(t);
 }
-function oD(e) {
+function dS(e) {
 	return {
 		"grid.distance": e.distance,
 		"grid.size": e.size,
 		"grid.units": e.units
 	};
 }
-function sD(e) {
+function fS(e) {
 	return `${e.size}px/${e.distance}${e.units}`;
 }
-//#endregion
-//#region src/view/apps/scene-management-console/SceneManagementConsoleApp.vue
-var cD = /* @__PURE__ */ P({
+// src/module/apps/scene-management-console/view/SceneManagementConsoleApp.vue
+var pS = /* @__PURE__ */ L({
 	__name: "SceneManagementConsoleApp",
 	props: { sections: {} },
 	setup(e) {
-		return (t, n) => (L(), ua(ZE, {
+		return (t, n) => (B(), Ca(nS, {
 			description: "Run common Scene and token-viewing actions from one place.",
 			icon: "fa-solid fa-map",
 			sections: e.sections,
 			title: "Scene Management Console"
 		}, null, 8, ["sections"]));
 	}
-}), lD = class extends Oc {
+}), mS = class extends Uc {
 	sections;
-	static ACCESS_POLICY = J.sceneManagementConsole;
+	static ACCESS_POLICY = Y.sceneManagementConsole;
 	static DEFAULT_OPTIONS = {
 		...super.DEFAULT_OPTIONS,
-		classes: [q, `${q}-scene-management`],
-		id: `${q}-scene-management`,
+		classes: [r, `${r}-scene-management`],
+		id: `${r}-scene-management`,
 		position: {
 			height: 580,
 			width: 680
@@ -12558,41 +10795,40 @@ var cD = /* @__PURE__ */ P({
 		window: {
 			icon: "fa-solid fa-map",
 			resizable: !0,
-			title: `${wc} — Scene Management`
+			title: `${i} — Scene Management`
 		}
 	};
 	constructor(e) {
 		super(), this.sections = e;
 	}
 	getVueComponent() {
-		return cD;
+		return pS;
 	}
 	getVueProps() {
 		return { sections: this.sections };
 	}
 };
-//#endregion
-//#region src/module/apps/scene-management-console/open.ts
-async function uD() {
-	let e = new lD([{
+// src/module/apps/scene-management-console/view/open.ts
+async function hS() {
+	let e = new mS([{
 		id: "scene",
 		label: "Viewed Scene",
 		actions: [
-			dD("grid-scale", "Change Grid Scale (Preserve Lighting)", "Change grid measurements while preserving rendered light sizes.", "fa-solid fa-grid-2", nD),
-			dD("pull-everyone", "Pull Everyone to Scene", "Activate this Scene or pull connected players using your saved policy.", "fa-solid fa-people-pulling", ST),
-			dD("token-vision", "Use Token Vision", "Enable Token Vision and disable global illumination for this Scene.", "fa-solid fa-eye", () => Hu("token-vision")),
-			dD("global-light", "Use Global Light", "Enable global illumination and disable Token Vision for this Scene.", "fa-solid fa-sun", () => Hu("global-light"))
+			gS("grid-scale", "Change Grid Scale (Preserve Lighting)", "Change grid measurements while preserving rendered light sizes.", "fa-solid fa-grid-2", sS),
+			gS("pull-everyone", "Pull Everyone to Scene", "Activate this Scene or pull connected players using your saved policy.", "fa-solid fa-people-pulling", fx),
+			gS("token-vision", "Use Token Vision", "Enable Token Vision and disable global illumination for this Scene.", "fa-solid fa-eye", () => dd("token-vision")),
+			gS("global-light", "Use Global Light", "Enable global illumination and disable Token Vision for this Scene.", "fa-solid fa-sun", () => dd("global-light"))
 		]
 	}, {
 		id: "tokens",
 		label: "Controlled Tokens",
-		actions: [dD("token-tools", "Open Token Vision & Light", "Apply vision modes and light presets to controlled tokens.", "fa-solid fa-lightbulb", async () => {
-			await mh();
+		actions: [gS("token-tools", "Open Token Vision & Light", "Apply vision modes and light presets to controlled tokens.", "fa-solid fa-lightbulb", async () => {
+			await Fh();
 		})]
 	}]);
 	return await e.render(!0), e;
 }
-function dD(e, t, n, r, i) {
+function gS(e, t, n, r, i) {
 	return {
 		description: n,
 		icon: r,
@@ -12601,36 +10837,37 @@ function dD(e, t, n, r, i) {
 		open: i
 	};
 }
-//#endregion
-//#region src/module/apps/toolkit-home/open.ts
-async function fD() {
-	let e = new $E([{
+// src/module/apps/toolkit-home/view/open.ts
+async function _S() {
+	let e = new iS([{
 		id: "gameplay",
 		label: "Gameplay",
 		actions: [
-			pD("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", qd),
-			pD("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Of),
-			pD("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", Fm),
-			pD("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", Sp),
-			pD("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", au),
-			pD("xp-curve", "XP Curve Console", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", mw),
-			pD("xp-award", "XP Award Console", "Apply a fixed XP change to selected characters.", "fa-solid fa-award", VE),
-			pD("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", mh)
+			vS("combat", "Combat Console", "Manage Advantage and condition checks.", "fa-solid fa-swords", _f),
+			vS("damage", "Damage Console", "Apply damage to several actors.", "fa-solid fa-bolt", Zf),
+			vS("group-test", "Secret Group Tests", "Run private WFRP4e tests for a group.", "fa-solid fa-dice-d100", nh),
+			vS("dark-whispers", "Dark Whispers", "Send temptations to characters with Corruption.", "fa-solid fa-comment-dots", Up),
+			vS("fear", "Fear Console", "Apply Fear and Terror through WFRP4e.", "fa-solid fa-ghost", Ou),
+			vS("xp-curve", "Curve XP", "Review and award campaign catch-up XP.", "fa-solid fa-chart-line", bv),
+			vS("party-xp", "Party XP", "Award XP to the configured party roster.", "fa-solid fa-award", Wx),
+			vS("target-xp", "Target XP", "Award XP to targeted characters.", "fa-solid fa-bullseye", Gx),
+			vS("configure-party", "Configure Party", "Set party membership and XP rates.", "fa-solid fa-people-group", __),
+			vS("token-tools", "Token Vision & Light", "Apply vision modes and light presets.", "fa-solid fa-eye", Fh)
 		]
 	}, {
 		id: "campaign",
 		label: "Campaign",
 		actions: [
-			pD("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Ac),
-			pD("scene-management", "Scene Management", "Open common Scene and token-viewing actions.", "fa-solid fa-map", uD),
-			pD("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", ZT),
-			pD("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", qu),
-			pD("import", "Import from GM Toolkit", "Copy supported settings, prompts, and launchers.", "fa-solid fa-file-import", Nb)
+			vS("configure-curve-xp", "Configure Curve XP", "Tune catch-up with guided curves and session forecasts.", "fa-solid fa-sliders", rb),
+			vS("imperial-calendar", "Imperial Calendar Calculator", "Measure elapsed time between Imperial dates and times.", "fa-solid fa-calendar-days", Gc),
+			vS("scene-management", "Scene Management", "Open common Scene and token-viewing actions.", "fa-solid fa-map", hS),
+			vS("session", "Session Management", "Record session turnover and history.", "fa-solid fa-calendar-check", Vx),
+			vS("administration", "Administration Console", "Manage Scenes, compendium visibility, players, and utility rolls.", "fa-solid fa-screwdriver-wrench", gd)
 		]
 	}]);
 	return await e.render(!0), e;
 }
-function pD(e, t, n, r, i) {
+function vS(e, t, n, r, i) {
 	return {
 		description: n,
 		icon: r,
@@ -12641,79 +10878,337 @@ function pD(e, t, n, r, i) {
 		}
 	};
 }
-//#endregion
-//#region src/module/api/create-module-api.ts
-function mD() {
+// src/module/foundry/api/create-module-api.ts
+function yS() {
 	return {
-		calculateImperialElapsedTime: i,
-		openImperialCalendarCalculator: Ac,
-		adjustAdvantage: Nd,
-		applyDamage: xf,
-		applyTokenTools: uh,
-		openAdministrationConsole: qu,
-		openCombatConsole: qd,
-		openDamageConsole: Of,
-		openDarkWhispersConsole: Sp,
-		applyToSelectedActors: Zl,
-		awardXp: gT,
-		awardXpCurve: dw,
-		changeGridScalePreservingLighting: nD,
-		checkConditions: Ld,
-		completeSession: bT,
-		copyLink: $l,
-		getGmToolkitCutoverReport: wb,
-		getGmToolkitMigrationPreview: Cb,
-		importGmToolkitDarkWhispers: kb,
-		importGmToolkitSettings: Db,
-		importGmToolkitSessionData: Ob,
-		openFearConsole: au,
-		openGmToolkitMigration: Nb,
-		openGroupTestConsole: Fm,
-		openSessionManagementConsole: ZT,
-		openSceneManagementConsole: uD,
-		openToolkitHome: fD,
-		openTokenToolsConsole: mh,
-		openXpAwardConsole: VE,
-		openXpCurveConsole: mw,
-		openWorkbench: au,
-		postPrompt: Ql,
-		postSummaryPrompt: eu,
-		reviewGmToolkitCutover: jb,
-		resetFortune: pT,
-		rollD100: Wu,
-		runGroupTest: vm,
-		runSessionTurnover: CT,
-		sendDarkWhispers: gp,
-		setCompendiumVisibility: Uu,
-		setSceneLighting: Hu,
-		pullEveryoneToViewedScene: ST
+		openConfigureParty: __,
+		openPartyXp: Wx,
+		openTargetXp: Gx,
+		calculateImperialElapsedTime: u,
+		openImperialCalendarCalculator: Gc,
+		adjustAdvantage: nf,
+		applyDamage: Wf,
+		applyTokenTools: jh,
+		openAdministrationConsole: gd,
+		openCombatConsole: _f,
+		openDamageConsole: Zf,
+		openDarkWhispersConsole: Up,
+		applyToSelectedActors: bu,
+		awardXp: ox,
+		awardXpCurve: gv,
+		changeGridScalePreservingLighting: sS,
+		checkConditions: sf,
+		completeSession: ux,
+		copyLink: Su,
+		openFearConsole: Ou,
+		openGroupTestConsole: nh,
+		openSessionManagementConsole: Vx,
+		openSceneManagementConsole: hS,
+		openToolkitHome: _S,
+		openTokenToolsConsole: Fh,
+		openXpCurveConsole: bv,
+		openXpCurveConfigurator: rb,
+		openWorkbench: Ou,
+		postPrompt: xu,
+		postSummaryPrompt: Cu,
+		resetFortune: ex,
+		rollD100: pd,
+		runGroupTest: zm,
+		runSessionTurnover: px,
+		sendDarkWhispers: Lp,
+		setCompendiumVisibility: fd,
+		setSceneLighting: dd,
+		pullEveryoneToViewedScene: fx
 	};
 }
-//#endregion
-//#region src/module/api/register-module-api.ts
-function hD() {
-	let e = game.modules.get(q);
-	if (!e) throw Error(`Foundry module registry entry was not found for ${q}.`);
-	e.api = mD();
+function bS(e) {
+	return typeof e == "object" && !!e && !Array.isArray(e);
 }
-//#endregion
-//#region src/module/administration/hooks.ts
-function gD() {
+`${e}`, `${t}`;
+// src/module/foundry/importer/content.ts
+var xS = /* @__PURE__ */ new WeakMap();
+async function SS(e, t) {
+	let n = (xS.get(e) ?? Promise.resolve()).catch(() => void 0).then(async () => {
+		let e = globalThis.navigator?.locks;
+		return e ? await e.request("foundry:folder-tidy", t) : t();
+	});
+	xS.set(e, n);
+	try {
+		return await n;
+	} finally {
+		xS.get(e) === n && xS.delete(e);
+	}
+}
+// src/module/foundry/importer/index.ts
+var CS = {};
+// src/module/functions/settings-presets/values.ts
+function wS(e) {
+	return typeof e == "object" && !!e && !Array.isArray(e);
+}
+function TS(e, t) {
+	if (Array.isArray(e) && Array.isArray(t)) return e.length === t.length && e.every((e, n) => TS(e, t[n]));
+	if (wS(e) && wS(t)) {
+		let n = Object.keys(e);
+		return n.length === Object.keys(t).length && n.every((n) => Object.hasOwn(t, n) && TS(e[n], t[n]));
+	}
+	return e === t;
+}
+function ES(e, t = /* @__PURE__ */ new Set()) {
+	if (e === null || typeof e == "boolean" || typeof e == "string" || typeof e == "number" && Number.isFinite(e)) return e;
+	if (typeof e != "object" || !e) throw Error("Value cannot be represented completely in JSON");
+	if (t.has(e)) throw Error("Value contains a circular reference");
+	let n = new Set(t).add(e);
+	if (Array.isArray(e)) return Array.from(e, (e) => ES(e, n));
+	let r = Object.getPrototypeOf(e);
+	if (r !== Object.prototype && r !== null) throw Error("Value is not a plain JSON object");
+	if (Object.getOwnPropertySymbols(e).length) throw Error("Value contains properties JSON cannot preserve");
+	return Object.fromEntries(Object.entries(e).map(([e, t]) => [e, ES(t, n)]));
+}
+// src/module/functions/settings-presets/sources.ts
+function DS(e) {
+	return Object.fromEntries(Object.entries(e).map(([e, t]) => {
+		let n = e.slice(e.lastIndexOf("/") + 1);
+		if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]*\.json$/.test(n)) throw Error(`Invalid settings preset namespace filename: ${e}`);
+		if (!t || typeof t != "object" || Array.isArray(t)) throw Error(`Settings preset ${e} must be an object of setting values.`);
+		let r = Object.fromEntries(Object.entries(t).map(([t, n]) => {
+			if (!t.trim()) throw Error(`Settings preset ${e} contains an empty setting key.`);
+			return [t, ES(n)];
+		}));
+		return [n.slice(0, -5), r];
+	}));
+}
+// src/module/functions/settings-presets/metadata.ts
+function OS(e, t) {
+	if (!e || typeof e != "object" || Array.isArray(e)) throw Error("Settings preset metadata must be an object.");
+	return Object.fromEntries(Object.entries(e).map(([e, n]) => {
+		if (!t.includes(e)) throw Error(`Metadata has no settings source: ${e}`);
+		if (!n || typeof n != "object" || Array.isArray(n)) throw Error(`Invalid metadata for ${e}`);
+		let r = n;
+		for (let [t, n] of Object.entries(r)) if (t === "promptOnStartup" ? typeof n != "boolean" : !["title", "description"].includes(t) || typeof n != "string") throw Error(`Invalid preset metadata: ${e}.${t}`);
+		return [e, r];
+	}));
+}
+// src/module/foundry/settings/sources.ts
+var kS = DS(/* #__PURE__ */ Object.assign({})), AS = OS(Object.values([CS])[0] ?? {}, Object.keys(kS));
+// src/module/functions/settings-presets/wfrp.ts
+function jS(e, t) {
+	return t === "wfrp4e" ? [...e].sort((e, t) => Number(MS(e)) - Number(MS(t))) : [...e];
+}
+function MS({ namespace: e, key: t }) {
+	return e === "wfrp4e" && t === "useGroupAdvantage";
+}
+function NS({ namespace: e, key: t }) {
+	return e === "wfrp4e" && ["homebrew", "customCursor"].includes(t) || e === "wfrp4e-rnhd" && ["showClock", "syncClock"].includes(t);
+}
+function PS({ namespace: e, key: t, value: n }) {
+	return e !== "wfrp4e" || t !== "tableSettings" || !n || typeof n != "object" ? [] : [...new Set(Object.values(n).flatMap((e) => String(e).split(",").filter(Boolean)))];
+}
+// src/module/foundry/settings/preset-runtime/values.ts
+function FS(e, t) {
+	return t instanceof foundry.abstract.DataModel ? t = t.toObject() : e.type instanceof foundry.data.fields.DataField && (t = e.type.toObject(t)), ES(t);
+}
+function IS(e, t) {
+	let n = e.type, r = ES(t);
+	if (n instanceof foundry.data.fields.DataField) r = ES(n.clean(r)), n.validate(r, {
+		fallback: !1,
+		strict: !0
+	});
+	else if (typeof n == "function" && n.prototype instanceof foundry.abstract.DataModel) r = ES(n.fromSource(r, { strict: !0 }).toObject());
+	else if (n === String && typeof r != "string" || n === Number && typeof r != "number" || n === Boolean && typeof r != "boolean" || n === Array && !Array.isArray(r) || n === Object && (typeof r != "object" || !r || Array.isArray(r))) throw Error("Preset value does not match this world's setting type.");
+	if (!TS(t, r)) throw Error("Preset value does not match this world's setting schema.");
+}
+// src/module/foundry/settings/preset-runtime/coordination.ts
+function LS() {
+	let e = [...game?.modules.values() ?? []].filter((e) => e.active).map((e) => e.api?.settingsPresetCoordinator).filter((e) => e?.version === 1);
+	if (e.length > 1) throw Error("Multiple settings coordinators are active; disable the duplicate before applying presets.");
+	return e[0];
+}
+function RS(e, t) {
+	return LS()?.plan(e, t) ?? {
+		entries: t,
+		excluded: [],
+		conflicts: []
+	};
+}
+async function zS(e, t) {
+	if (!game?.ready || !game.user?.isGM) throw Error("A ready GM session is required.");
+	return await LS()?.resolve(e, t) ?? !0;
+}
+// src/module/foundry/settings/preset-runtime/engine.ts
+function BS(e) {
+	return e === "core" || e === game?.system.id || game?.modules.get(e)?.active === !0;
+}
+function VS(e, t) {
+	if (!game?.ready || !game.user?.isGM) throw Error("A ready GM session is required to inspect settings presets.");
+	let n = RS(e, t), r = {
+		changes: [],
+		unchanged: [],
+		skipped: [],
+		failed: [],
+		conflicts: n.conflicts,
+		excluded: n.excluded,
+		missingTables: [],
+		requiresReload: !1,
+		automaticReload: !1
+	};
+	for (let e of n.entries) {
+		let t = `${e.namespace}.${e.key}`, n = game.settings.settings?.get(t), i = BS(e.namespace) ? n ? n.scope === "world" ? void 0 : "Setting is no longer a world setting" : `${e.namespace} no longer registers this setting` : `${e.namespace} is not active in this world`;
+		if (i || !n) r.skipped.push({
+			id: t,
+			reason: i ?? "Setting is unavailable"
+		});
+		else {
+			try {
+				IS(n, e.value);
+			} catch (e) {
+				r.skipped.push({
+					id: t,
+					reason: `Preset value no longer fits this setting: ${e instanceof Error ? e.message : String(e)}`
+				});
+				continue;
+			}
+			try {
+				game.system.id === "wfrp4e" && r.missingTables.push(...PS(e).filter((e) => !(game?.collections?.get("RollTable"))?.get(e)));
+				let i = FS(n, game.settings.get(e.namespace, e.key));
+				if (TS(i, e.value)) {
+					r.unchanged.push(t);
+					continue;
+				}
+				r.changes.push({
+					...e,
+					current: i,
+					label: n.name ? game.i18n.localize(n.name) : t
+				}), r.requiresReload ||= !!n.requiresReload || game.system.id === "wfrp4e" && (NS(e) || MS(e)), r.automaticReload ||= game.system.id === "wfrp4e" && MS(e);
+			} catch (e) {
+				r.skipped.push({
+					id: t,
+					reason: `Could not read the current value: ${e instanceof Error ? e.message : String(e)}`
+				});
+			}
+		}
+	}
+	return r.missingTables = [...new Set(r.missingTables)], r;
+}
+function HS(e) {
+	return !!(e.failed.length || e.conflicts.length || e.missingTables.length);
+}
+var US = !1;
+async function WS(e, t) {
+	if (!game?.ready || !game.user?.isGM) throw Error("A ready GM session is required to apply settings presets.");
+	if (US) throw Error("A settings preset is already being applied.");
+	US = !0;
+	try {
+		let n = VS(e, t), r = {
+			...n,
+			updated: [],
+			blocked: HS(n),
+			requiresReload: !1,
+			automaticReload: !1
+		};
+		if (r.blocked) return r;
+		for (let i of jS(n.changes, game.system.id)) {
+			let n = `${i.namespace}.${i.key}`;
+			try {
+				if (!game.user?.isGM || !BS(i.namespace)) throw Error("Preset permissions or availability changed.");
+				let a = RS(e, t), o = a.entries.find((e) => e.namespace === i.namespace && e.key === i.key);
+				if (a.conflicts.length || !o || !TS(o.value, i.value)) throw Error("Preset choices changed; review the remaining settings again.");
+				let s = game.settings.settings?.get(n);
+				if (!s || s.scope !== "world") throw Error("World setting is unavailable.");
+				if (IS(s, i.value), await game.settings.set(i.namespace, i.key, structuredClone(i.value)), r.requiresReload ||= !!s.requiresReload || game.system.id === "wfrp4e" && (NS(i) || MS(i)), r.automaticReload ||= game.system.id === "wfrp4e" && MS(i), !TS(FS(s, game.settings.get(i.namespace, i.key)), i.value)) throw Error("Foundry did not retain the complete preset value.");
+				r.updated.push(n);
+			} catch (e) {
+				r.failed.push({
+					id: n,
+					reason: e instanceof Error ? e.message : String(e)
+				});
+				break;
+			}
+		}
+		return r;
+	} finally {
+		US = !1;
+	}
+}
+// src/module/foundry/settings/preset-runtime/export.ts
+function GS(e, t, n = !1) {
+	if (!game?.user?.isGM) throw Error("Only a GM can export settings.");
+	if (!BS(e)) throw Error("The selected system or module is not active.");
+	if (!/^[a-zA-Z0-9][a-zA-Z0-9._-]*$/.test(e)) throw Error("Invalid settings namespace.");
+	if (!t.length) throw Error("Select at least one setting to export.");
+	let r = Object.fromEntries([...new Set(t)].map((t) => {
+		let r = game?.settings.settings?.get(`${e}.${t}`);
+		if (!r || r.scope !== "world" || !r.config && !n) throw Error(`${e}.${t} is not an available selected world setting.`);
+		try {
+			return [t, FS(r, game?.settings.get(e, t))];
+		} catch (n) {
+			throw Error(`${e}.${t}: ${n instanceof Error ? n.message : String(n)}`, { cause: n });
+		}
+	}));
+	return {
+		namespace: e,
+		filename: `${e}.json`,
+		values: r
+	};
+}
+// src/module/foundry/settings/provider.ts
+function KS() {
+	return Object.entries(kS).map(([e, t]) => ({
+		namespace: e,
+		title: AS[e]?.title ?? e,
+		...AS[e],
+		entries: Object.entries(t).map(([t, n]) => ({
+			namespace: e,
+			key: t,
+			value: n
+		}))
+	}));
+}
+function qS(e) {
+	if (e !== void 0 && !Object.hasOwn(kS, e)) throw Error(`No campaign settings source exists for ${e}.`);
+	return KS().filter((t) => e === void 0 || e === t.namespace).flatMap((e) => e.entries);
+}
+var JS = {
+	version: 1,
+	getPresets: () => KS().filter((e) => BS(e.namespace)),
+	inspect: (t) => VS(e, qS(t)),
+	apply: async (t) => WS(e, qS(t)),
+	resolve: async (t) => zS(e, qS(t)),
+	capture: GS
+};
+JS.apply, JS.inspect;
+// src/module/foundry/api/create-package-api.ts
+function YS() {
+	return {
+		...yS(),
+		openPreviewNotice() {
+			console.log("Drowsy’s WFRP4e Toolkit API is available.");
+		}
+	};
+}
+// src/module/foundry/api/register-package-api.ts
+function XS() {
+	if (!game) throw Error("Foundry game global is unavailable during module API registration.");
+	let t = game.modules.get(e);
+	if (!t) throw Error(`Foundry module registry entry was not found for ${e}.`);
+	t.api = YS();
+}
+// src/module/foundry/administration/hooks.ts
+function ZS() {
 	Hooks.on("getChatMessageContextOptions", (e, t) => {
 		t.push({
-			callback: vD,
+			callback: $S,
 			condition: () => game.user?.isGM === !0,
 			icon: "<i class=\"fa-solid fa-pen-fancy\"></i>",
 			name: "Edit message flavor"
 		});
 	});
 }
-function _D() {
-	if (game.settings.get("wfrp4e-enhanced-fear-terror", Bu.showUnassignedPlayerWarning) !== !0) return;
+function QS() {
+	if (game.settings.get("wfrp4e-enhanced-fear-terror", ld.showUnassignedPlayerWarning) !== !0) return;
 	let e = Array.from(game.users).filter((e) => !e.isGM && e.active !== !1 && !e.character).map(({ name: e }) => e);
 	e.length > 0 && ui.notifications.warn(`${e.join(", ")} ${e.length === 1 ? "has" : "have"} no assigned character.`);
 }
-async function vD(e) {
+async function $S(e) {
 	try {
 		let t = e instanceof HTMLElement ? e : e?.[0];
 		if (!(t instanceof HTMLElement)) throw Error("The selected chat message element is unavailable.");
@@ -12737,45 +11232,42 @@ async function vD(e) {
 		ui.notifications.error(e instanceof Error ? e.message : "Chat flavor could not be updated.");
 	}
 }
-//#endregion
-//#region src/module/settings/register.ts
-function yD(e, t) {
-	game.settings.register(q, e, {
+// src/module/foundry/settings/register.ts
+function eC(e, t) {
+	game.settings.register(r, e, {
 		config: !1,
-		default: !0,
-		hint: `${K}.Settings.${t}.Hint`,
-		name: `${K}.Settings.${t}.Name`,
+		default: !1,
+		hint: `${n}.Settings.${t}.Hint`,
+		name: `${n}.Settings.${t}.Name`,
 		requiresReload: !0,
 		scope: "client",
 		type: Boolean
 	});
 }
-function bD(e, t, n, r, i = {}) {
-	game.settings.register(q, e, {
-		...i,
+function tC(e, t, n, i, a = {}) {
+	game.settings.register(r, e, {
+		...a,
 		config: !1,
 		default: t,
-		hint: `${r}.Hint`,
-		name: `${r}.Name`,
+		hint: `${i}.Hint`,
+		name: `${i}.Name`,
 		scope: "world",
 		type: n
 	});
 }
-//#endregion
-//#region src/module/administration/settings/register.ts
-function xD() {
-	bD(Bu.showUnassignedPlayerWarning, !0, Boolean, `${K}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(q, "administrationConsole", {
-		hint: `${K}.Menu.AdministrationConsole.Hint`,
+// src/module/foundry/administration/settings/register.ts
+function nC() {
+	tC(ld.showUnassignedPlayerWarning, !0, Boolean, `${n}.Settings.Administration.ShowUnassignedPlayerWarning`), game.settings.registerMenu(r, "administrationConsole", {
+		hint: `${n}.Menu.AdministrationConsole.Hint`,
 		icon: "fa-solid fa-screwdriver-wrench",
-		label: `${K}.Menu.AdministrationConsole.Label`,
-		name: `${K}.Menu.AdministrationConsole.Name`,
-		restricted: Ku.ACCESS_POLICY.gmOnly,
-		type: Ku
+		label: `${n}.Menu.AdministrationConsole.Label`,
+		name: `${n}.Menu.AdministrationConsole.Name`,
+		restricted: hd.ACCESS_POLICY.gmOnly,
+		type: hd
 	});
 }
-//#endregion
-//#region src/functions/combat/advantage.ts
-function SD(e, t) {
+// src/module/functions/combat/advantage.ts
+function rC(e, t) {
 	return t ? e === "attacker" ? [{
 		amount: 1,
 		mode: "add",
@@ -12790,47 +11282,46 @@ function SD(e, t) {
 		participant: e
 	}];
 }
-function CD(e) {
+function iC(e) {
 	return e.filter(({ currentAdvantage: e, roundStartAdvantage: t }) => e > 0 && e <= t).map(({ actorId: e }) => e);
 }
-//#endregion
-//#region src/module/combat/hooks.ts
-var wD = /* @__PURE__ */ new Set();
-function TD() {
-	Hooks.on("wfrp4e:opposedTestResult", ED), Hooks.on("wfrp4e:applyDamage", DD), Hooks.on("createActiveEffect", OD), Hooks.on("createCombatant", (e) => void kD(e, "join")), Hooks.on("deleteCombatant", (e) => void kD(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void AD(e, t)), Hooks.on("updateCombat", (e, t) => void MD(e, t));
+// src/module/foundry/combat/hooks.ts
+var aC = /* @__PURE__ */ new Set();
+function oC() {
+	Hooks.on("wfrp4e:opposedTestResult", sC), Hooks.on("wfrp4e:applyDamage", cC), Hooks.on("createActiveEffect", lC), Hooks.on("createCombatant", (e) => void uC(e, "join")), Hooks.on("deleteCombatant", (e) => void uC(e, "leave")), Hooks.on("preUpdateCombat", (e, t) => void dC(e, t)), Hooks.on("updateCombat", (e, t) => void pC(e, t));
 }
-async function ED(...e) {
-	if (!RD() || !Hd().automateOpposed) return;
+async function sC(...e) {
+	if (!yC() || !ff().automateOpposed) return;
 	let [t, n, r] = e;
 	if (!t || !n || !r || r.context?.unopposed === !0) return;
 	let i = n.data?.result;
 	if (i?.options?.preventAdvantage === !0 || i?.canDualWield === !0) return;
-	let a = t.result, o = Id(n.actor), s = Id(r.actor);
+	let a = t.result, o = of(n.actor), s = of(r.actor);
 	if (!o || !s || !a) return;
-	let c = FD(n);
-	if (c && wD.has(c)) return;
-	c && ID(c);
+	let c = gC(n);
+	if (c && aC.has(c)) return;
+	c && _C(c);
 	let l = a.winner === "attacker" ? o : s, u = l === o ? s : o, d = {
 		attacker: o,
 		defender: s
-	}, f = SD(l === o ? "attacker" : "defender", LD());
+	}, f = rC(l === o ? "attacker" : "defender", vC());
 	for (let e of f) {
 		let t = d[e.participant];
-		e.mode === "set" ? await Fd(t, e.amount) : await Pd(t, e.amount);
+		e.mode === "set" ? await af(t, e.amount) : await rf(t, e.amount);
 	}
-	zD(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
+	bC(`${l.name} gained Advantage; ${u.name} lost Advantage.`);
 }
-async function DD(e) {
-	if (!RD() || !Hd().automateDamage || !BD(e)) return;
+async function cC(e) {
+	if (!yC() || !ff().automateDamage || !xC(e)) return;
 	let t = e.opposedTest;
 	if (t?.defenderTest?.context?.unopposed !== !0) return;
-	let n = Id(e.attacker), r = Id(e.actor);
+	let n = of(e.attacker), r = of(e.actor);
 	if (!n || !r) return;
-	let i = t?.attackerTest, a = i ? FD(i) : "";
-	a && wD.has(a) || (a && ID(a), LD() || await Fd(r, 0), await Pd(n, 1), zD(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
+	let i = t?.attackerTest, a = i ? gC(i) : "";
+	a && aC.has(a) || (a && _C(a), vC() || await af(r, 0), await rf(n, 1), bC(`${n.name} gained Advantage for outmanoeuvring ${r.name}.`));
 }
-async function OD(e) {
-	if (!RD() || !Hd().automateCondition || !BD(e) || e.isCondition !== !0 || LD()) return;
+async function lC(e) {
+	if (!yC() || !ff().automateCondition || !xC(e) || e.isCondition !== !0 || vC()) return;
 	let t = String(e.conditionId ?? "");
 	if ([
 		"dead",
@@ -12838,33 +11329,33 @@ async function OD(e) {
 		"fear",
 		"grappling"
 	].includes(t)) return;
-	let n = Id(e.parent);
-	n && n.inCombat === !0 && (await Fd(n, 0), zD(`${n.name} lost Advantage after receiving a condition.`));
+	let n = of(e.parent);
+	n && n.inCombat === !0 && (await af(n, 0), bC(`${n.name} lost Advantage after receiving a condition.`));
 }
-async function kD(e, t) {
-	if (!RD() || !BD(e)) return;
-	let n = Hd();
-	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && LD()) return;
-	let r = Id(e.actor);
-	r && await Fd(r, 0);
+async function uC(e, t) {
+	if (!yC() || !xC(e)) return;
+	let n = ff();
+	if (t === "join" && !n.clearOnJoin || t === "leave" && !n.clearOnLeave || t === "join" && vC()) return;
+	let r = of(e.actor);
+	r && await af(r, 0);
 }
-async function AD(e, t) {
-	if (!RD() || LD() || !Hd().promptMomentumLoss || !BD(e) || !BD(t)) return;
+async function dC(e, t) {
+	if (!yC() || vC() || !ff().promptMomentumLoss || !xC(e) || !xC(t)) return;
 	let n = Number(t.round), r = Number(e.round);
 	if (!Number.isFinite(n) || n <= r || r <= 0) return;
-	let i = ND(e), a = new Set(CD(i.flatMap((e) => {
-		let t = Id(e.actor);
+	let i = mC(e), a = new Set(iC(i.flatMap((e) => {
+		let t = of(e.actor);
 		return t ? [{
 			actorId: t.id,
 			currentAdvantage: Number(t.system.status?.advantage?.value ?? 0),
-			roundStartAdvantage: Number(PD(e, "roundStartAdvantage") ?? 0)
+			roundStartAdvantage: Number(hC(e, "roundStartAdvantage") ?? 0)
 		}] : [];
 	}))), o = i.filter((e) => {
-		let t = Id(e.actor);
+		let t = of(e.actor);
 		return t ? a.has(t.id) : !1;
 	});
 	if (o.length === 0) return;
-	let s = o.map((e) => Id(e.actor)?.name).join(", ");
+	let s = o.map((e) => of(e.actor)?.name).join(", ");
 	if (await foundry.applications.api.DialogV2.confirm({
 		content: `<p>Reduce Advantage by 1 for combatants who gained no momentum this round?</p><p><strong>${foundry.utils.escapeHTML(s)}</strong></p>`,
 		modal: !0,
@@ -12872,77 +11363,75 @@ async function AD(e, t) {
 		window: { title: "Lose Momentum" }
 	})) {
 		for (let e of o) {
-			let t = Id(e.actor);
-			t && await Pd(t, -1);
+			let t = of(e.actor);
+			t && await rf(t, -1);
 		}
-		await jD(o.flatMap((e) => {
-			let t = Id(e.actor)?.name;
+		await fC(o.flatMap((e) => {
+			let t = of(e.actor)?.name;
 			return t ? [t] : [];
-		})), zD(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
+		})), bC(`Reduced Advantage for ${o.length} combatant${o.length === 1 ? "" : "s"}.`);
 	}
 }
-async function jD(e) {
+async function fC(e) {
 	let t = Array.from(game.users).filter((e) => e.isGM).map((e) => e.id), n = e.map((e) => `<li>${foundry.utils.escapeHTML(e)}</li>`).join("");
 	await ChatMessage.create({
 		content: `<h3>Momentum Loss</h3><p>Advantage reduced by 1:</p><ul>${n}</ul>`,
 		whisper: t
 	});
 }
-async function MD(e, t) {
-	if (!(!RD() || !BD(e) || !BD(t) || !("round" in t))) for (let t of ND(e)) {
-		let e = Id(t.actor), n = t.setFlag;
-		e && typeof n == "function" && await n.call(t, q, "roundStartAdvantage", Number(e.system.status?.advantage?.value ?? 0));
+async function pC(e, t) {
+	if (yC() && xC(e) && xC(t) && "round" in t) for (let t of mC(e)) {
+		let e = of(t.actor), n = t.setFlag;
+		e && typeof n == "function" && await n.call(t, r, "roundStartAdvantage", Number(e.system.status?.advantage?.value ?? 0));
 	}
 }
-function ND(e) {
+function mC(e) {
 	let t = e.combatants;
 	return t && typeof t == "object" ? Array.from(t) : [];
 }
-function PD(e, t) {
+function hC(e, t) {
 	let n = e.getFlag;
-	return typeof n == "function" ? n.call(e, q, t) : void 0;
+	return typeof n == "function" ? n.call(e, r, t) : void 0;
 }
-function FD(e) {
+function gC(e) {
 	let t = e.message;
 	return String(t?.id ?? "");
 }
-function ID(e) {
-	wD.add(e), wD.size > 100 && wD.delete(wD.values().next().value ?? "");
+function _C(e) {
+	aC.add(e), aC.size > 100 && aC.delete(aC.values().next().value ?? "");
 }
-function LD() {
+function vC() {
 	return game.settings.get("wfrp4e", "useGroupAdvantage") === !0;
 }
-function RD() {
+function yC() {
 	return game.user?.isGM === !0 && game.user.isUniqueGM !== !1;
 }
-function zD(e) {
-	ui.notifications.info(e, { permanent: Hd().persistentNotifications });
+function bC(e) {
+	ui.notifications.info(e, { permanent: ff().persistentNotifications });
 }
-function BD(e) {
+function xC(e) {
 	return typeof e == "object" && !!e;
 }
-//#endregion
-//#region src/module/combat/settings/register.ts
-function VD() {
-	for (let [e, t] of Object.entries(Vd)) game.settings.register(q, t, {
+// src/module/foundry/combat/settings/register.ts
+function SC() {
+	for (let [e, t] of Object.entries(df)) game.settings.register(r, t, {
 		config: !1,
 		default: e !== "persistentNotifications",
-		hint: `${K}.Settings.Advantage.${e}.Hint`,
-		name: `${K}.Settings.Advantage.${e}.Name`,
+		hint: `${n}.Settings.Advantage.${e}.Hint`,
+		name: `${n}.Settings.Advantage.${e}.Name`,
 		scope: "world",
 		type: Boolean
 	});
 }
-//#endregion
-//#region src/module/fear-terror/actor-sheet/register.ts
-var HD = "openFearConsole", UD = "wfrp4e-enhanced-fear-terror-actor-header", WD = [
+// src/module/foundry/fear-terror/actor-sheet/register.ts
+var CC = "openFearConsole", wC = "wfrp4e-enhanced-fear-terror-actor-header", TC = [
 	"getHeaderControlsActorSheetWFRP4eCharacter",
 	"getHeaderControlsActorSheetWFRP4eNPC",
 	"getHeaderControlsActorSheetWFRP4eCreature",
 	"getHeaderControlsStandardWFRP4eActorSheet",
 	"getHeaderControlsBaseWFRP4eActorSheet",
 	"getHeaderControlsWarhammerActorSheetV2"
-], GD = [
+], EC = [
 	"renderActorSheetWFRP4eCharacter",
 	"renderActorSheetWFRP4eNPC",
 	"renderActorSheetWFRP4eCreature",
@@ -12950,68 +11439,54 @@ var HD = "openFearConsole", UD = "wfrp4e-enhanced-fear-terror-actor-header", WD 
 	"renderBaseWFRP4eActorSheet",
 	"renderWarhammerActorSheetV2"
 ];
-function KD() {
-	for (let e of WD) Hooks.on(e, (e, t) => {
-		qD() && JD(e, t);
+function DC() {
+	for (let e of TC) Hooks.on(e, (e, t) => {
+		OC() && kC(e, t);
 	});
-	for (let e of GD) Hooks.on(e, (e) => {
-		qD() && YD(e);
+	for (let e of EC) Hooks.on(e, (e) => {
+		OC() && AC(e);
 	});
 }
-function qD() {
-	return iu.canCurrentUserAccess() && Ll(Il.actorSheet);
+function OC() {
+	return Du.canCurrentUserAccess() && ou(au.actorSheet);
 }
-function JD(e, t) {
-	e.document.documentName === "Actor" && (t.some((e) => e.action === HD) || (t.push({
-		action: HD,
+function kC(e, t) {
+	e.document.documentName === "Actor" && (t.some((e) => e.action === CC) || (t.push({
+		action: CC,
 		icon: "fa-solid fa-skull",
 		label: "Fear Console"
-	}), e.options.actions ??= {}, e.options.actions[HD] = function() {
-		XD(this.document);
+	}), e.options.actions ??= {}, e.options.actions[CC] = function() {
+		jC(this.document);
 	}));
 }
-function YD(e) {
+function AC(e) {
 	let t = e.document, n = e.element;
 	if (t.documentName !== "Actor" || !(n instanceof HTMLElement)) return;
 	let r = n.querySelector(".window-header");
-	if (!r || r.querySelector(`.${UD}`)) return;
+	if (!r || r.querySelector(`.${wC}`)) return;
 	let i = document.createElement("button");
-	i.type = "button", i.classList.add(UD, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = HD, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
-		e.preventDefault(), e.stopPropagation(), XD(t);
+	i.type = "button", i.classList.add(wC, "header-control", "icon", "fa-solid", "fa-skull"), i.dataset.action = CC, i.dataset.tooltip = "Fear Console", i.ariaLabel = "Open Drowsy’s WFRP4e Toolkit Fear Console", i.addEventListener("click", (e) => {
+		e.preventDefault(), e.stopPropagation(), jC(t);
 	});
 	let a = r.querySelector("[data-action=\"toggleControls\"]") ?? r.querySelector("[data-action=\"close\"]");
 	r.insertBefore(i, a);
 }
-function XD(e) {
+function jC(e) {
 	try {
-		ou({ initialPayload: Gl(e) });
+		ku({ initialPayload: mu(e) });
 	} catch (e) {
 		console.error("wfrp4e-enhanced-fear-terror | Could not infer Fear or Terror from the actor.", e), ui.notifications.error("Drowsy’s WFRP4e Toolkit could not read this actor. See the browser console for details.");
 	}
 }
-//#endregion
-//#region src/module/dark-whispers/settings/register.ts
-function ZD() {
-	bD(sp.promptLibrary, JSON.stringify({
+// src/module/foundry/dark-whispers/settings/register.ts
+function MC() {
+	tC(Op.promptLibrary, JSON.stringify({
 		prompts: [],
 		version: 1
-	}), String, `${K}.Settings.DarkWhispers.PromptLibrary`), bD(sp.defaultGroup, "party", String, `${K}.Settings.DarkWhispers.DefaultGroup`), bD(sp.messageStyle, "taunt", String, `${K}.Settings.DarkWhispers.MessageStyle`);
+	}), String, `${n}.Settings.DarkWhispers.PromptLibrary`), tC(Op.defaultGroup, "party", String, `${n}.Settings.DarkWhispers.DefaultGroup`), tC(Op.messageStyle, "taunt", String, `${n}.Settings.DarkWhispers.MessageStyle`);
 }
-//#endregion
-//#region src/module/gm-toolkit/settings/register.ts
-function QD() {
-	bD(sb.state, JSON.stringify({ version: 1 }), String, `${K}.Settings.GmToolkitMigration.State`), game.settings.registerMenu(q, "gmToolkitMigration", {
-		hint: `${K}.Menu.GmToolkitMigration.Hint`,
-		icon: "fa-solid fa-box-archive",
-		label: `${K}.Menu.GmToolkitMigration.Label`,
-		name: `${K}.Menu.GmToolkitMigration.Name`,
-		restricted: Mb.ACCESS_POLICY.gmOnly,
-		type: Mb
-	});
-}
-//#endregion
-//#region src/module/group-test/settings/register.ts
-var $D = {
+// src/module/foundry/group-test/settings/register.ts
+var NC = {
 	bypassDialog: !0,
 	defaultDifficulty: "average",
 	defaultGroup: "party",
@@ -13026,237 +11501,788 @@ var $D = {
 	quickTest4: "Gossip",
 	summaryThreshold: 2
 };
-function eO() {
-	for (let [e, t] of Object.entries(tm)) {
-		let n = $D[e];
-		game.settings.register(q, t, {
+function PC() {
+	for (let [e, t] of Object.entries(Sm)) {
+		let i = NC[e];
+		game.settings.register(r, t, {
 			config: !1,
-			default: n,
-			hint: `${K}.Settings.GroupTest.${e}.Hint`,
-			name: `${K}.Settings.GroupTest.${e}.Name`,
+			default: i,
+			hint: `${n}.Settings.GroupTest.${e}.Hint`,
+			name: `${n}.Settings.GroupTest.${e}.Name`,
 			scope: "world",
-			type: typeof n == "boolean" ? Boolean : typeof n == "number" ? Number : String
+			type: typeof i == "boolean" ? Boolean : typeof i == "number" ? Number : String
 		});
 	}
 }
-//#endregion
-//#region src/functions/scene-controls/toolclip.ts
-function tO(e, t) {
+// src/module/functions/scene-controls/toolclip.ts
+function FC(e, t) {
 	return {
 		heading: e,
 		items: [{ paragraph: t }]
 	};
 }
-//#endregion
-//#region src/module/fear-terror/scene-controls/register.ts
-var nO = "openFearConsole";
-function rO() {
+// src/module/foundry/fear-terror/scene-controls/register.ts
+var IC = "openFearConsole";
+function LC() {
 	Hooks.on("getSceneControlButtons", (e) => {
-		!iu.canCurrentUserAccess() || !Ll(Il.tokenControls) || iO(e);
+		Du.canCurrentUserAccess() && ou(au.tokenControls) && RC(e);
 	});
 }
-function iO(e) {
+function RC(e) {
 	let t = e.tokens;
-	t && (t.tools[nO] = {
+	t && (t.tools[IC] = {
 		button: !0,
 		icon: "fa-solid fa-skull",
-		name: nO,
+		name: IC,
 		onChange: () => {
-			ou();
+			ku();
 		},
 		order: 99,
 		title: "Fear Console",
-		toolclip: tO("Fear Console", `${K}.SceneControls.OpenFearConsole`)
+		toolclip: FC("Fear Console", `${n}.SceneControls.OpenFearConsole`)
 	});
 }
-//#endregion
-//#region src/module/fear-terror/settings/register.ts
-function aO() {
-	yD(Il.tokenControls, "TokenControlsLauncher"), yD(Il.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(q, "fearConsole", {
-		hint: `${K}.Menu.FearConsoleConfigurator.Hint`,
+// src/module/foundry/fear-terror/settings/register.ts
+function zC() {
+	eC(au.tokenControls, "TokenControlsLauncher"), eC(au.actorSheet, "ActorSheetLauncher"), game.settings.registerMenu(r, "fearConsole", {
+		hint: `${n}.Menu.FearConsoleConfigurator.Hint`,
 		icon: "fa-solid fa-gears",
-		label: `${K}.Menu.FearConsoleConfigurator.Label`,
-		name: `${K}.Menu.FearConsoleConfigurator.Name`,
-		restricted: Bl.ACCESS_POLICY.gmOnly,
-		type: Bl
+		label: `${n}.Menu.FearConsoleConfigurator.Label`,
+		name: `${n}.Menu.FearConsoleConfigurator.Name`,
+		restricted: lu.ACCESS_POLICY.gmOnly,
+		type: lu
 	});
 }
-//#endregion
-//#region src/module/session-management/settings/register.ts
-function oO() {
-	bD(qy.options, "{}", String, `${K}.Settings.SessionManagement.State`), bD(qy.state, JSON.stringify({
+// src/module/foundry/session-management/settings/register.ts
+function BC() {
+	tC($_.options, "{}", String, `${n}.Settings.SessionManagement.State`), tC($_.state, JSON.stringify({
 		currentSessionReference: "",
 		sessions: [],
 		version: 1
-	}), String, `${K}.Settings.SessionManagement.State`), bD(qy.holdingSceneUuid, "", String, `${K}.Settings.SessionManagement.HoldingSceneUuid`), bD(qy.exportChat, !1, Boolean, `${K}.Settings.SessionManagement.ExportChat`), bD(qy.pullPolicy, "pull", String, `${K}.Settings.SessionManagement.PullPolicy`, { choices: {
-		activate: `${K}.Settings.SessionManagement.PullPolicy.Activate`,
-		pull: `${K}.Settings.SessionManagement.PullPolicy.Pull`
-	} }), game.settings.registerMenu(q, "sessionManagementConsole", {
-		hint: `${K}.Menu.SessionManagementConsole.Hint`,
+	}), String, `${n}.Settings.SessionManagement.State`), tC($_.holdingSceneUuid, "", String, `${n}.Settings.SessionManagement.HoldingSceneUuid`), tC($_.exportChat, !1, Boolean, `${n}.Settings.SessionManagement.ExportChat`), tC($_.pullPolicy, "pull", String, `${n}.Settings.SessionManagement.PullPolicy`, { choices: {
+		activate: `${n}.Settings.SessionManagement.PullPolicy.Activate`,
+		pull: `${n}.Settings.SessionManagement.PullPolicy.Pull`
+	} }), game.settings.registerMenu(r, "sessionManagementConsole", {
+		hint: `${n}.Menu.SessionManagementConsole.Hint`,
 		icon: "fa-solid fa-calendar-check",
-		label: `${K}.Menu.SessionManagementConsole.Label`,
-		name: `${K}.Menu.SessionManagementConsole.Name`,
-		restricted: XT.ACCESS_POLICY.gmOnly,
-		type: XT
+		label: `${n}.Menu.SessionManagementConsole.Label`,
+		name: `${n}.Menu.SessionManagementConsole.Name`,
+		restricted: Bx.ACCESS_POLICY.gmOnly,
+		type: Bx
 	});
 }
-//#endregion
-//#region src/module/session-management/hooks.ts
-function sO() {
-	Hooks.on("preUpdateToken", cO);
+// src/module/foundry/session-management/hooks.ts
+function VC() {
+	Hooks.on("preUpdateToken", HC);
 }
-function cO(e, t) {
-	if (game.user?.isGM || !lO(e) || !lO(t)) return;
-	let n = Xy().holdingSceneUuid, r = canvas?.scene?.uuid;
-	!n || r !== n || (t.x !== void 0 && (t.x = e.x), t.y !== void 0 && (t.y = e.y));
+function HC(e, t) {
+	if (game.user?.isGM || !UC(e) || !UC(t)) return;
+	let n = nv().holdingSceneUuid, r = canvas?.scene?.uuid;
+	n && r === n && (t.x !== void 0 && (t.x = e.x), t.y !== void 0 && (t.y = e.y));
 }
-function lO(e) {
+function UC(e) {
 	return typeof e == "object" && !!e;
 }
-//#endregion
-//#region src/module/toolkit-home/settings/register.ts
-function uO() {
-	class e extends $E {
+// src/module/foundry/toolkit-home/settings/register.ts
+function WC() {
+	class e extends iS {
 		constructor() {
 			super([]);
 		}
 		async render(e) {
-			return await fD(), this;
+			return await _S(), this;
 		}
 	}
-	game.settings.registerMenu(q, "toolkitHome", {
-		hint: `${K}.Menu.ToolkitHome.Hint`,
+	game.settings.registerMenu(r, "toolkitHome", {
+		hint: `${n}.Menu.ToolkitHome.Hint`,
 		icon: "fa-solid fa-toolbox",
-		label: `${K}.Menu.ToolkitHome.Label`,
-		name: `${K}.Menu.ToolkitHome.Name`,
-		restricted: $E.ACCESS_POLICY.gmOnly,
+		label: `${n}.Menu.ToolkitHome.Label`,
+		name: `${n}.Menu.ToolkitHome.Name`,
+		restricted: iS.ACCESS_POLICY.gmOnly,
 		type: e
 	});
 }
-//#endregion
-//#region src/module/token-tools/settings/register.ts
-function dO() {
+// src/module/foundry/token-tools/settings/register.ts
+function GC() {
 	let e = {
 		darkRange: 120,
 		normalRange: 2,
 		overrideDarkVision: !1,
 		overrideNightVision: !1
 	};
-	for (let [t, n] of Object.entries(ah)) {
-		let r = e[t];
-		game.settings.register(q, n, {
+	for (let [t, i] of Object.entries(Eh)) {
+		let a = e[t];
+		game.settings.register(r, i, {
 			config: !1,
-			default: r,
-			hint: `${K}.Settings.Vision.${t}.Hint`,
-			name: `${K}.Settings.Vision.${t}.Name`,
+			default: a,
+			hint: `${n}.Settings.Vision.${t}.Hint`,
+			name: `${n}.Settings.Vision.${t}.Name`,
 			scope: "world",
-			type: typeof r == "boolean" ? Boolean : Number
+			type: typeof a == "boolean" ? Boolean : Number
 		});
 	}
 }
-//#endregion
-//#region src/module/xp-curve/scene-controls/register.ts
-var fO = "openXpCurveConsole";
-function pO() {
+// src/module/foundry/xp-curve/scene-controls/register.ts
+var KC = "openXpCurveConsole";
+function qC() {
 	Hooks.on("getSceneControlButtons", (e) => {
-		if (!pw.canCurrentUserAccess() || !QC($.showTokenControlsLauncher)) return;
+		if (!yv.canCurrentUserAccess() || !tu(Z.showTokenControlsLauncher)) return;
 		let t = e.tokens;
-		t && (t.tools[fO] = {
+		t && (t.tools[KC] = {
 			button: !0,
 			icon: "fa-solid fa-chart-line",
-			name: fO,
-			onChange: hw,
+			name: KC,
+			onChange: xv,
 			order: 98,
-			title: "XP Curve Console",
-			toolclip: tO("XP Curve Console", `${K}.SceneControls.OpenXpCurveConsole`)
+			title: "Curve XP",
+			toolclip: FC("Curve XP", `${n}.SceneControls.OpenXpCurveConsole`)
 		});
 	});
 }
-//#endregion
-//#region src/module/xp-curve/settings/register.ts
-function mO() {
-	yD($.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), hO($.maximumAward, Gb.parameters.maximumAward, Number, "MaximumAward", { range: {
+// src/module/foundry/xp-curve/settings/register.ts
+function JC() {
+	eC(Z.showTokenControlsLauncher, "XpCurveTokenControlsLauncher"), YC(Z.maximumAward, Jh.parameters.maximumAward, Number, "MaximumAward", { range: {
 		max: 1e5,
 		min: 0,
 		step: 1
-	} }), hO($.gapForMaximumAward, Gb.parameters.gapForMaximumAward, Number, "GapForMaximumAward", { range: {
+	} }), YC(Z.gapForMaximumAward, 5e3, Number, "GapForMaximumAward", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), hO($.curveExponent, Gb.parameters.curveExponent, Number, "CurveExponent", { range: {
+	} }), YC(Z.catchUpRate, -1, Number, "CatchUpRate"), YC(Z.curveExponent, Jh.parameters.curveExponent, Number, "CurveExponent", { range: {
 		max: 5,
 		min: .1,
 		step: .05
-	} }), hO($.scalePivot, Gb.parameters.scalePivot, Number, "ScalePivot", { range: {
+	} }), YC(Z.scalePivot, Jh.parameters.scalePivot, Number, "ScalePivot", { range: {
 		max: 1e6,
 		min: 1,
 		step: 100
-	} }), hO($.scaleExponent, Gb.parameters.scaleExponent, Number, "ScaleExponent", { range: {
+	} }), YC(Z.scaleExponent, Jh.parameters.scaleExponent, Number, "ScaleExponent", { range: {
 		max: 2,
 		min: 0,
 		step: .05
-	} }), hO($.companionMultiplier, Gb.parameters.companionMultiplier, Number, "CompanionMultiplier", { range: {
-		max: 1,
-		min: 0,
-		step: .05
-	} }), hO($.defaultReason, Gb.defaultReason, String, "DefaultReason"), hO($.defaultSelection, Gb.defaultSelection, String, "DefaultSelection", { choices: {
-		company: `${K}.Settings.XpCurve.DefaultSelection.Company`,
-		party: `${K}.Settings.XpCurve.DefaultSelection.Party`,
-		world: `${K}.Settings.XpCurve.DefaultSelection.World`
-	} }), game.settings.registerMenu(q, "xpCurveConsole", {
-		hint: `${K}.Menu.XpCurveConfigurator.Hint`,
+	} }), YC(Z.defaultReason, Jh.defaultReason, String, "DefaultReason"), game.settings.registerMenu(r, "xpCurveConsole", {
+		hint: `${n}.Menu.XpCurveConfigurator.Hint`,
 		icon: "fa-solid fa-sliders",
-		label: `${K}.Menu.XpCurveConfigurator.Label`,
-		name: `${K}.Menu.XpCurveConfigurator.Name`,
-		restricted: ow.ACCESS_POLICY.gmOnly,
-		type: ow
+		label: `${n}.Menu.XpCurveConfigurator.Label`,
+		name: `${n}.Menu.XpCurveConfigurator.Name`,
+		restricted: nb.ACCESS_POLICY.gmOnly,
+		type: nb
 	});
 }
-function hO(e, t, n, r, i = {}) {
-	bD(e, t, n, `${K}.Settings.XpCurve.${r}`, i);
+function YC(e, t, r, i, a = {}) {
+	tC(e, t, r, `${n}.Settings.XpCurve.${i}`, a);
 }
-//#endregion
-//#region src/module/xp-award/settings/register.ts
-function gO() {
-	_O(my.auditLog, JSON.stringify({
+// src/module/apps/xp-award-settings/state/settings.ts
+var XC = Ks("xp-award-settings", () => {
+	let e = /* @__PURE__ */ P(), t = /* @__PURE__ */ P(!1), n = /* @__PURE__ */ P(), r;
+	function i(t, n) {
+		e.value = { ...t }, r = n;
+	}
+	async function a() {
+		if (!t.value && e.value) {
+			t.value = !0, n.value = void 0;
+			try {
+				if (!Number.isSafeInteger(e.value.defaultAmount) || e.value.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
+				await r.save({ ...e.value });
+			} catch (e) {
+				console.error("Drowsy’s WFRP4e Toolkit | Could not save XP settings.", e), n.value = e instanceof Error ? e.message : "Could not save XP settings.";
+			} finally {
+				t.value = !1;
+			}
+		}
+	}
+	return {
+		errorMessage: n,
+		initialize: i,
+		isWorking: t,
+		save: a,
+		settings: e
+	};
+}), ZC = ["disabled"], QC = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "xp-default-amount"
+}, $C = {
+	class: "tw:grid tw:gap-1 tw:text-sm",
+	for: "xp-default-reason"
+}, ew = { class: "tw:flex tw:items-center tw:gap-3 tw:text-sm" }, tw = { class: "tw:flex tw:shrink-0 tw:justify-end tw:border-t tw:border-base-content/15 tw:p-4" }, nw = ["disabled"], rw = /* @__PURE__ */ L({
+	__name: "XpAwardSettingsApp",
+	props: {
+		actions: {},
+		initialization: {}
+	},
+	setup(e) {
+		let t = e, n = XC();
+		n.initialize(t.initialization, t.actions);
+		let { settings: r, isWorking: i, errorMessage: a } = qs(n);
+		return (e, t) => (B(), Ca(mc, {
+			title: "XP Award Settings",
+			description: "Defaults for new awards.",
+			icon: "fa-solid fa-gear",
+			"error-message": F(a)
+		}, {
+			footer: ir(() => [H("div", tw, [H("button", {
+				form: "xp-award-settings-form",
+				class: "tw:dui-btn tw:dui-btn-primary",
+				disabled: F(i),
+				type: "submit"
+			}, " Save settings ", 8, nw)])]),
+			default: ir(() => [F(r) ? (B(), V("form", {
+				key: 0,
+				id: "xp-award-settings-form",
+				onSubmit: t[3] ||= ss((...e) => F(n).save && F(n).save(...e), ["prevent"])
+			}, [H("fieldset", {
+				class: "tw:m-0 tw:grid tw:gap-4 tw:border-0 tw:p-0",
+				disabled: F(i)
+			}, [
+				H("label", QC, [
+					t[4] ||= H("span", null, "Default XP", -1),
+					I(H("input", {
+						id: "xp-default-amount",
+						"onUpdate:modelValue": t[0] ||= (e) => F(r).defaultAmount = e,
+						class: "tw:dui-input tw:dui-input-sm tw:w-full",
+						type: "number",
+						step: "1",
+						required: ""
+					}, null, 512), [[
+						q,
+						F(r).defaultAmount,
+						void 0,
+						{ number: !0 }
+					]]),
+					t[5] ||= H("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Negative amounts remove XP. Totals cannot fall below zero.", -1)
+				]),
+				H("label", $C, [
+					t[6] ||= H("span", null, "Default reason", -1),
+					I(H("input", {
+						id: "xp-default-reason",
+						"onUpdate:modelValue": t[1] ||= (e) => F(r).defaultReason = e,
+						class: "tw:dui-input tw:dui-input-sm tw:w-full",
+						type: "text"
+					}, null, 512), [[q, F(r).defaultReason]]),
+					t[7] ||= H("span", { class: "tw:text-xs tw:text-base-content/65!" }, "Supports %session%, %date%, and %datetime%.", -1)
+				]),
+				H("label", ew, [I(H("input", {
+					"onUpdate:modelValue": t[2] ||= (e) => F(r).includeTimestampInReason = e,
+					class: "tw:dui-checkbox tw:dui-checkbox-sm",
+					type: "checkbox",
+					"aria-label": "Include award date and time in the reason"
+				}, null, 512), [[J, F(r).includeTimestampInReason]]), t[8] ||= W("Include award date and time in the reason", -1)])
+			], 8, ZC)], 32)) : G("", !0)]),
+			_: 1
+		}, 8, ["error-message"]));
+	}
+}), iw = class extends Uc {
+	static ACCESS_POLICY = Y.xpAwards;
+	static DEFAULT_OPTIONS = {
+		...super.DEFAULT_OPTIONS,
+		id: `${r}-xp-award-settings`,
+		position: {
+			width: 420,
+			height: 390
+		},
+		window: {
+			title: "XP Award Defaults",
+			icon: "fa-solid fa-gear",
+			resizable: !0
+		}
+	};
+	getVueComponent() {
+		return rw;
+	}
+	getVueProps() {
+		return {
+			actions: { save: async (e) => {
+				if (X(Y.xpAwards), !Number.isSafeInteger(e.defaultAmount) || e.defaultAmount === 0) throw Error("Enter a non-zero whole-number XP amount.");
+				await E_(e), await this.close();
+			} },
+			initialization: T_()
+		};
+	}
+};
+// src/module/foundry/xp-award/settings/register.ts
+function aw() {
+	ow(w_.auditLog, JSON.stringify({
 		batches: [],
 		version: 1
-	}), String, "AuditLog"), _O(my.defaultAmount, 20, Number, "DefaultAmount", { range: {
+	}), String, "AuditLog"), ow(w_.defaultAmount, 20, Number, "DefaultAmount", { range: {
 		max: 1e5,
 		min: -1e5,
 		step: 1
-	} }), _O(my.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), _O(my.defaultSelection, "party", String, "DefaultSelection", { choices: {
-		company: `${K}.Settings.XpAward.DefaultSelection.Company`,
-		party: `${K}.Settings.XpAward.DefaultSelection.Party`,
-		world: `${K}.Settings.XpAward.DefaultSelection.World`
-	} }), _O(my.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(q, "xpAwardConsole", {
-		hint: `${K}.Menu.XpAwardConsole.Hint`,
+	} }), ow(w_.defaultReason, "Session %session% (%date%)", String, "DefaultReason"), ow(w_.defaultSelection, "party", String, "DefaultSelection", { choices: {
+		company: `${n}.Settings.XpAward.DefaultSelection.Company`,
+		party: `${n}.Settings.XpAward.DefaultSelection.Party`,
+		world: `${n}.Settings.XpAward.DefaultSelection.World`
+	} }), ow(w_.includeTimestampInReason, !0, Boolean, "IncludeTimestampInReason"), game.settings.registerMenu(r, "xpAwardSettings", {
+		hint: `${n}.Menu.XpAwardSettings.Hint`,
 		icon: "fa-solid fa-award",
-		label: `${K}.Menu.XpAwardConsole.Label`,
-		name: `${K}.Menu.XpAwardConsole.Name`,
-		restricted: BE.ACCESS_POLICY.gmOnly,
-		type: BE
+		label: `${n}.Menu.XpAwardSettings.Label`,
+		name: `${n}.Menu.XpAwardSettings.Name`,
+		restricted: iw.ACCESS_POLICY.gmOnly,
+		type: iw
 	});
 }
-function _O(e, t, n, r, i = {}) {
-	bD(e, t, n, `${K}.Settings.XpAward.${r}`, i);
+function ow(e, t, r, i, a = {}) {
+	tC(e, t, r, `${n}.Settings.XpAward.${i}`, a);
 }
-//#endregion
-//#region src/module/hooks/register-module-hooks.ts
-function vO() {
-	gD(), TD(), _p(), xm(), sO(), Hooks.once("init", () => {
-		console.info(`${q} | Initializing`), xD(), VD(), aO(), ZD(), QD(), eO(), oO(), uO(), dO(), gO(), mO(), KD(), rO(), pO();
-	}), Hooks.once("ready", () => {
-		if (game.system.id !== "wfrp4e") {
-			console.warn(`${q} | Loaded outside ${Ec}; skipping module API registration.`);
-			return;
+// src/module/functions/macros/sync.ts
+function sw(e, t) {
+	let n = {
+		create: [],
+		update: []
+	};
+	for (let r of e) {
+		let e = t.filter((e) => e.sourceId === r.id);
+		e.length || n.create.push(r);
+		for (let t of e) (t.name !== r.name || t.command !== r.command || t.img !== r.img || t.scope !== r.scope || t.type !== r.type || t.importedFolderId !== r.folderId) && n.update.push({
+			source: r,
+			worldId: t.id
+		});
+	}
+	return n;
+}
+// src/module/foundry/macros/source.ts
+var cw = `${r}.macros`;
+function lw(e) {
+	if (!$(e)) return null;
+	let t = Q(e._id);
+	if (!t) return null;
+	let n = $(e._stats) ? e._stats : {}, i = $(e.flags) ? e.flags : {}, a = $(i.core) ? i.core : {}, o = $(i["wfrp4e-enhanced-fear-terror"]) ? i[r] : {}, s = Q(n.compendiumSource) || Q(a.sourceId), c = `Compendium.${cw}.`, l = s.startsWith(c) ? s.slice(c.length) : "";
+	return {
+		id: t,
+		name: Q(e.name),
+		command: Q(e.command),
+		img: Q(e.img),
+		scope: Q(e.scope),
+		type: Q(e.type),
+		folderId: Q(e.folder),
+		...l && !l.includes(".") ? { sourceId: l } : l.startsWith("Macro.") && !l.slice(6).includes(".") ? { sourceId: l.slice(6) } : {},
+		...typeof o.macroFolder == "string" ? { importedFolderId: o.macroFolder } : {}
+	};
+}
+// src/module/foundry/macros/sync.ts
+var uw = "ignoreMacroImportPrompts";
+function dw() {
+	game.settings.register(r, uw, {
+		name: "Ignore toolkit macro import prompts",
+		hint: "Do not ask to import or update toolkit macros at startup. Uncheck to resume checks in this world.",
+		config: game.user.isGM,
+		default: !1,
+		scope: "world",
+		type: Boolean
+	});
+}
+async function fw() {
+	let e = game.packs.get(cw);
+	if (!e) throw Error("The toolkit macro compendium is unavailable.");
+	return sw((await e.getDocuments()).map((e) => {
+		let t = lw(e.toObject());
+		if (!t) throw Error(`Invalid bundled macro: ${e.name}.`);
+		return t;
+	}), Array.from(game.macros).flatMap((e) => {
+		let t = lw(e.toObject());
+		return t ? [t] : [];
+	}));
+}
+function pw() {
+	return game.ready && game.system.id === "wfrp4e" && game.user.isGM && game.user.isActiveGM && game.settings.get("wfrp4e-enhanced-fear-terror", "ignoreMacroImportPrompts") !== !0;
+}
+async function mw() {
+	if (!pw()) return;
+	let e = await fw();
+	if (!e.create.length && !e.update.length) return;
+	let t = await foundry.applications.api.DialogV2.wait({
+		window: { title: "Drowsy’s Toolkit Macros" },
+		position: { width: 460 },
+		content: `<p>Your toolkit macros need attention: <strong>${e.create.length} missing</strong>, <strong>${e.update.length} to update</strong>.</p><p>Import the latest macros into folders grouped by task. Updating replaces imported macro code, names, and icons while keeping their IDs, hotbar links, and permissions.</p><p>“Don’t Ask Again” disables reminders for this world. Re-enable them in Module Settings.</p>`,
+		buttons: [
+			{
+				action: "import",
+				label: e.update.length ? "Import / Update" : "Import Macros"
+			},
+			{
+				action: "later",
+				label: "Ask Next Time",
+				default: !0
+			},
+			{
+				action: "ignore",
+				label: "Don’t Ask Again"
+			}
+		],
+		rejectClose: !1
+	});
+	if (pw()) {
+		if (t === "ignore") await game.settings.set(r, uw, !0);
+		else if (t === "import") {
+			let e = await fw();
+			await hw(e), ui.notifications.info(`Toolkit macros: ${e.create.length} imported, ${e.update.length} updated.`);
 		}
-		hD(), _D(), console.info(`${q} | Ready`);
+	}
+}
+async function hw(e) {
+	if (!e.create.length && !e.update.length) return;
+	let t = game.packs.get(cw);
+	if (!t) throw Error("The toolkit macro compendium is unavailable.");
+	let n = [...game.folders].filter((e) => e.type === "Macro"), a = n.find((e) => {
+		let t = e.flags?.[r];
+		return !e.folder && $(t) && t.importedContentRoot === !0;
+	});
+	a ??= n.find((e) => !e.folder && e.name === "Drowsy’s WFRP4e Toolkit"), a ??= await gw({
+		name: i,
+		flags: { [r]: { importedContentRoot: !0 } }
+	});
+	let o = /* @__PURE__ */ new Map([["", a]]);
+	async function s(e) {
+		let r = o.get(e);
+		if (r) return r;
+		let i = t.folders.contents.find((t) => t.id === e);
+		if (!i) throw Error(`Bundled macro folder ${e} is unavailable.`);
+		let a = await s(i.folder?.id ?? ""), c = n.find((e) => e.folder?.id === a.id && e.name === i.name) ?? await gw({
+			name: i.name,
+			folder: a.id
+		});
+		return n.push(c), o.set(e, c), c;
+	}
+	for (let n of e.create) await game.macros.importFromCompendium(t, n.id, {
+		folder: (await s(n.folderId)).id,
+		[`flags.${r}.macroFolder`]: n.folderId
+	}, { keepId: !1 });
+	for (let { source: t, worldId: n } of e.update) {
+		let e = Array.from(game.macros).find((e) => e.id === n);
+		if (!e) throw Error(`Imported macro ${n} disappeared; try again.`);
+		await e.update({
+			name: t.name,
+			command: t.command,
+			img: t.img,
+			scope: t.scope,
+			type: t.type,
+			folder: (await s(t.folderId)).id,
+			[`flags.${r}.macroFolder`]: t.folderId
+		});
+	}
+}
+async function gw(e) {
+	let t = await CONFIG.Folder.documentClass.create({
+		type: "Macro",
+		sorting: "a",
+		...e
+	});
+	if (!t) throw Error(`Could not create macro folder ${String(e.name)}.`);
+	return t;
+}
+// src/module/foundry/party/settings.ts
+function _w() {
+	game.settings.register(r, xg, {
+		name: "Party configuration",
+		hint: "The shared party roster and category XP percentages.",
+		config: !1,
+		scope: "world",
+		type: String,
+		default: ""
+	}), game.settings.registerMenu(r, "configureParty", {
+		name: "Configure Party",
+		label: "Configure Party",
+		icon: "fa-solid fa-people-group",
+		hint: "Organize Party, Companions, and other XP recipients.",
+		restricted: !0,
+		type: g_
 	});
 }
-//#endregion
-//#region src/main.ts
-vO();
-//#endregion
+// src/module/init/register-toolkit.ts
+function vw() {
+	ZS(), oC(), Rp(), Hm(), VC(), Hooks.once("setup", dw), Hooks.once("init", () => {
+		console.info(`${r} | Initializing`), nC(), SC(), zC(), MC(), PC(), BC(), WC(), GC(), aw(), _w(), JC(), DC(), LC(), qC();
+	}), Hooks.once("ready", () => {
+		game.system.id === "wfrp4e" ? (QS(), mw().catch((e) => {
+			console.error(`${r} | Toolkit macro import failed.`, e), ui.notifications.error("Toolkit macro import failed. See the browser console for details.");
+		}), console.info(`${r} | Ready`)) : console.warn(`${r} | Loaded outside ${a}; skipping module API registration.`);
+	});
+}
+// src/module/foundry/compendiums/settings.ts
+var yw = "keepCompendiumsTidy";
+function bw() {
+	if (!game?.user) throw Error("Foundry user is unavailable during Compendium tidy setting registration.");
+	game.settings.register(e, yw, {
+		config: game.user.isGM === !0,
+		default: !1,
+		hint: "Restore this module's Compendium sidebar folders and pack locations when the active GM opens the world.",
+		name: `Keep ${t} Compendiums Tidy?`,
+		scope: "world",
+		type: Boolean
+	});
+}
+// src/module/foundry/compendiums/merge.ts
+async function xw(e, t, n, r) {
+	for (let [, n] of r.entries()) if (n.folder?.id === e.id && (await n.setFolder(t), n.folder?.id !== t.id)) throw Error(`Could not move a pack out of ${e.name}.`);
+	for (let r of n.filter((t) => t.folder?.id === e.id)) if (await r.update({ folder: t.id }), r.folder?.id !== t.id) throw Error(`Could not move folder ${r.name}.`);
+	if (!await e.delete({
+		deleteSubfolders: !1,
+		deleteContents: !1
+	})) throw Error(`Could not delete empty duplicate folder ${e.name}.`);
+	n.splice(n.indexOf(e), 1);
+}
+async function Sw(e, t, n, r) {
+	for (let [e, i] of t.entries()) if (i.folder && n.has(i.folder.id) && !r.has(e) && (await i.setFolder(null), i.folder)) throw Error(`Could not move unrelated pack ${e} to the sidebar root.`);
+	for (let t of e) if (t.folder && n.has(t.folder.id) && !n.has(t.id) && (await t.update({ folder: null }), t.folder)) throw Error(`Could not move unrelated folder ${t.name} to the sidebar root.`);
+}
+// src/module/functions/compendiums/folders.ts
+function Cw(e, t) {
+	return t.filter((t) => t.folder?.id === e.id);
+}
+function ww(e, t) {
+	let n = /* @__PURE__ */ new Set([e.id]);
+	for (let r of Cw(e, t)) for (let e of ww(r, t)) n.add(e);
+	return n;
+}
+function Tw(e, t) {
+	let n = new Set(e.packs.map((e) => `${t}.${e}`));
+	for (let r of e.folders) for (let e of Tw(r, t)) n.add(e);
+	return n;
+}
+function Ew(e, t, n, r) {
+	let i = ww(e, t), a = !1;
+	for (let [e, t] of n.entries()) t.folder && i.has(t.folder.id) && r.has(e) && (a = !0);
+	return a;
+}
+function Dw(e) {
+	let t = /* @__PURE__ */ new Set(), n = /* @__PURE__ */ new Set();
+	function r(e, i) {
+		let a = `${i}/${e.name}`;
+		if (t.has(a)) throw Error(`Duplicate Compendium folder declaration: ${a}`);
+		t.add(a);
+		for (let t of e.packs) {
+			if (n.has(t)) throw Error(`Duplicate Compendium pack declaration: ${t}`);
+			n.add(t);
+		}
+		for (let t of e.folders) r(t, a);
+	}
+	for (let t of e) r(t, "");
+}
+// src/module/foundry/compendiums/tidy.ts
+async function Ow(e, t) {
+	await SS(e, () => kw(e, t));
+}
+async function kw(t, n) {
+	if (t.user.isGM !== !0 || t.user.isActiveGM !== !0) return;
+	let r = t.modules.get(e);
+	if (!r) throw Error(`Foundry module registry entry was not found for ${e}.`);
+	let i = Array.from(r.packFolders ?? []);
+	if (Dw(i), i.length === 0) return;
+	for (let n of i) for (let r of Tw(n, e)) if (!t.packs.has(r)) throw Error(`Declared Compendium ${r} was not found.`);
+	let a = Array.from(t.folders).filter((e) => e.type === "Compendium"), o = /* @__PURE__ */ new Set();
+	async function s(r, i) {
+		let c = Tw(r, e), l = a.filter((e) => e.name === r.name && !o.has(e.id) && (!i || !ww(e, a).has(i.id))).sort((e, n) => Number(Ew(n, a, t.packs, c)) - Number(Ew(e, a, t.packs, c)) || e.id.localeCompare(n.id)), u = l.find((e) => (e.folder?.id ?? null) === (i?.id ?? null));
+		if (!u) {
+			if (u = l.find((e) => Ew(e, a, t.packs, c) && (!i || !ww(e, a).has(i.id))), u) {
+				if (i && ww(u, a).has(i.id)) throw Error(`Moving ${r.name} under ${i.name} would make a folder cycle.`);
+				let e = i?.id ?? null;
+				if (await u.update({ folder: e }) === void 0 && (u.folder?.id ?? null) !== e) throw Error(`Could not move Compendium folder ${r.name}; the update was not applied.`);
+			} else {
+				if (u = await n({
+					name: r.name,
+					type: "Compendium",
+					folder: i?.id ?? null,
+					sorting: r.sorting,
+					...r.color ? { color: r.color } : {}
+				}), !u) throw Error(`Could not create Compendium folder ${r.name}.`);
+				a.push(u);
+			}
+		}
+		o.add(u.id);
+		for (let e of l) if (e.id !== u.id && ((e.folder?.id ?? null) === (i?.id ?? null) || Ew(e, a, t.packs, c))) {
+			if (ww(e, a).has(u.id)) throw Error(`Cannot merge ancestor folder ${e.name} into its descendant.`);
+			await xw(e, u, a, t.packs);
+		}
+		let d = {};
+		if (u.sorting !== r.sorting && (d.sorting = r.sorting), r.color !== void 0 && u.color !== r.color && (d.color = r.color), Object.keys(d).length > 0 && await u.update(d) === void 0 && (u.sorting !== r.sorting || r.color !== void 0 && u.color !== r.color)) throw Error(`Could not configure Compendium folder ${r.name}; the update was not applied.`);
+		for (let n of r.packs) {
+			let r = `${e}.${n}`, i = t.packs.get(r);
+			if (!i) throw Error(`Declared Compendium ${r} was not found.`);
+			i.folder?.id !== u.id && await i.setFolder(u);
+		}
+		for (let e of r.folders) await s(e, u);
+	}
+	for (let e of i) await s(e, null);
+	let c = new Set(i.flatMap((t) => [...Tw(t, e)]));
+	await Sw(a, t.packs, o, c);
+}
+async function Aw() {
+	game?.user.isGM && game.user.isActiveGM && game.settings.get("wfrp4e-enhanced-fear-terror", "keepCompendiumsTidy") === !0 && await Ow(game, (e) => CONFIG.Folder.documentClass.create(e));
+}
+// src/module/functions/imported-content/folders.ts
+function jw(e, t, n, r) {
+	let i = new Map(e.map((e) => [e.id, e])), a = /* @__PURE__ */ new Map(), o = /* @__PURE__ */ new Set();
+	function s(e) {
+		if (e === null) return [];
+		let t = a.get(e);
+		if (t) return t;
+		let n = i.get(e);
+		if (!n) return [];
+		if (o.has(e)) throw Error(`Cycle in world folder ancestry at ${e}.`);
+		o.add(e);
+		let r = [...s(n.folder?.id ?? null), n];
+		return o.delete(e), a.set(e, r), r;
+	}
+	let c = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Set();
+	for (let e of t) for (let t of s(e.folderId)) (e.imported ? c : l).add(t.id);
+	let u = /* @__PURE__ */ new Map();
+	for (let t of e) {
+		let e = s(t.id);
+		for (let r of e) u.set(r.id, Math.max(u.get(r.id) ?? 0, e.length)), c.has(t.id) && t.id !== n || l.add(r.id);
+	}
+	let d = /* @__PURE__ */ new Map(), f = [];
+	for (let e of t) {
+		if (!e.imported) continue;
+		let t = s(e.folderId);
+		if (t.some(({ id: e }) => e === n)) continue;
+		let i = t.findIndex(({ id: e }) => !l.has(e) && (u.get(e) ?? 0) < r);
+		i === -1 ? f.push({
+			id: e.id,
+			path: t
+		}) : d.set(t[i], t.slice(0, i));
+	}
+	return {
+		branches: d,
+		documents: f
+	};
+}
+// src/module/functions/imported-content/source.ts
+function Mw(e, t) {
+	return typeof e == "string" && e.startsWith(`Compendium.${t}.`);
+}
+function Nw(e, t) {
+	let n = e._stats?.compendiumSource;
+	if (n?.startsWith("Compendium.")) return Mw(n, t);
+	let r = e.flags?.core;
+	return Mw(r?.sourceId, t);
+}
+// src/module/foundry/imported-content/settings.ts
+var Pw = "keepImportedContentTidy";
+function Fw(n) {
+	game?.settings.register(e, Pw, {
+		config: game.user.isGM === !0,
+		default: !1,
+		hint: "Group this module's imported documents under a module folder in each world directory.",
+		name: `Keep ${t} Imported Content Tidy?`,
+		onChange: n,
+		scope: "world",
+		type: Boolean
+	});
+}
+// src/module/foundry/imported-content/tidy.ts
+var Iw = "importedContentRoot";
+function Lw(e) {
+	return e?.ready === !0 && e.user.isGM === !0 && e.user.isActiveGM === !0 && e.settings.get("wfrp4e-enhanced-fear-terror", "keepImportedContentTidy") === !0;
+}
+function Rw(t) {
+	return t.flags?.[e]?.[Iw] === !0;
+}
+async function zw(e, t) {
+	let n = t?.id ?? null;
+	if ((e.folder?.id ?? null) !== n && (await e.update({ folder: n }), (e.folder?.id ?? null) !== n)) throw Error(`Could not move ${e.name}.`);
+}
+async function Bw(t, n) {
+	let r = (t.collections.get(n)?.contents ?? []).filter((e) => !e.pack && !e.parent), i = new Map(r.map((e) => [e.id, e])), a = r.map((t) => ({
+		id: t.id,
+		folderId: t.folder?.id ?? null,
+		imported: Nw(t, e)
+	}));
+	if (!a.some((e) => e.imported)) return;
+	let o = [...t.folders].filter((e) => e.type === n), s = o.filter(Rw), c = s.find((e) => !e.folder) ?? s[0];
+	c?.folder && await zw(c, null);
+	let l = CONST.FOLDER_MAX_DEPTH, u = jw(o, a, c?.id, l);
+	if (!u.branches.size && !u.documents.length) return;
+	async function d(e) {
+		let t = await CONFIG.Folder.documentClass.create({
+			type: n,
+			...e
+		});
+		if (!t) throw Error(`Could not create ${n} folder ${String(e.name)}.`);
+		return o.push(t), t;
+	}
+	let f = c ?? await d({
+		name: "Drowsy’s WFRP4e Toolkit",
+		sorting: "a",
+		flags: { "wfrp4e-enhanced-fear-terror": { [Iw]: !0 } }
+	});
+	async function p(e) {
+		let t = f, n = Math.min(e.length, l - 1);
+		for (let r = 0; r < n; r++) {
+			let n = e[r], i = r === l - 2 ? e.slice(r).map((e) => e.name).join("/") : n.name;
+			t = o.find((e) => e.folder?.id === t.id && e.name === i) ?? await d({
+				name: i,
+				folder: t.id,
+				sorting: n.sorting,
+				color: n.color?.toString() ?? null
+			});
+		}
+		return t;
+	}
+	for (let [e, t] of u.branches) await zw(e, await p(t));
+	for (let { id: e, path: t } of u.documents) await zw(i.get(e), await p(t));
+}
+async function Vw() {
+	let e = game;
+	e && Lw(e) && await SS(e, async () => {
+		if (Lw(e)) for (let t of CONST.FOLDER_DOCUMENT_TYPES) t !== "Compendium" && await Bw(e, t);
+	});
+}
+// src/module/hooks/imported-content.ts
+var Hw, Uw = !1, Ww = !1;
+function Gw() {
+	Lw(game) && (Uw ? Ww = !0 : (clearTimeout(Hw), Hw = setTimeout(() => void Kw(), 1e3)));
+}
+async function Kw() {
+	Uw = !0, Ww = !1;
+	try {
+		await Vw();
+	} catch (e) {
+		console.error(`${t}: Imported content cleanup failed.`, e), ui.notifications.error(`${t}: Imported content cleanup failed. See the console for details.`, {
+			permanent: !0,
+			console: !1
+		});
+	} finally {
+		Uw = !1, Ww && Gw();
+	}
+}
+function qw(e) {
+	!e.pack && !e.parent && Nw(e, "wfrp4e-enhanced-fear-terror") && Gw();
+}
+function Jw() {
+	Hooks.once("setup", () => Fw(Gw)), Hooks.once("ready", Gw), Hooks.on("userConnected", Gw), Hooks.on("updateUser", Gw);
+	for (let e of CONST.FOLDER_DOCUMENT_TYPES) e !== "Compendium" && (Hooks.on(`create${e}`, qw), Hooks.on(`update${e}`, (e, t) => {
+		Object.hasOwn(t, "folder") && qw(e);
+	}));
+	Hooks.on("updateFolder", (e, t) => {
+		e.type !== "Compendium" && !e.pack && Object.hasOwn(t, "folder") && Gw();
+	}), Hooks.on("deleteFolder", (e) => {
+		e.type !== "Compendium" && !e.pack && Gw();
+	}), Hooks.on("preImportAdventure", (e, t, n, r) => {
+		if (Mw(e.uuid, "wfrp4e-enhanced-fear-terror")) for (let t of CONST.FOLDER_DOCUMENT_TYPES) for (let i of [...n[t] ?? [], ...r[t] ?? []]) {
+			let t = i._stats;
+			i._stats = {
+				...bS(t) ? t : {},
+				compendiumSource: e.uuid
+			};
+		}
+	}), Hooks.on("importAdventure", Gw);
+}
+foundry.applications.api.ApplicationV2, Promise.resolve();
+// src/module/init/register-hooks.ts
+function Yw() {
+	vw(), Hooks.once("init", XS), Hooks.once("setup", bw), Jw(), Hooks.once("ready", async () => {
+		try {
+			await Aw();
+		} catch (e) {
+			console.error("Compendium sidebar tidy-up failed.", e), ui.notifications.error(`${t}: Compendium cleanup failed and may be incomplete. See the console for details.`, {
+				permanent: !0,
+				console: !1
+			});
+		}
+	});
+}
+// src/module/init/index.ts
+Yw();
 
 //# sourceMappingURL=wfrp4e-enhanced-fear-terror.mjs.map

@@ -7,39 +7,34 @@
         "Name": "Administration Console"
       },
       "ToolkitHome": {
-        "Hint": "Open every Drowsy gameplay and campaign tool from one place.",
+        "Hint": "Open Drowsy gameplay and campaign tools.",
         "Label": "Open Drowsy’s WFRP4e Toolkit",
         "Name": "Drowsy’s WFRP4e Toolkit"
       },
       "FearConsoleConfigurator": {
-        "Hint": "Choose where the Fear Console can be opened.",
+        "Hint": "Enable optional Fear and XP Curve sidebar buttons and the Fear actor-sheet button.",
         "Label": "Configure Fear Console",
         "Name": "Fear Console Configurator"
       },
       "XpCurveConfigurator": {
-        "Hint": "Set XP recipient defaults and configure the catch-up and decay curves.",
-        "Label": "Configure XP Curve Console",
-        "Name": "XP Curve Configurator"
+        "Hint": "Set your campaign’s catch-up curve one step at a time, with party previews and session projections.",
+        "Label": "Configure Curve XP",
+        "Name": "Configure Curve XP"
       },
       "SessionManagementConsole": {
         "Hint": "Run resumable session turnover and manage Scene, XP, Fortune, chat export, and session records.",
         "Label": "End Session",
         "Name": "Session Turnover Console"
       },
-      "GmToolkitMigration": {
-        "Hint": "Copy compatible settings and content from GM Toolkit once, then review hotbar replacements and cutover safety.",
-        "Label": "Import from GM Toolkit",
-        "Name": "GM Toolkit Importer"
-      },
-      "XpAwardConsole": {
-        "Hint": "Apply a generic XP change to selected WFRP4e characters.",
-        "Label": "Award XP",
-        "Name": "XP Award Console"
+      "XpAwardSettings": {
+        "Name": "XP Award Defaults",
+        "Label": "Configure XP Defaults",
+        "Hint": "Set the initial amount, reason, and timestamp preference for Party XP and Target XP."
       }
     },
     "SceneControls": {
       "OpenFearConsole": "Open Drowsy’s WFRP4e Toolkit Fear Console.",
-      "OpenXpCurveConsole": "Open Drowsy’s WFRP4e Toolkit XP Curve Console."
+      "OpenXpCurveConsole": "Open Drowsy’s WFRP4e Toolkit Curve XP."
     },
     "Settings": {
       "Administration": {
@@ -50,14 +45,8 @@
       },
       "DarkWhispers": {
         "PromptLibrary": {
-          "Hint": "Drowsy-owned Dark Whispers prompts and their one-way import provenance.",
+          "Hint": "Drowsy-owned Dark Whispers prompt library.",
           "Name": "Dark Whispers prompt library"
-        }
-      },
-      "GmToolkitMigration": {
-        "State": {
-          "Hint": "Saved GM Toolkit import record and review confirmation.",
-          "Name": "GM Toolkit import record"
         }
       },
       "SessionManagement": {
@@ -89,14 +78,10 @@
         "Name": "Fear Console: Token Controls launcher"
       },
       "XpCurveTokenControlsLauncher": {
-        "Hint": "Show an XP Curve Console launcher in the Token Controls toolbar. Requires a reload.",
-        "Name": "XP Curve Console: Token Controls launcher"
+        "Hint": "Show a Curve XP launcher in the Token Controls toolbar. Requires a reload.",
+        "Name": "Curve XP: Token Controls launcher"
       },
       "XpCurve": {
-        "CompanionMultiplier": {
-          "Hint": "The additional multiplier for unassigned, player-owned character actors. 0.5 gives companions half the calculated XP.",
-          "Name": "Companion award multiplier"
-        },
         "CurveExponent": {
           "Hint": "Shapes the initial catch-up curve. Values below 1 help small gaps sooner; values above 1 reserve more XP for large gaps.",
           "Name": "Catch-up curve exponent"
@@ -104,13 +89,6 @@
         "DefaultReason": {
           "Hint": "The default WFRP4e experience-log reason. Supports the compatible %session% and %date% tokens.",
           "Name": "Default award reason"
-        },
-        "DefaultSelection": {
-          "Company": "Company (party plus player-owned companions)",
-          "Hint": "Recipients selected when the console opens without targeted tokens. Explicit targets always replace this default.",
-          "Name": "Default recipients",
-          "Party": "Party (assigned player characters)",
-          "World": "World (every character actor)"
         },
         "GapForMaximumAward": {
           "Hint": "At this gap below the XP leader, the initial catch-up value equals the hard limit before recipient decay.",
@@ -127,6 +105,10 @@
         "ScalePivot": {
           "Hint": "Recipients at or below this total XP keep full catch-up strength. This is evaluated from each recipient, not the XP leader.",
           "Name": "Recipient decay start"
+        },
+        "CatchUpRate": {
+          "Name": "Catch-up pace",
+          "Hint": "Initial catch-up percentage at a 1,000 XP gap, independent of the final ceiling."
         }
       },
       "XpAward": {
